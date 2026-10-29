@@ -154,7 +154,6 @@ body.mode-kids .ruler b{background:rgba(255,255,255,.65);color:#5a7ea0}
 .write input.ok{border-color:var(--ok);background:#e5f8ec}
 .write input.bad{border-color:var(--bad);background:#fde8e6}
 
-/* говорение */
 .speak{text-align:center}
 .micbtn{width:96px;height:96px;border-radius:50%;border:none;cursor:pointer;font-size:2.2rem;background:var(--pink);color:#fff;box-shadow:0 8px 0 rgba(0,0,0,.18),0 16px 30px rgba(0,0,0,.25);transition:transform .15s}
 .micbtn:hover{transform:scale(1.06)}
@@ -260,7 +259,6 @@ body.mode-kids .btn-ghost:hover{color:#0c62b8;border-color:#0c62b8}
 </div>
 
 <main>
-<!-- ============ СТАРТ ============ -->
 <section id="scr-start" class="screen">
   <div class="start-grid">
     <div class="board-frame">
@@ -304,7 +302,6 @@ body.mode-kids .btn-ghost:hover{color:#0c62b8;border-color:#0c62b8}
 
       <p class="mode-note" id="mode-note">Классический режим: полный банк вопросов, включая «взрослые» темы.</p>
       
-      <!-- БЛОК КОНТАКТОВ ДЛЯ ОТПРАВКИ РЕЗУЛЬТАТА -->
       <div style="margin-top:15px; border-top:1px dashed #ccc; padding-top:15px;">
         <p class="pick-label">Куда отправить результат?</p>
         <input type="email" id="userEmail" placeholder="Ваш email (необязательно)" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:8px; font-family:inherit; margin-bottom:8px;">
@@ -317,7 +314,6 @@ body.mode-kids .btn-ghost:hover{color:#0c62b8;border-color:#0c62b8}
   </div>
 </section>
 
-<!-- ============ ТЕСТ ============ -->
 <section id="scr-quiz" class="screen" hidden>
   <div class="quiz-top">
     <span class="logo">✎ English Check-Up</span>
@@ -364,7 +360,6 @@ body.mode-kids .btn-ghost:hover{color:#0c62b8;border-color:#0c62b8}
   </article>
 </section>
 
-<!-- ============ РЕЗУЛЬТАТ ============ -->
 <section id="scr-result" class="screen" hidden>
   <div class="result-head">
     <div class="stamp" id="stamp">B1<small id="stamp-name">Intermediate</small></div>
@@ -391,7 +386,6 @@ body.mode-kids .btn-ghost:hover{color:#0c62b8;border-color:#0c62b8}
     <div id="mistakes"></div>
   </div>
 
-  <!-- СТАТУС ОТПРАВКИ -->
   <div id="send-status" style="text-align:center; margin:20px 0; font-weight:700; min-height:1.5em;"></div>
 
   <div class="end-actions">
@@ -402,7 +396,6 @@ body.mode-kids .btn-ghost:hover{color:#0c62b8;border-color:#0c62b8}
 </main>
 
 <script>
-/* ======================= НАВЫКИ ======================= */
 const SK={
   g:{icon:'📚',title:'Грамматика и лексика',short:'Грамматика',
      desc:'Выбирайте правильный вариант. Верный ответ делает вопрос сложнее, ошибка — проще.'},
@@ -422,7 +415,6 @@ const LVLFULL={A1:'Beginner · Начальный',A2:'Elementary · Базов�
 const $=id=>document.getElementById(id);
 const SR=window.SpeechRecognition||window.webkitSpeechRecognition||null;
 
-/* ======================= БАНКИ ВОПРОСОВ (сокращенные примеры для демонстрации логики) ======================= */
 const BANK=[
 {lvl:1,skill:'g',q:'I ___ a student.',o:['am','is','are','be'],a:0,e:'С местоимением I всегда используется форма am.'},
 {lvl:1,skill:'v',q:'What is the opposite of “big”?',o:['small','tall','long','loud'],a:0,e:'Big — «большой», противоположное — small «маленький».'},
@@ -440,7 +432,6 @@ const READING=[
  q:'Why did Sarah feel at home after a week?',o:['Her colleagues were friendly','She knew everyone','She liked the office','She got a promotion'],a:0,e:'Причина названа после however: дружелюбные коллеги.'}
 ];
 
-/* ВАЖНО: audio теперь может быть массивом строк, но функция speak() склеит их в одну */
 const LISTEN=[
 {lvl:1,audio:['Hello! My name is Emma.','I am eight years old.','I have got a cat. Its name is Milo.'],
  q:'How old is Emma?',o:['Eight','Ten','Seven','Nine'],a:0,e:'В записи: “I am eight years old.”'},
@@ -467,7 +458,6 @@ const SPEAKING=[
  e:'Структурируйте ответ: On the one hand… On the other hand…'}
 ];
 
-/* ======================= СОСТОЯНИЕ ======================= */
 let S=null, LEN=4;
 const selSkills={g:true,l:true,r:true,w:true,s:true};
 const USER_EMAIL_KEY = 'anna_en_email'; 
@@ -498,30 +488,27 @@ function buildPools(kids){
           w:byLevel(WRITING,kids),s:byLevel(SPEAKING,kids)};
 }
 
-/* ---------- TTS (ИСПРАВЛЕНО) ---------- */
 let enVoice=null;
 const TTS='speechSynthesis' in window;
 function pickVoice(){
   const vs=speechSynthesis.getVoices();
-  // Ищем английский голос, предпочтительно женский/нейтральный
   enVoice=vs.find(v=>/^en/i.test(v.lang)&&/google us|samantha|zira|female/i.test(v.name))||vs.find(v=>/^en/i.test(v.lang))||null;
 }
 if(TTS){
   pickVoice();
   speechSynthesis.onvoiceschanged=pickVoice;
+  if(speechSynthesis.getVoices().length === 0) {
+    speechSynthesis.onvoiceschanged = () => {
+      pickVoice();
+    };
+  }
 }
 
-/**
- * Безопасная озвучка. 
- * Объединяет массив строк в одну, чтобы избежать багов Chrome с очередью.
- */
 function safeSpeak(textParts, rate, callback){
   if(!TTS){callback&&callback();return;}
   
-  // 1. Отменяем всё предыдущее
   speechSynthesis.cancel();
   
-  // 2. Склейка текста (лечит зависания на длинных фразах)
   const fullText = Array.isArray(textParts) ? textParts.join(' ') : String(textParts);
   
   const utterance = new SpeechSynthesisUtterance(fullText);
@@ -530,42 +517,35 @@ function safeSpeak(textParts, rate, callback){
   utterance.pitch = 1.0;
   if(enVoice) utterance.voice = enVoice;
 
-  // 3. Флаг защиты от двойного вызова колбэка
   let finished = false;
   const finish = () => {
     if(finished) return;
     finished = true;
+    setTimeout(() => { try { speechSynthesis.cancel(); } catch(e){} }, 50);
     callback && callback();
   };
 
   utterance.onend = finish;
   utterance.onerror = (e) => {
     console.warn("TTS Error:", e.error);
-    finish(); // Даже при ошибке разблокируем UI
+    finish();
   };
 
-  // 4. Страховочный таймер (на случай, если браузер вообще не даст сигнал end)
-  // Оценка длительности: ~15 слов в минуту при скорости 1.0 -> 0.25 сек/слово. Плюс запас.
-  const estimatedTime = (fullText.split(' ').length * 300) + 2000; 
+  const maxTime = Math.max(fullText.split(' ').length * 400, 6000); 
+  setTimeout(() => {
+    if(!finished){
+      finish();
+    }
+  }, maxTime);
   
   setTimeout(() => {
-    if(!finished && speechSynthesis.paused === false && !speechSynthesis.speaking){
-       // Если прошло много времени, а speaking=false — значит, завершилось тихо или упало
-       finish();
-    } else if (!finished) {
-       // Принудительно завершаем через лимит времени + буфер
-       // Но лучше положиться на onend/onerror. Таймер ниже — только если совсем тишина.
-    }
-  }, Math.max(estimatedTime, 5000)); // Минимум 5 секунд ожидания
-  
-  speechSynthesis.speak(utterance);
+    if(!finished) speechSynthesis.speak(utterance);
+  }, 50);
 }
 
-/* ---------- распознавание речи ---------- */
 let recog=null,recogBusy=false;
 function stopRecog(){try{recog&&recog.stop();}catch(e){}recogBusy=false;}
 
-/* ---------- запуск ---------- */
 function startQuiz(){
   const emailInput = $('userEmail');
   if(emailInput && emailInput.value.trim()) {
@@ -660,7 +640,7 @@ function renderQuestion(){
     }
     $('qtext').textContent=q.q;
     qa.innerHTML=optsHTML()+(TTS?'<p class="listen-hint" id="lh">🔒 Варианты откроются после прослушивания</p>':'');
-    if(TTS)toggleOptsLock(true); // Блокируем сразу
+    if(TTS)toggleOptsLock(true);
   }else if(k==='w'){
     $('qtext').innerHTML=q.q;
     qa.innerHTML=`<div class="write"><div class="wrow">
@@ -691,16 +671,13 @@ function playAudio(){
   const btn=$('playbtn');
   const cnt=$('playcnt');
   
-  // Визуальная обратная связь
   btn.disabled=true;
   btn.textContent='🔊 Звучит...';
   cnt.textContent='Подождите окончания записи';
 
   const rate=S.current.lvl<=2?0.85:S.current.lvl<=4?0.95:1.0;
   
-  // Используем новую безопасную функцию
   safeSpeak(S.current.audio, rate, () => {
-    // Колбэк после завершения речи
     btn.disabled=false;
     btn.textContent='▶ Слушать ещё раз';
     S.plays++;
@@ -709,14 +686,12 @@ function playAudio(){
     cnt.textContent=`Прослушиваний: ${S.plays} · Можно выбирать ответ 👇`;
     
     const lh=$('lh');if(lh)lh.remove();
-    toggleOptsLock(false); // Разблокируем ответы
+    toggleOptsLock(false);
     
-    // Автоскролл к вариантам, чтобы пользователь точно увидел
     document.querySelector('.opts')?.scrollIntoView({behavior:'smooth', block:'center'});
   });
 }
 
-/* ---------- ответ: варианты ---------- */
 function answer(i){
   if(!S||S.answered)return;
   if(S.skill==='l'&&!S.played)return;
@@ -729,7 +704,6 @@ function answer(i){
   applyResult(ok?1:0,S.current.o[S.current.a],given);
 }
 
-/* ---------- ответ: письмо ---------- */
 const norm=s=>String(s).toLowerCase().replace(/['’]/g,'').replace(/[^a-z0-9 ]+/g,' ').replace(/\s+/g,' ').trim();
 const normWords=s=>norm(s).split(' ').filter(Boolean);
 function submitWrite(){
@@ -741,7 +715,6 @@ function submitWrite(){
   applyResult(ok?1:0,S.current.show,val);
 }
 
-/* ---------- говорение: микрофон ---------- */
 function startMic(){
   if(!S||S.answered||recogBusy)return;
   if(!SR){showSelfEval('Браузер не распознаёт речь — оцените себя сами честно:');return;}
@@ -825,7 +798,6 @@ function selfEval(v){
   finalizeSpeaking(v,null);
 }
 
-/* ---------- общая обработка ---------- */
 function applyResult(score,correctText,given){
   S.answered=true;
   const k=S.skill,q=S.current,kids=document.body.classList.contains('mode-kids');
