@@ -14,14 +14,13 @@
     --burgundy-soft: #a85a63;
     --forest: #3f6b4a;
     --leaf: #6ba368;
-    --cream: #fbf3ea;
     --paper-bg: #faf2e9;
     --white: #ffffff;
     --graphite: #2d2d2d;
     --gray-text: #5f5f5f;
     --gold-accent: #cfa968;
-    --shadow-sm: 0 2px 8px rgba(122, 46, 54, 0.06);
-    --shadow-md: 0 8px 24px rgba(122, 46, 54, 0.10);
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.15);
+    --shadow-md: 0 8px 24px rgba(0,0,0,0.25);
     --radius: 12px;
     --font-sans: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
@@ -100,81 +99,70 @@
 
   .container { max-width: 1000px; margin: 0 auto; padding: 12px 14px; position: relative; z-index: 1; }
 
-  /* === ШАПКА: ТЕКСТ ПОВЕРХ ФОТО === */
+  /* === КЛАССИЧЕСКАЯ ШАПКА (ФОТО СЛЕВА) === */
   header.hero-section {
-    position: relative;
-    background: #111; 
+    display: flex; 
+    align-items: stretch; 
+    gap: 0;
+    background: var(--white); 
     border-radius: var(--radius);
     box-shadow: var(--shadow-md); 
     overflow: hidden;
-    margin-bottom: 12px;
+    margin-bottom: 12px; 
+    position: relative;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    min-height: 400px;
   }
-  
   header.hero-section::after {
     content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
-    background: linear-gradient(90deg, var(--burgundy-soft) 0%, var(--gold-accent) 50%, var(--forest) 100%);
+    background: linear-gradient(90deg, var(--burgundy) 0%, var(--gold-accent) 50%, var(--forest) 100%);
     z-index: 10;
   }
 
+  .hero-photo-wrapper { 
+    width: 340px; 
+    flex-shrink: 0; 
+    background: #f3e6da; 
+    position: relative;
+  }
   .hero-photo-img { 
-    position: absolute;
-    inset: 0;
     width: 100%; 
     height: 100%; 
     object-fit: cover; 
-    object-position: center 20%; 
-    z-index: 1;
-  }
-
-  /* Затемнение снизу для читаемости */
-  .hero-overlay {
-    position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(20, 5, 8, 0.9) 0%, rgba(20, 5, 8, 0.4) 40%, transparent 80%);
-    z-index: 2;
+    object-position: center top; 
+    display: block; 
+    position: absolute;
+    top: 0; left: 0;
   }
 
   .hero-content { 
-    position: relative;
-    z-index: 3;
-    padding: 30px;
-    max-width: 750px;
+    flex-grow: 1; 
+    padding: 28px 32px; 
     display: flex; 
     flex-direction: column; 
-    justify-content: flex-end;
-    margin-top: auto;
+    justify-content: center; 
   }
+  .hero-name { font-family: var(--font-sans); font-size: 2.2rem; font-weight: 700; color: var(--burgundy); margin-bottom: 4px; line-height: 1.1; letter-spacing: -0.5px; }
+  .hero-role { font-size: 0.88rem; color: var(--burgundy-soft); text-transform: uppercase; letter-spacing: 0.9px; margin-bottom: 14px; font-weight: 700; border-bottom: 1px solid #f0e2d4; padding-bottom: 8px; display: inline-block; }
+  .hero-desc { font-size: 0.92rem; color: var(--graphite); margin-bottom: 18px; max-width: 520px; }
 
-  /* Подложка под текстом (Glassmorphism) */
-  .hero-text-box {
-    background: rgba(122, 46, 54, 0.65); /* Бордовый в тон */
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    padding: 22px 26px;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-  }
-
-  .hero-name { font-family: var(--font-sans); font-size: 2.4rem; font-weight: 700; color: var(--white); margin-bottom: 4px; line-height: 1.1; letter-spacing: -0.5px; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
-  .hero-role { font-size: 0.85rem; color: var(--gold-accent); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 8px; display: inline-block; }
-  .hero-desc { font-size: 0.92rem; color: #f0f0f0; margin-bottom: 16px; max-width: 520px; line-height: 1.5; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
-
-  .trust-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+  .trust-badges { display: flex; gap: 6px; flex-wrap: wrap; }
   .badge {
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: var(--burgundy-dark);
-    padding: 5px 12px; border-radius: 20px;
-    font-size: 0.72rem; font-weight: 700;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background: #fbf1e6;
+    border: 1px solid #ecd9c2;
+    color: var(--burgundy);
+    padding: 5px 11px; border-radius: 20px;
+    font-size: 0.74rem; font-weight: 700;
   }
-  .badge:nth-child(2) { color: var(--burgundy); }
-  .badge:nth-child(3) { color: var(--forest); }
+  .badge:nth-child(2) {
+    background: #fff0f1;
+    border-color: #f3d2d6;
+    color: var(--burgundy-dark);
+  }
+  .badge:nth-child(3) {
+    background: #f1f6ef;
+    border-color: #d3e4cf;
+    color: var(--forest);
+  }
 
 
   section.block {
@@ -189,7 +177,7 @@
   }
   section.block:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
   }
 
   .section-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 2px solid #f6ece1; }
@@ -367,18 +355,22 @@
   .vid-title { font-weight: 700; font-size: 0.84rem; margin-bottom: 2px; }
   .vid-meta { font-size: 0.72rem; color: #888; }
 
-  /* === КОНТАКТЫ / QR (Выровнено и отцентрировано) === */
+  /* === КОНТАКТЫ / QR (Жёсткая сетка) === */
   .contacts-flex {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 24px;
-    flex-wrap: wrap; 
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Всегда 3 колонки */
+    gap: 16px;
+    justify-items: center;
     margin-top: 10px;
   }
-  .qr-item { text-align: center; width: 110px; }
+  .qr-item { 
+    text-align: center; 
+    width: 100%; 
+    max-width: 130px; 
+  }
   .qr-box {
-    width: 110px; height: 110px;
+    width: 100%; 
+    aspect-ratio: 1/1; /* Идеальный квадрат */
     border: 1px solid #f2e6da;
     border-radius: 8px;
     padding: 6px; background: white;
@@ -392,7 +384,7 @@
   .qr-link { font-size: 0.72rem; color: var(--burgundy); text-decoration: none; display: inline-block; }
   .qr-link:hover { text-decoration: underline; }
 
-  a.qr-box { text-decoration: none; transition: all 0.2s; display: block; width: 110px; margin: 0 auto 6px; }
+  a.qr-box { text-decoration: none; transition: all 0.2s; display: block; width: 100%; margin: 0 auto 6px; }
   a.qr-box:hover {
     border-color: var(--burgundy-soft);
     transform: translateY(-3px);
@@ -412,33 +404,32 @@
   }
   .legal-links a { color: var(--burgundy); text-decoration: none; margin-right: 12px; font-weight: 700; }
 
-  /* === МОБИЛЬНАЯ АДАПТАЦИЯ ШАПКИ === */
+  /* === МОБИЛЬНАЯ АДАПТАЦИЯ === */
   @media (max-width: 768px) {
-    header.hero-section {
-      min-height: 500px; /* Фото становится выше */
+    /* Шапка становится колонкой */
+    header.hero-section { 
+      flex-direction: column; 
     }
-    .hero-photo-img {
-      object-position: center top; /* Лицо остается вверху */
+    .hero-photo-wrapper { 
+      width: 100%; 
+      height: 320px; /* Фиксированная высота фото на мобильном */
+      position: relative;
     }
-    .hero-content {
-      padding: 16px;
-      width: 100%;
-    }
-    .hero-text-box {
-      padding: 16px 20px;
-      background: rgba(74, 22, 28, 0.85); /* На мобильных подложка темнее для контраста */
+    .hero-content { 
+      padding: 20px 18px; 
     }
     .hero-name { font-size: 1.9rem; }
-    .hero-desc { font-size: 0.85rem; }
     
     section.block { padding: 14px; }
     .grid-overlay { display: none; }
     iframe.yandex-form { height: 460px; }
     
-    /* На мобильных QR-коды встают по 2 в ряд */
-    .contacts-flex { gap: 16px; }
-    .qr-item { width: calc(50% - 8px); max-width: 130px; }
-    .qr-box, a.qr-box { width: 100%; height: auto; aspect-ratio: 1/1; }
+    /* Контакты остаются в 3 колонки, но ужимаются */
+    .contacts-flex { gap: 8px; }
+    .qr-item { max-width: 100%; }
+    .qr-box { padding: 4px; border-radius: 6px; }
+    .qr-label { font-size: 0.65rem; }
+    .qr-link { font-size: 0.65rem; }
   }
 </style>
 
@@ -453,24 +444,23 @@
 
 <div class="container">
 
-  <!-- НОВАЯ ШАПКА С ТЕКСТОМ НА ФОТО -->
+  <!-- КЛАССИЧЕСКАЯ ШАПКА (ФОТО СЛЕВА) -->
   <header class="hero-section">
-    <img src="anna.jpg" alt="Анна Драчёва" class="hero-photo-img">
-    <div class="hero-overlay"></div>
+    <div class="hero-photo-wrapper">
+      <img src="anna.jpg" alt="Анна Драчёва" class="hero-photo-img">
+    </div>
     
     <div class="hero-content">
-      <div class="hero-text-box">
-        <h1 class="hero-name">Анна Драчёва</h1>
-        <span class="hero-role">Преподаватель · Логопед · Психолог</span>
-        <p class="hero-desc">
-          Профессиональная диагностика знаний, индивидуальные занятия и консультации для детей и взрослых.
-          Работаю официально, гарантирую качество образования и полную безопасность данных.
-        </p>
-        <div class="trust-badges">
-          <span class="badge">🎓 Опыт работы</span>
-          <span class="badge">🔒 Защита ПД (152-ФЗ)</span>
-          <span class="badge">✨ Индивидуальный подход</span>
-        </div>
+      <h1 class="hero-name">Анна Драчёва</h1>
+      <span class="hero-role">Преподаватель · Логопед · Психолог</span>
+      <p class="hero-desc">
+        Профессиональная диагностика знаний, индивидуальные занятия и консультации для детей и взрослых.
+        Работаю официально, гарантирую качество образования и полную безопасность данных.
+      </p>
+      <div class="trust-badges">
+        <span class="badge">🎓 Опыт работы</span>
+        <span class="badge">🔒 Защита ПД (152-ФЗ)</span>
+        <span class="badge">✨ Индивидуальный подход</span>
       </div>
     </div>
   </header>
@@ -596,6 +586,7 @@
       <h2 class="section-title">Сообщества и контакты</h2>
     </div>
 
+    <!-- ИСПРАВЛЕННЫЙ БЛОК КОНТАКТОВ (Жёсткая сетка) -->
     <div class="contacts-flex">
       <div class="qr-item">
         <div class="qr-box">
