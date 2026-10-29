@@ -31,7 +31,7 @@
     font-family: var(--font-sans);
     background-color: var(--paper-bg);
     color: var(--graphite);
-    line-height: 1.65;
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     position: relative;
     overflow-x: hidden;
@@ -61,13 +61,13 @@
     user-select: none;
   }
 
-  .container { max-width: 1000px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
+  .container { max-width: 1000px; margin: 0 auto; padding: 16px 20px; position: relative; z-index: 1; }
 
   header.hero-section {
-    display: flex; align-items: stretch; gap: 40px;
+    display: flex; align-items: stretch; gap: 32px;
     background: var(--white); border-radius: var(--radius);
     box-shadow: var(--shadow-md); overflow: hidden;
-    margin-bottom: 40px; position: relative;
+    margin-bottom: 24px; position: relative;
     border: 1px solid rgba(122, 46, 54, 0.1);
   }
   header.hero-section::after {
@@ -75,28 +75,28 @@
     background: var(--burgundy);
   }
 
-  .hero-photo-wrapper { width: 380px; min-height: 480px; flex-shrink: 0; background: #eee; }
+  .hero-photo-wrapper { width: 340px; min-height: 440px; flex-shrink: 0; background: #eee; }
   .hero-photo-img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
 
-  .hero-content { flex-grow: 1; padding: 50px 50px 50px 0; display: flex; flex-direction: column; justify-content: center; }
-  .hero-name { font-family: var(--font-sans); font-size: 2.6rem; font-weight: 700; color: var(--burgundy); margin-bottom: 10px; line-height: 1.15; letter-spacing: -0.5px; }
-  .hero-role { font-size: 1.02rem; color: var(--gray-text); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 25px; font-weight: 700; border-bottom: 1px solid #eee; padding-bottom: 15px; display: inline-block; }
-  .hero-desc { font-size: 1.02rem; color: var(--graphite); margin-bottom: 30px; max-width: 500px; }
+  .hero-content { flex-grow: 1; padding: 36px 36px 36px 0; display: flex; flex-direction: column; justify-content: center; }
+  .hero-name { font-family: var(--font-sans); font-size: 2.4rem; font-weight: 700; color: var(--burgundy); margin-bottom: 8px; line-height: 1.15; letter-spacing: -0.5px; }
+  .hero-role { font-size: 0.98rem; color: var(--gray-text); text-transform: uppercase; letter-spacing: 1.1px; margin-bottom: 18px; font-weight: 700; border-bottom: 1px solid #eee; padding-bottom: 12px; display: inline-block; }
+  .hero-desc { font-size: 0.98rem; color: var(--graphite); margin-bottom: 22px; max-width: 520px; }
 
-  .trust-badges { display: flex; gap: 15px; flex-wrap: wrap; }
+  .trust-badges { display: flex; gap: 12px; flex-wrap: wrap; }
   .badge {
     background: #fff5f6;
     border: 1px solid #ffdada;
     color: var(--burgundy);
-    padding: 6px 14px; border-radius: 20px;
-    font-size: 0.84rem; font-weight: 700;
+    padding: 5px 12px; border-radius: 20px;
+    font-size: 0.8rem; font-weight: 700;
   }
 
   section.block {
     background: var(--white);
     border-radius: var(--radius);
-    padding: 35px;
-    margin-bottom: 30px;
+    padding: 26px 30px;
+    margin-bottom: 20px;
     box-shadow: var(--shadow-sm);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     border: 1px solid rgba(122, 46, 54, 0.05);
@@ -108,14 +108,14 @@
     border-color: rgba(122, 46, 54, 0.15);
   }
 
-  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid #f5f5f5; }
-  .section-title { font-family: var(--font-sans); font-size: 1.5rem; font-weight: 700; color: var(--graphite); letter-spacing: -0.3px; }
+  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; padding-bottom: 12px; border-bottom: 2px solid #f5f5f5; }
+  .section-title { font-family: var(--font-sans); font-size: 1.4rem; font-weight: 700; color: var(--graphite); letter-spacing: -0.3px; }
 
   .step-num {
     background: var(--burgundy); color: white;
-    width: 32px; height: 32px; border-radius: 50%;
+    width: 30px; height: 30px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-weight: 700; font-size: 1rem;
+    font-weight: 700; font-size: 0.95rem;
     box-shadow: 0 2px 5px rgba(122, 46, 54, 0.3);
     flex-shrink: 0;
   }
@@ -125,7 +125,7 @@
     background: #fff;
     border: 2px dashed var(--burgundy);
     border-radius: 12px;
-    padding: 18px 22px;
+    padding: 16px 20px;
     text-align: center;
     max-width: 540px;
     margin: 0 auto;
@@ -140,21 +140,21 @@
     top: 6px;
     right: 8px;
   }
-  .consent-card h3 { font-size: 1.05rem; margin-bottom: 6px; font-weight: 700; }
-  .consent-card p { font-size: 0.9rem; margin-bottom: 8px; color: #555; }
+  .consent-card h3 { font-size: 1.02rem; margin-bottom: 5px; font-weight: 700; }
+  .consent-card p { font-size: 0.88rem; margin-bottom: 8px; color: #555; }
 
   .consent-btn {
     display: inline-block;
     background: var(--burgundy);
     color: white;
-    padding: 12px 26px;
+    padding: 11px 24px;
     border-radius: 8px;
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 0.96rem;
     text-decoration: none;
     transition: all 0.2s;
     box-shadow: 0 4px 12px rgba(122, 46, 54, 0.3);
-    margin-top: 10px;
+    margin-top: 8px;
     border: none;
     cursor: pointer;
   }
@@ -164,10 +164,10 @@
     box-shadow: 0 6px 16px rgba(122, 46, 54, 0.4);
   }
   .consent-note {
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     color: var(--gray-text);
-    margin-top: 10px;
-    line-height: 1.45;
+    margin-top: 8px;
+    line-height: 1.4;
   }
   .consent-help-link {
     color: var(--burgundy);
@@ -181,14 +181,14 @@
     background: #fafafa;
     border: 1px dashed #ddd;
     border-radius: 8px;
-    padding: 10px;
+    padding: 8px;
     display: flex; justify-content: center;
     overflow: hidden;
   }
   iframe.yandex-form {
     width: 100%;
     max-width: 650px;
-    height: 600px;
+    height: 560px;
     border: none;
   }
 
@@ -208,7 +208,7 @@
     padding: 10px 14px;
     border: 2px solid #e0e0e0;
     border-radius: 8px;
-    font-size: 0.92rem;
+    font-size: 0.9rem;
     font-family: var(--font-sans);
     transition: border-color 0.2s;
     outline: none;
@@ -219,18 +219,18 @@
     background: var(--burgundy);
     color: white;
     border: none;
-    padding: 10px 22px;
+    padding: 10px 20px;
     border-radius: 8px;
     font-weight: 700;
-    font-size: 0.92rem;
+    font-size: 0.9rem;
     cursor: pointer;
     transition: background 0.2s;
     white-space: nowrap;
   }
   .code-row button:hover { background: var(--burgundy-dark); }
   .code-msg {
-    margin-top: 8px;
-    font-size: 0.82rem;
+    margin-top: 6px;
+    font-size: 0.8rem;
     font-weight: 700;
     min-height: 1em;
   }
@@ -238,11 +238,11 @@
   .code-msg.err { color: #c62828; }
 
   /* === ДИАГНОСТИКА === */
-  .diag-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+  .diag-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
   .diag-card {
     border: 1px solid #eee;
     border-radius: 10px;
-    padding: 20px;
+    padding: 16px;
     display: flex; flex-direction: column;
     height: 100%;
     transition: all 0.2s;
@@ -261,51 +261,51 @@
   }
   .diag-card:hover::before { transform: scaleY(1); }
 
-  .lang-flag { font-size: 1.8rem; margin-bottom: 10px; }
-  .lang-name { font-weight: 700; font-size: 1.08rem; margin-bottom: 5px; color: var(--graphite); }
-  .lang-desc { font-size: 0.9rem; color: var(--gray-text); flex-grow: 1; margin-bottom: 15px; }
+  .lang-flag { font-size: 1.6rem; margin-bottom: 8px; }
+  .lang-name { font-weight: 700; font-size: 1.04rem; margin-bottom: 4px; color: var(--graphite); }
+  .lang-desc { font-size: 0.86rem; color: var(--gray-text); flex-grow: 1; margin-bottom: 12px; }
 
   .btn-action {
     display: block; width: 100%; text-align: center;
     background: var(--burgundy); color: white;
-    padding: 10px; border-radius: 6px;
-    text-decoration: none; font-weight: 700; font-size: 0.9rem;
+    padding: 9px; border-radius: 6px;
+    text-decoration: none; font-weight: 700; font-size: 0.86rem;
     transition: background 0.2s;
   }
   .btn-action:hover { background: var(--burgundy-dark); }
 
   /* === ЛЕНТЫ === */
-  .scroll-container { overflow-x: auto; padding-bottom: 15px; scrollbar-width: thin; scrollbar-color: #ddd transparent; }
+  .scroll-container { overflow-x: auto; padding-bottom: 10px; scrollbar-width: thin; scrollbar-color: #ddd transparent; }
   .scroll-container::-webkit-scrollbar { height: 6px; }
   .scroll-container::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
-  .items-row { display: flex; gap: 20px; width: max-content; }
+  .items-row { display: flex; gap: 16px; width: max-content; }
   .item-card {
-    width: 300px; background: #fff; border: 1px solid #eee;
-    border-radius: 10px; padding: 20px;
+    width: 290px; background: #fff; border: 1px solid #eee;
+    border-radius: 10px; padding: 16px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.02);
   }
 
-  .rev-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .rev-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
   .rev-avatar {
-    width: 40px; height: 40px; border-radius: 50%;
+    width: 38px; height: 38px; border-radius: 50%;
     background: #fff5f6; color: var(--burgundy);
     display: flex; align-items: center; justify-content: center;
-    font-weight: 700; font-size: 1.05rem; border: 1px solid #ffdada;
+    font-weight: 700; font-size: 1rem; border: 1px solid #ffdada;
   }
   .rev-info { flex-grow: 1; }
-  .rev-name { font-weight: 700; font-size: 0.94rem; display: block; }
-  .rev-stars { color: var(--gold-accent); font-size: 0.8rem; }
-  .rev-text { font-size: 0.9rem; color: #555; font-style: italic; line-height: 1.5; }
+  .rev-name { font-weight: 700; font-size: 0.9rem; display: block; }
+  .rev-stars { color: var(--gold-accent); font-size: 0.78rem; }
+  .rev-text { font-size: 0.86rem; color: #555; font-style: italic; line-height: 1.45; }
 
   .vid-preview {
     aspect-ratio: 16/9; background: #222; border-radius: 6px;
-    margin-bottom: 12px; display: flex; align-items: center; justify-content: center;
+    margin-bottom: 10px; display: flex; align-items: center; justify-content: center;
     color: white; font-size: 1.5rem; position: relative; overflow: hidden;
   }
   .play-icon { opacity: 0.8; transition: 0.2s; cursor: pointer; }
   .vid-preview:hover .play-icon { opacity: 1; transform: scale(1.1); }
-  .vid-title { font-weight: 700; font-size: 0.94rem; margin-bottom: 4px; }
-  .vid-meta { font-size: 0.8rem; color: #888; }
+  .vid-title { font-weight: 700; font-size: 0.9rem; margin-bottom: 3px; }
+  .vid-meta { font-size: 0.78rem; color: #888; }
 
   /* === КОНТАКТЫ / QR === */
   .contacts-flex {
@@ -314,80 +314,65 @@
     align-items: flex-start;
     gap: 20px;
     flex-wrap: nowrap;
-    margin-top: 10px;
+    margin-top: 6px;
   }
-  .qr-item { text-align: center; width: 110px; flex-shrink: 0; }
+  .qr-item { text-align: center; width: 120px; flex-shrink: 0; }
   .qr-box {
-    width: 110px; height: 110px;
+    width: 120px; height: 120px;
     border: 1px solid #eee;
     border-radius: 8px;
     padding: 4px; background: white;
     margin-bottom: 8px;
     box-shadow: var(--shadow-sm);
     display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
   }
-  .qr-box img { width: 100%; height: 100%; object-fit: contain; }
-  .site-link-box {
-    width: 110px; height: 110px;
-    border: 2px solid var(--burgundy);
-    border-radius: 8px;
-    background: #fff5f6;
-    margin-bottom: 8px;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    text-decoration: none;
-    transition: all 0.2s;
-    box-shadow: var(--shadow-sm);
-  }
-  .site-link-box:hover {
-    background: var(--burgundy);
-    color: white !important;
-    transform: translateY(-2px);
-  }
-  .site-link-box span {
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--burgundy);
-    line-height: 1.2;
-    text-align: center;
-    padding: 0 5px;
-  }
-  .site-link-box:hover span { color: white; }
-
-  .qr-label { font-weight: 700; font-size: 0.8rem; display: block; margin-bottom: 2px; color: var(--graphite); }
-  .qr-link { font-size: 0.75rem; color: var(--burgundy); text-decoration: none; }
+  .qr-box img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .qr-label { font-weight: 700; font-size: 0.78rem; display: block; margin-bottom: 2px; color: var(--graphite); }
+  .qr-link { font-size: 0.74rem; color: var(--burgundy); text-decoration: none; }
   .qr-link:hover { text-decoration: underline; }
 
+  /* Кликабельный QR-блок для сайта студии */
+  a.qr-box {
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  a.qr-box:hover {
+    border-color: var(--burgundy);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
   @media (max-width: 600px) {
-    .contacts-flex { flex-wrap: wrap; gap: 15px; }
-    .qr-item, .qr-box, .site-link-box {
-      width: calc(50% - 10px); max-width: 140px;
+    .contacts-flex { flex-wrap: wrap; gap: 14px; }
+    .qr-item, .qr-box {
+      width: calc(50% - 8px); max-width: 140px;
     }
-    .qr-box, .site-link-box { height: auto; aspect-ratio: 1/1; }
+    .qr-box { height: auto; aspect-ratio: 1/1; }
   }
 
   footer {
-    margin-top: 50px; padding: 30px 0; text-align: center;
-    font-size: 0.85rem; color: #888; border-top: 1px solid #eaeaea;
+    margin-top: 24px; padding: 20px 0 10px; text-align: center;
+    font-size: 0.84rem; color: #888; border-top: 1px solid #eaeaea;
   }
   details summary { cursor: pointer; font-weight: 700; color: var(--graphite); margin-bottom: 10px; list-style: none; }
   details summary::after { content: " ▾"; font-size: 0.8em; }
   .legal-docs {
-    background: white; padding: 20px; border-radius: 8px;
-    text-align: left; margin-top: 10px; border: 1px solid #eee;
-    font-size: 0.85rem; color: #555;
+    background: white; padding: 18px; border-radius: 8px;
+    text-align: left; margin-top: 8px; border: 1px solid #eee;
+    font-size: 0.84rem; color: #555;
   }
   .legal-links a { color: var(--burgundy); text-decoration: none; margin-right: 15px; font-weight: 700; }
 
   @media (max-width: 768px) {
-    header.hero-section { flex-direction: column; margin-bottom: 20px; }
-    .hero-photo-wrapper { width: 100%; height: 350px; min-height: unset; }
-    .hero-content { padding: 30px 20px; }
-    .hero-name { font-size: 2.1rem; }
-    .hero-role { font-size: 0.9rem; }
+    header.hero-section { flex-direction: column; margin-bottom: 16px; }
+    .hero-photo-wrapper { width: 100%; height: 320px; min-height: unset; }
+    .hero-content { padding: 24px 20px; }
+    .hero-name { font-size: 2rem; }
+    .hero-role { font-size: 0.86rem; }
     section.block { padding: 20px; }
     body::before { background-image: none; }
-    iframe.yandex-form { height: 650px; }
+    iframe.yandex-form { height: 620px; }
   }
 </style>
 
@@ -427,7 +412,7 @@
       <span class="step-num">1</span>
       <h2 class="section-title">Согласие на обработку данных</h2>
     </div>
-    <p style="margin-bottom: 20px; color: var(--gray-text); font-size: 0.95rem;">
+    <p style="margin-bottom: 16px; color: var(--gray-text); font-size: 0.92rem;">
       Согласно ФЗ-152 «О персональных данных», доступ к записи возможен только после вашего официального согласия.
       Заполните форму ниже. После отправки вы увидите секретный код — введите его на этой странице, чтобы открыть запись.
     </p>
@@ -442,8 +427,8 @@
       ></iframe>
     </div>
 
-    <div class="consent-card" style="margin-top: 22px; border-color: var(--gold-accent);">
-      <h3 style="color:var(--burgundy); margin-bottom:6px;">Шаг 2: подтвердите согласие</h3>
+    <div class="consent-card" style="margin-top: 18px; border-color: var(--gold-accent);">
+      <h3 style="color:var(--burgundy); margin-bottom:5px;">Шаг 2: подтвердите согласие</h3>
       <p>
         Отправьте форму выше. На странице «Спасибо» вы получите секретный код.<br>
         Введите его ниже, чтобы открыть запись на занятие.
@@ -470,7 +455,7 @@
       <span class="step-num">2</span>
       <h2 class="section-title">Диагностика уровня знаний</h2>
     </div>
-    <p style="margin-bottom: 25px; color: var(--gray-text); font-size: 0.95rem;">
+    <p style="margin-bottom: 18px; color: var(--gray-text); font-size: 0.92rem;">
       Выберите направление. Экспресс-тест займёт 5–10 минут. Результат вы увидите сразу, а подробный отчёт придёт вам на почту и мне для анализа.
     </p>
     <div class="diag-grid" id="diagGrid"></div>
@@ -482,7 +467,7 @@
       <span class="step-num">3</span>
       <h2 class="section-title">Запись на занятие</h2>
     </div>
-    <p style="margin-bottom: 20px; color: var(--gray-text); font-size: 0.95rem;">
+    <p style="margin-bottom: 16px; color: var(--gray-text); font-size: 0.92rem;">
       Согласие получено. Выберите удобное время — мы обсудим детали индивидуально и подтвердим запись.
     </p>
 
@@ -542,38 +527,41 @@
   </section>
 
   <!-- КОНТАКТЫ -->
-<section class="block">
-  <div class="section-header">
-    <span class="step-num">@</span>
-    <h2 class="section-title">Сообщества и контакты</h2>
-  </div>
-
-  <div class="contacts-flex">
-    <div class="qr-item">
-      <div class="qr-box">
-        <img src="qr-vk.png" alt="QR VK" onerror="this.src='https://via.placeholder.com/80/f9f5f0/7a2e36?text=VK'">
-      </div>
-      <span class="qr-label">ВКонтакте</span>
-      <a href="https://vk.ru/annfromcrimea" target="_blank" class="qr-link">Вступить ↗</a>
+  <section class="block">
+    <div class="section-header">
+      <span class="step-num">@</span>
+      <h2 class="section-title">Сообщества и контакты</h2>
     </div>
 
-    <div class="qr-item">
-      <div class="qr-box">
-        <img src="qr-max.png" alt="QR Max" onerror="this.src='https://via.placeholder.com/80/f9f5f0/7a2e36?text=MAX'">
+    <div class="contacts-flex">
+      <!-- ВКонтакте -->
+      <div class="qr-item">
+        <div class="qr-box">
+          <img src="qr-vk.png" alt="QR ВКонтакте" loading="lazy" onerror="this.src='https://via.placeholder.com/120/f9f5f0/7a2e36?text=VK'">
+        </div>
+        <span class="qr-label">ВКонтакте</span>
+        <a href="https://vk.ru/annfromcrimea" target="_blank" rel="noopener" class="qr-link">Вступить ↗</a>
       </div>
-      <span class="qr-label">Канал MAX</span>
-      <a href="https://max.ru/join/_wpDnYzIiWKIr6vZUJze0fQuqPMuouIbaJwLQvt58zQ" target="_blank" class="qr-link">Перейти ↗</a>
-    </div>
 
-    <div class="qr-item">
-      <div class="qr-box">
-        <img src="studio.png" alt="studio">
+      <!-- MAX -->
+      <div class="qr-item">
+        <div class="qr-box">
+          <img src="qr-max.png" alt="QR Канал MAX" loading="lazy" onerror="this.src='https://via.placeholder.com/120/f9f5f0/7a2e36?text=MAX'">
+        </div>
+        <span class="qr-label">Канал MAX</span>
+        <a href="https://max.ru/join/_wpDnYzIiWKIr6vZUJze0fQuqPMuouIbaJwLQvt58zQ" target="_blank" rel="noopener" class="qr-link">Перейти ↗</a>
       </div>
-      <span class="qr-label">annfromcrimea.ru</span>
-      <a href="https://annfromcrimea.ru/" target="_blank" class="qr-link">Открыть ↗</a>
+
+      <!-- Сайт студии: изображение studio.png как кликабельный QR -->
+      <div class="qr-item">
+        <a class="qr-box" href="https://annfromcrimea.ru/" target="_blank" rel="noopener" title="Открыть сайт студии">
+          <img src="studio.png" alt="Сайт студии annfromcrimea.ru" loading="lazy" onerror="this.src='https://via.placeholder.com/120/f9f5f0/7a2e36?text=studio'">
+        </a>
+        <span class="qr-label">annfromcrimea.ru</span>
+        <a href="https://annfromcrimea.ru/" target="_blank" rel="noopener" class="qr-link">Открыть ↗</a>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
   <footer>
     <details>
@@ -583,15 +571,15 @@
         <p><strong>Email для обращений:</strong> annfromcrimea@gmail.com</p>
         <p><strong>Основание обработки:</strong> Федеральный закон № 152-ФЗ «О персональных данных». Согласие фиксируется через Яндекс.Формы.</p>
         <p><strong>Ваши права:</strong> Вы можете отозвать согласие, запросить удаление или исправление данных в любой момент, направив письмо на указанный email.</p>
-        <div class="legal-links" style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee;">
+        <div class="legal-links" style="margin-top: 12px; padding-top: 12px; border-top: 1px solid #eee;">
           Государственные органы по защите прав потребителей и субъектов ПД:<br>
-          <a href="https://rkn.gov.ru/treatment/form/" target="_blank">Роскомнадзор</a> |
-          <a href="https://fas.gov.ru/pages/obratitsya_v_fas" target="_blank">ФАС России</a> |
-          <a href="https://petition.rospotrebnadzor.ru/petition/" target="_blank">Роспотребнадзор</a>
+          <a href="https://rkn.gov.ru/treatment/form/" target="_blank" rel="noopener">Роскомнадзор</a> |
+          <a href="https://fas.gov.ru/pages/obratitsya_v_fas" target="_blank" rel="noopener">ФАС России</a> |
+          <a href="https://petition.rospotrebnadzor.ru/petition/" target="_blank" rel="noopener">Роспотребнадзор</a>
         </div>
       </div>
     </details>
-    <p style="margin-top: 20px;">© 2026 Драчёва Анна Игоревна. Все права защищены.</p>
+    <p style="margin-top: 14px;">© 2026 Драчёва Анна Игоревна. Все права защищены.</p>
   </footer>
 
 </div>
