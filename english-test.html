@@ -74,7 +74,6 @@ body.mode-kids .tray{display:none}
   color:var(--ink);border-radius:var(--radius);padding:26px 24px 26px 54px;box-shadow:0 18px 44px rgba(0,0,0,.35);transform:rotate(.6deg)}
 .note-card h2{font-size:1.35rem;font-weight:900;margin-bottom:10px}
 .pick{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:4px}
-.pick.three{grid-template-columns:repeat(3,1fr)}
 .pick.flex{display:flex;flex-wrap:wrap}
 .pick.flex .mode-btn{flex:1;min-width:86px}
 .pick-label{font-size:.72rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#68819a;margin:10px 0 4px}
@@ -88,6 +87,7 @@ body.mode-kids .mode-btn.on{background:#fff3d6;border-color:var(--yellow)}
 .btn-big:active{transform:translateY(2px);box-shadow:0 3px 0 #c99a1e}
 .tiny{font-size:.78rem;color:#68819a;text-align:center;margin-top:10px}
 
+/* === ШАПКА КВИЗА === */
 .quiz-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:10px}
 .logo{font-family:'Caveat',cursive;font-size:1.6rem;color:var(--yellow);white-space:nowrap}
 body.mode-kids .logo{color:#134a76}
@@ -108,11 +108,13 @@ body.mode-kids .snav{background:rgba(255,255,255,.6);color:#5a7ea0}
 .snav.now{background:var(--sky);color:#fff;border-color:transparent;transform:translateY(-2px)}
 .snav.done{opacity:.65;text-decoration:line-through}
 
-.ruler{position:relative;display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin:4px 0 20px}
-.ruler b{text-align:center;font-size:.75rem;font-weight:800;letter-spacing:.05em;padding:7px 0;border-radius:8px;background:rgba(255,255,255,.09);color:var(--chalk-dim);transition:all .35s}
-body.mode-kids .ruler b{background:rgba(255,255,255,.65);color:#5a7ea0}
-.ruler b.hot{background:var(--yellow);color:var(--btn-ink);transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.25)}
-.pin{position:absolute;top:-15px;left:0;width:0;height:0;transition:left .55s cubic-bezier(.3,1.1,.4,1);border-left:8px solid transparent;border-right:8px solid transparent;border-top:10px solid var(--pink);transform:translateX(-50%);filter:drop-shadow(0 3px 3px rgba(0,0,0,.3))}
+/* === ВТОРАЯ ШКАЛА: уровень вопроса === */
+.lvlbar{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin:0 0 20px}
+.lvlbar b{text-align:center;font-size:.72rem;font-weight:800;letter-spacing:.05em;padding:5px 0;border-radius:6px;background:rgba(255,255,255,.07);color:var(--chalk-dim);transition:all .35s;position:relative}
+body.mode-kids .lvlbar b{background:rgba(255,255,255,.55);color:#5a7ea0}
+.lvlbar b.hot{background:var(--sky);color:#0c2e47;transform:translateY(-1px)}
+.lvlbar-label{font-size:.72rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--chalk-dim);margin-bottom:4px}
+body.mode-kids .lvlbar-label{color:#3e6c93}
 
 .qcard{position:relative;border-radius:var(--radius);color:var(--ink);
   background:linear-gradient(90deg,transparent 0 46px,var(--marginline) 46px 48px,transparent 48px),repeating-linear-gradient(var(--paper) 0 33px,var(--line) 33px 34px);
@@ -237,7 +239,6 @@ body.mode-kids .btn-ghost:hover{color:#0c62b8;border-color:#0c62b8}
 .confetti i{position:absolute;top:-20px;width:10px;height:14px;border-radius:2px;animation:fall linear forwards}
 @keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
 
-/* === КНОПКА "СДАТЬСЯ" === */
 .give-up-bar{display:flex;justify-content:flex-end;margin-top:18px;padding-top:14px;border-top:1px dashed #d7e3ee}
 .btn-giveup{font-family:inherit;font-weight:800;font-size:.88rem;cursor:pointer;background:transparent;color:#b04040;border:2px solid #e8a0a0;border-radius:10px;padding:8px 16px;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
 .btn-giveup:hover:not(:disabled){background:#fde8e6;border-color:var(--bad);color:var(--bad);transform:translateY(-2px)}
@@ -246,7 +247,7 @@ body.mode-kids .btn-giveup{color:#d9534f;border-color:#f5b7b1}
 body.mode-kids .btn-giveup:hover:not(:disabled){background:#fde8e6;border-color:#e74c3c;color:#e74c3c}
 
 @media (max-width:900px){.start-grid{grid-template-columns:1fr;min-height:auto;gap:26px;padding-top:8px}.note-card{transform:none}}
-@media (max-width:560px){.qcard{padding-left:22px;background:repeating-linear-gradient(var(--paper) 0 33px,var(--line) 33px 34px)}.ruler b{font-size:.62rem}.pick.three{grid-template-columns:1fr}}
+@media (max-width:560px){.qcard{padding-left:22px;background:repeating-linear-gradient(var(--paper) 0 33px,var(--line) 33px 34px)}.lvlbar b{font-size:.62rem}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -300,13 +301,6 @@ body.mode-kids .btn-giveup:hover:not(:disabled){background:#fde8e6;border-color:
         <button type="button" class="mode-btn sk on" data-sk="s" onclick="toggleSkill('s')">🎤 Говор.</button>
       </div>
 
-      <p class="pick-label">Вопросов на навык</p>
-      <div class="pick three" role="group">
-        <button type="button" class="mode-btn len" data-n="3" onclick="setLen(3)">3 · экспресс</button>
-        <button type="button" class="mode-btn len on" data-n="4" onclick="setLen(4)">4 · стандарт</button>
-        <button type="button" class="mode-btn len" data-n="5" onclick="setLen(5)">5 · подробно</button>
-      </div>
-
       <p class="mode-note" id="mode-note">Классический режим: полный банк вопросов, включая «взрослые» темы.</p>
       
       <div style="margin-top:15px; border-top:1px dashed #ccc; padding-top:15px;">
@@ -335,8 +329,9 @@ body.mode-kids .btn-giveup:hover:not(:disabled){background:#fde8e6;border-color:
 
   <div class="secnav" id="secnav"></div>
 
-  <div class="ruler" aria-hidden="true">
-    <div class="pin" id="pin" style="left:8.33%"></div>
+  <!-- Отдельная шкала уровня текущего вопроса -->
+  <div class="lvlbar-label">Уровень задания</div>
+  <div class="lvlbar" id="lvlbar" aria-hidden="true">
     <b data-l="1">A1</b><b data-l="2">A2</b><b data-l="3">B1</b>
     <b data-l="4">B2</b><b data-l="5">C1</b><b data-l="6">C2</b>
   </div>
@@ -425,6 +420,7 @@ const LVLFULL={A1:'Beginner · Начальный',A2:'Elementary · Базов�
 const $=id=>document.getElementById(id);
 const SR=window.SpeechRecognition||window.webkitSpeechRecognition||null;
 
+/* ===== Банк вопросов (без изменений) ===== */
 const BANK=[
 {lvl:1,skill:'g',q:'I ___ a student.',o:['am','is','are','be'],a:0,e:'С местоимением I всегда используется форма am.'},
 {lvl:1,skill:'v',q:'What is the opposite of “big”?',o:['small','tall','long','loud'],a:0,e:'Big — «большой», противоположное — small «маленький».'},
@@ -506,9 +502,11 @@ const SPEAKING=[
  e:'Используйте сложную лексику и связки (however, furthermore).'}
 ];
 
-let S=null, LEN=4;
+/* ===== Состояние ===== */
+const PER_SKILL = 4;                  // фиксировано, без «экспресс/стандарт/подробно»
+let S=null;
 const selSkills={g:true,l:true,r:true,w:true,s:true};
-const USER_EMAIL_KEY = 'anna_en_email'; 
+const USER_EMAIL_KEY = 'anna_en_email';
 
 function setMode(m){
   document.body.classList.toggle('mode-kids',m==='kids');
@@ -518,7 +516,6 @@ function setMode(m){
     ?'Дружелюбный режим: весёлые подсказки, никаких «взрослых» сюжетов.'
     :'Классический режим: полный банк вопросов, включая «взрослые» темы.';
 }
-function setLen(n){LEN=n;document.querySelectorAll('.mode-btn.len').forEach(b=>b.classList.toggle('on',+b.dataset.n===n));}
 function toggleSkill(k){
   const on=Object.values(selSkills).filter(Boolean).length;
   if(selSkills[k]&&on===1)return;
@@ -536,13 +533,13 @@ function buildPools(kids){
           w:byLevel(WRITING,kids),s:byLevel(SPEAKING,kids)};
 }
 
-/* ===== TTS (исправлено) ===== */
+/* ===== TTS (исправлено ранее) ===== */
 let enVoice=null;
 const TTS='speechSynthesis' in window;
 function pickVoice(){
   if(!TTS) return;
   const vs=speechSynthesis.getVoices();
-  if(!vs.length) return; // голоса ещё не загрузились — попробуем позже
+  if(!vs.length) return;
   enVoice=vs.find(v=>/^en/i.test(v.lang)&&/google us|samantha|zira|female/i.test(v.name))
         ||vs.find(v=>/^en/i.test(v.lang))
         ||null;
@@ -551,54 +548,35 @@ if(TTS){
   pickVoice();
   speechSynthesis.onvoiceschanged=pickVoice;
 }
-
 function safeSpeak(textParts, rate, callback){
-  // Гарантируем, что колбэк вызовется ровно один раз
   const done = (()=>{ let fired=false; return ()=>{ if(fired) return; fired=true; if(callback) callback(); }; })();
-
   if(!TTS){ setTimeout(done,0); return; }
-
   const fullText = Array.isArray(textParts) ? textParts.join(' ') : String(textParts);
   if(!fullText.trim()){ setTimeout(done,0); return; }
-
-  // Сбрасываем предыдущую озвучку, чтобы она не блокировала новую
   try{ speechSynthesis.cancel(); }catch(e){}
   if(!enVoice) pickVoice();
-
   const utterance = new SpeechSynthesisUtterance(fullText);
   utterance.lang='en-US';
   utterance.rate=rate||1.0;
   utterance.pitch=1.0;
   if(enVoice) utterance.voice=enVoice;
-
-  // Короткий watchdog по длине текста (мин. 3 с), а не фиксированные 15 с
   const estMs = Math.max(3000, fullText.length * 90);
   let watchdog = setTimeout(()=>{
     console.warn('TTS watchdog fired');
     try{ speechSynthesis.cancel(); }catch(e){}
     done();
   }, estMs);
-
   const clear = ()=>{ clearTimeout(watchdog); };
-
   utterance.onend = ()=>{ clear(); done(); };
-  utterance.onerror = (e)=>{
-    // 'interrupted' / 'canceled' — нормальная реакция на наш cancel
-    console.warn('TTS error:', e && e.error);
-    clear(); done();
-  };
-
-  try{
-    speechSynthesis.speak(utterance);
-  }catch(e){
-    console.warn('TTS speak exception:', e);
-    clear(); done();
-  }
+  utterance.onerror = (e)=>{ console.warn('TTS error:', e && e.error); clear(); done(); };
+  try{ speechSynthesis.speak(utterance); }
+  catch(e){ console.warn('TTS speak exception:', e); clear(); done(); }
 }
 
 let recog=null,recogBusy=false;
 function stopRecog(){try{recog&&recog.stop();}catch(e){}recogBusy=false;}
 
+/* ===== СТАРТ ===== */
 function startQuiz(){
   const emailInput = $('userEmail');
   if(emailInput && emailInput.value.trim()) {
@@ -609,14 +587,16 @@ function startQuiz(){
 
   const kids=document.body.classList.contains('mode-kids');
   const skills=ORDER.filter(k=>selSkills[k]);
-  S={skills,secIdx:0,per:LEN,pools:buildPools(kids),
+
+  S={skills,secIdx:0,per:PER_SKILL,pools:buildPools(kids),
      asked:{g:new Set(),l:new Set(),r:new Set(),w:new Set(),s:new Set()},
      cur:{g:3,l:3,r:3,w:3,s:3},rating:{g:620,l:620,r:620,w:620,s:620},
      sk2:{g:{c:0,t:0},l:{c:0,t:0},r:{c:0,t:0},w:{c:0,t:0},s:{c:0,t:0}},
      ans:[],score:0,streak:0,best:0,qIdx:0,secDone:0,
      skill:skills[0],current:null,order:null,answered:false,played:false,plays:0,
      speakAttempts:0,bestSpeak:0,
-     totalQ:skills.length*LEN};
+     totalQ:skills.length*PER_SKILL};
+
   $('secnav').innerHTML=skills.map(k=>`<span class="snav" data-k="${k}">${SK[k].icon} ${SK[k].short}</span>`).join('');
   show('scr-quiz');
   showIntro();
@@ -628,7 +608,7 @@ function showIntro(){
   if(TTS){ try{ speechSynthesis.cancel(); }catch(e){} }
   $('qcard').hidden=true;$('intro').hidden=false;
   $('in-icon').textContent=m.icon;
-  $('in-step').textContent=`Часть ${S.secIdx+1} из ${S.skills.length} · ${S.per} задания(ий)`;
+  $('in-step').textContent=`Часть ${S.secIdx+1} из ${S.skills.length} · ${S.per} задания`;
   $('in-title').textContent=m.title;
   let extra='';
   if(k==='l'&&!TTS)extra=' ⚠ Ваш браузер не поддерживает озвучку — вместо аудио будет показан текст.';
@@ -643,6 +623,7 @@ function beginSection(){
   S.secDone=0;renderQuestion();
 }
 
+/* ===== Выбор вопроса (адаптивный по уровню, но БЕЗ перемешивания вариантов) ===== */
 function pickQuestion(k){
   const tryOrder=[S.cur[k]];
   for(let d=1;d<=5;d++){if(S.cur[k]-d>=1)tryOrder.push(S.cur[k]-d);if(S.cur[k]+d<=6)tryOrder.push(S.cur[k]+d);}
@@ -654,6 +635,21 @@ function pickQuestion(k){
   const fallback = S.pools[k][S.cur[k]] || S.pools[k][3];
   if(fallback && fallback.length) return fallback[Math.floor(Math.random()*fallback.length)];
   return {lvl:3, q:'Question unavailable', o:['Option 1','Option 2','Option 3','Option 4'], a:0, e:'Bank exhausted.'};
+}
+
+/* Строим варианты ОДИН РАЗ на вопрос — порядок фиксирован для вопроса, не пересобирается при рендере */
+function buildOrder(q){
+  if(q._order) return q._order;
+  const idx = q.o.map((t,i)=>({t,ok:i===q.a}));
+  // Детерминированное перемешивание по содержимому вопроса, чтобы не «дёргалось»
+  // при переходах туда-обратно и было одинаковым для одинаковых вопросов.
+  let seed = 0;
+  const key = (q.q||'') + '|' + q.o.join('|');
+  for(let i=0;i<key.length;i++){ seed = (seed*31 + key.charCodeAt(i)) >>> 0; }
+  const rnd = ()=> { seed = (seed*1664525 + 1013904223) >>> 0; return seed/4294967296; };
+  for(let i=idx.length-1;i>0;i--){ const j = Math.floor(rnd()*(i+1)); [idx[i],idx[j]]=[idx[j],idx[i]]; }
+  q._order = idx;
+  return idx;
 }
 
 const KEYS=['A','B','C','D'];
@@ -681,15 +677,15 @@ function renderQuestion(){
 
   if(k==='g'){
     $('qtext').textContent=q.q;
-    S.order=q.o.map((t,i)=>({t,ok:i===q.a})).sort(()=>Math.random()-.5);
+    S.order=buildOrder(q);
     qa.innerHTML=optsHTML();
   }else if(k==='r'){
     ex.innerHTML=`<div class="passage">${q.text}</div>`;
     $('qtext').textContent=q.q;
-    S.order=q.o.map((t,i)=>({t,ok:i===q.a})).sort(()=>Math.random()-.5);
+    S.order=buildOrder(q);
     qa.innerHTML=optsHTML();
   }else if(k==='l'){
-    S.order=q.o.map((t,i)=>({t,ok:i===q.a})).sort(()=>Math.random()-.5);
+    S.order=buildOrder(q);
     if(TTS){
       ex.innerHTML=`<div class="audiobox">
         <button type="button" class="playbtn" id="playbtn" onclick="playAudio()">▶ Слушать</button>
@@ -719,14 +715,19 @@ function renderQuestion(){
     if(!SR)showSelfEval('Браузер не распознаёт речь — оцените себя сами честно:');
   }
   $('qcount').textContent=(S.qIdx+1)+' / '+S.totalQ;
-  $('pin').style.left=((q.lvl-0.5)/6*100)+'%';
-  document.querySelectorAll('.ruler b').forEach(b=>b.classList.toggle('hot',+b.dataset.l===q.lvl));
+
+  // Главный прогресс: сколько вопросов уже пройдено (плавно 0 → 100)
+  $('pbar').style.width=(S.qIdx/S.totalQ*100)+'%';
+
+  // Вторая шкала: подсветка уровня ТЕКУЩЕГО задания (не двигает главный прогресс)
+  document.querySelectorAll('.lvlbar b').forEach(b=>b.classList.toggle('hot',+b.dataset.l===q.lvl));
+
   updateHUD();
   const card=$('qcard');card.style.animation='none';void card.offsetWidth;card.style.animation='';
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-/* ===== playAudio (исправлено) ===== */
+/* ===== playAudio (исправлено ранее) ===== */
 function playAudio(){
   if(!TTS)return;
   const btn=$('playbtn'), cnt=$('playcnt');
@@ -739,7 +740,7 @@ function playAudio(){
   const rate=S.current.lvl<=2?0.85:S.current.lvl<=4?0.95:1.0;
 
   const unlock = ()=>{
-    if(!btn.isConnected) return; // вопрос уже сменился — ничего не трогаем
+    if(!btn.isConnected) return;
     btn.disabled=false;
     btn.textContent='▶ Слушать ещё раз';
     S.plays++;
@@ -750,9 +751,7 @@ function playAudio(){
     document.querySelector('.opts')?.scrollIntoView({behavior:'smooth', block:'center'});
   };
 
-  // Жёсткая страховка: даже если колбэк потеряется, UI разблокируется через 20 с
   const hardTimeout = setTimeout(unlock, 20000);
-
   safeSpeak(S.current.audio, rate, ()=>{
     clearTimeout(hardTimeout);
     unlock();
@@ -868,7 +867,6 @@ function selfEval(v){
   finalizeSpeaking(v,null);
 }
 
-// === СДАТЬСЯ → СРАЗУ РЕЗУЛЬТАТЫ ===
 function giveUp(){
   if(!S||S.answered)return;
   stopRecog();
@@ -905,7 +903,10 @@ function applyResult(score,correctText,given){
   const lastInSec=S.secDone>=S.per,lastSection=S.secIdx>=S.skills.length-1;
   $('btn-next').textContent=(lastInSec&&lastSection)?'К результатам 🏁':(lastInSec?'Следующая часть →':'Дальше →');
   $('feedback').hidden=false;
+
+  // Главный прогресс двигается плавно по числу отвеченных
   $('pbar').style.width=(S.qIdx/S.totalQ*100)+'%';
+
   updateHUD();
   $('feedback').scrollIntoView({behavior:'smooth',block:'nearest'});
 }
@@ -936,20 +937,20 @@ function finish(early=false){
   if(TTS){ try{ speechSynthesis.cancel(); }catch(e){} }
   show('scr-result');
   const kids=document.body.classList.contains('mode-kids');
-  
+
   const answeredCount = S.ans.length;
   const correct = S.ans.filter(a=>a.ok).length;
   const acc = answeredCount > 0 ? Math.round(correct/answeredCount*100) : 0;
-  
+
   const skillsWithAnswers = S.skills.filter(k => S.sk2[k].t > 0);
-  const avg = skillsWithAnswers.length > 0 
-    ? skillsWithAnswers.reduce((s,k)=>s+S.rating[k],0)/skillsWithAnswers.length 
+  const avg = skillsWithAnswers.length > 0
+    ? skillsWithAnswers.reduce((s,k)=>s+S.rating[k],0)/skillsWithAnswers.length
     : 620;
   const lvl=ratingToLevel(avg);
-  
+
   $('stamp').firstChild.textContent=lvl;
   $('stamp-name').textContent=LVLFULL[lvl];
-  
+
   if(early){
     $('verdict').textContent = kids
       ? (answeredCount === 0 ? 'Ты даже не начал! Попробуй ещё раз 💪' : `Ты сдался после ${answeredCount} вопрос(ов). Но ты всё равно молодец, что попробовал! 🌟`)
@@ -961,12 +962,12 @@ function finish(early=false){
         :acc>=50?'Крепкий результат: база есть, осталось отточить детали.'
         :'Хорошее начало: регулярная практика быстро поднимет ваш уровень.');
   }
-  
+
   $('st-correct').textContent=correct+' / '+answeredCount;
   $('st-acc').textContent=acc+'%';
   $('st-streak').textContent=S.best;
   $('st-score').textContent=S.score;
-  
+
   requestAnimationFrame(()=>requestAnimationFrame(()=>{
     $('mark').style.left=Math.max(2,Math.min(98,(avg-100)/1050*100))+'%';
     document.querySelectorAll('.scard .bar i').forEach(b=>b.style.width=b.dataset.w+'%');
@@ -1002,7 +1003,7 @@ function finish(early=false){
     $('mistakes').innerHTML=html;
   }
   if(acc>=60 && !early) confetti(kids?130:80);
-  
+
   sendResultToEmail(lvl, acc, correct, answeredCount, S.score, S.skills, S.sk2, S.ans, early);
 }
 
@@ -1010,9 +1011,9 @@ async function sendResultToEmail(level, accuracy, correctCount, totalCount, poin
   const statusEl = $('send-status');
   let userEmail = '';
   try { userEmail = localStorage.getItem(USER_EMAIL_KEY) || ''; } catch(e){}
-  
+
   const summary = skillsList.map(k => `${SK[k].short}: ${statsObj[k].t>0 ? ratingToLevel(statsObj[k].c/statsObj[k].t*100 > 0 ? statsObj[k].c/statsObj[k].t*100 : 0) : '—'} (${statsObj[k].c}/${statsObj[k].t})`).join(', ');
-  
+
   const payload = {
     _subject: `Результат English Test: Level ${level}, Score ${points}${early ? ' (досрочно)' : ''}`,
     _template: "table",
@@ -1046,10 +1047,10 @@ async function sendResultToEmail(level, accuracy, correctCount, totalCount, poin
       body: JSON.stringify(payload),
       signal: controller.signal
     });
-    
+
     clearTimeout(timeoutId);
     const resultAnna = await responseAnna.json();
-    
+
     if (!resultAnna.success && resultAnna.success !== "true") {
        throw new Error("Ошибка отправки Анне");
     }
@@ -1104,7 +1105,6 @@ function goStart(){
   show('scr-start');
 }
 
-/* ===== show (исправлено: отмена озвучки при уходе с квиза) ===== */
 function show(id){
   if(id!=='scr-quiz' && TTS){ try{ speechSynthesis.cancel(); }catch(e){} }
   ['scr-start','scr-quiz','scr-result'].forEach(s=>$(s).hidden=(s!==id));
