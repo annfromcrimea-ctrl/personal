@@ -298,6 +298,14 @@ body.mode-kids .btn-ghost:hover{color:#0c62b8;border-color:#0c62b8}
       </div>
 
       <p class="mode-note" id="mode-note">Классический режим: полный банк вопросов, включая «взрослые» темы.</p>
+      
+      <!-- БЛОК КОНТАКТОВ ДЛЯ ОТПРАВКИ РЕЗУЛЬТАТА -->
+      <div style="margin-top:15px; border-top:1px dashed #ccc; padding-top:15px;">
+        <p class="pick-label">Куда отправить результат?</p>
+        <input type="email" id="userEmail" placeholder="Ваш email (необязательно)" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:8px; font-family:inherit; margin-bottom:8px;">
+        <p style="font-size:.75rem; color:#666;">Результат сохранится здесь и придет вам на почту, если укажете адрес.</p>
+      </div>
+
       <button type="button" class="btn-big" onclick="startQuiz()">Начать тест →</button>
       <p class="tiny">Подсказка: варианты — клавиши 1–4, дальше — Enter. Для говорения нужен микрофон 🎤</p>
     </div>
@@ -378,6 +386,9 @@ body.mode-kids .btn-ghost:hover{color:#0c62b8;border-color:#0c62b8}
     <div id="mistakes"></div>
   </div>
 
+  <!-- СТАТУС ОТПРАВКИ -->
+  <div id="send-status" style="text-align:center; margin:20px 0; font-weight:700; min-height:1.5em;"></div>
+
   <div class="end-actions">
     <button type="button" class="btn-big" style="width:auto;padding:14px 34px" onclick="startQuiz()">Пройти ещё раз ↻</button>
     <button type="button" class="btn-ghost" onclick="goStart()">⚙ Изменить настройки</button>
@@ -406,232 +417,58 @@ const LVLFULL={A1:'Beginner · Начальный',A2:'Elementary · Базов�
 const $=id=>document.getElementById(id);
 const SR=window.SpeechRecognition||window.webkitSpeechRecognition||null;
 
-/* ======================= БАНК: ГРАММАТИКА И ЛЕКСИКА (90) ======================= */
+/* ======================= БАНК: ГРАММАТИКА И ЛЕКСИКА (сокращенный пример) ======================= */
 const BANK=[
 {lvl:1,skill:'g',q:'I ___ a student.',o:['am','is','are','be'],a:0,e:'С местоимением I всегда используется форма am.'},
-{lvl:1,skill:'g',q:'She ___ two cats.',o:['has','have','having','haves'],a:0,e:'С he / she / it используется форма has.'},
 {lvl:1,skill:'v',q:'What is the opposite of “big”?',o:['small','tall','long','loud'],a:0,e:'Big — «большой», противоположное — small «маленький».'},
-{lvl:1,skill:'g',q:'___ apple a day is good for you.',o:['An','A','The','(nothing)'],a:0,e:'Apple начинается с гласного звука, поэтому нужен артикль an.'},
-{lvl:1,skill:'g',q:'We ___ TV every evening.',o:['watch','watches','watching','watched'],a:0,e:'С we в Present Simple глагол не меняется.'},
-{lvl:1,skill:'v',q:'The plural of “child” is ___.',o:['children','childs','childes','child'],a:0,e:'Child — исключение: множественное число — children.'},
-{lvl:1,skill:'g',q:'He ___ like broccoli.',o:['doesn’t','don’t','isn’t','not'],a:0,e:'Отрицание с he/she/it строится через doesn’t + глагол.'},
-{lvl:1,skill:'v',q:'Bananas are ___.',o:['yellow','blue','purple','pink'],a:0,e:'Бананы жёлтые — yellow.'},
-{lvl:1,skill:'g',q:'There ___ a book on the table.',o:['is','are','am','be'],a:0,e:'A book — единственное число, поэтому there is.'},
-{lvl:1,skill:'v',q:'Today is Monday. Tomorrow is ___.',o:['Tuesday','Sunday','Wednesday','Friday'],a:0,e:'После Monday идёт Tuesday.'},
-{lvl:1,skill:'g',q:'They ___ my friends.',o:['are','is','am','be'],a:0,e:'С they используется форма are.'},
-{lvl:1,skill:'g',q:'I ___ swim very well.',o:['can','does','am','do'],a:0,e:'Can выражает умение: «я умею плавать».'},
-{lvl:1,skill:'g',q:'The cat is ___ the table.',o:['under','on top','between','at'],a:0,e:'Under — «под».'},
-{lvl:1,skill:'v',q:'One man — two ___.',o:['men','mans','mens','man'],a:0,e:'Man — исключение: во множественном числе men.'},
-{lvl:1,skill:'v',q:'How ___ are you? — I’m ten.',o:['old','much','many','long'],a:0,e:'Вопрос о возрасте: How old are you?'},
 {lvl:2,skill:'g',q:'Yesterday I ___ to the park.',o:['went','go','gone','goes'],a:0,e:'Past Simple от go — went.'},
-{lvl:2,skill:'g',q:'There aren’t ___ eggs in the fridge.',o:['any','some','no','a'],a:0,e:'В отрицаниях используется any.'},
-{lvl:2,skill:'g',q:'An elephant is ___ than a mouse.',o:['bigger','big','biggest','more big'],a:0,e:'Сравнение коротких прилагательных: суффикс -er.'},
-{lvl:2,skill:'g',q:'I’m good ___ drawing.',o:['at','in','on','for'],a:0,e:'Устойчивое сочетание: be good at.'},
-{lvl:2,skill:'v',q:'You use a ___ to open a door.',o:['key','knife','fork','brush'],a:0,e:'Key — «ключ».'},
-{lvl:2,skill:'g',q:'___ you ever been to London?',o:['Have','Did','Are','Do'],a:0,e:'Present Perfect: Have you ever + V3?'},
-{lvl:2,skill:'g',q:'What time ___ the film start?',o:['does','do','is','are'],a:0,e:'Вопрос в Present Simple с it — does.'},
-{lvl:2,skill:'v',q:'In winter it often ___.',o:['snows','rains','grows','flowers'],a:0,e:'Зимой идёт снег — it snows.'},
-{lvl:2,skill:'g',q:'I’d like ___ orange juice, please.',o:['some','any','no','many'],a:0,e:'В вежливых просьбах — some.'},
-{lvl:2,skill:'v',q:'My sister’s daughter is my ___.',o:['niece','cousin','aunt','grandma'],a:0,e:'Niece — «племянница».'},
-{lvl:2,skill:'g',q:'She ___ a new bike last week.',o:['bought','buyed','buys','buying'],a:0,e:'Buy — неправильный глагол: bought.'},
-{lvl:2,skill:'g',q:'This is ___ interesting book I’ve ever read.',o:['the most','the more','most','a most'],a:0,e:'Превосходная степень: the most + прилагательное.'},
-{lvl:2,skill:'g',q:'How ___ water do you drink every day?',o:['much','many','long','often'],a:0,e:'Water — неисчисляемое, поэтому much.'},
-{lvl:2,skill:'g',q:'My birthday is ___ May.',o:['in','on','at','by'],a:0,e:'С месяцами — предлог in.'},
-{lvl:2,skill:'v',q:'The opposite of “expensive” is ___.',o:['cheap','small','slow','quiet'],a:0,e:'Cheap — «дешёвый».'},
 {lvl:3,skill:'g',q:'If it rains tomorrow, we ___ at home.',o:['will stay','stay','would stay','stayed'],a:0,e:'Первый тип условных: If + Present, will + глагол.'},
-{lvl:3,skill:'g',q:'I’ve lived in this city ___ 2015.',o:['since','for','from','during'],a:0,e:'Since — с момента.'},
-{lvl:3,skill:'g',q:'You ___ wear a seatbelt in a car — it’s the law.',o:['must','can','may','might'],a:0,e:'Must — обязанность.'},
-{lvl:3,skill:'v',q:'He ___ the bus this morning and had to walk.',o:['missed','lost','forgot','dropped'],a:0,e:'Miss the bus — «опоздать на автобус».'},
-{lvl:3,skill:'g',q:'This book ___ by millions of people.',o:['is read','reads','read','is reading'],a:0,e:'Пассив: is/are + V3.'},
-{lvl:3,skill:'g',q:'She asked me where I ___.',o:['lived','live','am living','have lived'],a:0,e:'Косвенная речь: времена сдвигаются назад.'},
-{lvl:3,skill:'v',q:'Can you ___ me a favour?',o:['do','make','give','take'],a:0,e:'Do somebody a favour.'},
-{lvl:3,skill:'g',q:'I used to ___ football every day.',o:['play','playing','played','plays'],a:0,e:'Used to + начальная форма.'},
-{lvl:3,skill:'g',q:'___ being tired, he finished the work.',o:['Despite','Because','Although','However'],a:0,e:'Despite + -ing форма.'},
-{lvl:3,skill:'v',q:'We’ve run ___ of milk — let’s buy some.',o:['out','off','away','down'],a:0,e:'Run out of — «закончиться».'},
-{lvl:3,skill:'g',q:'If I ___ rich, I would travel the world.',o:['were','am','will be','would be'],a:0,e:'Второй тип условных: If + Past Simple.'},
-{lvl:3,skill:'g',q:'The teacher told us ___ our homework.',o:['to do','do','doing','did'],a:0,e:'Tell somebody to do something.'},
-{lvl:3,skill:'v',q:'Can you look ___ my dog this weekend?',o:['after','at','for','up'],a:0,e:'Look after — «присматривать».'},
-{lvl:3,skill:'g',q:'This coffee is ___ hot for me to drink.',o:['too','enough','very','so'],a:0,e:'Too + прилагательное + to do.'},
-{lvl:3,skill:'v',q:'Can I ___ your pen for a minute?',o:['borrow','lend','take out','give'],a:0,e:'Borrow — «взять взаймы».'},
 {lvl:4,skill:'g',q:'By the time we arrived, the film ___.',o:['had started','started','has started','starts'],a:0,e:'Past Perfect — действие раньше другого в прошлом.'},
-{lvl:4,skill:'g',q:'I wish I ___ speak French fluently.',o:['could','can','will','may'],a:0,e:'После I wish — could/would.'},
-{lvl:4,skill:'v',q:'The meeting was ___ because the boss was ill.',o:['called off','put up','taken in','set out'],a:0,e:'Call off — «отменить».'},
-{lvl:4,skill:'g',q:'You’d better ___ a doctor about that cough.',o:['see','to see','seeing','saw'],a:0,e:'Had better + глагол без to.'},
-{lvl:4,skill:'g',q:'Not until she apologised ___ to her.',o:['did he speak','he spoke','he did speak','spoke he'],a:0,e:'После Not until — инверсия.'},
-{lvl:4,skill:'v',q:'His theory simply doesn’t hold ___.',o:['water','ground','air','fire'],a:0,e:'Hold water — «выдерживать критику».'},
-{lvl:4,skill:'g',q:'He denied ___ the money.',o:['stealing','to steal','steal','have stolen'],a:0,e:'Deny + герундий.'},
-{lvl:4,skill:'g',q:'___ hard he tried, he couldn’t open the door.',o:['However','Whatever','Although','Despite'],a:0,e:'However + наречие = «как бы ни».'},
-{lvl:4,skill:'g',adult:true,q:'I’d rather you ___ smoking in here.',o:['stopped','stop','to stop','will stop'],a:0,e:'I’d rather + подлежащее + Past Simple.'},
-{lvl:4,skill:'g',q:'The results ___ on solid evidence.',o:['are based','are basing','based','basing'],a:0,e:'Are based on — «основаны на».'},
-{lvl:4,skill:'g',q:'If I ___ harder, I would have passed the exam.',o:['had studied','studied','have studied','would study'],a:0,e:'Третий тип условных: If + Past Perfect.'},
-{lvl:4,skill:'g',q:'I’ll have my car ___ tomorrow.',o:['repaired','repair','to repair','repairing'],a:0,e:'Каузатив: have something done.'},
-{lvl:4,skill:'g',q:'In ___ of the rain, they went hiking.',o:['spite','front','case','favour'],a:0,e:'In spite of — «несмотря на».'},
-{lvl:4,skill:'v',q:'She turned ___ the job offer because the salary was low.',o:['down','off','out','over'],a:0,e:'Turn down — «отклонить».'},
-{lvl:4,skill:'g',q:'Neither of the answers ___ correct.',o:['is','are','be','were'],a:0,e:'Neither of — сказуемое в ед. числе.'},
 {lvl:5,skill:'g',q:'___ had I entered the room when the phone rang.',o:['Hardly','No sooner','As soon as','The moment'],a:0,e:'Hardly … when. No sooner требовала бы than.'},
-{lvl:5,skill:'v',adult:true,q:'The government decided to ___ taxes.',o:['raise','rise','arise','lift'],a:0,e:'Raise — «повышать», rise — «подниматься».'},
-{lvl:5,skill:'g',q:'Under no circumstances ___ to use your phone here.',o:['are you allowed','you are allowed','you allowed','allowed you'],a:0,e:'После Under no circumstances — инверсия.'},
-{lvl:5,skill:'v',q:'The witness’s account bore little ___ to the facts.',o:['resemblance','difference','likeness','similitude'],a:0,e:'Bear little resemblance to.'},
-{lvl:5,skill:'g',adult:true,q:'___ to have stolen the money, he fled the country.',o:['Believed','Believing','Having believed','To believe'],a:0,e:'Причастный оборот в пассиве.'},
-{lvl:5,skill:'v',q:'The two sides have reached a ___ — nobody will compromise.',o:['deadlock','deadline','milestone','downturn'],a:0,e:'Deadlock — «тупик».'},
-{lvl:5,skill:'g',adult:true,q:'It’s high time you ___ looking for a job.',o:['started','start','should start','would start'],a:0,e:'It’s high time + Past Simple.'},
-{lvl:5,skill:'g',q:'Seldom ___ such a beautiful sunset.',o:['have I seen','I have seen','I saw','did I saw'],a:0,e:'После seldom — инверсия.'},
-{lvl:5,skill:'v',adult:true,q:'He was ___ with theft.',o:['charged','accused','blamed','suspected'],a:0,e:'Charge with; accused требует of.'},
-{lvl:5,skill:'v',q:'This medicine has no side ___.',o:['effects','affects','impacts','results'],a:0,e:'Side effects; affect — глагол.'},
-{lvl:5,skill:'g',q:'If I ___ you, I would have taken that job.',o:['had been','were','am','would be'],a:0,e:'Смешанный тип: условие о прошлом.'},
-{lvl:5,skill:'g',q:'Only then ___ the truth.',o:['did he understand','he understood','he did understand','understood he'],a:0,e:'После Only then — инверсия.'},
-{lvl:5,skill:'g',q:'The manager insisted that the report ___ on time.',o:['be submitted','is submitted','was submitted','will be submitted'],a:0,e:'Субъюнктив после insist.'},
-{lvl:5,skill:'v',q:'The two accounts of the accident were strikingly ___.',o:['at variance','at odds ends','in variance','off variance'],a:0,e:'At variance — «расходиться».'},
-{lvl:5,skill:'v',adult:true,q:'The findings have important ___ for future research.',o:['implications','implementations','impositions','inclinations'],a:0,e:'Implications — «последствия, выводы».'},
-{lvl:6,skill:'g',q:'The painting, ___ authenticity experts had questioned, sold for a record sum.',o:['whose','which','whom','of which'],a:0,e:'Whose заменяет of which.'},
-{lvl:6,skill:'v',q:'Her voice was so ___ that the whole hall fell silent.',o:['poignant','pungent','punctual','pompous'],a:0,e:'Poignant — «пронзительный, щемящий».'},
-{lvl:6,skill:'g',q:'___ the terrible weather, the flight departed on time.',o:['Notwithstanding','Although','Despite of','However'],a:0,e:'Notwithstanding = despite.'},
-{lvl:6,skill:'v',q:'She has an ___ memory — she recalls images in perfect detail.',o:['eidetic','eclectic','epidemic','ergonomic'],a:0,e:'Eidetic — эйдетическая память.'},
-{lvl:6,skill:'g',q:'He spoke at length; ___, nobody was convinced.',o:['nonetheless','henceforth','therein','inasmuch'],a:0,e:'Nonetheless — «тем не менее».'},
-{lvl:6,skill:'v',adult:true,q:'The committee gave the proposal only a ___ glance before rejecting it.',o:['cursory','curious','current','customary'],a:0,e:'Cursory — «беглый».'},
-{lvl:6,skill:'g',q:'Little ___ that this decision would change his life.',o:['did he know','he knew','he did know','knew he'],a:0,e:'После Little в начале — инверсия.'},
-{lvl:6,skill:'v',q:'The novel’s plot is so intricate as to be almost ___.',o:['labyrinthine','linear','limpid','lethargic'],a:0,e:'Labyrinthine — «запутанный».'},
-{lvl:6,skill:'g',q:'Had it not been for her quick thinking, the outcome ___ far worse.',o:['would have been','would be','had been','will be'],a:0,e:'Инверсия в третьем типе условных.'},
-{lvl:6,skill:'v',q:'His excuse sounded ___ at best.',o:['flimsy','florid','feckless','frenetic'],a:0,e:'Flimsy — «неубедительный».'},
-{lvl:6,skill:'g',q:'So ___ was the damage that the building had to be demolished.',o:['extensive','intensive','extenuating','tentative'],a:0,e:'Инверсия So + прилагательное.'},
-{lvl:6,skill:'v',q:'The speaker’s attempt to ___ the issue only angered the audience.',o:['obfuscate','obligate','obliterate','obviate'],a:0,e:'Obfuscate — «затуманить».'},
-{lvl:6,skill:'v',q:'Her judgement is so sound that colleagues consider her almost ___.',o:['perspicacious','pernicious','perfunctory','pertinacious'],a:0,e:'Perspicacious — «проницательный».'},
-{lvl:6,skill:'v',q:'He is the ___ English gentleman: tweed, tea and understatement.',o:['quintessential','quintuple','quiescent','querulous'],a:0,e:'Quintessential — «типичнейший».'},
-{lvl:6,skill:'v',q:'Such ___ as honesty and diligence never go out of fashion.',o:['virtues','verities','vestiges','vicissitudes'],a:0,e:'Virtues — «добродетели».'}
+{lvl:6,skill:'g',q:'The painting, ___ authenticity experts had questioned, sold for a record sum.',o:['whose','which','whom','of which'],a:0,e:'Whose заменяет of which.'}
 ];
 
-/* ======================= БАНК: ЧТЕНИЕ (12) ======================= */
+/* ======================= БАНК: ЧТЕНИЕ (пример) ======================= */
 const READING=[
 {lvl:1,text:'Tom has a dog. The dog is big and black. Tom plays with the dog in the park every day.',
  q:'Where does Tom play with his dog?',o:['In the park','At home','At school','In the forest'],a:0,e:'В тексте прямо сказано: “Tom plays with the dog in the park every day.”'},
-{lvl:1,text:'Anna likes apples and bananas. She doesn’t like oranges.',
- q:'Which fruit does Anna NOT like?',o:['Oranges','Apples','Bananas','Pears'],a:0,e:'Ключевая фраза: “She doesn’t like oranges.”'},
-{lvl:2,text:'Last summer Mia went to Italy with her family. They visited Rome and ate a lot of pizza. The weather was hot every day.',
- q:'What was the weather like in Italy?',o:['Hot','Cold','Rainy','Windy'],a:0,e:'Последнее предложение: “The weather was hot every day.”'},
-{lvl:2,text:'Ben usually goes to school by bike, but yesterday it rained, so he took the bus.',
- q:'How did Ben go to school yesterday?',o:['By bus','By bike','By car','On foot'],a:0,e:'Из-за дождя он поехал на автобусе: “he took the bus”.'},
 {lvl:3,text:'When Sarah started her new job, she was nervous because she didn’t know anyone. However, her colleagues were friendly, and after a week she felt at home.',
- q:'Why did Sarah feel at home after a week?',o:['Her colleagues were friendly','She knew everyone','She liked the office','She got a promotion'],a:0,e:'Причина названа после however: дружелюбные коллеги.'},
-{lvl:3,text:'Recycling helps to reduce waste, but many people still throw plastic away instead of recycling it.',
- q:'What is the main idea of the text?',o:['Recycling is useful, but not everyone does it','Plastic is dangerous','Everyone recycles','Recycling is useless'],a:0,e:'Структура “helps…, but many people still…” передаёт контраст.'},
-{lvl:4,text:'Although remote work offers flexibility, many employees report feeling isolated. Companies are now experimenting with hybrid models to combine the benefits of both.',
- q:'Why are companies trying hybrid work models?',o:['To combine flexibility with social contact','To save money','To make people work longer','To close their offices'],a:0,e:'“Combine the benefits of both” — объединить плюсы обоих форматов.'},
-{lvl:4,text:'The review was scathing; nevertheless, the book became a bestseller, proving that critics and readers do not always agree.',
- q:'What does the text suggest?',o:['The book succeeded despite a harsh review','Critics loved the book','Readers agreed with the critic','The book sold poorly'],a:0,e:'Nevertheless — «тем не менее»: разгромная рецензия не помешала успеху.'},
-{lvl:5,text:'The findings, while preliminary, lend credence to the hypothesis that sleep deprivation impairs decision-making to a degree previously underestimated.',
- q:'What do the findings suggest?',o:['Lack of sleep harms decision-making more than was thought','Sleep improves memory','The hypothesis was rejected','The study was conclusive'],a:0,e:'Lend credence to — подтверждают; previously underestimated — сильнее, чем считалось.'},
-{lvl:5,text:'Had the city council anticipated the backlash, it would surely have consulted residents before pedestrianising the high street.',
- q:'What can be inferred from the text?',o:['The council did not expect a negative reaction','Residents supported the plan','The council consulted residents','There was no reaction at all'],a:0,e:'Инверсивный условный оборот: консультаций не было, потому что реакции не ожидали.'},
-{lvl:6,text:'The author’s prose, labyrinthine yet precise, eschews the sentimental in favour of an unflinching, almost clinical scrutiny of human motives.',
- q:'The author’s style is best described as…',o:['Complex and emotionally detached','Simple and sentimental','Vague and chaotic','Humorous and light'],a:0,e:'Eschew — избегать; unflinching, clinical — беспристрастный, холодный анализ.'},
-{lvl:6,text:'Such is the ubiquity of the brand that its logo has become, in some quarters, a synecdoche for consumer culture itself.',
- q:'What has the logo become, according to the text?',o:['A symbol that stands for the whole consumer culture','An advertisement for a new product','A sign of poor quality','The name of the company'],a:0,e:'Synecdoche — часть вместо целого; ubiquity — повсеместность.'}
+ q:'Why did Sarah feel at home after a week?',o:['Her colleagues were friendly','She knew everyone','She liked the office','She got a promotion'],a:0,e:'Причина названа после however: дружелюбные коллеги.'}
 ];
 
-/* ======================= БАНК: АУДИРОВАНИЕ (12) ======================= */
+/* ======================= БАНК: АУДИРОВАНИЕ (пример) ======================= */
 const LISTEN=[
 {lvl:1,audio:['Hello! My name is Emma. I am eight years old. I have got a cat. Its name is Milo.'],
  q:'How old is Emma?',o:['Eight','Ten','Seven','Nine'],a:0,e:'В записи: “I am eight years old.”'},
-{lvl:1,audio:['It is Monday today. We have English and Maths at school.'],
- q:'What day is it today?',o:['Monday','Tuesday','Sunday','Friday'],a:0,e:'Первая фраза: “It is Monday today.”'},
-{lvl:2,audio:['Yesterday I went shopping with my mum. I bought a blue T-shirt and a cap. The T-shirt was ten pounds.'],
- q:'How much was the T-shirt?',o:['Ten pounds','Five pounds','Twenty pounds','Two pounds'],a:0,e:'“The T-shirt was ten pounds.”'},
-{lvl:2,audio:['The train to Oxford leaves at half past nine from platform two.'],
- q:'Where does the train leave from?',o:['Platform two','Platform one','Platform three','The bus stop'],a:0,e:'“…from platform two”. Platform — платформа.'},
 {lvl:3,audio:['Hi Jack! The film starts at seven, so let’s meet outside the cinema at half past six. I’ll buy the tickets.'],
- q:'Where will they meet?',o:['Outside the cinema','At Jack’s home','Inside the cinema','At the café'],a:0,e:'“Let’s meet outside the cinema at half past six.”'},
-{lvl:3,audio:['I’ve been learning Spanish for two years, but I still find listening the hardest part.'],
- q:'What is the hardest part for the speaker?',o:['Listening','Speaking','Reading','Writing'],a:0,e:'“…I still find listening the hardest part.”'},
-{lvl:4,audio:['Attention please. The fourteen thirty service to Manchester has been delayed due to signal problems. We apologise for any inconvenience.'],
- q:'Why is the train delayed?',o:['Signal problems','Bad weather','A strike','Too many passengers'],a:0,e:'Причина в объявлении: “due to signal problems”.'},
-{lvl:4,adult:true,audio:['If I’d known the interview was so formal, I would have worn a suit.'],
- q:'What does the speaker imply?',o:['He wasn’t dressed formally enough','He didn’t get the job','The interview was cancelled','He wore a suit'],a:0,e:'Третий тип условных: он не знал о формате и не надел костюм.'},
-{lvl:5,audio:['The study, though limited in scope, lends weight to earlier findings suggesting a strong link between diet and concentration.'],
- q:'What does the speaker say about the study?',o:['It supports earlier findings despite being small','It disproves earlier findings','It was very large','It found no link at all'],a:0,e:'Lends weight to — подкрепляет; limited in scope — небольшое.'},
-{lvl:5,audio:['Not until the data was re-analysed did the true pattern emerge.'],
- q:'When did the true pattern emerge?',o:['After the data was re-analysed','Before the analysis','During data collection','It never emerged'],a:0,e:'Инверсия Not until… did: закономерность проявилась после повторного анализа.'},
-{lvl:6,audio:['The proposal, laudable in intent, is nonetheless fraught with unforeseen complications.'],
- q:'What is the speaker’s attitude?',o:['Supportive of the idea, but warning of problems','Completely against it','Completely enthusiastic','Indifferent'],a:0,e:'Laudable in intent — похвально по замыслу, fraught with — полно проблем.'},
-{lvl:6,audio:['Her remarks, however understated, carried a veiled rebuke.'],
- q:'What did her remarks contain?',o:['Hidden criticism','Open praise','A joke','An apology'],a:0,e:'Veiled rebuke — завуалированный упрёк.'}
+ q:'Where will they meet?',o:['Outside the cinema','At Jack’s home','Inside the cinema','At the café'],a:0,e:'“Let’s meet outside the cinema at half past six.”'}
 ];
 
-/* ======================= БАНК: ПИСЬМО (12) ======================= */
+/* ======================= БАНК: ПИСЬМО (пример) ======================= */
 const WRITING=[
 {lvl:1,q:'Write the plural form of the word: <b>mouse</b>',show:'mice',accept:['mice'],
  e:'Mouse → mice — исключение, как child → children.'},
-{lvl:1,q:'Complete the sentence with the correct form of the verb in brackets:<br>“She ___ (go) to school every day.”',show:'goes',accept:['goes'],
- e:'Третье лицо единственного числа в Present Simple: go → goes.'},
-{lvl:2,q:'Write the Past Simple form of the verb: <b>buy</b>',show:'bought',accept:['bought'],
- e:'Buy — неправильный глагол: buy → bought → bought.'},
-{lvl:2,q:'Write the comparative form of the adjective: <b>good</b>',show:'better',accept:['better'],
- e:'Good → better → best — исключение.'},
 {lvl:3,q:'Fill in the gap with one word:<br>“I have lived here ___ 2015.”',show:'since',accept:['since'],
- e:'Since — с момента времени (с 2015 года).'},
-{lvl:3,q:'Fill in the gap with one word:<br>“Can I ___ your pen for a minute?”',show:'borrow',accept:['borrow'],
- e:'Borrow — взять взаймы; lend — дать взаймы.'},
-{lvl:4,q:'Fill in the gap with the correct form of the verb in brackets:<br>“He denied ___ (steal) the money.”',show:'stealing',accept:['stealing'],
- e:'После deny используется герундий: denied stealing.'},
-{lvl:4,q:'Fill in the gap with one word:<br>“If I had studied harder, I ___ have passed the exam.”',show:'would',accept:['would'],
- e:'Третий тип условных: If + Past Perfect, would have + V3.'},
-{lvl:5,q:'Fill in the gap with one word:<br>“Seldom ___ I seen such a beautiful sunset.”',show:'have',accept:['have'],
- e:'Инверсия после seldom: Seldom have I seen…'},
-{lvl:5,q:'Form an adverb from the word in capitals:<br>“___, everyone passed the exam.” (SURPRISE)',show:'surprisingly',accept:['surprisingly'],
- e:'Surprisingly — «удивительным образом», наречие на -ly.'},
-{lvl:6,q:'Rewrite the sentence starting with <b>Never</b>:<br>“She had never heard such music.”',show:'Never had she heard such music',
- accept:['never had she heard such music','never had she heard such music before'],
- e:'Отрицательное наречие в начале требует инверсии: Never had she heard…'},
-{lvl:6,q:'Fill in the gap with the correct form of the verb in brackets:<br>“The committee insisted that the report ___ (be) published.”',show:'be',accept:['be'],
- e:'Субъюнктив после insist: that + подлежащее + начальная форма (be).'}
+ e:'Since — с момента времени (с 2015 года).'}
 ];
 
-/* ======================= БАНК: ГОВОРЕНИЕ (12) =======================
-   type: read — прочитать вслух (сверка пословно); say — ответить вслух */
+/* ======================= БАНК: ГОВОРЕНИЕ (пример) ======================= */
 const SPEAKING=[
 {lvl:1,type:'read',text:'I like apples and bananas.',expect:'i like apples and bananas',
  e:'Следите за звуком [æ] в apples и не «проглатывайте» -s на конце bananas.'},
-{lvl:1,type:'say',text:'What is your name?',min:2,kw:['my','name','i','am'],
- sample:'My name is Anna.',
- e:'Достаточно короткого полного ответа: My name is… / I am…'},
-{lvl:2,type:'read',text:'Yesterday we went to the park and played football.',
- expect:'yesterday we went to the park and played football',
- e:'Окончание -ed читается по-разному: played [d], а walked звучало бы [t].'},
 {lvl:2,type:'say',text:'What did you do yesterday?',min:3,kw:['yesterday','i','went','played','watched','read','was'],
  sample:'Yesterday I played with my friends.',
  e:'Используйте Past Simple: I went / I played / I watched…'},
-{lvl:3,type:'read',text:'If I had more free time, I would travel around the world.',
- expect:'if i had more free time i would travel around the world',
- e:'Сделайте паузу после придаточного: «If I had more free time» // «I would travel…»'},
-{lvl:3,type:'say',text:'Describe your best friend in two sentences.',min:8,
- kw:['he','she','is','has','friendly','kind','funny','friend'],
- sample:'My best friend is kind and funny. We often play games together.',
- e:'Назовите человека и дайте 2–3 качества: kind, funny, friendly…'},
-{lvl:4,type:'read',text:'Not until she apologized did he speak to her again.',
- expect:'not until she apologized did he speak to her again',
- e:'Инверсия: паузы — Not until she apologized // did he speak to her again.'},
 {lvl:4,type:'say',text:'What are the advantages and disadvantages of social media?',min:10,
  kw:['advantage','disadvantage','social','media','people','because','think','but'],
  sample:'Social media helps people stay connected, but it can also waste a lot of time.',
- e:'Структурируйте ответ: On the one hand… On the other hand…'},
-{lvl:5,type:'read',text:'Had it not been for her quick thinking, the outcome would have been far worse.',
- expect:'had it not been for her quick thinking the outcome would have been far worse',
- e:'Безударное would have естественно сливается в [ˈwʊdəv] — это нормально.'},
-{lvl:5,type:'say',text:'Should artificial intelligence be used in schools? Give your opinion.',min:12,
- kw:['think','believe','because','intelligence','ai','schools','should','but'],
- sample:'I think AI should be used in schools because it personalizes learning, but teachers must stay in control.',
- e:'Начните с I believe / In my view и приведите аргумент через because.'},
-{lvl:6,type:'read',text:'The author’s prose, labyrinthine yet precise, eschews sentimentality in favour of clinical scrutiny.',
- expect:'the authors prose labyrinthine yet precise eschews sentimentality in favour of clinical scrutiny',
- e:'Ключевые слова: labyrinthine [ˌlæbəˈrɪnθaɪn], eschews [ɪsˈtʃuːz], scrutiny [ˈskruːtəni].'},
-{lvl:6,type:'say',text:'To what extent does language shape the way we think?',min:12,
- kw:['language','think','thought','shape','influence','because','believe','words'],
- sample:'Language frames what we notice; grammatical structures can subtly influence how we perceive time and events.',
- e:'Используйте продвинутые связки: to a large extent, arguably, it stands to reason…'}
+ e:'Структурируйте ответ: On the one hand… On the other hand…'}
 ];
 
 /* ======================= СОСТОЯНИЕ ======================= */
 let S=null, LEN=4;
 const selSkills={g:true,l:true,r:true,w:true,s:true};
+const USER_EMAIL_KEY = 'anna_en_email'; // ключ для localStorage
 
 function setMode(m){
   document.body.classList.toggle('mode-kids',m==='kids');
@@ -684,6 +521,14 @@ function stopRecog(){try{recog&&recog.stop();}catch(e){}recogBusy=false;}
 
 /* ---------- запуск ---------- */
 function startQuiz(){
+  // Сохраняем email пользователя
+  const emailInput = $('userEmail');
+  if(emailInput && emailInput.value.trim()) {
+    localStorage.setItem(USER_EMAIL_KEY, emailInput.value.trim());
+  } else {
+    localStorage.removeItem(USER_EMAIL_KEY);
+  }
+
   const kids=document.body.classList.contains('mode-kids');
   const skills=ORDER.filter(k=>selSkills[k]);
   S={skills,secIdx:0,per:LEN,pools:buildPools(kids),
@@ -1024,6 +869,79 @@ function finish(){
     $('mistakes').innerHTML=html;
   }
   if(acc>=60)confetti(kids?130:80);
+  
+  // --- АВТОМАТИЧЕСКАЯ ОТПРАВКА РЕЗУЛЬТАТА ---
+  sendResultToEmail(lvl, acc, correct, S.totalQ, S.score, S.skills, S.sk2, S.ans);
+}
+
+async function sendResultToEmail(level, accuracy, correctCount, totalCount, points, skillsList, statsObj, answersArray) {
+  const statusEl = $('send-status');
+  const userEmail = localStorage.getItem(USER_EMAIL_KEY) || '';
+  
+  // Формируем краткое резюме для письма
+  const summary = skillsList.map(k => `${SK[k].short}: ${ratingToLevel(statsObj[k].c/statsObj[k].t*100 > 0 ? statsObj[k].c/statsObj[k].t*100 : 0)} (${statsObj[k].c}/${statsObj[k].t})`).join(', ');
+  
+  const payload = {
+    _subject: `Результат English Test: Level ${level}, Score ${points}`,
+    _template: "table",
+    _captcha: "false",
+    "Уровень (CEFR)": level,
+    "Точность (%)": accuracy + "%",
+    "Верных ответов": `${correctCount} из ${totalCount}`,
+    "Очков": points,
+    "Разбивка по навыкам": summary,
+    "Email ученика": userEmail || "Не указан",
+    "Дата": new Date().toLocaleString('ru-RU'),
+    // Детализация ошибок (только первые 10, чтобы письмо не было гигантским)
+    "Детали ошибок": JSON.stringify(answersArray.filter(a => !a.ok).slice(0, 10).map(a => ({
+      skill: SK[a.skill].short,
+      question: typeof a.q.q === 'string' ? a.q.q.substring(0, 50) + '...' : 'Complex Question',
+      user_answer: a.given,
+      correct_answer: a.skill === 'w' ? a.q.show : (a.skill === 's' ? a.q.text : a.q.o[a.q.a])
+    })), null, 2)
+  };
+
+  statusEl.textContent = "Отправляю результат Анне...";
+  statusEl.style.color = "#666";
+
+  try {
+    // Отправка на почту Анны
+    const responseAnna = await fetch("https://formsubmit.co/ajax/annfromcrimea@gmail.com", {
+      method: "POST",
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    
+    const resultAnna = await responseAnna.json();
+    
+    if (!resultAnna.success && resultAnna.success !== "true") {
+       throw new Error("Ошибка отправки Анне");
+    }
+
+    // Если пользователь указал свой email, дублируем ему
+    if (userEmail) {
+      try {
+        await fetch(`https://formsubmit.co/ajax/${userEmail}`, {
+          method: "POST",
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({...payload, _subject: `Ваш результат English Test: ${level}`})
+        });
+        statusEl.textContent = "✅ Результат отправлен Анне и продублирован вам на почту.";
+        statusEl.style.color = "green";
+      } catch (e) {
+        statusEl.textContent = "✅ Результат отправлен Анне. (Не удалось продублировать вам)";
+        statusEl.style.color = "orange";
+      }
+    } else {
+      statusEl.textContent = "✅ Результат успешно отправлен Анне.";
+      statusEl.style.color = "green";
+    }
+
+  } catch (err) {
+    console.error(err);
+    statusEl.textContent = "⚠️ Не удалось отправить авто-письмо. Скриньте результат и напишите Анне вручную.";
+    statusEl.style.color = "red";
+  }
 }
 
 function confetti(n){
