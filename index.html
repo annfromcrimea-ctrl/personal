@@ -5,29 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Анна Драчёва — Образование и развитие</title>
 
-<!-- === FAVICON (буква А в квадрате) === -->
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%237a2e36'/%3E%3Ctext x='50%25' y='58%25' font-family='Georgia, serif' font-size='42' font-weight='bold' fill='%23fcfaf8' text-anchor='middle' dominant-baseline='middle'%3E%D0%90%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%237a2e36'/%3E%3Ctext x='50%25' y='58%25' font-family='Nunito, sans-serif' font-size='42' font-weight='bold' fill='%23fcfaf8' text-anchor='middle' dominant-baseline='middle'%3E%D0%90%3C/text%3E%3C/svg%3E">
 
 <style>
-  /* === ПАЛИТРА: BURGUNDY NOTEBOOK === */
   :root {
-    --burgundy: #7a2e36;       /* Основной акцент */
-    --burgundy-dark: #5d1f26;  /* Ховер / Темный */
-    --paper-bg: #fdfbf7;       /* Цвет бумаги (теплый белый) */
-    --grid-line: rgba(122, 46, 54, 0.08); 
-    --margin-line: rgba(122, 46, 54, 0.15); 
-    
+    --burgundy: #7a2e36;
+    --burgundy-dark: #5d1f26;
+    --paper-bg: #fdfbf7;
+    --grid-line: rgba(122, 46, 54, 0.08);
+    --margin-line: rgba(122, 46, 54, 0.15);
     --white: #ffffff;
     --graphite: #2d2d2d;
     --gray-text: #666666;
     --gold-accent: #cfa968;
-    
+    --sky: #9fd8ff;
     --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
     --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
     --radius: 12px;
-    
-    --font-serif: 'Playfair Display', Georgia, serif;
-    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-sans: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -36,19 +31,18 @@
     font-family: var(--font-sans);
     background-color: var(--paper-bg);
     color: var(--graphite);
-    line-height: 1.6;
+    line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     position: relative;
     overflow-x: hidden;
   }
 
-  /* === ФОНОВЫЙ ПАТТЕРН (Тетрадь + Буквы) === */
   body::before {
     content: "";
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     z-index: -2; pointer-events: none;
-    background-image: 
-      linear-gradient(var(--grid-line) 1px, transparent 1px), 
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
       linear-gradient(90deg, var(--margin-line) 1px, transparent 1px);
     background-size: 100% 30px, 60px 100%;
     background-position: 0 0, 40px 0;
@@ -61,15 +55,14 @@
   }
   .bg-letter {
     position: absolute;
-    font-family: var(--font-serif);
-    font-weight: bold;
+    font-family: var(--font-sans);
+    font-weight: 700;
     color: var(--burgundy);
     user-select: none;
   }
 
   .container { max-width: 1000px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
 
-  /* === ШАПКА С БОЛЬШИМ ФОТО === */
   header.hero-section {
     display: flex; align-items: stretch; gap: 40px;
     background: var(--white); border-radius: var(--radius);
@@ -84,81 +77,86 @@
 
   .hero-photo-wrapper { width: 380px; min-height: 480px; flex-shrink: 0; background: #eee; }
   .hero-photo-img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
-  
+
   .hero-content { flex-grow: 1; padding: 50px 50px 50px 0; display: flex; flex-direction: column; justify-content: center; }
-  .hero-name { font-family: var(--font-serif); font-size: 2.8rem; color: var(--burgundy); margin-bottom: 10px; line-height: 1.1; }
-  .hero-role { font-size: 1.1rem; color: var(--gray-text); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 25px; font-weight: 500; border-bottom: 1px solid #eee; padding-bottom: 15px; display: inline-block; }
-  .hero-desc { font-size: 1.05rem; color: var(--graphite); margin-bottom: 30px; max-width: 500px; }
-  
+  .hero-name { font-family: var(--font-sans); font-size: 2.6rem; font-weight: 700; color: var(--burgundy); margin-bottom: 10px; line-height: 1.15; letter-spacing: -0.5px; }
+  .hero-role { font-size: 1.02rem; color: var(--gray-text); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 25px; font-weight: 700; border-bottom: 1px solid #eee; padding-bottom: 15px; display: inline-block; }
+  .hero-desc { font-size: 1.02rem; color: var(--graphite); margin-bottom: 30px; max-width: 500px; }
+
   .trust-badges { display: flex; gap: 15px; flex-wrap: wrap; }
-  .badge { 
-    background: #fff5f6; 
-    border: 1px solid #ffdada; 
-    color: var(--burgundy); 
-    padding: 6px 14px; border-radius: 20px; 
-    font-size: 0.85rem; font-weight: 600; 
+  .badge {
+    background: #fff5f6;
+    border: 1px solid #ffdada;
+    color: var(--burgundy);
+    padding: 6px 14px; border-radius: 20px;
+    font-size: 0.84rem; font-weight: 700;
   }
 
-  /* === ОБЩИЕ БЛОКИ === */
-  section.block { 
-    background: var(--white); 
-    border-radius: var(--radius); 
-    padding: 35px; 
-    margin-bottom: 30px; 
-    box-shadow: var(--shadow-sm); 
+  section.block {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 35px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow-sm);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     border: 1px solid rgba(122, 46, 54, 0.05);
     position: relative;
   }
-  section.block:hover { 
-    box-shadow: var(--shadow-md); 
+  section.block:hover {
+    box-shadow: var(--shadow-md);
     transform: translateY(-2px);
     border-color: rgba(122, 46, 54, 0.15);
   }
-  
+
   .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid #f5f5f5; }
-  .section-title { font-family: var(--font-serif); font-size: 1.6rem; color: var(--graphite); }
-  
-  .step-num { 
-    background: var(--burgundy); color: white; 
-    width: 32px; height: 32px; border-radius: 50%; 
-    display: flex; align-items: center; justify-content: center; 
-    font-weight: bold; font-size: 1rem; 
+  .section-title { font-family: var(--font-sans); font-size: 1.5rem; font-weight: 700; color: var(--graphite); letter-spacing: -0.3px; }
+
+  .step-num {
+    background: var(--burgundy); color: white;
+    width: 32px; height: 32px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 1rem;
     box-shadow: 0 2px 5px rgba(122, 46, 54, 0.3);
+    flex-shrink: 0;
   }
 
-  /* === НОВЫЙ ДИЗАЙН БЛОКА СОГЛАСИЯ (БЕЗ IFRAME) === */
+  /* === БЛОК СОГЛАСИЯ === */
   .consent-card {
     background: #fff;
     border: 2px dashed var(--burgundy);
     border-radius: 12px;
-    padding: 30px;
+    padding: 18px 22px;
     text-align: center;
-    max-width: 600px;
+    max-width: 540px;
     margin: 0 auto;
     position: relative;
     overflow: hidden;
   }
   .consent-card::before {
     content: "🔒";
-    font-size: 3rem;
+    font-size: 2rem;
     opacity: 0.1;
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 6px;
+    right: 8px;
   }
+  .consent-card h3 { font-size: 1.05rem; margin-bottom: 6px; font-weight: 700; }
+  .consent-card p { font-size: 0.9rem; margin-bottom: 8px; color: #555; }
+
   .consent-btn {
     display: inline-block;
     background: var(--burgundy);
     color: white;
-    padding: 14px 32px;
+    padding: 12px 26px;
     border-radius: 8px;
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: 1rem;
     text-decoration: none;
     transition: all 0.2s;
     box-shadow: 0 4px 12px rgba(122, 46, 54, 0.3);
-    margin-top: 15px;
+    margin-top: 10px;
+    border: none;
+    cursor: pointer;
   }
   .consent-btn:hover {
     background: var(--burgundy-dark);
@@ -166,39 +164,89 @@
     box-shadow: 0 6px 16px rgba(122, 46, 54, 0.4);
   }
   .consent-note {
-    font-size: 0.85rem;
+    font-size: 0.78rem;
     color: var(--gray-text);
-    margin-top: 15px;
-    line-height: 1.4;
+    margin-top: 10px;
+    line-height: 1.45;
   }
   .consent-help-link {
     color: var(--burgundy);
     cursor: pointer;
     text-decoration: underline;
-    font-weight: 600;
+    font-weight: 700;
   }
 
-  /* === СТАРЫЕ СТИЛИ ФОРМ (оставляем для записи, если захочешь вернуть iframe) === */
-  .form-frame { 
-    background: #fafafa; 
-    border: 1px dashed #ddd; 
-    border-radius: 8px; 
-    padding: 10px; 
-    min-height: 500px; 
-    display: flex; justify-content: center; 
+  /* === IFRAME ЯНДЕКС.ФОРМЫ === */
+  .form-frame {
+    background: #fafafa;
+    border: 1px dashed #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    display: flex; justify-content: center;
+    overflow: hidden;
   }
-  iframe.yandex-form { width: 100%; height: 600px; border: none; }
+  iframe.yandex-form {
+    width: 100%;
+    max-width: 650px;
+    height: 600px;
+    border: none;
+  }
 
-  /* === ДИАГНОСТИКА (сетка карточек) === */
+  /* === ПОЛЕ ВВОДА КОДА === */
+  .code-verify {
+    max-width: 540px;
+    margin: 0 auto;
+  }
+  .code-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+  .code-row input {
+    flex: 1 1 180px;
+    padding: 10px 14px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 0.92rem;
+    font-family: var(--font-sans);
+    transition: border-color 0.2s;
+    outline: none;
+    min-width: 0;
+  }
+  .code-row input:focus { border-color: var(--burgundy); }
+  .code-row button {
+    background: var(--burgundy);
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.92rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .code-row button:hover { background: var(--burgundy-dark); }
+  .code-msg {
+    margin-top: 8px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    min-height: 1em;
+  }
+  .code-msg.ok { color: #2e7d32; }
+  .code-msg.err { color: #c62828; }
+
+  /* === ДИАГНОСТИКА === */
   .diag-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
-  .diag-card { 
-    border: 1px solid #eee; 
-    border-radius: 10px; 
-    padding: 20px; 
-    display: flex; flex-direction: column; 
-    height: 100%; 
-    transition: all 0.2s; 
-    background: white; 
+  .diag-card {
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex; flex-direction: column;
+    height: 100%;
+    transition: all 0.2s;
+    background: white;
     position: relative;
     overflow: hidden;
   }
@@ -206,94 +254,85 @@
     content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
     background: var(--burgundy); transform: scaleY(0); transition: transform 0.2s;
   }
-  .diag-card:hover { 
-    border-color: var(--burgundy); 
-    transform: translateY(-3px); 
-    box-shadow: 0 10px 20px rgba(122, 46, 54, 0.1); 
+  .diag-card:hover {
+    border-color: var(--burgundy);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(122, 46, 54, 0.1);
   }
   .diag-card:hover::before { transform: scaleY(1); }
 
   .lang-flag { font-size: 1.8rem; margin-bottom: 10px; }
-  .lang-name { font-weight: 700; font-size: 1.1rem; margin-bottom: 5px; color: var(--graphite); }
+  .lang-name { font-weight: 700; font-size: 1.08rem; margin-bottom: 5px; color: var(--graphite); }
   .lang-desc { font-size: 0.9rem; color: var(--gray-text); flex-grow: 1; margin-bottom: 15px; }
-  
-  .btn-action { 
-    display: block; width: 100%; text-align: center; 
-    background: var(--burgundy); color: white; 
-    padding: 10px; border-radius: 6px; 
-    text-decoration: none; font-weight: 600; font-size: 0.9rem; 
-    transition: background 0.2s; 
+
+  .btn-action {
+    display: block; width: 100%; text-align: center;
+    background: var(--burgundy); color: white;
+    padding: 10px; border-radius: 6px;
+    text-decoration: none; font-weight: 700; font-size: 0.9rem;
+    transition: background 0.2s;
   }
   .btn-action:hover { background: var(--burgundy-dark); }
 
-  /* === ЛЕНТЫ (отзывы / видео) === */
+  /* === ЛЕНТЫ === */
   .scroll-container { overflow-x: auto; padding-bottom: 15px; scrollbar-width: thin; scrollbar-color: #ddd transparent; }
   .scroll-container::-webkit-scrollbar { height: 6px; }
   .scroll-container::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
   .items-row { display: flex; gap: 20px; width: max-content; }
-  .item-card { 
-    width: 300px; background: #fff; border: 1px solid #eee; 
-    border-radius: 10px; padding: 20px; 
-    box-shadow: 0 2px 5px rgba(0,0,0,0.02); 
+  .item-card {
+    width: 300px; background: #fff; border: 1px solid #eee;
+    border-radius: 10px; padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
   }
-  
-  /* Отзывы */
+
   .rev-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-  .rev-avatar { 
-    width: 40px; height: 40px; border-radius: 50%; 
-    background: #fff5f6; color: var(--burgundy); 
-    display: flex; align-items: center; justify-content: center; 
-    font-weight: bold; font-size: 1.1rem; border: 1px solid #ffdada;
+  .rev-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: #fff5f6; color: var(--burgundy);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 1.05rem; border: 1px solid #ffdada;
   }
   .rev-info { flex-grow: 1; }
-  .rev-name { font-weight: 600; font-size: 0.95rem; display: block; }
+  .rev-name { font-weight: 700; font-size: 0.94rem; display: block; }
   .rev-stars { color: var(--gold-accent); font-size: 0.8rem; }
   .rev-text { font-size: 0.9rem; color: #555; font-style: italic; line-height: 1.5; }
 
-  /* Видео */
-  .vid-preview { 
-    aspect-ratio: 16/9; background: #222; border-radius: 6px; 
-    margin-bottom: 12px; display: flex; align-items: center; justify-content: center; 
+  .vid-preview {
+    aspect-ratio: 16/9; background: #222; border-radius: 6px;
+    margin-bottom: 12px; display: flex; align-items: center; justify-content: center;
     color: white; font-size: 1.5rem; position: relative; overflow: hidden;
   }
   .play-icon { opacity: 0.8; transition: 0.2s; cursor: pointer; }
   .vid-preview:hover .play-icon { opacity: 1; transform: scale(1.1); }
-  .vid-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 4px; }
+  .vid-title { font-weight: 700; font-size: 0.94rem; margin-bottom: 4px; }
   .vid-meta { font-size: 0.8rem; color: #888; }
 
   /* === КОНТАКТЫ / QR === */
-  .contacts-flex { 
-    display: flex; 
-    justify-content: center; 
-    align-items: flex-start; 
-    gap: 20px; 
-    flex-wrap: nowrap; 
-    margin-top: 10px; 
+  .contacts-flex {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    flex-wrap: nowrap;
+    margin-top: 10px;
   }
-  .qr-item { 
-    text-align: center; 
-    width: 110px; 
-    flex-shrink: 0; 
-  }
-  .qr-box { 
-    width: 110px; height: 110px; 
-    border: 1px solid #eee; 
-    border-radius: 8px; 
-    padding: 4px; background: white; 
-    margin-bottom: 8px; 
-    box-shadow: var(--shadow-sm); 
+  .qr-item { text-align: center; width: 110px; flex-shrink: 0; }
+  .qr-box {
+    width: 110px; height: 110px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 4px; background: white;
+    margin-bottom: 8px;
+    box-shadow: var(--shadow-sm);
     display: flex; align-items: center; justify-content: center;
   }
-  .qr-box img { 
-    width: 100%; height: 100%; 
-    object-fit: contain; 
-  }
+  .qr-box img { width: 100%; height: 100%; object-fit: contain; }
   .site-link-box {
-    width: 110px; height: 110px; 
-    border: 2px solid var(--burgundy); 
-    border-radius: 8px; 
-    background: #fff5f6; 
-    margin-bottom: 8px; 
+    width: 110px; height: 110px;
+    border: 2px solid var(--burgundy);
+    border-radius: 8px;
+    background: #fff5f6;
+    margin-bottom: 8px;
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
     text-decoration: none;
@@ -314,8 +353,8 @@
     padding: 0 5px;
   }
   .site-link-box:hover span { color: white; }
-  
-  .qr-label { font-weight: 600; font-size: 0.8rem; display: block; margin-bottom: 2px; color: var(--graphite); }
+
+  .qr-label { font-weight: 700; font-size: 0.8rem; display: block; margin-bottom: 2px; color: var(--graphite); }
   .qr-link { font-size: 0.75rem; color: var(--burgundy); text-decoration: none; }
   .qr-link:hover { text-decoration: underline; }
 
@@ -327,32 +366,35 @@
     .qr-box, .site-link-box { height: auto; aspect-ratio: 1/1; }
   }
 
-  /* === ФУТЕР === */
-  footer { 
-    margin-top: 50px; padding: 30px 0; text-align: center; 
-    font-size: 0.85rem; color: #888; border-top: 1px solid #eaeaea; 
+  footer {
+    margin-top: 50px; padding: 30px 0; text-align: center;
+    font-size: 0.85rem; color: #888; border-top: 1px solid #eaeaea;
   }
-  details summary { cursor: pointer; font-weight: 600; color: var(--graphite); margin-bottom: 10px; list-style: none; }
+  details summary { cursor: pointer; font-weight: 700; color: var(--graphite); margin-bottom: 10px; list-style: none; }
   details summary::after { content: " ▾"; font-size: 0.8em; }
-  .legal-docs { 
-    background: white; padding: 20px; border-radius: 8px; 
-    text-align: left; margin-top: 10px; border: 1px solid #eee; 
-    font-size: 0.85rem; color: #555; 
+  .legal-docs {
+    background: white; padding: 20px; border-radius: 8px;
+    text-align: left; margin-top: 10px; border: 1px solid #eee;
+    font-size: 0.85rem; color: #555;
   }
-  .legal-links a { color: var(--burgundy); text-decoration: none; margin-right: 15px; font-weight: 500; }
+  .legal-links a { color: var(--burgundy); text-decoration: none; margin-right: 15px; font-weight: 700; }
 
-  /* === АДАПТИВ ОБЩИЙ === */
   @media (max-width: 768px) {
     header.hero-section { flex-direction: column; margin-bottom: 20px; }
     .hero-photo-wrapper { width: 100%; height: 350px; min-height: unset; }
     .hero-content { padding: 30px 20px; }
-    .hero-name { font-size: 2.2rem; }
-    .hero-role { font-size: 0.95rem; }
+    .hero-name { font-size: 2.1rem; }
+    .hero-role { font-size: 0.9rem; }
     section.block { padding: 20px; }
-    body::before { background-image: none; } 
+    body::before { background-image: none; }
+    iframe.yandex-form { height: 650px; }
   }
 </style>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+<!-- Один шрифт на весь сайт -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -360,7 +402,6 @@
 
 <div class="container">
 
-  <!-- ШАПКА -->
   <header class="hero-section">
     <div class="hero-photo-wrapper">
       <img src="anna.jpg" alt="Анна Драчёва" class="hero-photo-img">
@@ -380,29 +421,45 @@
     </div>
   </header>
 
-  <!-- БЛОК 1: СОГЛАСИЕ (ИСПРАВЛЕНО: Без iframe, через новую вкладку) -->
-  <section class="block">
+  <!-- БЛОК 1: СОГЛАСИЕ -->
+  <section class="block" id="consent-section">
     <div class="section-header">
       <span class="step-num">1</span>
       <h2 class="section-title">Согласие на обработку данных</h2>
     </div>
     <p style="margin-bottom: 20px; color: var(--gray-text); font-size: 0.95rem;">
-      Согласно ФЗ-152 «О персональных данных», доступ к материалам, результатам тестов и запись возможны только после вашего официального согласия. Пожалуйста, нажмите кнопку ниже, чтобы открыть форму.
+      Согласно ФЗ-152 «О персональных данных», доступ к записи возможен только после вашего официального согласия.
+      Заполните форму ниже. После отправки вы увидите секретный код — введите его на этой странице, чтобы открыть запись.
     </p>
-    
-    <div class="consent-card">
-      <h3 style="color:var(--burgundy); margin-bottom:10px;">Шаг 1 из 2</h3>
-      <p style="font-size:0.95rem; color:#555;">Нажмите кнопку, чтобы перейти к официальной форме согласия.</p>
-      
-      <!-- Ссылка открывается в новой вкладке -->
-      <a href="https://forms.yandex.ru/u/6a99a8eb02848f4e726049e7/" target="_blank" class="consent-btn">
-        Открыть форму согласия ↗
-      </a>
-      
+
+    <div class="form-frame">
+      <iframe
+        class="yandex-form"
+        src="https://forms.yandex.ru/u/6a99a8eb02848f4e726049e7?iframe=1"
+        frameborder="0"
+        name="ya-form-6a99a8eb02848f4e726049e7"
+        title="Форма согласия на обработку персональных данных"
+      ></iframe>
+    </div>
+
+    <div class="consent-card" style="margin-top: 22px; border-color: var(--gold-accent);">
+      <h3 style="color:var(--burgundy); margin-bottom:6px;">Шаг 2: подтвердите согласие</h3>
+      <p>
+        Отправьте форму выше. На странице «Спасибо» вы получите секретный код.<br>
+        Введите его ниже, чтобы открыть запись на занятие.
+      </p>
+
+      <div class="code-verify">
+        <div class="code-row">
+          <input type="text" id="secretCodeInput" placeholder="Введите секретный код" autocomplete="off" />
+          <button type="button" id="verifyCodeBtn">Подтвердить</button>
+        </div>
+        <div class="code-msg" id="codeMsg"></div>
+      </div>
+
       <p class="consent-note">
-        После отправки формы вы увидите сообщение об успехе.<br>
-        Вернитесь на эту страницу и продолжайте пользоваться сайтом.<br>
-        <span class="consent-help-link" onclick="alert('Если видите ошибку \"Вы уже заполняли\", значит, вы уже давали согласие ранее.\n\nЧтобы дать его заново:\n1. Очистите куки этого сайта в настройках браузера.\n2. Или используйте режим Инкогнито.')">❓ Почему нельзя отправить дважды?</span>
+        Код выдаётся после отправки формы согласия.<br>
+        <span class="consent-help-link" onclick="alert('Если форма не отправляется: возможно, вы уже давали согласие ранее.\n\nОчистите куки сайта или используйте режим Инкогнито.')">❓ Почему нельзя отправить дважды?</span>
       </p>
     </div>
   </section>
@@ -416,35 +473,36 @@
     <p style="margin-bottom: 25px; color: var(--gray-text); font-size: 0.95rem;">
       Выберите направление. Экспресс-тест займёт 5–10 минут. Результат вы увидите сразу, а подробный отчёт придёт вам на почту и мне для анализа.
     </p>
-    <div class="diag-grid" id="diagGrid"><!-- сюда скрипт вставит активные карточки --></div>
+    <div class="diag-grid" id="diagGrid"></div>
   </section>
 
-  <!-- БЛОК 3: ЗАПИСЬ (Тоже убираем iframe ради стабильности) -->
-  <section class="block" id="booking-section">
+  <!-- БЛОК 3: ЗАПИСЬ -->
+  <section class="block" id="booking-section" style="display: none;">
     <div class="section-header">
       <span class="step-num">3</span>
       <h2 class="section-title">Запись на занятие</h2>
     </div>
     <p style="margin-bottom: 20px; color: var(--gray-text); font-size: 0.95rem;">
-      После прохождения диагностики выберите удобное время. Мы обсудим детали индивидуально и подтвердим запись.
+      Согласие получено. Выберите удобное время — мы обсудим детали индивидуально и подтвердим запись.
     </p>
-    
-    <div class="consent-card" style="border-color:var(--sky);">
-      <h3 style="color:var(--sky); margin-bottom:10px;">Готовы начать?</h3>
-      <p style="font-size:0.95rem; color:#555;">Заполните анкету, чтобы забронировать слот.</p>
-      
-      <a href="https://forms.yandex.ru/u/6ac750871f1eb5b511148acd/" target="_blank" class="consent-btn" style="background:var(--sky); box-shadow:0 4px 12px rgba(159,216,255,.4);">
-        Записаться на урок ↗
-      </a>
-      
-      <p class="consent-note">
-        Заявка попадет мне на почту мгновенно.<br>
-        Я свяжусь с вами для подтверждения времени.
-      </p>
+
+    <div class="form-frame">
+      <iframe
+        class="yandex-form"
+        src="https://forms.yandex.ru/u/6ac750871f1eb5b511148acd/?iframe=1"
+        frameborder="0"
+        name="ya-form-6ac750871f1eb5b511148acd"
+        title="Форма записи на занятие"
+      ></iframe>
     </div>
+
+    <p class="consent-note" style="text-align:center;">
+      Заявка попадёт мне на почту мгновенно.<br>
+      Я свяжусь с вами для подтверждения времени.
+    </p>
   </section>
 
-  <!-- БЛОК 4: ОТЗЫВЫ -->
+  <!-- ОТЗЫВЫ -->
   <section class="block">
     <div class="section-header">
       <span class="step-num">★</span>
@@ -468,7 +526,7 @@
     </div>
   </section>
 
-  <!-- БЛОК 5: ВИДЕО -->
+  <!-- ВИДЕО -->
   <section class="block">
     <div class="section-header">
       <span class="step-num">▶</span>
@@ -483,16 +541,14 @@
     </div>
   </section>
 
-  <!-- БЛОК 6: КОНТАКТЫ -->
+  <!-- КОНТАКТЫ -->
   <section class="block">
     <div class="section-header">
       <span class="step-num">@</span>
       <h2 class="section-title">Сообщества и контакты</h2>
     </div>
-    
+
     <div class="contacts-flex">
-      
-      <!-- 1. ВКонтакте -->
       <div class="qr-item">
         <div class="qr-box">
           <img src="qr-vk.jpg" alt="QR VK" onerror="this.src='https://via.placeholder.com/80/f9f5f0/7a2e36?text=VK'">
@@ -501,7 +557,6 @@
         <a href="https://vk.ru/annfromcrimea" target="_blank" class="qr-link">Вступить ↗</a>
       </div>
 
-      <!-- 2. Chat MAX -->
       <div class="qr-item">
         <div class="qr-box">
           <img src="qr-max.jpg" alt="QR Max" onerror="this.src='https://via.placeholder.com/80/f9f5f0/7a2e36?text=MAX'">
@@ -510,7 +565,6 @@
         <a href="https://max.ru/join/_wpDnYzIiWKIr6vZUJze0fQuqPMuouIbaJwLQvt58zQ" target="_blank" class="qr-link">Перейти ↗</a>
       </div>
 
-      <!-- 3. Сайт студии -->
       <div class="qr-item">
         <a href="https://annfromcrimea.ru/" target="_blank" class="site-link-box">
           <span>САЙТ МОЕЙ<br>СТУДИИ</span>
@@ -518,11 +572,9 @@
         <span class="qr-label">annfromcrimea.ru</span>
         <a href="https://annfromcrimea.ru/" target="_blank" class="qr-link">Открыть ↗</a>
       </div>
-
     </div>
   </section>
 
-  <!-- ФУТЕР -->
   <footer>
     <details>
       <summary>Юридическая информация и Политика конфиденциальности</summary>
@@ -545,28 +597,21 @@
 </div>
 
 <script>
-/* ============================================================
-   СПИСОК ДИАГНОСТИК
-   ============================================================ */
 const BASE = "https://annfromcrimea-ctrl.github.io/personal/";
 
 const DIAG_LINKS = [
-  // --- АКТИВНЫЕ СЕЙЧАС ---
-  { key:"english", flag:"🇬", name:"English", desc:"Грамматика, лексика, понимание речи (A1–C1).", url:BASE+"english-test.html", status:"active" },
-  { key:"german", flag:"🇩", name:"Deutsch", desc:"Базовые конструкции, артикли, порядок слов.", url:BASE+"german-test.html", status:"active" },
+  { key:"english", flag:"🇬🇧", name:"English", desc:"Грамматика, лексика, понимание речи (A1–C1).", url:BASE+"english-test.html", status:"active" },
+  { key:"german", flag:"🇩🇪", name:"Deutsch", desc:"Базовые конструкции, артикли, порядок слов.", url:BASE+"german-test.html", status:"active" },
   { key:"french", flag:"🇫🇷", name:"Français", desc:"Спряжение глаголов, фонетика, бытовая лексика.", url:BASE+"french-test.html", status:"active" },
-  { key:"italian", flag:"🇮", name:"Italiano", desc:"Интонация, диалоги, понимание на слух.", url:BASE+"italian-test.html", status:"active" },
+  { key:"italian", flag:"🇮🇹", name:"Italiano", desc:"Интонация, диалоги, понимание на слух.", url:BASE+"italian-test.html", status:"active" },
   { key:"logo", flag:"🗣️", name:"Логопедия", desc:"Экспресс-скрининг речевого развития ребёнка 2–7 лет.", url:BASE+"logo.html", status:"active" },
   { key:"psycho", flag:"🧠", name:"Психология", desc:"Экспресс-скрининг эмоционального состояния (взрослые / дети).", url:BASE+"psycho-screening.html", status:"active" },
-
-  // --- СПРЯТАНЫ ---
-  { key:"arabic", flag:"🇸", name:"العربية", desc:"Арабский язык: алфавит, базовая лексика, произношение.", url:BASE+"arabic-test.html", status:"hidden" },
+  { key:"arabic", flag:"🇸🇦", name:"العربية", desc:"Арабский язык: алфавит, базовая лексика, произношение.", url:BASE+"arabic-test.html", status:"hidden" },
   { key:"chinese", flag:"🇨🇳", name:"中文", desc:"Китайский язык: иероглифика, тоны, HSK-база.", url:BASE+"chinese-test.html", status:"hidden" },
   { key:"norwegian", flag:"🇳🇴", name:"Norsk", desc:"Норвежский язык: фонетика, грамматика, разговорная база.", url:BASE+"norwegian-test.html", status:"hidden" },
-  { key:"spanish", flag:"🇪", name:"Español", desc:"Испанский язык: спряжение, лексика, понимание речи.", url:BASE+"spanish-test.html", status:"hidden" }
+  { key:"spanish", flag:"🇪🇸", name:"Español", desc:"Испанский язык: спряжение, лексика, понимание речи.", url:BASE+"spanish-test.html", status:"hidden" }
 ];
 
-/* ---- Рендер активных карточек ---- */
 (function renderDiag(){
   const grid = document.getElementById("diagGrid");
   if(!grid) return;
@@ -581,33 +626,67 @@ const DIAG_LINKS = [
       </div>`).join("");
 })();
 
-/* ---- Генерация фоновых букв ---- */
+(function initCodeGate(){
+  const SECRET = "anna2026";
+  const STORAGE_KEY = "anna_consent_verified";
+  const input = document.getElementById("secretCodeInput");
+  const btn = document.getElementById("verifyCodeBtn");
+  const msg = document.getElementById("codeMsg");
+  const booking = document.getElementById("booking-section");
+
+  function unlockBooking(silent) {
+    booking.style.display = "block";
+    if(!silent) {
+      msg.textContent = "✅ Согласие подтверждено. Форма записи открыта ниже.";
+      msg.className = "code-msg ok";
+    }
+    setTimeout(() => booking.scrollIntoView({ behavior: "smooth", block: "start" }), 200);
+  }
+
+  try {
+    if (localStorage.getItem(STORAGE_KEY) === "yes") unlockBooking(true);
+  } catch(e) {}
+
+  function verify() {
+    const val = (input.value || "").trim().toLowerCase();
+    if (val === SECRET) {
+      try { localStorage.setItem(STORAGE_KEY, "yes"); } catch(e) {}
+      unlockBooking(false);
+      input.disabled = true;
+      btn.disabled = true;
+      btn.textContent = "Подтверждено";
+      btn.style.background = "#2e7d32";
+    } else {
+      msg.textContent = "❌ Неверный код. Проверьте страницу «Спасибо» после отправки формы согласия.";
+      msg.className = "code-msg err";
+      input.focus();
+    }
+  }
+
+  btn.addEventListener("click", verify);
+  input.addEventListener("keydown", (e) => { if (e.key === "Enter") verify(); });
+})();
+
 (function generateBgLetters(){
   const container = document.getElementById('bgLetters');
   if(!container) return;
-  
   const chars = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
                  'А','Б','В','Г','Д','Е','Ё','Ж','З','И','Й','К','Л','М','Н','О','П','Р','С','Т','У','Ф','Х','Ц','Ч','Ш','Щ','Ъ','Ы','Ь','Э','Ю','Я',
                  '1','2','3','4','5','6','7','8','9','0','+','-','=','×','÷','%'];
-  
-  const count = 40; 
-  
-  for(let i=0; i<count; i++){
+  for(let i=0; i<40; i++){
     const span = document.createElement('span');
     span.className = 'bg-letter';
     span.textContent = chars[Math.floor(Math.random() * chars.length)];
-    
     span.style.left = Math.random() * 100 + '%';
     span.style.top = Math.random() * 100 + '%';
-    
-    const size = 20 + Math.random() * 40;
-    span.style.fontSize = size + 'px';
+    span.style.fontSize = (20 + Math.random() * 40) + 'px';
     span.style.transform = `rotate(${Math.random() * 60 - 30}deg)`;
-    
     container.appendChild(span);
   }
 })();
 </script>
+
+<script src="https://forms.yandex.ru/_static/embed.js"></script>
 
 </body>
 </html>
