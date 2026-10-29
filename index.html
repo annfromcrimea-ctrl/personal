@@ -19,8 +19,8 @@
     --graphite: #2d2d2d;
     --gray-text: #5f5f5f;
     --gold-accent: #cfa968;
-    --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
-    --shadow-md: 0 8px 24px rgba(0,0,0,0.12);
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.15);
+    --shadow-md: 0 8px 24px rgba(0,0,0,0.25);
     --radius: 12px;
     --font-sans: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
@@ -37,16 +37,16 @@
     overflow-x: hidden;
   }
 
-  /* === СВЕТЛЫЙ ТЁПЛЫЙ ФОН === */
+  /* === ТЁМНЫЙ НАСЫЩЕННЫЙ ФОН === */
   body::before {
     content: "";
     position: fixed; inset: 0; z-index: -3; pointer-events: none;
     background:
-      radial-gradient(ellipse at 15% 10%, rgba(168, 90, 99, 0.12) 0%, transparent 50%),
-      radial-gradient(ellipse at 85% 15%, rgba(207, 169, 104, 0.15) 0%, transparent 45%),
-      radial-gradient(ellipse at 80% 85%, rgba(122, 46, 54, 0.08) 0%, transparent 55%),
-      radial-gradient(ellipse at 10% 90%, rgba(63, 107, 74, 0.08) 0%, transparent 45%),
-      linear-gradient(150deg, #fdf8f4 0%, #f7ede2 40%, #f2e5d8 100%);
+      radial-gradient(ellipse at 15% 10%, rgba(168, 90, 99, 0.22) 0%, transparent 50%),
+      radial-gradient(ellipse at 85% 15%, rgba(207, 169, 104, 0.12) 0%, transparent 45%),
+      radial-gradient(ellipse at 80% 85%, rgba(122, 46, 54, 0.25) 0%, transparent 55%),
+      radial-gradient(ellipse at 10% 90%, rgba(63, 107, 74, 0.12) 0%, transparent 45%),
+      linear-gradient(150deg, #3a171b 0%, #2b1013 40%, #1a0a0c 100%);
   }
 
   body::after {
@@ -54,20 +54,20 @@
     position: fixed; inset: 0; z-index: -2; pointer-events: none;
     background-image: repeating-linear-gradient(
       45deg,
-      rgba(122, 46, 54, 0.015) 0px,
-      rgba(122, 46, 54, 0.015) 1px,
+      rgba(255, 255, 255, 0.015) 0px,
+      rgba(255, 255, 255, 0.015) 1px,
       transparent 1px,
       transparent 6px
     );
     opacity: 0.8;
   }
 
-  /* === КЛЕТОЧКИ (Хорошо видны на светлом фоне) === */
+  /* === КЛЕТОЧКИ (Золотистые, хорошо видны на тёмном) === */
   .grid-overlay {
     position: fixed; inset: 0; z-index: -1; pointer-events: none;
     background-image:
-      linear-gradient(rgba(122, 46, 54, 0.09) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(122, 46, 54, 0.09) 1px, transparent 1px);
+      linear-gradient(rgba(207, 169, 104, 0.12) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(207, 169, 104, 0.12) 1px, transparent 1px);
     background-size: 100% 30px, 60px 100%;
     background-position: 0 0, 40px 0;
     -webkit-mask-image: radial-gradient(ellipse at center, #000 40%, transparent 90%);
@@ -86,12 +86,12 @@
     animation: floaty 12s ease-in-out infinite;
   }
   .decor-item.leaf { color: var(--leaf); opacity: 0.25; }
-  .decor-item.school { color: var(--burgundy); opacity: 0.1; }
+  .decor-item.school { color: var(--gold-accent); opacity: 0.15; }
   .decor-item.letter {
     font-family: var(--font-sans);
     font-weight: 700;
-    color: var(--burgundy);
-    opacity: 0.05;
+    color: var(--white);
+    opacity: 0.04;
   }
   @keyframes floaty {
     0%, 100% { transform: translateY(0) rotate(0deg); }
@@ -100,20 +100,20 @@
 
   .container { max-width: 1000px; margin: 0 auto; padding: 12px 14px; position: relative; z-index: 1; }
 
-  /* === ШАПКА (Стекло) === */
+  /* === ШАПКА (ПК: Без обрезки, высота по тексту) === */
   header.hero-section {
     display: flex; 
     align-items: stretch; 
-    background: rgba(255, 255, 255, 0.85); /* Полупрозрачная подложка */
-    backdrop-filter: blur(10px); /* Эффект стекла */
+    background: rgba(255, 255, 255, 0.92); /* Легкое стекло */
+    backdrop-filter: blur(10px); 
     -webkit-backdrop-filter: blur(10px);
     border-radius: var(--radius);
     box-shadow: var(--shadow-md); 
     overflow: hidden;
     margin-bottom: 12px; 
     position: relative;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    height: 360px; /* Фиксируем высоту на ПК */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    /* Убрали height: 360px, теперь высота зависит от текста */
   }
   header.hero-section::after {
     content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
@@ -122,24 +122,23 @@
   }
 
   .hero-photo-wrapper { 
-    width: 320px; 
+    width: 300px; 
     flex-shrink: 0; 
     background: #f3e6da; 
     position: relative;
+    overflow: hidden;
   }
   .hero-photo-img { 
     width: 100%; 
     height: 100%; 
     object-fit: cover; 
-    object-position: center top;
+    object-position: center 15%; /* Фокус на лице */
     display: block; 
-    position: absolute;
-    top: 0; left: 0;
   }
 
   .hero-content { 
     flex-grow: 1; 
-    padding: 32px 36px; 
+    padding: 36px 40px; 
     display: flex; 
     flex-direction: column; 
     justify-content: center; 
@@ -150,7 +149,7 @@
 
   .trust-badges { display: flex; gap: 8px; flex-wrap: wrap; }
   .badge {
-    background: rgba(255, 255, 255, 0.7); /* Полупрозрачные бейджи */
+    background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(4px);
     border: 1px solid rgba(122, 46, 54, 0.15);
     color: var(--burgundy);
@@ -161,7 +160,6 @@
   .badge:nth-child(2) { border-color: rgba(122, 46, 54, 0.3); color: var(--burgundy-dark); }
   .badge:nth-child(3) { border-color: rgba(63, 107, 74, 0.3); color: var(--forest); }
 
-
   section.block {
     background: rgba(255, 255, 255, 0.95);
     border-radius: var(--radius);
@@ -169,12 +167,12 @@
     margin-bottom: 10px;
     box-shadow: var(--shadow-md);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    border: 1px solid rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     position: relative;
   }
   section.block:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 28px rgba(122, 46, 54, 0.15);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
   }
 
   .section-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 2px solid #f6ece1; }
@@ -390,9 +388,9 @@
 
   footer {
     margin-top: 16px; padding: 16px 0 8px; text-align: center;
-    font-size: 0.78rem; color: var(--gray-text); border-top: 1px solid rgba(122, 46, 54, 0.15);
+    font-size: 0.78rem; color: rgba(255, 255, 255, 0.6); border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
-  details summary { cursor: pointer; font-weight: 700; color: var(--burgundy); margin-bottom: 8px; list-style: none; }
+  details summary { cursor: pointer; font-weight: 700; color: #fff; margin-bottom: 8px; list-style: none; }
   details summary::after { content: " ▾"; font-size: 0.8em; }
   .legal-docs {
     background: white; padding: 14px; border-radius: 8px;
@@ -403,17 +401,12 @@
 
   /* === МОБИЛЬНАЯ АДАПТАЦИЯ === */
   @media (max-width: 768px) {
-    /* Шапка становится колонкой */
     header.hero-section { 
       flex-direction: column; 
-      height: auto; /* На мобильном высота авто */
-      background: var(--white); /* На мобильном делаем сплошной фон для читаемости */
-      backdrop-filter: none;
     }
     .hero-photo-wrapper { 
       width: 100%; 
-      height: 320px; /* Фиксированная высота фото на мобильном */
-      position: relative;
+      height: 320px; 
     }
     .hero-content { 
       padding: 20px 18px; 
@@ -424,7 +417,6 @@
     .grid-overlay { display: none; }
     iframe.yandex-form { height: 460px; }
     
-    /* Контакты остаются в 3 колонки, но ужимаются */
     .contacts-flex { gap: 8px; }
     .qr-item { max-width: 100%; }
     .qr-box { padding: 4px; border-radius: 6px; }
@@ -444,7 +436,6 @@
 
 <div class="container">
 
-  <!-- ШАПКА (На ПК - стекло, на мобильном - классика) -->
   <header class="hero-section">
     <div class="hero-photo-wrapper">
       <img src="anna.jpg" alt="Анна Драчёва" class="hero-photo-img">
