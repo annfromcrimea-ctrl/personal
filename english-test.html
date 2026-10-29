@@ -418,29 +418,24 @@ const $=id=>document.getElementById(id);
 const SR=window.SpeechRecognition||window.webkitSpeechRecognition||null;
 
 /* ===== Параметры теста ===== */
-// По 2 вопроса на каждый уровень A1..C1 => 10 на навык => 50 всего
+// Строгая последовательность: 2 вопроса на A1, 2 на A2, 2 на B1, 2 на B2, 2 на C1 = 10 на навык
 const LEVELS_FOR_SKILL = [1,1, 2,2, 3,3, 4,4, 5,5];
-const PER_SKILL = LEVELS_FOR_SKILL.length; // 10
+const PER_SKILL = LEVELS_FOR_SKILL.length;
 
 /* ===== БАНК ГРАММАТИКИ (по 3 на уровень A1..C1) ===== */
 const BANK=[
-  // A1
   {lvl:1,skill:'g',q:'I ___ a student.',o:['am','is','are','be'],a:0,e:'С местоимением I всегда используется форма am.'},
   {lvl:1,skill:'g',q:'She ___ a new car.',o:['has','have','is','are'],a:0,e:'She — 3-е лицо ед.ч., поэтому используется has.'},
   {lvl:1,skill:'v',q:'What is the opposite of “big”?',o:['small','tall','long','loud'],a:0,e:'Big — «большой», противоположное — small «маленький».'},
-  // A2
   {lvl:2,skill:'g',q:'Yesterday I ___ to the park.',o:['went','go','gone','goes'],a:0,e:'Past Simple от go — went.'},
   {lvl:2,skill:'g',q:'They ___ playing football now.',o:['are','is','am','be'],a:0,e:'Present Continuous для they требует are.'},
   {lvl:2,skill:'v',q:'I need to ___ some milk from the shop.',o:['buy','bought','buying','buys'],a:0,e:'После need to используется инфинитив без to (buy).'},
-  // B1
   {lvl:3,skill:'g',q:'If it rains tomorrow, we ___ at home.',o:['will stay','stay','would stay','stayed'],a:0,e:'Первый тип условных: If + Present, will + глагол.'},
   {lvl:3,skill:'g',q:'I have ___ this movie three times.',o:['seen','saw','see','seeing'],a:0,e:'Present Perfect требует третьей формы глагола (seen).'},
   {lvl:3,skill:'v',q:'The meeting was ___ because of the storm.',o:['cancelled','cancelleding','cancel','cancels'],a:0,e:'Пассивный залог: was + V3 (cancelled).'},
-  // B2
   {lvl:4,skill:'g',q:'By the time we arrived, the film ___.',o:['had started','started','has started','starts'],a:0,e:'Past Perfect — действие раньше другого в прошлом.'},
   {lvl:4,skill:'g',q:'I wish I ___ more free time.',o:['had','have','has','having'],a:0,e:'I wish + Past Simple для нереальных желаний в настоящем.'},
   {lvl:4,skill:'v',q:'He is ___ to be the best doctor in town.',o:['rumoured','rumour','rumours','rumouring'],a:0,e:'Пассивная конструкция: is rumoured (по слухам).'},
-  // C1
   {lvl:5,skill:'g',q:'___ had I entered the room when the phone rang.',o:['Hardly','No sooner','As soon as','The moment'],a:0,e:'Hardly … when. No sooner требовала бы than.'},
   {lvl:5,skill:'g',q:'Not only ___ late, but he also forgot the documents.',o:['did he arrive','he arrived','arrived he','he did arrive'],a:0,e:'Инверсия после отрицательных наречий в начале предложения.'},
   {lvl:5,skill:'v',q:'The project was ___ due to lack of funding.',o:['abandoned','abandon','abandoning','abandons'],a:0,e:'Пассивный залог: was + V3 (abandoned).'}
@@ -648,8 +643,12 @@ function startQuiz(){
   const kids=document.body.classList.contains('mode-kids');
   const skills=ORDER.filter(k=>selSkills[k]);
 
+  // asked по уровням: asked[k][lvl] = Set
+  const asked={};
+  skills.forEach(k=>{ asked[k]={1:new Set(),2:new Set(),3:new Set(),4:new Set(),5:new Set(),6:new Set()}; });
+
   S={skills,secIdx:0,per:PER_SKILL,pools:buildPools(kids),
-     asked:{g:new Set(),l:new Set(),r:new Set(),w:new Set(),s:new Set()},
+     asked,
      rating:{g:620,l:620,r:620,w:620,s:620},
      sk2:{g:{c:0,t:0},l:{c:0,t:0},r:{c:0,t:0},w:{c:0,t:0},s:{c:0,t:0}},
      ans:[],score:0,streak:0,best:0,qIdx:0,secDone:0,
@@ -683,23 +682,18 @@ function beginSection(){
   S.secDone=0;renderQuestion();
 }
 
-/* Линейный выбор: уровень по позиции в секции, внутри уровня — первый неиспользованный */
+/* ===== СТРОГО ПО УРОВНЮ ===== */
 function pickQuestion(k){
-  const wantLvl = LEVELS_FOR_SKILL[S.secDone] || 3;
-  let pool = S.pools[k][wantLvl].filter(q=>!S.asked[k].has(q));
-  if(!pool.length){
-    // на всякий случай — если банк исчерпан на этом уровне
-    for(let d=1; d<=5 && !pool.length; d++){
-      [wantLvl-d, wantLvl+d].forEach(l=>{
-        if(l>=1 && l<=6) pool = pool.concat(S.pools[k][l].filter(q=>!S.asked[k].has(q)));
-      });
-    }
+  const wantLvl = LEVELS_FOR_SKILL[S.secDone];
+  const pool = (S.pools[k][wantLvl] || []);
+  let avail = pool.filter(q => !S.asked[k][wantLvl].has(q));
+  if(!avail.length){
+    S.asked[k][wantLvl].clear();
+    avail = pool.slice();
   }
-  if(!pool.length){
-    S.asked[k].clear();
-    pool = S.pools[k][wantLvl] || S.pools[k][3];
-  }
-  return pool[0];
+  const q = avail[0];
+  S.asked[k][wantLvl].add(q);
+  return q;
 }
 
 /* Стабильный порядок вариантов: один раз на вопрос */
@@ -725,12 +719,14 @@ function toggleOptsLock(disabled){
 }
 
 function renderQuestion(){
-  const k=S.skill,q=pickQuestion(k);
+  const k=S.skill;
+  const wantLvl = LEVELS_FOR_SKILL[S.secDone];
+  const q = pickQuestion(k);
   S.answered=false;S.played=false;S.plays=0;S.current=q;S.order=null;
-  S.asked[k].add(q);S.speakAttempts=0;S.bestSpeak=0;
+  S.speakAttempts=0;S.bestSpeak=0;
   $('feedback').hidden=true;
   $('tag-skill').textContent=SK[k].icon+' '+SK[k].short;
-  $('tag-lvl').textContent='Уровень '+LVLNAME[q.lvl];
+  $('tag-lvl').textContent='Уровень '+LVLNAME[wantLvl];
   const ex=$('q-extra'),qa=$('q-answer');
   ex.innerHTML='';$('qtext').textContent='';qa.innerHTML='';
 
@@ -780,10 +776,9 @@ function renderQuestion(){
   $('qcount').textContent=(S.qIdx+1)+' / '+S.totalQ;
   $('pbar').style.width=(S.qIdx/S.totalQ*100)+'%';
 
-  // подсветка уровня текущего вопроса
-  document.querySelectorAll('.lvlbar b').forEach(b=>b.classList.toggle('hot',+b.dataset.l===q.lvl));
+  document.querySelectorAll('.lvlbar b').forEach(b=>b.classList.toggle('hot',+b.dataset.l===wantLvl));
 
-  updateHUD();
+  updateHUD(wantLvl);
   const card=$('qcard');card.style.animation='none';void card.offsetWidth;card.style.animation='';
   window.scrollTo({top:0,behavior:'smooth'});
 }
@@ -851,7 +846,6 @@ function startMic(){
   const btn=$('micbtn');btn.classList.add('rec');btn.textContent='🔴';
   $('micstat').textContent='Слушаю… говорите!';
 
-  // Watchdog: если браузер завис на диалоге разрешения — сбрасываем UI через 12 с
   if(recogWatchdog) clearTimeout(recogWatchdog);
   recogWatchdog = setTimeout(()=>{
     console.warn('Mic watchdog fired');
@@ -874,12 +868,11 @@ function startMic(){
     if(err==='no-speech'){
       $('micstat').textContent='Не расслышал 🙉 Нажмите на микрофон ещё раз';
     } else if(err==='not-allowed' || err==='service-not-allowed' || err==='security'){
-      // Не ждём watchdog — сразу даём самооценку
       $('micstat').textContent='Доступ к микрофону запрещён — оцените себя сами:';
       showSelfEvalButtons();
       const b=$('micbtn'); if(b) b.hidden=true;
     } else if(err==='aborted'){
-      // мы сами прервали — тихо игнорируем
+      // тихо игнорируем
     } else {
       $('micstat').textContent='Ошибка распознавания. Оцените себя или попробуйте ещё раз:';
       showSelfEvalButtons();
@@ -962,7 +955,6 @@ function applyResult(score,correctText,given){
   S.answered=true;
   const k=S.skill,q=S.current,kids=document.body.classList.contains('mode-kids');
   const ok=score>=0.6;
-  // рейтинг оставляем для итогового уровня (не влияет на выбор следующего вопроса)
   const dQ=150+(q.lvl-1)*200;
   const exp=1/(1+Math.pow(10,(dQ-S.rating[k])/400));
   S.rating[k]+=120*(score-exp);
@@ -1000,10 +992,9 @@ function next(){
   else finish();
 }
 
-function updateHUD(){
-  // чип показывает уровень ТЕКУЩЕГО вопроса
-  const shownLvl = S.current ? LVLNAME[S.current.lvl] : '—';
-  $('est').textContent = SK[S.skill].short + ': ' + shownLvl;
+function updateHUD(currentLvl){
+  const shownLvl = currentLvl || (S.current ? S.current.lvl : LEVELS_FOR_SKILL[S.secDone] || 3);
+  $('est').textContent = SK[S.skill].short + ': ' + LVLNAME[shownLvl];
   $('score').textContent='Очки: '+S.score;
   const st=$('streak');st.hidden=S.streak<2;if(!st.hidden)st.textContent='🔥 серия '+S.streak;
   document.querySelectorAll('.snav').forEach(el=>{
