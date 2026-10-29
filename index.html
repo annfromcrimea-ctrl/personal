@@ -4,373 +4,338 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Анна Драчёва — Образование и развитие</title>
+
+<!-- === FAVICON (буква А в квадрате) === -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%237a2e36'/%3E%3Ctext x='50%25' y='58%25' font-family='Georgia, serif' font-size='42' font-weight='bold' fill='%23fcfaf8' text-anchor='middle' dominant-baseline='middle'%3E%D0%90%3C/text%3E%3C/svg%3E">
+
 <style>
-  /* === ПАЛИТРА ПОД ФОТО (Burgundy & Cream) === */
+  /* === ПАЛИТРА: BURGUNDY NOTEBOOK === */
   :root {
-    --burgundy: #7a2e36;       /* Основной акцент (как твой свитер) */
-    --burgundy-dark: #5d1f26;  /* Темный оттенок для ховера */
-    --cream: #fcfaf8;          /* Теплый фон страницы */
-    --white: #ffffff;          /* Белые карточки */
-    --graphite: #2d2d2d;       /* Текст (не чисто черный, мягче) */
-    --gray-text: #666666;      /* Второстепенный текст */
-    --gold-accent: #cfa968;    /* Золото (как твои украшения) - для мелких деталей */
+    --burgundy: #7a2e36;       /* Основной акцент */
+    --burgundy-dark: #5d1f26;  /* Ховер / Темный */
+    --paper-bg: #fdfbf7;       /* Цвет бумаги (теплый белый) */
+    --grid-line: rgba(122, 46, 54, 0.08); /* Тонкие линии сетки (бордовые, но бледные) */
+    --margin-line: rgba(122, 46, 54, 0.15); /* Поле слева */
+    
+    --white: #ffffff;
+    --graphite: #2d2d2d;
+    --gray-text: #666666;
+    --gold-accent: #cfa968;
     
     --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
     --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
     --radius: 12px;
     
-    --font-serif: 'Playfair Display', Georgia, serif; /* Заголовки */
-    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; /* Текст */
+    --font-serif: 'Playfair Display', Georgia, serif;
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
     font-family: var(--font-sans);
-    background-color: var(--cream);
+    background-color: var(--paper-bg);
     color: var(--graphite);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    position: relative;
+    overflow-x: hidden;
   }
 
-  .container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 20px;
+  /* === ФОНОВЫЙ ПАТТЕРН (Тетрадь + Буквы) === */
+  
+  /* 1. Сетка тетради (клетка или линовка) */
+  body::before {
+    content: "";
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -2; pointer-events: none;
+    /* Создаем эффект линованной бумаги с красным полем слева */
+    background-image: 
+      linear-gradient(var(--grid-line) 1px, transparent 1px), /* Горизонтальные линии */
+      linear-gradient(90deg, var(--margin-line) 1px, transparent 1px); /* Вертикальное поле */
+    background-size: 100% 30px, 60px 100%; /* Шаг линий 30px, поле на 60px */
+    background-position: 0 0, 40px 0; /* Смещение поля влево */
+    opacity: 0.6;
   }
+
+  /* 2. Декоративные буквы на фоне (водяные знаки) */
+  .bg-letters-container {
+    position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    overflow: hidden; opacity: 0.04; /* Очень бледно, чтобы не мешать чтению */
+  }
+  .bg-letter {
+    position: absolute;
+    font-family: var(--font-serif);
+    font-weight: bold;
+    color: var(--burgundy);
+    user-select: none;
+  }
+
+  .container { max-width: 1000px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
 
   /* === ШАПКА С БОЛЬШИМ ФОТО === */
   header.hero-section {
-    display: flex;
-    align-items: stretch; /* Растягиваем по высоте контейнера */
-    gap: 40px;
-    background: var(--white);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow-md);
-    overflow: hidden; /* Чтобы углы фото были скруглены рамкой */
-    margin-bottom: 40px;
-    position: relative;
+    display: flex; align-items: stretch; gap: 40px;
+    background: var(--white); border-radius: var(--radius);
+    box-shadow: var(--shadow-md); overflow: hidden;
+    margin-bottom: 40px; position: relative;
+    border: 1px solid rgba(122, 46, 54, 0.1); /* Легкая рамка цвета бордо */
   }
-
-  /* Левая часть: Фото */
-  .hero-photo-wrapper {
-    width: 380px;
-    min-height: 480px;
-    flex-shrink: 0;
-    position: relative;
-    background: #eee;
-  }
-  
-  .hero-photo-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Обрезает края, сохраняя пропорции лица */
-    object-position: center top; /* Фокус на лице */
-    display: block;
-  }
-
-  /* Правая часть: Текст */
-  .hero-content {
-    flex-grow: 1;
-    padding: 50px 50px 50px 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .hero-name {
-    font-family: var(--font-serif);
-    font-size: 2.8rem;
-    color: var(--burgundy);
-    margin-bottom: 10px;
-    line-height: 1.1;
-  }
-
-  .hero-role {
-    font-size: 1.1rem;
-    color: var(--gray-text);
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-bottom: 25px;
-    font-weight: 500;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 15px;
-    display: inline-block;
-  }
-
-  .hero-desc {
-    font-size: 1.05rem;
-    color: var(--graphite);
-    margin-bottom: 30px;
-    max-width: 500px;
-  }
-
-  .trust-badges {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-  }
-
-  .badge {
-    background: #f9f5f0;
-    border: 1px solid #e8dcc8;
-    color: #8a6d3b; /* Приглушенное золото */
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  /* === ОБЩИЕ СТИЛИ СЕКЦИЙ === */
-  section.block {
-    background: var(--white);
-    border-radius: var(--radius);
-    padding: 35px;
-    margin-bottom: 30px;
-    box-shadow: var(--shadow-sm);
-    transition: transform 0.2s ease;
-  }
-  
-  section.block:hover {
-    box-shadow: var(--shadow-md);
-  }
-
-  .section-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 25px;
-    padding-bottom: 15px;
-    border-bottom: 2px solid #f5f5f5;
-  }
-
-  .section-title {
-    font-family: var(--font-serif);
-    font-size: 1.6rem;
-    color: var(--graphite);
-  }
-
-  .step-num {
+  /* Акцентная полоса сверху шапки */
+  header.hero-section::after {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
     background: var(--burgundy);
-    color: white;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    font-size: 1rem;
-    font-family: var(--font-sans);
   }
 
-  /* === ФОРМЫ === */
-  .form-frame {
-    background: #fafafa;
-    border: 1px dashed #ddd;
-    border-radius: 8px;
-    padding: 10px;
-    min-height: 500px;
-    display: flex;
-    justify-content: center;
+  .hero-photo-wrapper { width: 380px; min-height: 480px; flex-shrink: 0; background: #eee; }
+  .hero-photo-img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+  
+  .hero-content { flex-grow: 1; padding: 50px 50px 50px 0; display: flex; flex-direction: column; justify-content: center; }
+  .hero-name { font-family: var(--font-serif); font-size: 2.8rem; color: var(--burgundy); margin-bottom: 10px; line-height: 1.1; }
+  .hero-role { font-size: 1.1rem; color: var(--gray-text); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 25px; font-weight: 500; border-bottom: 1px solid #eee; padding-bottom: 15px; display: inline-block; }
+  .hero-desc { font-size: 1.05rem; color: var(--graphite); margin-bottom: 30px; max-width: 500px; }
+  
+  .trust-badges { display: flex; gap: 15px; flex-wrap: wrap; }
+  .badge { 
+    background: #fff5f6; /* Светло-бордовый фон бейджа */
+    border: 1px solid #ffdada; 
+    color: var(--burgundy); 
+    padding: 6px 14px; border-radius: 20px; 
+    font-size: 0.85rem; font-weight: 600; 
+  }
+
+  /* === ОБЩИЕ БЛОКИ === */
+  section.block { 
+    background: var(--white); 
+    border-radius: var(--radius); 
+    padding: 35px; 
+    margin-bottom: 30px; 
+    box-shadow: var(--shadow-sm); 
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid rgba(122, 46, 54, 0.05);
+    position: relative;
+  }
+  section.block:hover { 
+    box-shadow: var(--shadow-md); 
+    transform: translateY(-2px);
+    border-color: rgba(122, 46, 54, 0.15);
   }
   
-  iframe.yandex-form {
-    width: 100%;
-    height: 600px;
-    border: none;
+  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid #f5f5f5; }
+  .section-title { font-family: var(--font-serif); font-size: 1.6rem; color: var(--graphite); }
+  
+  /* Номер шага в кружке (стиль учебника) */
+  .step-num { 
+    background: var(--burgundy); color: white; 
+    width: 32px; height: 32px; border-radius: 50%; 
+    display: flex; align-items: center; justify-content: center; 
+    font-weight: bold; font-size: 1rem; 
+    box-shadow: 0 2px 5px rgba(122, 46, 54, 0.3);
   }
 
-  /* === ДИАГНОСТИКА (Сетка) === */
-  .diag-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 20px;
+  /* === ФОРМЫ ЯНДЕКСА === */
+  .form-frame { 
+    background: #fafafa; 
+    border: 1px dashed #ddd; 
+    border-radius: 8px; 
+    padding: 10px; 
+    min-height: 500px; 
+    display: flex; justify-content: center; 
   }
+  iframe.yandex-form { width: 100%; height: 600px; border: none; }
 
-  .diag-card {
-    border: 1px solid #eee;
-    border-radius: 10px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    transition: all 0.2s;
-    background: white;
+  /* === ДИАГНОСТИКА (сетка карточек) === */
+  .diag-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+  .diag-card { 
+    border: 1px solid #eee; 
+    border-radius: 10px; 
+    padding: 20px; 
+    display: flex; flex-direction: column; 
+    height: 100%; 
+    transition: all 0.2s; 
+    background: white; 
+    position: relative;
+    overflow: hidden;
   }
-
-  .diag-card:hover {
-    border-color: var(--burgundy);
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(122, 46, 54, 0.1);
+  /* Эффект "закладки" при ховере */
+  .diag-card::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+    background: var(--burgundy); transform: scaleY(0); transition: transform 0.2s;
   }
+  .diag-card:hover { 
+    border-color: var(--burgundy); 
+    transform: translateY(-3px); 
+    box-shadow: 0 10px 20px rgba(122, 46, 54, 0.1); 
+  }
+  .diag-card:hover::before { transform: scaleY(1); }
 
   .lang-flag { font-size: 1.8rem; margin-bottom: 10px; }
   .lang-name { font-weight: 700; font-size: 1.1rem; margin-bottom: 5px; color: var(--graphite); }
   .lang-desc { font-size: 0.9rem; color: var(--gray-text); flex-grow: 1; margin-bottom: 15px; }
   
-  .btn-action {
-    display: block;
-    width: 100%;
-    text-align: center;
-    background: var(--burgundy);
-    color: white;
-    padding: 10px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.9rem;
-    transition: background 0.2s;
+  .btn-action { 
+    display: block; width: 100%; text-align: center; 
+    background: var(--burgundy); color: white; 
+    padding: 10px; border-radius: 6px; 
+    text-decoration: none; font-weight: 600; font-size: 0.9rem; 
+    transition: background 0.2s; 
   }
   .btn-action:hover { background: var(--burgundy-dark); }
 
-  /* === ЛЕНТЫ (Отзывы / Видео) === */
-  .scroll-container {
-    overflow-x: auto;
-    padding-bottom: 15px;
-    scrollbar-width: thin;
-    scrollbar-color: #ddd transparent;
-  }
+  /* === ЛЕНТЫ (отзывы / видео) === */
+  .scroll-container { overflow-x: auto; padding-bottom: 15px; scrollbar-width: thin; scrollbar-color: #ddd transparent; }
   .scroll-container::-webkit-scrollbar { height: 6px; }
   .scroll-container::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
-
-  .items-row {
-    display: flex;
-    gap: 20px;
-    width: max-content;
+  .items-row { display: flex; gap: 20px; width: max-content; }
+  .item-card { 
+    width: 300px; background: #fff; border: 1px solid #eee; 
+    border-radius: 10px; padding: 20px; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02); 
   }
-
-  .item-card {
-    width: 300px;
-    background: #fff;
-    border: 1px solid #eee;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-  }
-
-  /* Отзывы специфика */
+  
+  /* Отзывы */
   .rev-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
   .rev-avatar { 
     width: 40px; height: 40px; border-radius: 50%; 
-    background: #f0f0f0; color: var(--burgundy); 
-    display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.1rem;
+    background: #fff5f6; color: var(--burgundy); 
+    display: flex; align-items: center; justify-content: center; 
+    font-weight: bold; font-size: 1.1rem; border: 1px solid #ffdada;
   }
   .rev-info { flex-grow: 1; }
   .rev-name { font-weight: 600; font-size: 0.95rem; display: block; }
   .rev-stars { color: var(--gold-accent); font-size: 0.8rem; }
   .rev-text { font-size: 0.9rem; color: #555; font-style: italic; line-height: 1.5; }
 
-  /* Видео специфика */
-  .vid-preview {
-    aspect-ratio: 16/9;
-    background: #222;
-    border-radius: 6px;
-    margin-bottom: 12px;
-    display: flex; align-items: center; justify-content: center;
-    color: white; font-size: 1.5rem;
-    position: relative;
+  /* Видео */
+  .vid-preview { 
+    aspect-ratio: 16/9; background: #222; border-radius: 6px; 
+    margin-bottom: 12px; display: flex; align-items: center; justify-content: center; 
+    color: white; font-size: 1.5rem; position: relative; overflow: hidden;
   }
   .play-icon { opacity: 0.8; transition: 0.2s; cursor: pointer; }
   .vid-preview:hover .play-icon { opacity: 1; transform: scale(1.1); }
   .vid-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 4px; }
   .vid-meta { font-size: 0.8rem; color: #888; }
 
-  /* === КОНТАКТЫ / QR === */
-  .contacts-flex {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
-    margin-top: 10px;
+  /* === КОНТАКТЫ / QR (ИСПРАВЛЕНО: одна линия, компактно) === */
+  .contacts-flex { 
+    display: flex; 
+    justify-content: center; 
+    align-items: flex-start; /* Выравнивание по верхнему краю, если подписи разной высоты */
+    gap: 20px; 
+    flex-wrap: nowrap; /* Жестко в одну строку на ПК */
+    margin-top: 10px; 
   }
-  .qr-item { text-align: center; }
-  .qr-box {
-    width: 100px; height: 100px;
-    border: 1px solid #eee;
-    border-radius: 8px;
-    padding: 5px;
-    background: white;
-    margin-bottom: 8px;
+  .qr-item { 
+    text-align: center; 
+    width: 110px; /* Фиксированная ширина для всех элементов */
+    flex-shrink: 0; /* Не сжиматься */
+  }
+  .qr-box { 
+    width: 110px; height: 110px; 
+    border: 1px solid #eee; 
+    border-radius: 8px; 
+    padding: 4px; background: white; 
+    margin-bottom: 8px; 
+    box-shadow: var(--shadow-sm); 
+    display: flex; align-items: center; justify-content: center;
+  }
+  .qr-box img { 
+    width: 100%; height: 100%; 
+    object-fit: contain; 
+  }
+  /* Специальный стиль для текстового блока сайта (без картинки) */
+  .site-link-box {
+    width: 110px; height: 110px; 
+    border: 2px solid var(--burgundy); 
+    border-radius: 8px; 
+    background: #fff5f6; 
+    margin-bottom: 8px; 
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-decoration: none;
+    transition: all 0.2s;
     box-shadow: var(--shadow-sm);
   }
-  .qr-label { font-weight: 600; font-size: 0.9rem; display: block; margin-bottom: 2px; }
-  .qr-link { font-size: 0.8rem; color: var(--burgundy); text-decoration: none; }
+  .site-link-box:hover {
+    background: var(--burgundy);
+    color: white !important;
+    transform: translateY(-2px);
+  }
+  .site-link-box span {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--burgundy);
+    line-height: 1.2;
+    text-align: center;
+    padding: 0 5px;
+  }
+  .site-link-box:hover span { color: white; }
+  
+  .qr-label { font-weight: 600; font-size: 0.8rem; display: block; margin-bottom: 2px; color: var(--graphite); }
+  .qr-link { font-size: 0.75rem; color: var(--burgundy); text-decoration: none; }
   .qr-link:hover { text-decoration: underline; }
 
+  /* Адаптив для контактов: на мобилке разрешаем перенос, но сохраняем компактность */
+  @media (max-width: 600px) {
+    .contacts-flex { 
+      flex-wrap: wrap; 
+      gap: 15px; 
+    }
+    .qr-item, .qr-box, .site-link-box {
+      width: calc(50% - 10px); /* Два элемента в ряд на телефоне */
+      max-width: 140px;
+    }
+    .qr-box, .site-link-box { height: auto; aspect-ratio: 1/1; }
+  }
+
   /* === ФУТЕР === */
-  footer {
-    margin-top: 50px;
-    padding: 30px 0;
-    text-align: center;
-    font-size: 0.85rem;
-    color: #888;
-    border-top: 1px solid #eaeaea;
+  footer { 
+    margin-top: 50px; padding: 30px 0; text-align: center; 
+    font-size: 0.85rem; color: #888; border-top: 1px solid #eaeaea; 
   }
-  details summary {
-    cursor: pointer;
-    font-weight: 600;
-    color: var(--graphite);
-    margin-bottom: 10px;
-    list-style: none;
-  }
+  details summary { cursor: pointer; font-weight: 600; color: var(--graphite); margin-bottom: 10px; list-style: none; }
   details summary::after { content: " ▾"; font-size: 0.8em; }
-  .legal-docs {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    text-align: left;
-    margin-top: 10px;
-    border: 1px solid #eee;
-    font-size: 0.85rem;
-    color: #555;
+  .legal-docs { 
+    background: white; padding: 20px; border-radius: 8px; 
+    text-align: left; margin-top: 10px; border: 1px solid #eee; 
+    font-size: 0.85rem; color: #555; 
   }
   .legal-links a { color: var(--burgundy); text-decoration: none; margin-right: 15px; font-weight: 500; }
 
-  /* === АДАПТИВ === */
+  /* === АДАПТИВ ОБЩИЙ === */
   @media (max-width: 768px) {
-    header.hero-section {
-      flex-direction: column;
-      margin-bottom: 20px;
-    }
-    .hero-photo-wrapper {
-      width: 100%;
-      height: 350px; /* Фиксированная высота на мобилке */
-      min-height: unset;
-    }
-    .hero-content {
-      padding: 30px 20px;
-    }
+    header.hero-section { flex-direction: column; margin-bottom: 20px; }
+    .hero-photo-wrapper { width: 100%; height: 350px; min-height: unset; }
+    .hero-content { padding: 30px 20px; }
     .hero-name { font-size: 2.2rem; }
     .hero-role { font-size: 0.95rem; }
     section.block { padding: 20px; }
+    /* На мобильных убираем сложную сетку фона для производительности, оставляем просто цвет */
+    body::before { background-image: none; } 
   }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
+<!-- Генератор фоновых букв через JS (чтобы не засирать HTML) -->
+<div class="bg-letters-container" id="bgLetters"></div>
+
 <div class="container">
 
   <!-- ШАПКА -->
   <header class="hero-section">
     <div class="hero-photo-wrapper">
-      <!-- ТВОЕ ФОТО -->
       <img src="anna.jpg" alt="Анна Драчёва" class="hero-photo-img">
     </div>
-    
     <div class="hero-content">
       <h1 class="hero-name">Анна Драчёва</h1>
       <span class="hero-role">Преподаватель · Логопед · Психолог</span>
-      
       <p class="hero-desc">
-        Профессиональная диагностика знаний, индивидуальные занятия и консультации для детей и взрослых. 
+        Профессиональная диагностика знаний, индивидуальные занятия и консультации для детей и взрослых.
         Работаю официально, гарантирую качество образования и полную безопасность данных.
       </p>
-      
       <div class="trust-badges">
         <span class="badge">🎓 Опыт работы</span>
         <span class="badge">🔒 Защита ПД (152-ФЗ)</span>
@@ -388,7 +353,6 @@
     <p style="margin-bottom: 20px; color: var(--gray-text); font-size: 0.95rem;">
       Согласно ФЗ-152 «О персональных данных», доступ к материалам, результатам тестов и запись возможны только после вашего официального согласия. Пожалуйста, заполните форму ниже.
     </p>
-    
     <div class="form-frame">
       <script src="https://forms.yandex.ru/_static/embed.js"></script>
       <iframe class="yandex-form" src="https://forms.yandex.ru/u/6a99a8eb02848f4e726049e7?iframe=1" frameborder="0" name="ya-form-consent"></iframe>
@@ -402,54 +366,13 @@
       <h2 class="section-title">Диагностика уровня знаний</h2>
     </div>
     <p style="margin-bottom: 25px; color: var(--gray-text); font-size: 0.95rem;">
-      Выберите направление. Экспресс-тест займет 5–10 минут. Результат вы увидите сразу, а подробный отчет с рекомендациями придет вам на почту и мне для анализа.
+      Выберите направление. Экспресс-тест займёт 5–10 минут. Результат вы увидите сразу, а подробный отчёт придёт вам на почту и мне для анализа.
     </p>
-
-    <div class="diag-grid">
-      <!-- EN -->
-      <div class="diag-card">
-        <div class="lang-flag">🇬</div>
-        <div class="lang-name">English</div>
-        <div class="lang-desc">Грамматика, лексика, понимание речи (A1-C1).</div>
-        <a href="#" target="_blank" class="btn-action">Пройти тест</a>
-      </div>
-
-      <!-- DE -->
-      <div class="diag-card">
-        <div class="lang-flag">🇩🇪</div>
-        <div class="lang-name">Deutsch</div>
-        <div class="lang-desc">Базовые конструкции, артикли, порядок слов.</div>
-        <a href="#" target="_blank" class="btn-action">Пройти тест</a>
-      </div>
-
-      <!-- FR -->
-      <div class="diag-card">
-        <div class="lang-flag">🇫🇷</div>
-        <div class="lang-name">Français</div>
-        <div class="lang-desc">Спряжение глаголов, фонетика, бытовая лексика.</div>
-        <a href="#" target="_blank" class="btn-action">Пройти тест</a>
-      </div>
-
-      <!-- IT -->
-      <div class="diag-card">
-        <div class="lang-flag">🇮🇹</div>
-        <div class="lang-name">Italiano</div>
-        <div class="lang-desc">Интонация, диалоги, понимание на слух.</div>
-        <a href="#" target="_blank" class="btn-action">Пройти тест</a>
-      </div>
-      
-      <!-- LOGOPEDY -->
-      <div class="diag-card">
-        <div class="lang-flag">🗣️</div>
-        <div class="lang-name">Логопедия</div>
-        <div class="lang-desc">Экспресс-скрининг звукопроизношения и связной речи.</div>
-        <a href="#" target="_blank" class="btn-action">Записаться</a>
-      </div>
-    </div>
+    <div class="diag-grid" id="diagGrid"><!-- сюда скрипт вставит активные карточки --></div>
   </section>
 
   <!-- БЛОК 3: ЗАПИСЬ -->
-  <section class="block">
+  <section class="block" id="booking-section">
     <div class="section-header">
       <span class="step-num">3</span>
       <h2 class="section-title">Запись на занятие</h2>
@@ -457,7 +380,6 @@
     <p style="margin-bottom: 20px; color: var(--gray-text); font-size: 0.95rem;">
       После прохождения диагностики выберите удобное время. Мы обсудим детали индивидуально и подтвердим запись.
     </p>
-
     <div class="form-frame">
       <script src="https://forms.yandex.ru/_static/embed.js"></script>
       <iframe class="yandex-form" src="https://forms.yandex.ru/u/6ac750871f1eb5b511148acd?iframe=1" frameborder="0" name="ya-form-booking"></iframe>
@@ -470,40 +392,19 @@
       <span class="step-num">★</span>
       <h2 class="section-title">Отзывы учеников</h2>
     </div>
-    
     <div class="scroll-container">
       <div class="items-row">
         <div class="item-card">
-          <div class="rev-header">
-            <div class="rev-avatar">М</div>
-            <div class="rev-info">
-              <span class="rev-name">Марина К.</span>
-              <span class="rev-stars">★★★★★</span>
-            </div>
-          </div>
-          <p class="rev-text">"Анна — настоящий профессионал. Сын стал лучше понимать английский дома, исчез страх ошибок. Методика подачи материала очень четкая."</p>
+          <div class="rev-header"><div class="rev-avatar">М</div><div class="rev-info"><span class="rev-name">Марина К.</span><span class="rev-stars">★★★★★</span></div></div>
+          <p class="rev-text">"Анна — настоящий профессионал. Сын стал лучше понимать английский дома, исчез страх ошибок."</p>
         </div>
-
         <div class="item-card">
-          <div class="rev-header">
-            <div class="rev-avatar">О</div>
-            <div class="rev-info">
-              <span class="rev-name">Ольга В.</span>
-              <span class="rev-stars">★★★★★</span>
-            </div>
-          </div>
+          <div class="rev-header"><div class="rev-avatar">О</div><div class="rev-info"><span class="rev-name">Ольга В.</span><span class="rev-stars">★★★★★</span></div></div>
           <p class="rev-text">"Консультация помогла разобраться с психологическими барьерами перед изучением языка. Атмосфера спокойная и деловая."</p>
         </div>
-
         <div class="item-card">
-          <div class="rev-header">
-            <div class="rev-avatar">Д</div>
-            <div class="rev-info">
-              <span class="rev-name">Дмитрий С.</span>
-              <span class="rev-stars">★★★★☆</span>
-            </div>
-          </div>
-          <p class="rev-text">"Подготовка к собеседованию прошла успешно. Много практики, разбор реальных кейсов. Рекомендую как надежного партнера."</p>
+          <div class="rev-header"><div class="rev-avatar">Д</div><div class="rev-info"><span class="rev-name">Дмитрий С.</span><span class="rev-stars">★★★★☆</span></div></div>
+          <p class="rev-text">"Подготовка к собеседованию прошла успешно. Много практики, разбор реальных кейсов."</p>
         </div>
       </div>
     </div>
@@ -515,61 +416,54 @@
       <span class="step-num">▶</span>
       <h2 class="section-title">Как проходят занятия</h2>
     </div>
-    
     <div class="scroll-container">
       <div class="items-row">
-        <div class="item-card">
-          <div class="vid-preview"><span class="play-icon">▶</span></div>
-          <div class="vid-title">Разбор типичных ошибок</div>
-          <div class="vid-meta">English · 2 мин</div>
-        </div>
-
-        <div class="item-card">
-          <div class="vid-preview"><span class="play-icon">▶</span></div>
-          <div class="vid-title">Живая речь: диалог</div>
-          <div class="vid-meta">Deutsch · 3 мин</div>
-        </div>
-
-        <div class="item-card">
-          <div class="vid-preview"><span class="play-icon">▶</span></div>
-          <div class="vid-title">Методика обучения детей</div>
-          <div class="vid-meta">Общее · 5 мин</div>
-        </div>
+        <div class="item-card"><div class="vid-preview"><span class="play-icon">▶</span></div><div class="vid-title">Разбор типичных ошибок</div><div class="vid-meta">English · 2 мин</div></div>
+        <div class="item-card"><div class="vid-preview"><span class="play-icon">▶</span></div><div class="vid-title">Живая речь: диалог</div><div class="vid-meta">Deutsch · 3 мин</div></div>
+        <div class="item-card"><div class="vid-preview"><span class="play-icon">▶</span></div><div class="vid-title">Методика обучения детей</div><div class="vid-meta">Общее · 5 мин</div></div>
       </div>
     </div>
   </section>
 
-  <!-- БЛОК 6: КОНТАКТЫ -->
+  <!-- БЛОК 6: КОНТАКТЫ (ИСПРАВЛЕНО: одна линия, компактно, вместо TG — сайт студии) -->
   <section class="block">
     <div class="section-header">
       <span class="step-num">@</span>
       <h2 class="section-title">Сообщества и контакты</h2>
     </div>
     
+    <!-- Контейнер flex для выравнивания в строку -->
     <div class="contacts-flex">
+      
+      <!-- 1. ВКонтакте (черный QR со Spotlight) -->
       <div class="qr-item">
         <div class="qr-box">
-           <img src="placeholder_qr_1.jpg" alt="Telegram QR" style="width:100%;height:100%;object-fit:contain;" onerror="this.src='https://via.placeholder.com/80/f9f5f0/7a2e36?text=TG'">
+          <!-- Сохрани картинку как qr-vk.jpg рядом с index.html -->
+          <img src="qr-vk.jpg" alt="QR VK" onerror="this.src='https://via.placeholder.com/80/f9f5f0/7a2e36?text=VK'">
         </div>
-        <span class="qr-label">Telegram Канал</span>
-        <a href="#" target="_blank" class="qr-link">Перейти ↗</a>
+        <span class="qr-label">ВКонтакте</span>
+        <a href="https://vk.ru/annfromcrimea" target="_blank" class="qr-link">Вступить ↗</a>
       </div>
 
+      <!-- 2. Chat MAX (синий градиентный QR) -->
       <div class="qr-item">
         <div class="qr-box">
-           <img src="placeholder_qr_2.jpg" alt="VK QR" style="width:100%;height:100%;object-fit:contain;" onerror="this.src='https://via.placeholder.com/80/f9f5f0/7a2e36?text=VK'">
+          <!-- Сохрани картинку как qr-max.jpg рядом с index.html -->
+          <img src="qr-max.jpg" alt="QR Max" onerror="this.src='https://via.placeholder.com/80/f9f5f0/7a2e36?text=MAX'">
         </div>
-        <span class="qr-label">Группа ВКонтакте</span>
-        <a href="#" target="_blank" class="qr-link">Вступить ↗</a>
+        <span class="qr-label">Chat MAX</span>
+        <a href="https://max.ru/join/_wpDnYzIiWKIr6vZUJze0fQuqPMuouIbaJwLQvt58zQ" target="_blank" class="qr-link">Перейти ↗</a>
       </div>
 
+      <!-- 3. Сайт моей студии-->
       <div class="qr-item">
-        <div class="qr-box">
-           <img src="placeholder_qr_3.jpg" alt="Max QR" style="width:100%;height:100%;object-fit:contain;" onerror="this.src='https://via.placeholder.com/80/f9f5f0/7a2e36?text=MAX'">
-        </div>
-        <span class="qr-label">Чат MAX</span>
-        <a href="#" target="_blank" class="qr-link">Написать ↗</a>
+        <a href="https://annfromcrimea.ru/" target="_blank" class="site-link-box">
+          <span>САЙТ МОЕЙ<br>СТУДИИ</span>
+        </a>
+        <span class="qr-label">annfromcrimea.ru</span>
+        <a href="https://annfromcrimea.ru/" target="_blank" class="qr-link">Открыть ↗</a>
       </div>
+
     </div>
   </section>
 
@@ -580,9 +474,8 @@
       <div class="legal-docs">
         <p><strong>Оператор персональных данных:</strong> Анна Драчёва</p>
         <p><strong>Email для обращений:</strong> annfromcrimea@gmail.com</p>
-        <p><strong>Основание обработки:</strong> Федеральный закон № 152-ФЗ «О персональных данных». Согласие субъекта ПД фиксируется через Яндекс.Формы.</p>
+        <p><strong>Основание обработки:</strong> Федеральный закон № 152-ФЗ «О персональных данных». Согласие фиксируется через Яндекс.Формы.</p>
         <p><strong>Ваши права:</strong> Вы можете отозвать согласие, запросить удаление или исправление данных в любой момент, направив письмо на указанный email.</p>
-        
         <div class="legal-links" style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee;">
           Государственные органы по защите прав потребителей и субъектов ПД:<br>
           <a href="https://rkn.gov.ru/treatment/form/" target="_blank">Роскомнадзор</a> |
@@ -591,11 +484,81 @@
         </div>
       </div>
     </details>
-    
-    <p style="margin-top: 20px;">© 2026 Anna Dracheva. Все права защищены.</p>
+    <p style="margin-top: 20px;">© 2026 Драчёва Анна Игоревна. Все права защищены.</p>
   </footer>
 
 </div>
+
+<script>
+/* ============================================================
+   СПИСОК ДИАГНОСТИК — МЕНЯЙ ЗДЕСЬ
+   status: "active"  -> показывается на сайте сейчас
+   status: "hidden"  -> спрятано, появится когда поменяешь на active
+   Порядок в массиве = порядок карточек на экране.
+   ============================================================ */
+const BASE = "https://annfromcrimea-ctrl.github.io/personal/";
+
+const DIAG_LINKS = [
+  // --- АКТИВНЫЕ СЕЙЧАС ---
+  { key:"english", flag:"🇬", name:"English", desc:"Грамматика, лексика, понимание речи (A1–C1).", url:BASE+"english-test.html", status:"active" },
+  { key:"german", flag:"🇩", name:"Deutsch", desc:"Базовые конструкции, артикли, порядок слов.", url:BASE+"german-test.html", status:"active" },
+  { key:"french", flag:"🇫🇷", name:"Français", desc:"Спряжение глаголов, фонетика, бытовая лексика.", url:BASE+"french-test.html", status:"active" },
+  { key:"italian", flag:"🇮", name:"Italiano", desc:"Интонация, диалоги, понимание на слух.", url:BASE+"italian-test.html", status:"active" },
+  { key:"logo", flag:"🗣️", name:"Логопедия", desc:"Экспресс-скрининг речевого развития ребёнка 2–7 лет.", url:BASE+"logo.html", status:"active" },
+  { key:"psycho", flag:"🧠", name:"Психология", desc:"Экспресс-скрининг эмоционального состояния (взрослые / дети).", url:BASE+"psycho-screening.html", status:"active" },
+
+  // --- СПРЯТАНЫ, ГОТОВЫ К ВКЛЮЧЕНИЮ ПОЗЖЕ ---
+  { key:"arabic", flag:"🇸🇦", name:"العربية", desc:"Арабский язык: алфавит, базовая лексика, произношение.", url:BASE+"arabic-test.html", status:"hidden" },
+  { key:"chinese", flag:"🇨🇳", name:"中文", desc:"Китайский язык: иероглифика, тоны, HSK-база.", url:BASE+"chinese-test.html", status:"hidden" },
+  { key:"norwegian", flag:"🇳🇴", name:"Norsk", desc:"Норвежский язык: фонетика, грамматика, разговорная база.", url:BASE+"norwegian-test.html", status:"hidden" },
+  { key:"spanish", flag:"🇪", name:"Español", desc:"Испанский язык: спряжение, лексика, понимание речи.", url:BASE+"spanish-test.html", status:"hidden" }
+];
+
+/* ---- Рендер активных карточек ---- */
+(function renderDiag(){
+  const grid = document.getElementById("diagGrid");
+  if(!grid) return;
+  grid.innerHTML = DIAG_LINKS
+    .filter(d => d.status === "active")
+    .map(d => `
+      <div class="diag-card">
+        <div class="lang-flag">${d.flag}</div>
+        <div class="lang-name">${d.name}</div>
+        <div class="lang-desc">${d.desc}</div>
+        <a href="${d.url}" target="_blank" rel="noopener" class="btn-action">Пройти тест →</a>
+      </div>`).join("");
+})();
+
+/* ---- Генерация фоновых букв ---- */
+(function generateBgLetters(){
+  const container = document.getElementById('bgLetters');
+  if(!container) return;
+  
+  // Набор символов: латиница, кириллица, цифры, математические знаки
+  const chars = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
+                 'А','Б','В','Г','Д','Е','Ё','Ж','З','И','Й','К','Л','М','Н','О','П','Р','С','Т','У','Ф','Х','Ц','Ч','Ш','Щ','Ъ','Ы','Ь','Э','Ю','Я',
+                 '1','2','3','4','5','6','7','8','9','0','+','-','=','×','÷','%'];
+  
+  const count = 40; // Количество букв на экране
+  
+  for(let i=0; i<count; i++){
+    const span = document.createElement('span');
+    span.className = 'bg-letter';
+    span.textContent = chars[Math.floor(Math.random() * chars.length)];
+    
+    // Позиционирование
+    span.style.left = Math.random() * 100 + '%';
+    span.style.top = Math.random() * 100 + '%';
+    
+    // Размер и поворот
+    const size = 20 + Math.random() * 40; // от 20 до 60 px
+    span.style.fontSize = size + 'px';
+    span.style.transform = `rotate(${Math.random() * 60 - 30}deg)`;
+    
+    container.appendChild(span);
+  }
+})();
+</script>
 
 </body>
 </html>
