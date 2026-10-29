@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>English Check-Up · A1 → C2 · 5 навыков</title>
+
+<!-- === FAVICON (Школьная доска с буквой E) === -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231d4234'/%3E%3Cpath d='M14 14h36v36H14z' fill='none' stroke='%23a06b35' stroke-width='4'/%3E%3Ctext x='50%25' y='62%25' font-family='Georgia, serif' font-size='36' font-weight='bold' fill='%23f5f2e4' text-anchor='middle' dominant-baseline='middle'%3EE%3C/text%3E%3Cline x1='18' y1='48' x2='46' y2='48' stroke='%23ffd35c' stroke-width='2' opacity='.6'/%3E%3C/svg%3E">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -124,9 +128,10 @@ body.mode-kids .ruler b{background:rgba(255,255,255,.65);color:#5a7ea0}
 .passage.saybox{font-size:1.18rem;font-weight:800;border-left-color:var(--pink)}
 
 .audiobox{display:flex;align-items:center;gap:16px;background:#fff;border:2px dashed var(--sky);border-radius:12px;padding:14px 18px;margin-bottom:18px;flex-wrap:wrap}
-.playbtn{font-family:inherit;font-weight:900;font-size:1rem;cursor:pointer;border:none;border-radius:12px;padding:12px 22px;background:var(--sky);color:#fff;box-shadow:0 4px 0 #2f6db3;transition:transform .15s}
-.playbtn:hover{transform:translateY(-2px)}
-.playbtn:active{transform:translateY(1px)}
+.playbtn{font-family:inherit;font-weight:900;font-size:1rem;cursor:pointer;border:none;border-radius:12px;padding:12px 22px;background:var(--sky);color:#fff;box-shadow:0 4px 0 #2f6db3;transition:transform .15s;min-width:160px;text-align:center;}
+.playbtn:hover:not(:disabled){transform:translateY(-2px)}
+.playbtn:active:not(:disabled){transform:translateY(1px)}
+.playbtn:disabled{opacity:.6;cursor:wait;background:#888}
 .playcnt{font-size:.85rem;font-weight:700;color:#5a768e}
 .script-fallback{font-style:italic;color:#41586c;font-size:.92rem}
 
@@ -417,7 +422,7 @@ const LVLFULL={A1:'Beginner · Начальный',A2:'Elementary · Базов�
 const $=id=>document.getElementById(id);
 const SR=window.SpeechRecognition||window.webkitSpeechRecognition||null;
 
-/* ======================= БАНК: ГРАММАТИКА И ЛЕКСИКА (сокращенный пример) ======================= */
+/* ======================= БАНКИ ВОПРОСОВ (сокращенные примеры для демонстрации логики) ======================= */
 const BANK=[
 {lvl:1,skill:'g',q:'I ___ a student.',o:['am','is','are','be'],a:0,e:'С местоимением I всегда используется форма am.'},
 {lvl:1,skill:'v',q:'What is the opposite of “big”?',o:['small','tall','long','loud'],a:0,e:'Big — «большой», противоположное — small «маленький».'},
@@ -428,7 +433,6 @@ const BANK=[
 {lvl:6,skill:'g',q:'The painting, ___ authenticity experts had questioned, sold for a record sum.',o:['whose','which','whom','of which'],a:0,e:'Whose заменяет of which.'}
 ];
 
-/* ======================= БАНК: ЧТЕНИЕ (пример) ======================= */
 const READING=[
 {lvl:1,text:'Tom has a dog. The dog is big and black. Tom plays with the dog in the park every day.',
  q:'Where does Tom play with his dog?',o:['In the park','At home','At school','In the forest'],a:0,e:'В тексте прямо сказано: “Tom plays with the dog in the park every day.”'},
@@ -436,15 +440,14 @@ const READING=[
  q:'Why did Sarah feel at home after a week?',o:['Her colleagues were friendly','She knew everyone','She liked the office','She got a promotion'],a:0,e:'Причина названа после however: дружелюбные коллеги.'}
 ];
 
-/* ======================= БАНК: АУДИРОВАНИЕ (пример) ======================= */
+/* ВАЖНО: audio теперь может быть массивом строк, но функция speak() склеит их в одну */
 const LISTEN=[
-{lvl:1,audio:['Hello! My name is Emma. I am eight years old. I have got a cat. Its name is Milo.'],
+{lvl:1,audio:['Hello! My name is Emma.','I am eight years old.','I have got a cat. Its name is Milo.'],
  q:'How old is Emma?',o:['Eight','Ten','Seven','Nine'],a:0,e:'В записи: “I am eight years old.”'},
-{lvl:3,audio:['Hi Jack! The film starts at seven, so let’s meet outside the cinema at half past six. I’ll buy the tickets.'],
+{lvl:3,audio:['Hi Jack! The film starts at seven.','So let’s meet outside the cinema at half past six.','I’ll buy the tickets.'],
  q:'Where will they meet?',o:['Outside the cinema','At Jack’s home','Inside the cinema','At the café'],a:0,e:'“Let’s meet outside the cinema at half past six.”'}
 ];
 
-/* ======================= БАНК: ПИСЬМО (пример) ======================= */
 const WRITING=[
 {lvl:1,q:'Write the plural form of the word: <b>mouse</b>',show:'mice',accept:['mice'],
  e:'Mouse → mice — исключение, как child → children.'},
@@ -452,7 +455,6 @@ const WRITING=[
  e:'Since — с момента времени (с 2015 года).'}
 ];
 
-/* ======================= БАНК: ГОВОРЕНИЕ (пример) ======================= */
 const SPEAKING=[
 {lvl:1,type:'read',text:'I like apples and bananas.',expect:'i like apples and bananas',
  e:'Следите за звуком [æ] в apples и не «проглатывайте» -s на конце bananas.'},
@@ -468,7 +470,7 @@ const SPEAKING=[
 /* ======================= СОСТОЯНИЕ ======================= */
 let S=null, LEN=4;
 const selSkills={g:true,l:true,r:true,w:true,s:true};
-const USER_EMAIL_KEY = 'anna_en_email'; // ключ для localStorage
+const USER_EMAIL_KEY = 'anna_en_email'; 
 
 function setMode(m){
   document.body.classList.toggle('mode-kids',m==='kids');
@@ -496,23 +498,67 @@ function buildPools(kids){
           w:byLevel(WRITING,kids),s:byLevel(SPEAKING,kids)};
 }
 
-/* ---------- TTS ---------- */
+/* ---------- TTS (ИСПРАВЛЕНО) ---------- */
 let enVoice=null;
 const TTS='speechSynthesis' in window;
 function pickVoice(){
   const vs=speechSynthesis.getVoices();
+  // Ищем английский голос, предпочтительно женский/нейтральный
   enVoice=vs.find(v=>/^en/i.test(v.lang)&&/google us|samantha|zira|female/i.test(v.name))||vs.find(v=>/^en/i.test(v.lang))||null;
 }
-if(TTS){pickVoice();speechSynthesis.onvoiceschanged=pickVoice;}
-function speak(parts,rate){
-  if(!TTS)return;
+if(TTS){
+  pickVoice();
+  speechSynthesis.onvoiceschanged=pickVoice;
+}
+
+/**
+ * Безопасная озвучка. 
+ * Объединяет массив строк в одну, чтобы избежать багов Chrome с очередью.
+ */
+function safeSpeak(textParts, rate, callback){
+  if(!TTS){callback&&callback();return;}
+  
+  // 1. Отменяем всё предыдущее
   speechSynthesis.cancel();
-  parts.forEach((t,i)=>{
-    const u=new SpeechSynthesisUtterance(t);
-    u.lang='en-US';u.rate=rate;u.pitch=i%2?0.9:1.05;
-    if(enVoice)u.voice=enVoice;
-    speechSynthesis.speak(u);
-  });
+  
+  // 2. Склейка текста (лечит зависания на длинных фразах)
+  const fullText = Array.isArray(textParts) ? textParts.join(' ') : String(textParts);
+  
+  const utterance = new SpeechSynthesisUtterance(fullText);
+  utterance.lang = 'en-US';
+  utterance.rate = rate || 1.0;
+  utterance.pitch = 1.0;
+  if(enVoice) utterance.voice = enVoice;
+
+  // 3. Флаг защиты от двойного вызова колбэка
+  let finished = false;
+  const finish = () => {
+    if(finished) return;
+    finished = true;
+    callback && callback();
+  };
+
+  utterance.onend = finish;
+  utterance.onerror = (e) => {
+    console.warn("TTS Error:", e.error);
+    finish(); // Даже при ошибке разблокируем UI
+  };
+
+  // 4. Страховочный таймер (на случай, если браузер вообще не даст сигнал end)
+  // Оценка длительности: ~15 слов в минуту при скорости 1.0 -> 0.25 сек/слово. Плюс запас.
+  const estimatedTime = (fullText.split(' ').length * 300) + 2000; 
+  
+  setTimeout(() => {
+    if(!finished && speechSynthesis.paused === false && !speechSynthesis.speaking){
+       // Если прошло много времени, а speaking=false — значит, завершилось тихо или упало
+       finish();
+    } else if (!finished) {
+       // Принудительно завершаем через лимит времени + буфер
+       // Но лучше положиться на onend/onerror. Таймер ниже — только если совсем тишина.
+    }
+  }, Math.max(estimatedTime, 5000)); // Минимум 5 секунд ожидания
+  
+  speechSynthesis.speak(utterance);
 }
 
 /* ---------- распознавание речи ---------- */
@@ -521,7 +567,6 @@ function stopRecog(){try{recog&&recog.stop();}catch(e){}recogBusy=false;}
 
 /* ---------- запуск ---------- */
 function startQuiz(){
-  // Сохраняем email пользователя
   const emailInput = $('userEmail');
   if(emailInput && emailInput.value.trim()) {
     localStorage.setItem(USER_EMAIL_KEY, emailInput.value.trim());
@@ -580,8 +625,8 @@ function optsHTML(){
   return `<div class="opts">${S.order.map((o,i)=>
     `<button type="button" class="opt" onclick="answer(${i})"><span class="key">${KEYS[i]}</span><span>${o.t}</span></button>`).join('')}</div>`;
 }
-function toggleOptsLock(){
-  document.querySelectorAll('#q-answer .opt').forEach(b=>b.disabled=!S.played);
+function toggleOptsLock(disabled){
+  document.querySelectorAll('#q-answer .opt').forEach(b=>b.disabled=disabled);
 }
 
 function renderQuestion(){
@@ -608,14 +653,14 @@ function renderQuestion(){
     if(TTS){
       ex.innerHTML=`<div class="audiobox">
         <button type="button" class="playbtn" id="playbtn" onclick="playAudio()">▶ Слушать</button>
-        <span class="playcnt" id="playcnt">Сначала прослушайте запись 🎧</span></div>`;
+        <span class="playcnt" id="playcnt">Нажмите кнопку, чтобы услышать диалог 🎧</span></div>`;
     }else{
-      ex.innerHTML=`<div class="audiobox"><span class="script-fallback">📜 Текст (аудио недоступно): «${q.audio.join(' ')}»</span></div>`;
+      ex.innerHTML=`<div class="audiobox"><span class="script-fallback">📜 Текст (аудио недоступно): «${Array.isArray(q.audio)?q.audio.join(' '):q.audio}»</span></div>`;
       S.played=true;
     }
     $('qtext').textContent=q.q;
     qa.innerHTML=optsHTML()+(TTS?'<p class="listen-hint" id="lh">🔒 Варианты откроются после прослушивания</p>':'');
-    if(TTS)toggleOptsLock();
+    if(TTS)toggleOptsLock(true); // Блокируем сразу
   }else if(k==='w'){
     $('qtext').innerHTML=q.q;
     qa.innerHTML=`<div class="write"><div class="wrow">
@@ -643,13 +688,32 @@ function renderQuestion(){
 
 function playAudio(){
   if(!TTS)return;
+  const btn=$('playbtn');
+  const cnt=$('playcnt');
+  
+  // Визуальная обратная связь
+  btn.disabled=true;
+  btn.textContent='🔊 Звучит...';
+  cnt.textContent='Подождите окончания записи';
+
   const rate=S.current.lvl<=2?0.85:S.current.lvl<=4?0.95:1.0;
-  speak(S.current.audio,rate);
-  S.plays++;S.played=true;
-  $('playcnt').textContent=`Прослушиваний: ${S.plays} · можно повторить ещё`;
-  $('playbtn').textContent='▶ Слушать ещё раз';
-  const lh=$('lh');if(lh)lh.remove();
-  toggleOptsLock();
+  
+  // Используем новую безопасную функцию
+  safeSpeak(S.current.audio, rate, () => {
+    // Колбэк после завершения речи
+    btn.disabled=false;
+    btn.textContent='▶ Слушать ещё раз';
+    S.plays++;
+    S.played=true;
+    
+    cnt.textContent=`Прослушиваний: ${S.plays} · Можно выбирать ответ 👇`;
+    
+    const lh=$('lh');if(lh)lh.remove();
+    toggleOptsLock(false); // Разблокируем ответы
+    
+    // Автоскролл к вариантам, чтобы пользователь точно увидел
+    document.querySelector('.opts')?.scrollIntoView({behavior:'smooth', block:'center'});
+  });
 }
 
 /* ---------- ответ: варианты ---------- */
@@ -787,7 +851,7 @@ function applyResult(score,correctText,given){
   $('fb-extra').innerHTML='';
   $('fb-expl').textContent=(kids?'💡 ':'')+q.e;
   const tr=$('fb-trans');
-  if(k==='l'){tr.hidden=false;tr.textContent='🎙 '+q.audio.join(' ');}else tr.hidden=true;
+  if(k==='l'){tr.hidden=false;tr.textContent='🎙 '+Array.isArray(q.audio)?q.audio.join(' '):q.audio;}else tr.hidden=true;
   const lastInSec=S.secDone>=S.per,lastSection=S.secIdx>=S.skills.length-1;
   $('btn-next').textContent=(lastInSec&&lastSection)?'К результатам 🏁':(lastInSec?'Следующая часть →':'Дальше →');
   $('feedback').hidden=false;
@@ -870,7 +934,6 @@ function finish(){
   }
   if(acc>=60)confetti(kids?130:80);
   
-  // --- АВТОМАТИЧЕСКАЯ ОТПРАВКА РЕЗУЛЬТАТА ---
   sendResultToEmail(lvl, acc, correct, S.totalQ, S.score, S.skills, S.sk2, S.ans);
 }
 
@@ -878,7 +941,6 @@ async function sendResultToEmail(level, accuracy, correctCount, totalCount, poin
   const statusEl = $('send-status');
   const userEmail = localStorage.getItem(USER_EMAIL_KEY) || '';
   
-  // Формируем краткое резюме для письма
   const summary = skillsList.map(k => `${SK[k].short}: ${ratingToLevel(statsObj[k].c/statsObj[k].t*100 > 0 ? statsObj[k].c/statsObj[k].t*100 : 0)} (${statsObj[k].c}/${statsObj[k].t})`).join(', ');
   
   const payload = {
@@ -892,7 +954,6 @@ async function sendResultToEmail(level, accuracy, correctCount, totalCount, poin
     "Разбивка по навыкам": summary,
     "Email ученика": userEmail || "Не указан",
     "Дата": new Date().toLocaleString('ru-RU'),
-    // Детализация ошибок (только первые 10, чтобы письмо не было гигантским)
     "Детали ошибок": JSON.stringify(answersArray.filter(a => !a.ok).slice(0, 10).map(a => ({
       skill: SK[a.skill].short,
       question: typeof a.q.q === 'string' ? a.q.q.substring(0, 50) + '...' : 'Complex Question',
@@ -905,7 +966,6 @@ async function sendResultToEmail(level, accuracy, correctCount, totalCount, poin
   statusEl.style.color = "#666";
 
   try {
-    // Отправка на почту Анны
     const responseAnna = await fetch("https://formsubmit.co/ajax/annfromcrimea@gmail.com", {
       method: "POST",
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -918,7 +978,6 @@ async function sendResultToEmail(level, accuracy, correctCount, totalCount, poin
        throw new Error("Ошибка отправки Анне");
     }
 
-    // Если пользователь указал свой email, дублируем ему
     if (userEmail) {
       try {
         await fetch(`https://formsubmit.co/ajax/${userEmail}`, {
