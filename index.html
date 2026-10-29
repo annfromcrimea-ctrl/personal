@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Анна Драчёва — Образование и развитие</title>
+<style>
+  /* === ПАЛИТРА ПОД ФОТО (Burgundy & Cream) === */
+  :root {
+    --burgundy: #7a2e36;       /* Основной акцент (как твой свитер) */
+    --burgundy-dark: #5d1f26;  /* Темный оттенок для ховера */
+    --cream: #fcfaf8;          /* Теплый фон страницы */
+    --white: #ffffff;          /* Белые карточки */
+    --graphite: #2d2d2d;       /* Текст (не чисто черный, мягче) */
+    --gray-text: #666666;      /* Второстепенный текст */
+    --gold-accent: #cfa968;    /* Золото (как твои украшения) - для мелких деталей */
+    
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+    --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
+    --radius: 12px;
+    
+    --font-serif: 'Playfair Display', Georgia, serif; /* Заголовки */
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; /* Текст */
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--cream);
+    color: var(--graphite);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  /* === ШАПКА С БОЛЬШИМ ФОТО === */
+  header.hero-section {
+    display: flex;
+    align-items: stretch; /* Растягиваем по высоте контейнера */
+    gap: 40px;
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    overflow: hidden; /* Чтобы углы фото были скруглены рамкой */
+    margin-bottom: 40px;
+    position: relative;
+  }
+
+  /* Левая часть: Фото */
+  .hero-photo-wrapper {
+    width: 380px;
+    min-height: 480px;
+    flex-shrink: 0;
+    position: relative;
+    background: #eee;
+  }
+  
+  .hero-photo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Обрезает края, сохраняя пропорции лица */
+    object-position: center top; /* Фокус на лице */
+    display: block;
+  }
+
+  /* Правая часть: Текст */
+  .hero-content {
+    flex-grow: 1;
+    padding: 50px 50px 50px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .hero-name {
+    font-family: var(--font-serif);
+    font-size: 2.8rem;
+    color: var(--burgundy);
+    margin-bottom: 10px;
+    line-height: 1.1;
+  }
+
+  .hero-role {
+    font-size: 1.1rem;
+    color: var(--gray-text);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 25px;
+    font-weight: 500;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+    display: inline-block;
+  }
+
+  .hero-desc {
+    font-size: 1.05rem;
+    color: var(--graphite);
+    margin-bottom: 30px;
+    max-width: 500px;
+  }
+
+  .trust-badges {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    background: #f9f5f0;
+    border: 1px solid #e8dcc8;
+    color: #8a6d3b; /* Приглушенное золото */
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* === ОБЩИЕ СТИЛИ СЕКЦИЙ === */
+  section.block {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 35px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease;
+  }
+  
+  section.block:hover {
+    box-shadow: var(--shadow-md);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f5f5f5;
+  }
+
+  .section-title {
+    font-family: var(--font-serif);
+    font-size: 1.6rem;
+    color: var(--graphite);
+  }
+
+  .step-num {
+    background: var(--burgundy);
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1rem;
+    font-family: var(--font-sans);
+  }
+
+  /* === ФОРМЫ === */
+  .form-frame {
+    background: #fafafa;
+    border: 1px dashed #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    min-height: 500px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  iframe.yandex-form {
+    width: 100%;
+    height: 600px;
+    border: none;
+  }
+
+  /* === ДИАГНОСТИКА (Сетка) === */
+  .diag-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+  }
+
+  .diag-card {
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: all 0.2s;
+    background: white;
+  }
+
+  .diag-card:hover {
+    border-color: var(--burgundy);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(122, 46, 54, 0.1);
+  }
+
+  .lang-flag { font-size: 1.8rem; margin-bottom: 10px; }
+  .lang-name { font-weight: 700; font-size: 1.1rem; margin-bottom: 5px; color: var(--graphite); }
+  .lang-desc { font-size: 0.9rem; color: var(--gray-text); flex-grow: 1; margin-bottom: 15px; }
+  
+  .btn-action {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background: var(--burgundy);
+    color: white;
+    padding: 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+  }
+  .btn-action:hover { background: var(--burgundy-dark); }
+
+  /* === ЛЕНТЫ (Отзывы / Видео) === */
+  .scroll-container {
+    overflow-x: auto;
+    padding-bottom: 15px;
+    scrollbar-width: thin;
+    scrollbar-color: #ddd transparent;
+  }
+  .scroll-container::-webkit-scrollbar { height: 6px; }
+  .scroll-container::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+
+  .items-row {
+    display: flex;
+    gap: 20px;
+    width: max-content;
+  }
+
+  .item-card {
+    width: 300px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+  }
+
+  /* Отзывы специфика */
+  .rev-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .rev-avatar { 
+    width: 40px; height: 40px; border-radius: 50%; 
+    background: #f0f0f0; color: var(--burgundy); 
+    display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.1rem;
+  }
+  .rev-info { flex-grow: 1; }
+  .rev-name { font-weight: 600; font-size: 0.95rem; display: block; }
+  .rev-stars { color: var(--gold-accent); font-size: 0.8rem; }
+  .rev-text { font-size: 0.9rem; color: #555; font-style: italic; line-height: 1.5; }
+
+  /* Видео специфика */
+  .vid-preview {
+    aspect-ratio: 16/9;
+    background: #222;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 1.5rem;
+    position: relative;
+  }
+  .play-icon { opacity: 0.8; transition: 0.2s; cursor: pointer; }
+  .vid-preview:hover .play-icon { opacity: 1; transform: scale(1.1); }
+  .vid-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 4px; }
+  .vid-meta { font-size: 0.8rem; color: #888; }
+
+  /* === КОНТАКТЫ / QR === */
+  .contacts-flex {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+  .qr-item { text-align: center; }
+  .qr-box {
+    width: 100px; height: 100px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 5px;
+    background: white;
+    margin-bottom: 8px;
+    box-shadow: var(--shadow-sm);
+  }
+  .qr-label { font-weight: 600; font-size: 0.9rem; display: block; margin-bottom: 2px; }
+  .qr-link { font-size: 0.8rem; color: var(--burgundy); text-decoration: none; }
+  .qr-link:hover { text-decoration: underline; }
+
+  /* === ФУТЕР === */
+  footer {
+    margin-top: 50px;
+    padding: 30px 0;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #888;
+    border-top: 1px solid #eaeaea;
+  }
+  details summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--graphite);
+    margin-bottom: 10px;
+    list-style: none;
+  }
+  details summary::after { content: " ▾"; font-size: 0.8em; }
+  .legal-docs {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: left;
+    margin-top: 10px;
+    border: 1px solid #eee;
+    font-size: 0.85rem;
+    color: #555;
+  }
+  .legal-links a { color: var(--burgundy); text-decoration: none; margin-right: 15px; font-weight: 500; }
+
+  /* === АДАПТИВ === */
+  @media (max-width: 768px) {
+    header.hero-section {
+      flex-direction: column;
+      margin-bottom: 20px;
+    }
+    .hero-photo-wrapper {
+      width: 100%;
+      height: 350px; /* Фиксированная высота на мобилке */
+      min-height: unset;
+    }
+    .hero-content {
+      padding: 30px 20px;
+    }
+    .hero-name { font-size: 2.2rem; }
+    .hero-role { font-size: 0.95rem; }
+    section.block { padding: 20px; }
+  }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ШАПКА -->
+  <header class="hero-section">
+    <div class="hero-photo-wrapper">
+      <!-- ТВОЕ ФОТО -->
+      <img src="anna.jpg" alt="Анна Драчёва" class="hero-photo-img">
+    </div>
+    
+    <div class="hero-content">
+      <h1 class="hero-name">Анна Драчёва</h1>
+      <span class="hero-role">Преподаватель · Логопед · Психолог</span>
+      
+      <p class="hero-desc">
+        Профессиональная диагностика знаний, индивидуальные занятия и консультации для детей и взрослых. 
+        Работаю официально, гарантирую качество образования и полную безопасность данных.
+      </p>
+      
+      <div class="trust-badges">
+        <span class="badge">🎓 Опыт работы</span>
+        <span class="badge">🔒 Защита ПД (152-ФЗ)</span>
+        <span class="badge">✨ Индивидуальный подход</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- БЛОК 1: СОГЛАСИЕ -->
+  <section class="block">
+    <div class="section-header">
+      <span class="step-num">1</span>
+      <h2 class="section-title">Согласие на обработку данных</h2>
+    </div>
+    <p style="margin-bottom: 20px; color: var(--gray-text); font-size: 0.95rem;">
+      Согласно ФЗ-152 «О персональных данных», доступ к материалам, результатам тестов и запись возможны только после вашего официального согласия. Пожалуйста, заполните форму ниже.
+    </p>
+    
+    <div class="form-frame">
+      <script src="https://forms.yandex.ru/_static/embed.js"></script>
+      <iframe class="yandex-form" src="https://forms.yandex.ru/u/6a99a8eb02848f4e726049e7?iframe=1" frameborder="0" name="ya-form-consent"></iframe>
+    </div>
+  </section>
+
+  <!-- БЛОК 2: ДИАГНОСТИКА -->
+  <section class="block">
+    <div class="section-header">
+      <span class="step-num">2</span>
+      <h2 class="section-title">Диагностика уровня знаний</h2>
+    </div>
+    <p style="margin-bottom: 25px; color: var(--gray-text); font-size: 0.95rem;">
+      Выберите направление. Экспресс-тест займет 5–10 минут. Результат вы увидите сразу, а подробный отчет с рекомендациями придет вам на почту и мне для анализа.
+    </p>
+
+    <div class="diag-grid">
+      <!-- EN -->
+      <div class="diag-card">
+        <div class="lang-flag">🇬</div>
+        <div class="lang-name">English</div>
+        <div class="lang-desc">Грамматика, лексика, понимание речи (A1-C1).</div>
+        <a href="#" target="_blank" class="btn-action">Пройти тест</a>
+      </div>
+
+      <!-- DE -->
+      <div class="diag-card">
+        <div class="lang-flag">🇩🇪</div>
+        <div class="lang-name">Deutsch</div>
+        <div class="lang-desc">Базовые конструкции, артикли, порядок слов.</div>
+        <a href="#" target="_blank" class="btn-action">Пройти тест</a>
+      </div>
+
+      <!-- FR -->
+      <div class="diag-card">
+        <div class="lang-flag">🇫🇷</div>
+        <div class="lang-name">Français</div>
+        <div class="lang-desc">Спряжение глаголов, фонетика, бытовая лексика.</div>
+        <a href="#" target="_blank" class="btn-action">Пройти тест</a>
+      </div>
+
+      <!-- IT -->
+      <div class="diag-card">
+        <div class="lang-flag">🇮🇹</div>
+        <div class="lang-name">Italiano</div>
+        <div class="lang-desc">Интонация, диалоги, понимание на слух.</div>
+        <a href="#" target="_blank" class="btn-action">Пройти тест</a>
+      </div>
+      
+      <!-- LOGOPEDY -->
+      <div class="diag-card">
+        <div class="lang-flag">🗣️</div>
+        <div class="lang-name">Логопедия</div>
+        <div class="lang-desc">Экспресс-скрининг звукопроизношения и связной речи.</div>
+        <a href="#" target="_blank" class="btn-action">Записаться</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- БЛОК 3: ЗАПИСЬ -->
+  <section class="block">
+    <div class="section-header">
+      <span class="step-num">3</span>
+      <h2 class="section-title">Запись на занятие</h2>
+    </div>
+    <p style="margin-bottom: 20px; color: var(--gray-text); font-size: 0.95rem;">
+      После прохождения диагностики выберите удобное время. Мы обсудим детали индивидуально и подтвердим запись.
+    </p>
+
+    <div class="form-frame">
+      <script src="https://forms.yandex.ru/_static/embed.js"></script>
+      <iframe class="yandex-form" src="https://forms.yandex.ru/u/6ac750871f1eb5b511148acd?iframe=1" frameborder="0" name="ya-form-booking"></iframe>
+    </div>
+  </section>
+
+  <!-- БЛОК 4: ОТЗЫВЫ -->
+  <section class="block">
+    <div class="section-header">
+      <span class="step-num">★</span>
+      <h2 class="section-title">Отзывы учеников</h2>
+    </div>
+    
+    <div class="scroll-container">
+      <div class="items-row">
+        <div class="item-card">
+          <div class="rev-header">
+            <div class="rev-avatar">М</div>
+            <div class="rev-info">
+              <span class="rev-name">Марина К.</span>
+              <span class="rev-stars">★★★★★</span>
+            </div>
+          </div>
+          <p class="rev-text">"Анна — настоящий профессионал. Сын стал лучше понимать английский дома, исчез страх ошибок. Методика подачи материала очень четкая."</p>
+        </div>
+
+        <div class="item-card">
+          <div class="rev-header">
+            <div class="rev-avatar">О</div>
+            <div class="rev-info">
+              <span class="rev-name">Ольга В.</span>
+              <span class="rev-stars">★★★★★</span>
+            </div>
+          </div>
+          <p class="rev-text">"Консультация помогла разобраться с психологическими барьерами перед изучением языка. Атмосфера спокойная и деловая."</p>
+        </div>
+
+        <div class="item-card">
+          <div class="rev-header">
+            <div class="rev-avatar">Д</div>
+            <div class="rev-info">
+              <span class="rev-name">Дмитрий С.</span>
+              <span class="rev-stars">★★★★☆</span>
+            </div>
+          </div>
+          <p class="rev-text">"Подготовка к собеседованию прошла успешно. Много практики, разбор реальных кейсов. Рекомендую как надежного партнера."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- БЛОК 5: ВИДЕО -->
+  <section class="block">
+    <div class="section-header">
+      <span class="step-num">▶</span>
+      <h2 class="section-title">Как проходят занятия</h2>
+    </div>
+    
+    <div class="scroll-container">
+      <div class="items-row">
+        <div class="item-card">
+          <div class="vid-preview"><span class="play-icon">▶</span></div>
+          <div class="vid-title">Разбор типичных ошибок</div>
+          <div class="vid-meta">English · 2 мин</div>
+        </div>
+
+        <div class="item-card">
+          <div class="vid-preview"><span class="play-icon">▶</span></div>
+          <div class="vid-title">Живая речь: диалог</div>
+          <div class="vid-meta">Deutsch · 3 мин</div>
+        </div>
+
+        <div class="item-card">
+          <div class="vid-preview"><span class="play-icon">▶</span></div>
+          <div class="vid-title">Методика обучения детей</div>
+          <div class="vid-meta">Общее · 5 мин</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- БЛОК 6: КОНТАКТЫ -->
+  <section class="block">
+    <div class="section-header">
+      <span class="step-num">@</span>
+      <h2 class="section-title">Сообщества и контакты</h2>
+    </div>
+    
+    <div class="contacts-flex">
+      <div class="qr-item">
+        <div class="qr-box">
+           <img src="placeholder_qr_1.jpg" alt="Telegram QR" style="width:100%;height:100%;object-fit:contain;" onerror="this.src='https://via.placeholder.com/80/f9f5f0/7a2e36?text=TG'">
+        </div>
+        <span class="qr-label">Telegram Канал</span>
+        <a href="#" target="_blank" class="qr-link">Перейти ↗</a>
+      </div>
+
+      <div class="qr-item">
+        <div class="qr-box">
+           <img src="placeholder_qr_2.jpg" alt="VK QR" style="width:100%;height:100%;object-fit:contain;" onerror="this.src='https://via.placeholder.com/80/f9f5f0/7a2e36?text=VK'">
+        </div>
+        <span class="qr-label">Группа ВКонтакте</span>
+        <a href="#" target="_blank" class="qr-link">Вступить ↗</a>
+      </div>
+
+      <div class="qr-item">
+        <div class="qr-box">
+           <img src="placeholder_qr_3.jpg" alt="Max QR" style="width:100%;height:100%;object-fit:contain;" onerror="this.src='https://via.placeholder.com/80/f9f5f0/7a2e36?text=MAX'">
+        </div>
+        <span class="qr-label">Чат MAX</span>
+        <a href="#" target="_blank" class="qr-link">Написать ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ФУТЕР -->
+  <footer>
+    <details>
+      <summary>Юридическая информация и Политика конфиденциальности</summary>
+      <div class="legal-docs">
+        <p><strong>Оператор персональных данных:</strong> Анна Драчёва</p>
+        <p><strong>Email для обращений:</strong> annfromcrimea@gmail.com</p>
+        <p><strong>Основание обработки:</strong> Федеральный закон № 152-ФЗ «О персональных данных». Согласие субъекта ПД фиксируется через Яндекс.Формы.</p>
+        <p><strong>Ваши права:</strong> Вы можете отозвать согласие, запросить удаление или исправление данных в любой момент, направив письмо на указанный email.</p>
+        
+        <div class="legal-links" style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee;">
+          Государственные органы по защите прав потребителей и субъектов ПД:<br>
+          <a href="https://rkn.gov.ru/treatment/form/" target="_blank">Роскомнадзор</a> |
+          <a href="https://fas.gov.ru/pages/obratitsya_v_fas" target="_blank">ФАС России</a> |
+          <a href="https://petition.rospotrebnadzor.ru/petition/" target="_blank">Роспотребнадзор</a>
+        </div>
+      </div>
+    </details>
+    
+    <p style="margin-top: 20px;">© 2026 Anna Dracheva. Все права защищены.</p>
+  </footer>
+
+</div>
+
+</body>
+</html>
