@@ -11,17 +11,17 @@
   :root {
     --burgundy: #7a2e36;
     --burgundy-dark: #5d1f26;
+    --burgundy-soft: #a85a63;
     --forest: #3f6b4a;
-    --forest-light: #5a8a63;
-    --paper-bg: #eef5ea;
-    --grid-line: rgba(63, 107, 74, 0.09);
-    --margin-line: rgba(122, 46, 54, 0.10);
+    --leaf: #6ba368;
+    --cream: #fbf3ea;
+    --paper-bg: #faf2e9;
     --white: #ffffff;
     --graphite: #2d2d2d;
     --gray-text: #5f5f5f;
     --gold-accent: #cfa968;
-    --shadow-sm: 0 2px 8px rgba(30, 60, 40, 0.05);
-    --shadow-md: 0 8px 24px rgba(30, 60, 40, 0.09);
+    --shadow-sm: 0 2px 8px rgba(122, 46, 54, 0.06);
+    --shadow-md: 0 8px 24px rgba(122, 46, 54, 0.10);
     --radius: 12px;
     --font-sans: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
@@ -38,125 +38,140 @@
     overflow-x: hidden;
   }
 
-  /* === ЧИСТЫЙ СВЕЖИЙ ФОН С ЗЕЛЕНЬЮ === */
+  /* === ТЁПЛЫЙ БОРДОВО-КРЕМОВЫЙ ФОН === */
   body::before {
     content: "";
     position: fixed; inset: 0; z-index: -3; pointer-events: none;
     background:
-      radial-gradient(ellipse at 15% 10%, rgba(120, 170, 130, 0.14) 0%, transparent 45%),
-      radial-gradient(ellipse at 85% 15%, rgba(122, 46, 54, 0.06) 0%, transparent 40%),
-      radial-gradient(ellipse at 80% 90%, rgba(120, 170, 130, 0.12) 0%, transparent 45%),
-      radial-gradient(ellipse at 10% 85%, rgba(207, 169, 104, 0.08) 0%, transparent 40%),
-      linear-gradient(160deg, #f6faf4 0%, #eef6ea 35%, #e6f1e2 65%, #e3efe0 100%);
+      radial-gradient(ellipse at 10% 8%, rgba(168, 90, 99, 0.10) 0%, transparent 40%),
+      radial-gradient(ellipse at 90% 12%, rgba(207, 169, 104, 0.10) 0%, transparent 42%),
+      radial-gradient(ellipse at 85% 88%, rgba(122, 46, 54, 0.08) 0%, transparent 45%),
+      radial-gradient(ellipse at 12% 90%, rgba(207, 169, 104, 0.08) 0%, transparent 42%),
+      linear-gradient(155deg, #fdf7f0 0%, #fbf1e6 40%, #f8ebdd 70%, #f6e7d6 100%);
   }
 
-  /* лёгкая бумажная текстура — почти незаметная */
   body::after {
     content: "";
     position: fixed; inset: 0; z-index: -2; pointer-events: none;
     background-image: repeating-linear-gradient(
       45deg,
-      rgba(63, 107, 74, 0.018) 0px,
-      rgba(63, 107, 74, 0.018) 1px,
+      rgba(122, 46, 54, 0.018) 0px,
+      rgba(122, 46, 54, 0.018) 1px,
       transparent 1px,
       transparent 6px
     );
-    opacity: 0.7;
+    opacity: 0.8;
   }
 
-  /* сетка тетради с затуханием */
   .grid-overlay {
     position: fixed; inset: 0; z-index: -1; pointer-events: none;
     background-image:
-      linear-gradient(var(--grid-line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--margin-line) 1px, transparent 1px);
+      linear-gradient(rgba(122, 46, 54, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(122, 46, 54, 0.05) 1px, transparent 1px);
     background-size: 100% 30px, 60px 100%;
     background-position: 0 0, 40px 0;
-    -webkit-mask-image: radial-gradient(ellipse at center, #000 25%, transparent 78%);
-            mask-image: radial-gradient(ellipse at center, #000 25%, transparent 78%);
-    opacity: 0.65;
+    -webkit-mask-image: radial-gradient(ellipse at center, #000 25%, transparent 80%);
+            mask-image: radial-gradient(ellipse at center, #000 25%, transparent 80%);
+    opacity: 0.6;
   }
 
-  .bg-letters-container {
+  /* === ДЕКОР: ЛИСТИКИ, ПРЕДМЕТЫ, БУКВЫ === */
+  .decor-layer {
     position: fixed; inset: 0; z-index: 0; pointer-events: none;
-    overflow: hidden; opacity: 0.05;
+    overflow: hidden;
   }
-  .bg-letters-container.burgundy .bg-letter { color: var(--burgundy); }
-  .bg-letters-container.forest .bg-letter { color: var(--forest); opacity: 0.7; }
-  .bg-letter {
+  .decor-item {
     position: absolute;
+    opacity: 0.14;
+    animation: floaty 12s ease-in-out infinite;
+  }
+  .decor-item.leaf { color: var(--leaf); }
+  .decor-item.school { color: var(--burgundy); }
+  .decor-item.letter {
     font-family: var(--font-sans);
     font-weight: 700;
-    user-select: none;
+    color: var(--burgundy);
+    opacity: 0.06;
+  }
+  @keyframes floaty {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-8px) rotate(3deg); }
   }
 
   .container { max-width: 1000px; margin: 0 auto; padding: 8px 14px; position: relative; z-index: 1; }
 
+  /* === ИСПРАВЛЕННАЯ ШАПКА === */
   header.hero-section {
     display: flex; align-items: stretch; gap: 22px;
     background: var(--white); border-radius: var(--radius);
     box-shadow: var(--shadow-md); overflow: hidden;
     margin-bottom: 10px; position: relative;
-    border: 1px solid rgba(63, 107, 74, 0.15);
+    border: 1px solid rgba(122, 46, 54, 0.12);
   }
   header.hero-section::after {
     content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-    background: linear-gradient(90deg, var(--burgundy) 0%, var(--forest) 100%);
+    background: linear-gradient(90deg, var(--burgundy) 0%, var(--gold-accent) 50%, var(--forest) 100%);
   }
 
-  .hero-photo-wrapper { width: 280px; min-height: 350px; flex-shrink: 0; background: #e6efe4; }
+  .hero-photo-wrapper { width: 320px; flex-shrink: 0; background: #f3e6da; }
   .hero-photo-img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
 
-  .hero-content { flex-grow: 1; padding: 20px 22px 20px 0; display: flex; flex-direction: column; justify-content: center; }
-  .hero-name { font-family: var(--font-sans); font-size: 1.95rem; font-weight: 700; color: var(--burgundy); margin-bottom: 4px; line-height: 1.1; letter-spacing: -0.5px; }
-  .hero-role { font-size: 0.82rem; color: var(--forest); text-transform: uppercase; letter-spacing: 0.9px; margin-bottom: 10px; font-weight: 700; border-bottom: 1px solid #e6eee4; padding-bottom: 6px; display: inline-block; }
-  .hero-desc { font-size: 0.88rem; color: var(--graphite); margin-bottom: 12px; max-width: 520px; }
+  .hero-content { 
+    flex-grow: 1; 
+    padding: 24px 28px 24px 0; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+  }
+  .hero-name { font-family: var(--font-sans); font-size: 2.1rem; font-weight: 700; color: var(--burgundy); margin-bottom: 4px; line-height: 1.1; letter-spacing: -0.5px; }
+  .hero-role { font-size: 0.85rem; color: var(--burgundy-soft); text-transform: uppercase; letter-spacing: 0.9px; margin-bottom: 12px; font-weight: 700; border-bottom: 1px solid #f0e2d4; padding-bottom: 8px; display: inline-block; }
+  .hero-desc { font-size: 0.9rem; color: var(--graphite); margin-bottom: 16px; max-width: 520px; }
 
   .trust-badges { display: flex; gap: 6px; flex-wrap: wrap; }
   .badge {
-    background: #eef6ea;
-    border: 1px solid #cfe3cb;
-    color: var(--forest);
+    background: #fbf1e6;
+    border: 1px solid #ecd9c2;
+    color: var(--burgundy);
     padding: 3px 9px; border-radius: 20px;
-    font-size: 0.7rem; font-weight: 700;
+    font-size: 0.72rem; font-weight: 700;
   }
   .badge:nth-child(2) {
-    background: #fff5f6;
-    border-color: #ffd6d9;
-    color: var(--burgundy);
+    background: #fff0f1;
+    border-color: #f3d2d6;
+    color: var(--burgundy-dark);
   }
   .badge:nth-child(3) {
-    background: #faf4e8;
-    border-color: #ecdcb8;
-    color: #8a6d2f;
+    background: #f1f6ef;
+    border-color: #d3e4cf;
+    color: var(--forest);
   }
 
   section.block {
-    background: rgba(255, 255, 255, 0.97);
+    background: rgba(255, 255, 255, 0.98);
     border-radius: var(--radius);
     padding: 14px 18px;
     margin-bottom: 8px;
     box-shadow: var(--shadow-sm);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    border: 1px solid rgba(63, 107, 74, 0.08);
+    border: 1px solid rgba(122, 46, 54, 0.07);
     position: relative;
   }
   section.block:hover {
     box-shadow: var(--shadow-md);
     transform: translateY(-2px);
-    border-color: rgba(63, 107, 74, 0.20);
+    border-color: rgba(122, 46, 54, 0.18);
   }
 
-  .section-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 2px solid #eef4ec; }
+  .section-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 2px solid #f6ece1; }
   .section-title { font-family: var(--font-sans); font-size: 1.15rem; font-weight: 700; color: var(--graphite); letter-spacing: -0.3px; }
 
   .step-num {
-    background: linear-gradient(135deg, var(--burgundy) 0%, var(--forest) 100%);
+    background: linear-gradient(135deg, var(--burgundy) 0%, var(--burgundy-soft) 100%);
     color: white;
     width: 24px; height: 24px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
     font-weight: 700; font-size: 0.8rem;
-    box-shadow: 0 2px 6px rgba(63, 107, 74, 0.30);
+    box-shadow: 0 2px 6px rgba(122, 46, 54, 0.28);
     flex-shrink: 0;
   }
 
@@ -165,7 +180,7 @@
   /* === БЛОК СОГЛАСИЯ === */
   .consent-card {
     background: #fff;
-    border: 2px dashed var(--forest);
+    border: 2px dashed var(--burgundy-soft);
     border-radius: 10px;
     padding: 10px 14px;
     text-align: center;
@@ -198,20 +213,22 @@
     font-weight: 700;
   }
 
-  /* === IFRAME ЯНДЕКС.ФОРМЫ === */
+  /* === ЧИСТАЯ ЯНДЕКС.ФОРМА === */
   .form-frame {
-    background: #f2f8ef;
-    border: 1px dashed #cfe0cb;
-    border-radius: 8px;
-    padding: 4px;
+    background: transparent;
+    border: none;
+    padding: 0;
     display: flex; justify-content: center;
     overflow: hidden;
   }
   iframe.yandex-form {
     width: 100%;
     max-width: 650px;
-    height: 500px;
-    border: none;
+    height: 420px;
+    border: 1px solid #f0e2d4;
+    border-radius: 10px;
+    background: #ffffff;
+    box-shadow: 0 2px 10px rgba(122, 46, 54, 0.05);
   }
 
   /* === ПОЛЕ ВВОДА КОДА === */
@@ -220,7 +237,7 @@
   .code-row input {
     flex: 1 1 180px;
     padding: 7px 11px;
-    border: 2px solid #d4e2d0;
+    border: 2px solid #ecd9c2;
     border-radius: 7px;
     font-size: 0.82rem;
     font-family: var(--font-sans);
@@ -228,9 +245,9 @@
     outline: none;
     min-width: 0;
   }
-  .code-row input:focus { border-color: var(--forest); }
+  .code-row input:focus { border-color: var(--burgundy); }
   .code-row button {
-    background: linear-gradient(135deg, var(--burgundy) 0%, var(--forest) 100%);
+    background: linear-gradient(135deg, var(--burgundy) 0%, var(--burgundy-dark) 100%);
     color: white;
     border: none;
     padding: 7px 14px;
@@ -249,7 +266,7 @@
   /* === ДИАГНОСТИКА === */
   .diag-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; }
   .diag-card {
-    border: 1px solid #e2ece0;
+    border: 1px solid #f2e6da;
     border-radius: 9px;
     padding: 10px;
     display: flex; flex-direction: column;
@@ -261,13 +278,13 @@
   }
   .diag-card::before {
     content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
-    background: linear-gradient(180deg, var(--burgundy) 0%, var(--forest) 100%);
+    background: linear-gradient(180deg, var(--burgundy) 0%, var(--burgundy-soft) 100%);
     transform: scaleY(0); transition: transform 0.2s;
   }
   .diag-card:hover {
-    border-color: var(--forest);
+    border-color: var(--burgundy-soft);
     transform: translateY(-2px);
-    box-shadow: 0 8px 16px rgba(63, 107, 74, 0.12);
+    box-shadow: 0 8px 16px rgba(122, 46, 54, 0.10);
   }
   .diag-card:hover::before { transform: scaleY(1); }
 
@@ -286,22 +303,22 @@
   .btn-action:hover { background: var(--forest); transform: translateY(-1px); }
 
   /* === ЛЕНТЫ === */
-  .scroll-container { overflow-x: auto; padding-bottom: 4px; scrollbar-width: thin; scrollbar-color: #c4d6c0 transparent; }
+  .scroll-container { overflow-x: auto; padding-bottom: 4px; scrollbar-width: thin; scrollbar-color: #e6d3c2 transparent; }
   .scroll-container::-webkit-scrollbar { height: 5px; }
-  .scroll-container::-webkit-scrollbar-thumb { background: #c4d6c0; border-radius: 3px; }
+  .scroll-container::-webkit-scrollbar-thumb { background: #e6d3c2; border-radius: 3px; }
   .items-row { display: flex; gap: 10px; width: max-content; }
   .item-card {
-    width: 250px; background: #fff; border: 1px solid #e2ece0;
+    width: 250px; background: #fff; border: 1px solid #f2e6da;
     border-radius: 9px; padding: 10px;
-    box-shadow: 0 2px 5px rgba(30, 60, 40, 0.03);
+    box-shadow: 0 2px 5px rgba(122, 46, 54, 0.03);
   }
 
   .rev-header { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
   .rev-avatar {
     width: 30px; height: 30px; border-radius: 50%;
-    background: #eef6ea; color: var(--forest);
+    background: #fbf1e6; color: var(--burgundy);
     display: flex; align-items: center; justify-content: center;
-    font-weight: 700; font-size: 0.84rem; border: 1px solid #cfe3cb;
+    font-weight: 700; font-size: 0.84rem; border: 1px solid #ecd9c2;
   }
   .rev-info { flex-grow: 1; }
   .rev-name { font-weight: 700; font-size: 0.82rem; display: block; }
@@ -310,7 +327,7 @@
 
   .vid-preview {
     aspect-ratio: 16/9;
-    background: linear-gradient(135deg, #3f6b4a 0%, #7a2e36 100%);
+    background: linear-gradient(135deg, var(--burgundy) 0%, var(--burgundy-dark) 100%);
     border-radius: 6px;
     margin-bottom: 6px; display: flex; align-items: center; justify-content: center;
     color: white; font-size: 1.2rem; position: relative; overflow: hidden;
@@ -332,7 +349,7 @@
   .qr-item { text-align: center; width: 110px; flex-shrink: 0; }
   .qr-box {
     width: 110px; height: 110px;
-    border: 1px solid #e2ece0;
+    border: 1px solid #f2e6da;
     border-radius: 8px;
     padding: 4px; background: white;
     margin-bottom: 4px;
@@ -347,7 +364,7 @@
 
   a.qr-box { text-decoration: none; transition: all 0.2s; }
   a.qr-box:hover {
-    border-color: var(--forest);
+    border-color: var(--burgundy-soft);
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
   }
@@ -360,30 +377,29 @@
 
   footer {
     margin-top: 8px; padding: 10px 0 2px; text-align: center;
-    font-size: 0.76rem; color: #6f7f6f; border-top: 1px solid #d4e2d0;
+    font-size: 0.76rem; color: #8a7a6a; border-top: 1px solid #ecd9c2;
   }
   details summary { cursor: pointer; font-weight: 700; color: var(--graphite); margin-bottom: 5px; list-style: none; }
   details summary::after { content: " ▾"; font-size: 0.8em; }
   .legal-docs {
     background: white; padding: 12px; border-radius: 8px;
-    text-align: left; margin-top: 4px; border: 1px solid #e2ece0;
+    text-align: left; margin-top: 4px; border: 1px solid #f2e6da;
     font-size: 0.78rem; color: #555;
   }
   .legal-links a { color: var(--burgundy); text-decoration: none; margin-right: 12px; font-weight: 700; }
 
   @media (max-width: 768px) {
-    header.hero-section { flex-direction: column; margin-bottom: 8px; }
-    .hero-photo-wrapper { width: 100%; height: 260px; min-height: unset; }
-    .hero-content { padding: 16px 14px; }
-    .hero-name { font-size: 1.7rem; }
-    .hero-role { font-size: 0.76rem; }
+    header.hero-section { flex-direction: column; margin-bottom: 8px; gap: 0; }
+    .hero-photo-wrapper { width: 100%; height: 320px; }
+    .hero-content { padding: 18px 16px; }
+    .hero-name { font-size: 1.8rem; }
+    .hero-role { font-size: 0.78rem; }
     section.block { padding: 12px 14px; }
     .grid-overlay { display: none; }
-    iframe.yandex-form { height: 560px; }
+    iframe.yandex-form { height: 460px; }
   }
 </style>
 
-<!-- Один шрифт на весь сайт -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
@@ -391,8 +407,7 @@
 <body>
 
 <div class="grid-overlay"></div>
-<div class="bg-letters-container burgundy" id="bgLettersBurgundy"></div>
-<div class="bg-letters-container forest" id="bgLettersForest"></div>
+<div class="decor-layer" id="decorLayer"></div>
 
 <div class="container">
 
@@ -415,7 +430,6 @@
     </div>
   </header>
 
-  <!-- БЛОК 1: СОГЛАСИЕ -->
   <section class="block" id="consent-section">
     <div class="section-header">
       <span class="step-num">1</span>
@@ -458,7 +472,6 @@
     </div>
   </section>
 
-  <!-- БЛОК 2: ДИАГНОСТИКА -->
   <section class="block">
     <div class="section-header">
       <span class="step-num">2</span>
@@ -470,7 +483,6 @@
     <div class="diag-grid" id="diagGrid"></div>
   </section>
 
-  <!-- БЛОК 3: ЗАПИСЬ -->
   <section class="block" id="booking-section" style="display: none;">
     <div class="section-header">
       <span class="step-num">3</span>
@@ -496,7 +508,6 @@
     </p>
   </section>
 
-  <!-- ОТЗЫВЫ -->
   <section class="block">
     <div class="section-header">
       <span class="step-num">★</span>
@@ -520,7 +531,6 @@
     </div>
   </section>
 
-  <!-- ВИДЕО -->
   <section class="block">
     <div class="section-header">
       <span class="step-num">▶</span>
@@ -535,7 +545,6 @@
     </div>
   </section>
 
-  <!-- КОНТАКТЫ -->
   <section class="block" style="margin-bottom: 0;">
     <div class="section-header">
       <span class="step-num">@</span>
@@ -545,7 +554,7 @@
     <div class="contacts-flex">
       <div class="qr-item">
         <div class="qr-box">
-          <img src="qr-vk.png" alt="QR ВКонтакте" loading="lazy" onerror="this.src='https://via.placeholder.com/110/eef6ea/3f6b4a?text=VK'">
+          <img src="qr-vk.png" alt="QR ВКонтакте" loading="lazy" onerror="this.src='https://via.placeholder.com/110/fbf1e6/7a2e36?text=VK'">
         </div>
         <span class="qr-label">ВКонтакте</span>
         <a href="https://vk.ru/annfromcrimea" target="_blank" rel="noopener" class="qr-link">Вступить ↗</a>
@@ -553,7 +562,7 @@
 
       <div class="qr-item">
         <div class="qr-box">
-          <img src="qr-max.png" alt="QR Канал MAX" loading="lazy" onerror="this.src='https://via.placeholder.com/110/eef6ea/3f6b4a?text=MAX'">
+          <img src="qr-max.png" alt="QR Канал MAX" loading="lazy" onerror="this.src='https://via.placeholder.com/110/fbf1e6/7a2e36?text=MAX'">
         </div>
         <span class="qr-label">Канал MAX</span>
         <a href="https://max.ru/join/_wpDnYzIiWKIr6vZUJze0fQuqPMuouIbaJwLQvt58zQ" target="_blank" rel="noopener" class="qr-link">Перейти ↗</a>
@@ -561,7 +570,7 @@
 
       <div class="qr-item">
         <a class="qr-box" href="https://annfromcrimea.ru/" target="_blank" rel="noopener" title="Открыть сайт студии">
-          <img src="studio.png" alt="Сайт студии annfromcrimea.ru" loading="lazy" onerror="this.src='https://via.placeholder.com/110/eef6ea/3f6b4a?text=studio'">
+          <img src="studio.png" alt="Сайт студии annfromcrimea.ru" loading="lazy" onerror="this.src='https://via.placeholder.com/110/fbf1e6/7a2e36?text=studio'">
         </a>
         <span class="qr-label">annfromcrimea.ru</span>
         <a href="https://annfromcrimea.ru/" target="_blank" rel="noopener" class="qr-link">Открыть ↗</a>
@@ -661,27 +670,56 @@ const DIAG_LINKS = [
   input.addEventListener("keydown", (e) => { if (e.key === "Enter") verify(); });
 })();
 
-(function generateBgLetters(){
-  const chars = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
-                 'А','Б','В','Г','Д','Е','Ё','Ж','З','И','Й','К','Л','М','Н','О','П','Р','С','Т','У','Ф','Х','Ц','Ч','Ш','Щ','Ъ','Ы','Ь','Э','Ю','Я',
-                 '1','2','3','4','5','6','7','8','9','0','+','-','=','×','÷','%'];
+/* === ДЕКОР: листики, школьные предметы, буквы === */
+(function generateDecor(){
+  const layer = document.getElementById('decorLayer');
+  if(!layer) return;
 
-  function fill(containerId, count){
-    const container = document.getElementById(containerId);
-    if(!container) return;
-    for(let i=0; i<count; i++){
-      const span = document.createElement('span');
-      span.className = 'bg-letter';
-      span.textContent = chars[Math.floor(Math.random() * chars.length)];
-      span.style.left = Math.random() * 100 + '%';
-      span.style.top = Math.random() * 100 + '%';
-      span.style.fontSize = (14 + Math.random() * 32) + 'px';
-      span.style.transform = `rotate(${Math.random() * 60 - 30}deg)`;
-      container.appendChild(span);
-    }
+  const icons = {
+    leaf: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 8C8 10 5.9 16.2 3.8 21.4c-.2.5.3 1 .8.8 1.4-.6 2.8-1.2 4.2-1.8C14 18 17 13 17 8z"/><path d="M17 8c2 0 4-1 5-3-2 0-4 1-5 3z"/></svg>',
+    pencil: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 21l3.5-1 12-12a2.1 2.1 0 0 0-3-3l-12 12L3 21z"/><path d="M14.5 6.5l3 3" stroke="white" stroke-width="1.2" fill="none"/></svg>',
+    book: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h7v16H4zM13 4h7v16h-7z" opacity=".85"/><path d="M11 4h2v16h-2z" fill="white" opacity=".5"/></svg>',
+    ruler: '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="8" width="20" height="8" rx="1.5"/><path d="M6 8v3M9 8v4M12 8v3M15 8v4M18 8v3" stroke="white" stroke-width="1.1"/></svg>',
+    apple: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 7c-1-2-3-2.5-4.5-1.5C5 7 4.5 11 6.5 14.5 8 17 10 19 12 19s4-2 5.5-4.5C19.5 11 19 7 16.5 5.5 15 4.5 13 5 12 7z"/><path d="M12 7c0-2 1-3 2-3.5" stroke="currentColor" stroke-width="1.3" fill="none"/></svg>',
+    star: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.7 1.4 6.8L12 17.8 5.9 20.5l1.4-6.8L2.2 9l6.9-.7L12 2z"/></svg>'
+  };
+
+  const leafKeys = ['leaf','leaf','leaf','apple'];
+  const schoolKeys = ['pencil','book','ruler','star','pencil','book'];
+  const letters = ['А','Б','В','Г','Д','Е','Ё','Ж','З','И','К','Л','М','Н','О','П','Р','С','Т','У','Ф','Х','Ц','Ч','Ш','Щ','Э','Ю','Я'];
+
+  function rand(min,max){ return Math.random()*(max-min)+min; }
+
+  const allKeys = [...leafKeys, ...schoolKeys];
+  allKeys.forEach((key) => {
+    const el = document.createElement('div');
+    el.className = 'decor-item ' + (leafKeys.includes(key) ? 'leaf' : 'school');
+    el.innerHTML = icons[key];
+    const size = rand(28, 52);
+    el.style.width = size + 'px';
+    el.style.height = size + 'px';
+    el.style.left = rand(2, 95) + '%';
+    el.style.top = rand(2, 95) + '%';
+    el.style.transform = `rotate(${rand(-25,25)}deg)`;
+    el.style.animationDelay = rand(0, 8) + 's';
+    el.style.animationDuration = rand(9, 16) + 's';
+    el.querySelector('svg').style.width = '100%';
+    el.querySelector('svg').style.height = '100%';
+    layer.appendChild(el);
+  });
+
+  for(let i=0; i<26; i++){
+    const span = document.createElement('span');
+    span.className = 'decor-item letter';
+    span.textContent = letters[Math.floor(Math.random()*letters.length)];
+    span.style.left = rand(2, 96) + '%';
+    span.style.top = rand(2, 96) + '%';
+    span.style.fontSize = rand(16, 34) + 'px';
+    span.style.transform = `rotate(${rand(-30,30)}deg)`;
+    span.style.animationDelay = rand(0, 8) + 's';
+    span.style.animationDuration = rand(10, 18) + 's';
+    layer.appendChild(span);
   }
-  fill('bgLettersBurgundy', 40);
-  fill('bgLettersForest', 30);
 })();
 </script>
 
