@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>English Check-Up · A1 → C2 · 5 навыков</title>
+<title>English Check-Up · A1 → C1 · 5 навыков</title>
 
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231d4234'/%3E%3Cpath d='M14 14h36v36H14z' fill='none' stroke='%23a06b35' stroke-width='4'/%3E%3Ctext x='50%25' y='62%25' font-family='Georgia, serif' font-size='36' font-weight='bold' fill='%23f5f2e4' text-anchor='middle' dominant-baseline='middle'%3EE%3C/text%3E%3Cline x1='18' y1='48' x2='46' y2='48' stroke='%23ffd35c' stroke-width='2' opacity='.6'/%3E%3C/svg%3E">
 
@@ -87,7 +87,6 @@ body.mode-kids .mode-btn.on{background:#fff3d6;border-color:var(--yellow)}
 .btn-big:active{transform:translateY(2px);box-shadow:0 3px 0 #c99a1e}
 .tiny{font-size:.78rem;color:#68819a;text-align:center;margin-top:10px}
 
-/* === ШАПКА КВИЗА === */
 .quiz-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:10px}
 .logo{font-family:'Caveat',cursive;font-size:1.6rem;color:var(--yellow);white-space:nowrap}
 body.mode-kids .logo{color:#134a76}
@@ -108,9 +107,8 @@ body.mode-kids .snav{background:rgba(255,255,255,.6);color:#5a7ea0}
 .snav.now{background:var(--sky);color:#fff;border-color:transparent;transform:translateY(-2px)}
 .snav.done{opacity:.65;text-decoration:line-through}
 
-/* === ВТОРАЯ ШКАЛА: уровень вопроса === */
-.lvlbar{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin:0 0 20px}
-.lvlbar b{text-align:center;font-size:.72rem;font-weight:800;letter-spacing:.05em;padding:5px 0;border-radius:6px;background:rgba(255,255,255,.07);color:var(--chalk-dim);transition:all .35s;position:relative}
+.lvlbar{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:0 0 20px}
+.lvlbar b{text-align:center;font-size:.72rem;font-weight:800;letter-spacing:.05em;padding:5px 0;border-radius:6px;background:rgba(255,255,255,.07);color:var(--chalk-dim);transition:all .35s}
 body.mode-kids .lvlbar b{background:rgba(255,255,255,.55);color:#5a7ea0}
 .lvlbar b.hot{background:var(--sky);color:#0c2e47;transform:translateY(-1px)}
 .lvlbar-label{font-size:.72rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--chalk-dim);margin-bottom:4px}
@@ -270,9 +268,9 @@ body.mode-kids .btn-giveup:hover:not(:disabled){background:#fde8e6;border-color:
 <section id="scr-start" class="screen">
   <div class="start-grid">
     <div class="board-frame">
-      <div class="chalk-tag">мини-экзамен · 5 навыков · A1 → C2</div>
+      <div class="chalk-tag">мини-экзамен · 5 навыков · A1 → C1</div>
       <h1 class="hand">Проверь свой <em>English</em>!</h1>
-      <p class="sub">Полная диагностика: <b>грамматика и лексика 📚, аудирование 🎧, чтение 📖, письмо ✍️ и говорение 🎤</b>. Каждая секция подстраивается под вас, а в конце — уровень по шкале CEFR для каждого навыка и разбор ошибок.</p>
+      <p class="sub">Полная диагностика: <b>грамматика и лексика 📚, аудирование 🎧, чтение 📖, письмо ✍️ и говорение 🎤</b>. 10 вопросов на навык (по 2 на уровень A1–C1), в конце — уровень по CEFR для каждого навыка и разбор ошибок.</p>
       <div class="tiles" aria-hidden="true">
         <div class="tile m wide" style="--r:-5deg">📚 Grammar</div>
         <div class="tile s wide" style="--r:4deg">🎧 Listening</div>
@@ -319,7 +317,7 @@ body.mode-kids .btn-giveup:hover:not(:disabled){background:#fde8e6;border-color:
   <div class="quiz-top">
     <span class="logo">✎ English Check-Up</span>
     <div class="progress"><i id="pbar"></i></div>
-    <span class="qcount" id="qcount">1 / 20</span>
+    <span class="qcount" id="qcount">1 / 50</span>
     <div class="chips">
       <span class="chip est" id="est">—</span>
       <span class="chip" id="score">Очки: 0</span>
@@ -329,11 +327,10 @@ body.mode-kids .btn-giveup:hover:not(:disabled){background:#fde8e6;border-color:
 
   <div class="secnav" id="secnav"></div>
 
-  <!-- Отдельная шкала уровня текущего вопроса -->
   <div class="lvlbar-label">Уровень задания</div>
   <div class="lvlbar" id="lvlbar" aria-hidden="true">
     <b data-l="1">A1</b><b data-l="2">A2</b><b data-l="3">B1</b>
-    <b data-l="4">B2</b><b data-l="5">C1</b><b data-l="6">C2</b>
+    <b data-l="4">B2</b><b data-l="5">C1</b>
   </div>
 
   <article class="qcard intro" id="intro" hidden>
@@ -403,11 +400,11 @@ body.mode-kids .btn-giveup:hover:not(:disabled){background:#fde8e6;border-color:
 <script>
 const SK={
   g:{icon:'📚',title:'Грамматика и лексика',short:'Грамматика',
-     desc:'Выбирайте правильный вариант. Верный ответ делает вопрос сложнее, ошибка — проще.'},
+     desc:'Выбирайте правильный вариант. Вопросы идут по возрастанию уровня: A1 → C1.'},
   l:{icon:'🎧',title:'Аудирование',short:'Аудирование',
      desc:'Нажмите ▶ и прослушайте запись — повторять можно сколько угодно. Варианты откроются после первого прослушивания.'},
   r:{icon:'📖',title:'Чтение',short:'Чтение',
-     desc:'Прочитайте текст и ответьте на вопрос по его содержанию.'},
+     desc:'Прочитайте текст и ответьте на вопрос по его содержанию. Вопросы идут по возрастанию уровня.'},
   w:{icon:'✍️',title:'Письмо',short:'Письмо',
      desc:'Впишите ответ на английском — слово или короткую фразу. Орфография имеет значение!'},
   s:{icon:'🎤',title:'Говорение',short:'Говорение',
@@ -420,90 +417,143 @@ const LVLFULL={A1:'Beginner · Начальный',A2:'Elementary · Базов�
 const $=id=>document.getElementById(id);
 const SR=window.SpeechRecognition||window.webkitSpeechRecognition||null;
 
-/* ===== Банк вопросов (без изменений) ===== */
+/* ===== Параметры теста ===== */
+// По 2 вопроса на каждый уровень A1..C1 => 10 на навык => 50 всего
+const LEVELS_FOR_SKILL = [1,1, 2,2, 3,3, 4,4, 5,5];
+const PER_SKILL = LEVELS_FOR_SKILL.length; // 10
+
+/* ===== БАНК ГРАММАТИКИ (по 3 на уровень A1..C1) ===== */
 const BANK=[
-{lvl:1,skill:'g',q:'I ___ a student.',o:['am','is','are','be'],a:0,e:'С местоимением I всегда используется форма am.'},
-{lvl:1,skill:'v',q:'What is the opposite of “big”?',o:['small','tall','long','loud'],a:0,e:'Big — «большой», противоположное — small «маленький».'},
-{lvl:1,skill:'g',q:'She ___ a new car.',o:['has','have','is','are'],a:0,e:'She — 3-е лицо ед.ч., поэтому используется has.'},
-{lvl:2,skill:'g',q:'Yesterday I ___ to the park.',o:['went','go','gone','goes'],a:0,e:'Past Simple от go — went.'},
-{lvl:2,skill:'g',q:'They ___ playing football now.',o:['are','is','am','be'],a:0,e:'Present Continuous для they требует are.'},
-{lvl:2,skill:'v',q:'I need to ___ some milk from the shop.',o:['buy','bought','buying','buys'],a:0,e:'После need to используется инфинитив без to (buy).'},
-{lvl:3,skill:'g',q:'If it rains tomorrow, we ___ at home.',o:['will stay','stay','would stay','stayed'],a:0,e:'Первый тип условных: If + Present, will + глагол.'},
-{lvl:3,skill:'g',q:'I have ___ this movie three times.',o:['seen','saw','see','seeing'],a:0,e:'Present Perfect требует третьей формы глагола (seen).'},
-{lvl:3,skill:'v',q:'The meeting was ___ because of the storm.',o:['cancelled','cancelleding','cancel','cancels'],a:0,e:'Пассивный залог: was + V3 (cancelled).'},
-{lvl:4,skill:'g',q:'By the time we arrived, the film ___.',o:['had started','started','has started','starts'],a:0,e:'Past Perfect — действие раньше другого в прошлом.'},
-{lvl:4,skill:'g',q:'I wish I ___ more free time.',o:['had','have','has','having'],a:0,e:'I wish + Past Simple для нереальных желаний в настоящем.'},
-{lvl:4,skill:'v',q:'He is ___ to be the best doctor in town.',o:['rumoured','rumour','rumours','rumouring'],a:0,e:'Пассивная конструкция: is rumoured (по слухам).'},
-{lvl:5,skill:'g',q:'___ had I entered the room when the phone rang.',o:['Hardly','No sooner','As soon as','The moment'],a:0,e:'Hardly … when. No sooner требовала бы than.'},
-{lvl:5,skill:'g',q:'Not only ___ late, but he also forgot the documents.',o:['did he arrive','he arrived','arrived he','he did arrive'],a:0,e:'Инверсия после отрицательных наречий в начале предложения.'},
-{lvl:5,skill:'v',q:'The project was ___ due to lack of funding.',o:['abandoned','abandon','abandoning','abandons'],a:0,e:'Пассивный залог: was + V3 (abandoned).'},
-{lvl:6,skill:'g',q:'The painting, ___ authenticity experts had questioned, sold for a record sum.',o:['whose','which','whom','of which'],a:0,e:'Whose заменяет of which для указания принадлежности.'},
-{lvl:6,skill:'g',q:'Had I known about the traffic, I ___ a different route.',o:['would have taken','would take','took','had taken'],a:0,e:'Третий тип условных (инверсия): Had I known = If I had known, would have + V3.'},
-{lvl:6,skill:'v',q:'Her argument was entirely ___.',o:['unsubstantiated','unsubstantial','unsubscribing','unsubstantiality'],a:0,e:'Unsubstantiated — неподтвержденный, бездоказательный.'}
+  // A1
+  {lvl:1,skill:'g',q:'I ___ a student.',o:['am','is','are','be'],a:0,e:'С местоимением I всегда используется форма am.'},
+  {lvl:1,skill:'g',q:'She ___ a new car.',o:['has','have','is','are'],a:0,e:'She — 3-е лицо ед.ч., поэтому используется has.'},
+  {lvl:1,skill:'v',q:'What is the opposite of “big”?',o:['small','tall','long','loud'],a:0,e:'Big — «большой», противоположное — small «маленький».'},
+  // A2
+  {lvl:2,skill:'g',q:'Yesterday I ___ to the park.',o:['went','go','gone','goes'],a:0,e:'Past Simple от go — went.'},
+  {lvl:2,skill:'g',q:'They ___ playing football now.',o:['are','is','am','be'],a:0,e:'Present Continuous для they требует are.'},
+  {lvl:2,skill:'v',q:'I need to ___ some milk from the shop.',o:['buy','bought','buying','buys'],a:0,e:'После need to используется инфинитив без to (buy).'},
+  // B1
+  {lvl:3,skill:'g',q:'If it rains tomorrow, we ___ at home.',o:['will stay','stay','would stay','stayed'],a:0,e:'Первый тип условных: If + Present, will + глагол.'},
+  {lvl:3,skill:'g',q:'I have ___ this movie three times.',o:['seen','saw','see','seeing'],a:0,e:'Present Perfect требует третьей формы глагола (seen).'},
+  {lvl:3,skill:'v',q:'The meeting was ___ because of the storm.',o:['cancelled','cancelleding','cancel','cancels'],a:0,e:'Пассивный залог: was + V3 (cancelled).'},
+  // B2
+  {lvl:4,skill:'g',q:'By the time we arrived, the film ___.',o:['had started','started','has started','starts'],a:0,e:'Past Perfect — действие раньше другого в прошлом.'},
+  {lvl:4,skill:'g',q:'I wish I ___ more free time.',o:['had','have','has','having'],a:0,e:'I wish + Past Simple для нереальных желаний в настоящем.'},
+  {lvl:4,skill:'v',q:'He is ___ to be the best doctor in town.',o:['rumoured','rumour','rumours','rumouring'],a:0,e:'Пассивная конструкция: is rumoured (по слухам).'},
+  // C1
+  {lvl:5,skill:'g',q:'___ had I entered the room when the phone rang.',o:['Hardly','No sooner','As soon as','The moment'],a:0,e:'Hardly … when. No sooner требовала бы than.'},
+  {lvl:5,skill:'g',q:'Not only ___ late, but he also forgot the documents.',o:['did he arrive','he arrived','arrived he','he did arrive'],a:0,e:'Инверсия после отрицательных наречий в начале предложения.'},
+  {lvl:5,skill:'v',q:'The project was ___ due to lack of funding.',o:['abandoned','abandon','abandoning','abandons'],a:0,e:'Пассивный залог: was + V3 (abandoned).'}
 ];
 
+/* ===== ЧТЕНИЕ (по 2 на уровень A1..C1) ===== */
 const READING=[
-{lvl:1,text:'Tom has a dog. The dog is big and black. Tom plays with the dog in the park every day.',
- q:'Where does Tom play with his dog?',o:['In the park','At home','At school','In the forest'],a:0,e:'В тексте прямо сказано: “Tom plays with the dog in the park every day.”'},
-{lvl:2,text:'Lisa wants to be a vet. She loves animals and reads books about them. She has a cat and two rabbits.',
- q:'What does Lisa want to be?',o:['A vet','A teacher','A doctor','A writer'],a:0,e:'В первом предложении: “Lisa wants to be a vet.”'},
-{lvl:3,text:'When Sarah started her new job, she was nervous because she didn’t know anyone. However, her colleagues were friendly, and after a week she felt at home.',
- q:'Why did Sarah feel at home after a week?',o:['Her colleagues were friendly','She knew everyone','She liked the office','She got a promotion'],a:0,e:'Причина названа после however: дружелюбные коллеги.'},
-{lvl:4,text:'The Industrial Revolution brought significant changes to society. While it improved production efficiency, it also led to poor working conditions and urban overcrowding.',
- q:'What was a negative effect of the Industrial Revolution?',o:['Urban overcrowding','Improved efficiency','Better society','More farms'],a:0,e:'В тексте указано: “led to poor working conditions and urban overcrowding.”'},
-{lvl:5,text:'Despite the overwhelming evidence supporting the new policy, the committee remained skeptical, citing potential long-term economic drawbacks that had not been fully addressed in the proposal.',
- q:'Why was the committee skeptical?',o:['Potential long-term economic drawbacks','Overwhelming evidence','The new policy','Full address in proposal'],a:0,e:'Они ссылались на "potential long-term economic drawbacks".'}
+  {lvl:1,text:'Tom has a dog. The dog is big and black. Tom plays with the dog in the park every day.',
+   q:'Where does Tom play with his dog?',o:['In the park','At home','At school','In the forest'],a:0,e:'В тексте прямо сказано: “Tom plays with the dog in the park every day.”'},
+  {lvl:1,text:'Anna is seven. She goes to school. She likes her teacher and her friends.',
+   q:'How old is Anna?',o:['Seven','Six','Eight','Ten'],a:0,e:'В первом предложении: “Anna is seven.”'},
+  {lvl:2,text:'Lisa wants to be a vet. She loves animals and reads books about them. She has a cat and two rabbits.',
+   q:'What does Lisa want to be?',o:['A vet','A teacher','A doctor','A writer'],a:0,e:'В первом предложении: “Lisa wants to be a vet.”'},
+  {lvl:2,text:'Mike gets up at seven. He has breakfast and goes to work by bus. He starts work at nine.',
+   q:'How does Mike go to work?',o:['By bus','By car','On foot','By train'],a:0,e:'В тексте: “He goes to work by bus.”'},
+  {lvl:3,text:'When Sarah started her new job, she was nervous because she didn’t know anyone. However, her colleagues were friendly, and after a week she felt at home.',
+   q:'Why did Sarah feel at home after a week?',o:['Her colleagues were friendly','She knew everyone','She liked the office','She got a promotion'],a:0,e:'Причина названа после however: дружелюбные коллеги.'},
+  {lvl:3,text:'The museum is open from Tuesday to Sunday, 10 a.m. to 6 p.m. It is closed on Mondays. Tickets cost £8 for adults and £4 for children.',
+   q:'When is the museum closed?',o:['On Mondays','On Sundays','On Tuesdays','Every day'],a:0,e:'В тексте: “It is closed on Mondays.”'},
+  {lvl:4,text:'The Industrial Revolution brought significant changes to society. While it improved production efficiency, it also led to poor working conditions and urban overcrowding.',
+   q:'What was a negative effect of the Industrial Revolution?',o:['Urban overcrowding','Improved efficiency','Better society','More farms'],a:0,e:'В тексте указано: “led to poor working conditions and urban overcrowding.”'},
+  {lvl:4,text:'Many nutritionists argue that breakfast is the most important meal of the day. They claim it provides energy and helps concentration. However, some recent studies suggest the evidence is not conclusive.',
+   q:'What do recent studies suggest?',o:['The evidence is not conclusive','Breakfast is essential','Breakfast helps concentration','Nutritionists are wrong'],a:0,e:'В тексте: “some recent studies suggest the evidence is not conclusive.”'},
+  {lvl:5,text:'Despite the overwhelming evidence supporting the new policy, the committee remained skeptical, citing potential long-term economic drawbacks that had not been fully addressed in the proposal.',
+   q:'Why was the committee skeptical?',o:['Potential long-term economic drawbacks','Overwhelming evidence','The new policy','Full address in proposal'],a:0,e:'Они ссылались на "potential long-term economic drawbacks".'},
+  {lvl:5,text:'The author’s argument, though elegantly constructed, rests on assumptions that are rarely questioned and therefore remain unexamined. This, in turn, weakens the overall persuasiveness of the conclusion.',
+   q:'Why is the conclusion less persuasive?',o:['It relies on unexamined assumptions','It is elegantly constructed','It questions the evidence','It is too long'],a:0,e:'В тексте: “rests on assumptions that are rarely questioned… remain unexamined.”'}
 ];
 
+/* ===== АУДИРОВАНИЕ (по 2 на уровень A1..C1) ===== */
 const LISTEN=[
-{lvl:1,audio:['Hello! My name is Emma.','I am eight years old.','I have got a cat. Its name is Milo.'],
- q:'How old is Emma?',o:['Eight','Ten','Seven','Nine'],a:0,e:'В записи: “I am eight years old.”'},
-{lvl:2,audio:['Hi, I am looking for the train station.','Go straight and turn left at the bank.','It is next to the post office.'],
- q:'Where is the train station?',o:['Next to the post office','At the bank','Go straight','Turn right'],a:0,e:'В записи: “It is next to the post office.”'},
-{lvl:3,audio:['Hi Jack! The film starts at seven.','So let’s meet outside the cinema at half past six.','I’ll buy the tickets.'],
- q:'Where will they meet?',o:['Outside the cinema','At Jack’s home','Inside the cinema','At the café'],a:0,e:'“Let’s meet outside the cinema at half past six.”'},
-{lvl:4,audio:['The conference has been moved to Friday.','We need more time to prepare the presentation.','Please update your calendars.'],
- q:'Why was the conference moved?',o:['To prepare the presentation','Because of Friday','To update calendars','It was not moved'],a:0,e:'“We need more time to prepare the presentation.”'},
-{lvl:5,audio:['While the initial results were promising, the researchers cautioned against drawing definitive conclusions.','Further trials are necessary to validate the findings.','The sample size was simply too small.'],
- q:'Why are further trials necessary?',o:['The sample size was too small','The results were definitive','The initial results were bad','To draw conclusions'],a:0,e:'“The sample size was simply too small.”'}
+  {lvl:1,audio:['Hello! My name is Emma.','I am eight years old.','I have got a cat. Its name is Milo.'],
+   q:'How old is Emma?',o:['Eight','Ten','Seven','Nine'],a:0,e:'В записи: “I am eight years old.”'},
+  {lvl:1,audio:['This is my family.','My mother is a teacher.','My father is a doctor.'],
+   q:'What is Emma’s mother?',o:['A teacher','A doctor','A nurse','A driver'],a:0,e:'В записи: “My mother is a teacher.”'},
+  {lvl:2,audio:['Hi, I am looking for the train station.','Go straight and turn left at the bank.','It is next to the post office.'],
+   q:'Where is the train station?',o:['Next to the post office','At the bank','Go straight','Turn right'],a:0,e:'В записи: “It is next to the post office.”'},
+  {lvl:2,audio:['I usually get up at seven.','I have breakfast and then go to school.','School starts at half past eight.'],
+   q:'What time does school start?',o:['Half past eight','Seven','Eight','Nine'],a:0,e:'В записи: “School starts at half past eight.”'},
+  {lvl:3,audio:['Hi Jack! The film starts at seven.','So let’s meet outside the cinema at half past six.','I’ll buy the tickets.'],
+   q:'Where will they meet?',o:['Outside the cinema','At Jack’s home','Inside the cinema','At the café'],a:0,e:'“Let’s meet outside the cinema at half past six.”'},
+  {lvl:3,audio:['I have lived in London for five years.','I came here to study, but I stayed for work.','I really like this city.'],
+   q:'Why did the speaker come to London?',o:['To study','To work','To visit','To live'],a:0,e:'В записи: “I came here to study, but I stayed for work.”'},
+  {lvl:4,audio:['The conference has been moved to Friday.','We need more time to prepare the presentation.','Please update your calendars.'],
+   q:'Why was the conference moved?',o:['To prepare the presentation','Because of Friday','To update calendars','It was not moved'],a:0,e:'“We need more time to prepare the presentation.”'},
+  {lvl:4,audio:['I applied for the scholarship because of the excellent research facilities.','However, the application deadline was very tight.','In the end, I managed to submit it on time.'],
+   q:'What was the main problem with the application?',o:['A tight deadline','Poor research facilities','No scholarship','A late submission'],a:0,e:'В записи: “the application deadline was very tight.”'},
+  {lvl:5,audio:['While the initial results were promising, the researchers cautioned against drawing definitive conclusions.','Further trials are necessary to validate the findings.','The sample size was simply too small.'],
+   q:'Why are further trials necessary?',o:['The sample size was too small','The results were definitive','The initial results were bad','To draw conclusions'],a:0,e:'“The sample size was simply too small.”'},
+  {lvl:5,audio:['The proposal was rejected not because of its content, but rather because of the manner in which it was presented.','The board felt that the author had been unnecessarily dismissive of alternative views.'],
+   q:'Why was the proposal rejected?',o:['The manner of presentation','Its content','Alternative views','The board’s views'],a:0,e:'В записи: “not because of its content, but rather because of the manner in which it was presented.”'}
 ];
 
+/* ===== ПИСЬМО (по 2 на уровень A1..C1) ===== */
 const WRITING=[
-{lvl:1,q:'Write the plural form of the word: <b>mouse</b>',show:'mice',accept:['mice'],
- e:'Mouse → mice — исключение, как child → children.'},
-{lvl:1,q:'Write the past tense of the verb: <b>go</b>',show:'went',accept:['went'],
- e:'Past Simple от go — went.'},
-{lvl:2,q:'Complete the sentence: "She ___ (not / like) apples."',show:"doesn't like",accept:["doesn't like",'does not like'],
- e:'Present Simple, 3-е лицо ед.ч.: doesn\'t like.'},
-{lvl:3,q:'Fill in the gap with one word:<br>“I have lived here ___ 2015.”',show:'since',accept:['since'],
- e:'Since — с момента времени (с 2015 года).'},
-{lvl:4,q:'Write the correct form of the word in brackets:<br>“If I ___ (be) you, I would accept the offer.”',show:'were',accept:['were'],
- e:'Second Conditional: If I were you...'}
+  {lvl:1,q:'Write the plural form of the word: <b>mouse</b>',show:'mice',accept:['mice'],
+   e:'Mouse → mice — исключение, как child → children.'},
+  {lvl:1,q:'Write the past tense of the verb: <b>go</b>',show:'went',accept:['went'],
+   e:'Past Simple от go — went.'},
+  {lvl:2,q:'Complete the sentence: "She ___ (not / like) apples."',show:"doesn't like",accept:["doesn't like",'does not like'],
+   e:'Present Simple, 3-е лицо ед.ч.: doesn\'t like.'},
+  {lvl:2,q:'Write the comparative form of the adjective: <b>good</b>',show:'better',accept:['better'],
+   e:'Good → better — исключение (не gooder).'},
+  {lvl:3,q:'Fill in the gap with one word:<br>“I have lived here ___ 2015.”',show:'since',accept:['since'],
+   e:'Since — с момента времени (с 2015 года).'},
+  {lvl:3,q:'Write the correct form of the verb in brackets:<br>“She ___ (already / finish) her homework.”',show:'has already finished',accept:['has already finished'],
+   e:'Present Perfect: has already + V3 (finished).'},
+  {lvl:4,q:'Write the correct form of the word in brackets:<br>“If I ___ (be) you, I would accept the offer.”',show:'were',accept:['were'],
+   e:'Second Conditional: If I were you...'},
+  {lvl:4,q:'Complete with the correct passive form:<br>“The bridge ___ (build) in 1990.”',show:'was built',accept:['was built'],
+   e:'Past Simple Passive: was + V3 (built).'},
+  {lvl:5,q:'Rewrite using inversion (one phrase):<br>“I had hardly sat down when the phone rang.” → “Hardly ___ down when the phone rang.”',show:'had I sat',accept:['had i sat'],
+   e:'Инверсия после hardly: Hardly had I sat down when…'},
+  {lvl:5,q:'Complete the sentence with the correct form:<br>“It’s high time we ___ (leave).”',show:'left',accept:['left'],
+   e:'It’s high time + Past Simple (left) — сослагательное наклонение.'}
 ];
 
+/* ===== ГОВОРЕНИЕ (по 2 на уровень A1..C1) ===== */
 const SPEAKING=[
-{lvl:1,type:'read',text:'I like apples and bananas.',expect:'i like apples and bananas',
- e:'Следите за звуком [æ] в apples и не «проглатывайте» -s на конце bananas.'},
-{lvl:1,type:'read',text:'My cat is black and white.',expect:'my cat is black and white',
- e:'Четко произносите звуки [k] и [t].'},
-{lvl:2,type:'say',text:'What did you do yesterday?',min:3,kw:['yesterday','i','went','played','watched','read','was'],
- sample:'Yesterday I played with my friends.',
- e:'Используйте Past Simple: I went / I played / I watched…'},
-{lvl:3,type:'say',text:'Describe your favorite hobby and why you like it.',min:5,kw:['like','because','fun','relaxing','hobby','enjoy'],
- sample:'I enjoy reading because it is very relaxing and fun.',
- e:'Дайте развернутый ответ, используя because.'},
-{lvl:4,type:'say',text:'What are the advantages and disadvantages of social media?',min:10,
- kw:['advantage','disadvantage','social','media','people','because','think','but'],
- sample:'Social media helps people stay connected, but it can also waste a lot of time.',
- e:'Структурируйте ответ: On the one hand… On the other hand…'},
-{lvl:5,type:'say',text:'Do you think artificial intelligence will replace human jobs in the future?',min:12,
- kw:['ai','intelligence','jobs','future','replace','think','maybe','however'],
- sample:'I think AI will replace some jobs, however, it will also create new opportunities.',
- e:'Используйте сложную лексику и связки (however, furthermore).'}
+  {lvl:1,type:'read',text:'I like apples and bananas.',expect:'i like apples and bananas',
+   e:'Следите за звуком [æ] в apples и не «проглатывайте» -s на конце bananas.'},
+  {lvl:1,type:'read',text:'My cat is black and white.',expect:'my cat is black and white',
+   e:'Четко произносите звуки [k] и [t].'},
+  {lvl:2,type:'say',text:'What did you do yesterday?',min:3,kw:['yesterday','i','went','played','watched','read','was'],
+   sample:'Yesterday I played with my friends.',
+   e:'Используйте Past Simple: I went / I played / I watched…'},
+  {lvl:2,type:'say',text:'Describe your family in 2–3 sentences.',min:4,kw:['my','mother','father','sister','brother','family','have'],
+   sample:'I have a small family. My mother is a teacher and my father is a doctor.',
+   e:'Используйте притяжательные местоимения (my) и Present Simple.'},
+  {lvl:3,type:'say',text:'Describe your favorite hobby and why you like it.',min:5,kw:['like','because','fun','relaxing','hobby','enjoy'],
+   sample:'I enjoy reading because it is very relaxing and fun.',
+   e:'Дайте развернутый ответ, используя because.'},
+  {lvl:3,type:'say',text:'What did you do last weekend?',min:5,kw:['last','weekend','went','visited','watched','was','did'],
+   sample:'Last weekend I visited my grandparents and watched a film.',
+   e:'Используйте Past Simple и маркеры времени (last weekend).'},
+  {lvl:4,type:'say',text:'What are the advantages and disadvantages of social media?',min:10,
+   kw:['advantage','disadvantage','social','media','people','because','think','but'],
+   sample:'Social media helps people stay connected, but it can also waste a lot of time.',
+   e:'Структурируйте ответ: On the one hand… On the other hand…'},
+  {lvl:4,type:'say',text:'Describe a difficult decision you have made.',min:10,
+   kw:['decision','difficult','because','chose','think','decided','however'],
+   sample:'One difficult decision I made was choosing my university. I chose it because…',
+   e:'Используйте linking words: because, however, so.'},
+  {lvl:5,type:'say',text:'Do you think artificial intelligence will replace human jobs in the future?',min:12,
+   kw:['ai','intelligence','jobs','future','replace','think','maybe','however'],
+   sample:'I think AI will replace some jobs, however, it will also create new opportunities.',
+   e:'Используйте сложную лексику и связки (however, furthermore).'},
+  {lvl:5,type:'say',text:'To what extent do you agree that technology has made communication less personal?',min:12,
+   kw:['technology','communication','personal','agree','think','however','because','people'],
+   sample:'To some extent I agree, because people often text instead of talking. However, technology also connects distant families.',
+   e:'Дайте развернутый аргументированный ответ с контраргументом.'}
 ];
 
-/* ===== Состояние ===== */
-const PER_SKILL = 4;                  // фиксировано, без «экспресс/стандарт/подробно»
 let S=null;
 const selSkills={g:true,l:true,r:true,w:true,s:true};
 const USER_EMAIL_KEY = 'anna_en_email';
@@ -533,7 +583,7 @@ function buildPools(kids){
           w:byLevel(WRITING,kids),s:byLevel(SPEAKING,kids)};
 }
 
-/* ===== TTS (исправлено ранее) ===== */
+/* ===== TTS ===== */
 let enVoice=null;
 const TTS='speechSynthesis' in window;
 function pickVoice(){
@@ -573,10 +623,20 @@ function safeSpeak(textParts, rate, callback){
   catch(e){ console.warn('TTS speak exception:', e); clear(); done(); }
 }
 
-let recog=null,recogBusy=false;
-function stopRecog(){try{recog&&recog.stop();}catch(e){}recogBusy=false;}
+/* ===== Микрофон ===== */
+let recog=null,recogBusy=false,recogWatchdog=null;
+function resetMicUI(){
+  recogBusy=false;
+  if(recogWatchdog){ clearTimeout(recogWatchdog); recogWatchdog=null; }
+  const btn=$('micbtn');
+  if(btn){ btn.classList.remove('rec'); btn.textContent='🎤'; }
+}
+function stopRecog(){
+  try{ recog && recog.abort && recog.abort(); }catch(e){}
+  try{ recog && recog.stop && recog.stop(); }catch(e){}
+  resetMicUI();
+}
 
-/* ===== СТАРТ ===== */
 function startQuiz(){
   const emailInput = $('userEmail');
   if(emailInput && emailInput.value.trim()) {
@@ -590,7 +650,7 @@ function startQuiz(){
 
   S={skills,secIdx:0,per:PER_SKILL,pools:buildPools(kids),
      asked:{g:new Set(),l:new Set(),r:new Set(),w:new Set(),s:new Set()},
-     cur:{g:3,l:3,r:3,w:3,s:3},rating:{g:620,l:620,r:620,w:620,s:620},
+     rating:{g:620,l:620,r:620,w:620,s:620},
      sk2:{g:{c:0,t:0},l:{c:0,t:0},r:{c:0,t:0},w:{c:0,t:0},s:{c:0,t:0}},
      ans:[],score:0,streak:0,best:0,qIdx:0,secDone:0,
      skill:skills[0],current:null,order:null,answered:false,played:false,plays:0,
@@ -608,7 +668,7 @@ function showIntro(){
   if(TTS){ try{ speechSynthesis.cancel(); }catch(e){} }
   $('qcard').hidden=true;$('intro').hidden=false;
   $('in-icon').textContent=m.icon;
-  $('in-step').textContent=`Часть ${S.secIdx+1} из ${S.skills.length} · ${S.per} задания`;
+  $('in-step').textContent=`Часть ${S.secIdx+1} из ${S.skills.length} · ${S.per} заданий`;
   $('in-title').textContent=m.title;
   let extra='';
   if(k==='l'&&!TTS)extra=' ⚠ Ваш браузер не поддерживает озвучку — вместо аудио будет показан текст.';
@@ -623,26 +683,29 @@ function beginSection(){
   S.secDone=0;renderQuestion();
 }
 
-/* ===== Выбор вопроса (адаптивный по уровню, но БЕЗ перемешивания вариантов) ===== */
+/* Линейный выбор: уровень по позиции в секции, внутри уровня — первый неиспользованный */
 function pickQuestion(k){
-  const tryOrder=[S.cur[k]];
-  for(let d=1;d<=5;d++){if(S.cur[k]-d>=1)tryOrder.push(S.cur[k]-d);if(S.cur[k]+d<=6)tryOrder.push(S.cur[k]+d);}
-  for(const l of tryOrder){
-    const avail=S.pools[k][l].filter(q=>!S.asked[k].has(q));
-    if(avail.length) return avail[Math.floor(Math.random()*avail.length)];
+  const wantLvl = LEVELS_FOR_SKILL[S.secDone] || 3;
+  let pool = S.pools[k][wantLvl].filter(q=>!S.asked[k].has(q));
+  if(!pool.length){
+    // на всякий случай — если банк исчерпан на этом уровне
+    for(let d=1; d<=5 && !pool.length; d++){
+      [wantLvl-d, wantLvl+d].forEach(l=>{
+        if(l>=1 && l<=6) pool = pool.concat(S.pools[k][l].filter(q=>!S.asked[k].has(q)));
+      });
+    }
   }
-  S.asked[k].clear();
-  const fallback = S.pools[k][S.cur[k]] || S.pools[k][3];
-  if(fallback && fallback.length) return fallback[Math.floor(Math.random()*fallback.length)];
-  return {lvl:3, q:'Question unavailable', o:['Option 1','Option 2','Option 3','Option 4'], a:0, e:'Bank exhausted.'};
+  if(!pool.length){
+    S.asked[k].clear();
+    pool = S.pools[k][wantLvl] || S.pools[k][3];
+  }
+  return pool[0];
 }
 
-/* Строим варианты ОДИН РАЗ на вопрос — порядок фиксирован для вопроса, не пересобирается при рендере */
+/* Стабильный порядок вариантов: один раз на вопрос */
 function buildOrder(q){
   if(q._order) return q._order;
   const idx = q.o.map((t,i)=>({t,ok:i===q.a}));
-  // Детерминированное перемешивание по содержимому вопроса, чтобы не «дёргалось»
-  // при переходах туда-обратно и было одинаковым для одинаковых вопросов.
   let seed = 0;
   const key = (q.q||'') + '|' + q.o.join('|');
   for(let i=0;i<key.length;i++){ seed = (seed*31 + key.charCodeAt(i)) >>> 0; }
@@ -715,11 +778,9 @@ function renderQuestion(){
     if(!SR)showSelfEval('Браузер не распознаёт речь — оцените себя сами честно:');
   }
   $('qcount').textContent=(S.qIdx+1)+' / '+S.totalQ;
-
-  // Главный прогресс: сколько вопросов уже пройдено (плавно 0 → 100)
   $('pbar').style.width=(S.qIdx/S.totalQ*100)+'%';
 
-  // Вторая шкала: подсветка уровня ТЕКУЩЕГО задания (не двигает главный прогресс)
+  // подсветка уровня текущего вопроса
   document.querySelectorAll('.lvlbar b').forEach(b=>b.classList.toggle('hot',+b.dataset.l===q.lvl));
 
   updateHUD();
@@ -727,7 +788,6 @@ function renderQuestion(){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-/* ===== playAudio (исправлено ранее) ===== */
 function playAudio(){
   if(!TTS)return;
   const btn=$('playbtn'), cnt=$('playcnt');
@@ -790,25 +850,49 @@ function startMic(){
   recog.lang='en-US';recog.interimResults=false;recog.continuous=false;recog.maxAlternatives=1;
   const btn=$('micbtn');btn.classList.add('rec');btn.textContent='🔴';
   $('micstat').textContent='Слушаю… говорите!';
-  recog.onresult=ev=>{const t=ev.results[0][0].transcript;resetMicUI();handleTranscript(t);};
-  recog.onerror=ev=>{
+
+  // Watchdog: если браузер завис на диалоге разрешения — сбрасываем UI через 12 с
+  if(recogWatchdog) clearTimeout(recogWatchdog);
+  recogWatchdog = setTimeout(()=>{
+    console.warn('Mic watchdog fired');
+    stopRecog();
+    if(!S.answered && S.skill==='s'){
+      $('micstat').textContent='Микрофон не отвечает. Оцените себя или попробуйте ещё раз.';
+      showSelfEvalButtons();
+    }
+  }, 12000);
+
+  recog.onresult = ev=>{
+    const t = ev.results[0] && ev.results[0][0] ? ev.results[0][0].transcript : '';
     resetMicUI();
-    if(ev.error==='no-speech'){$('micstat').textContent='Не расслышал 🙉 Нажмите на микрофон ещё раз';}
-    else if(ev.error==='not-allowed'||ev.error==='service-not-allowed'){
-      showSelfEval('Доступ к микрофону запрещён — оцените себя сами:');
-    }else{
-      $('micstat').textContent='Ошибка распознавания. Попробуйте ещё раз или оцените себя:';
+    if(t) handleTranscript(t);
+    else { $('micstat').textContent='Не расслышал 🙉 Попробуйте ещё раз или оцените себя.'; }
+  };
+  recog.onerror = ev=>{
+    const err = ev.error;
+    resetMicUI();
+    if(err==='no-speech'){
+      $('micstat').textContent='Не расслышал 🙉 Нажмите на микрофон ещё раз';
+    } else if(err==='not-allowed' || err==='service-not-allowed' || err==='security'){
+      // Не ждём watchdog — сразу даём самооценку
+      $('micstat').textContent='Доступ к микрофону запрещён — оцените себя сами:';
+      showSelfEvalButtons();
+      const b=$('micbtn'); if(b) b.hidden=true;
+    } else if(err==='aborted'){
+      // мы сами прервали — тихо игнорируем
+    } else {
+      $('micstat').textContent='Ошибка распознавания. Оцените себя или попробуйте ещё раз:';
       showSelfEvalButtons();
     }
   };
-  recog.onend=()=>{recogBusy=false;};
-  try{recog.start();recogBusy=true;}catch(e){resetMicUI();showSelfEval('Микрофон занят или недоступен — оцените себя сами:');}
+  recog.onend = ()=>{ resetMicUI(); };
+  try{ recog.start(); recogBusy=true; }
+  catch(e){
+    resetMicUI();
+    showSelfEval('Микрофон занят или недоступен — оцените себя сами:');
+  }
 }
-function resetMicUI(){
-  recogBusy=false;
-  const btn=$('micbtn');
-  if(btn){btn.classList.remove('rec');btn.textContent='🎤';}
-}
+
 function compareWords(target,said){
   const counts={};said.forEach(w=>counts[w]=(counts[w]||0)+1);
   return target.map(w=>{const hit=counts[w]>0;if(hit)counts[w]--;return{w,hit};});
@@ -878,10 +962,10 @@ function applyResult(score,correctText,given){
   S.answered=true;
   const k=S.skill,q=S.current,kids=document.body.classList.contains('mode-kids');
   const ok=score>=0.6;
+  // рейтинг оставляем для итогового уровня (не влияет на выбор следующего вопроса)
   const dQ=150+(q.lvl-1)*200;
   const exp=1/(1+Math.pow(10,(dQ-S.rating[k])/400));
   S.rating[k]+=120*(score-exp);
-  S.cur[k]=Math.max(1,Math.min(6,S.cur[k]+(ok?1:-1)));
   S.sk2[k].t++;
   let pts=0;
   if(ok){S.streak++;S.best=Math.max(S.best,S.streak);pts=Math.round(q.lvl*10*score)+(S.streak>=3?5:0);S.score+=pts;S.sk2[k].c++;}
@@ -903,10 +987,7 @@ function applyResult(score,correctText,given){
   const lastInSec=S.secDone>=S.per,lastSection=S.secIdx>=S.skills.length-1;
   $('btn-next').textContent=(lastInSec&&lastSection)?'К результатам 🏁':(lastInSec?'Следующая часть →':'Дальше →');
   $('feedback').hidden=false;
-
-  // Главный прогресс двигается плавно по числу отвеченных
   $('pbar').style.width=(S.qIdx/S.totalQ*100)+'%';
-
   updateHUD();
   $('feedback').scrollIntoView({behavior:'smooth',block:'nearest'});
 }
@@ -920,7 +1001,9 @@ function next(){
 }
 
 function updateHUD(){
-  $('est').textContent=SK[S.skill].short+': '+ratingToLevel(S.rating[S.skill]);
+  // чип показывает уровень ТЕКУЩЕГО вопроса
+  const shownLvl = S.current ? LVLNAME[S.current.lvl] : '—';
+  $('est').textContent = SK[S.skill].short + ': ' + shownLvl;
   $('score').textContent='Очки: '+S.score;
   const st=$('streak');st.hidden=S.streak<2;if(!st.hidden)st.textContent='🔥 серия '+S.streak;
   document.querySelectorAll('.snav').forEach(el=>{
