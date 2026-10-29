@@ -415,47 +415,86 @@ const LVLFULL={A1:'Beginner · Начальный',A2:'Elementary · Базов�
 const $=id=>document.getElementById(id);
 const SR=window.SpeechRecognition||window.webkitSpeechRecognition||null;
 
+// === РАСШИРЕННЫЕ БАНКИ ВОПРОСОВ (чтобы не заканчивались при LEN=4 или 5) ===
 const BANK=[
 {lvl:1,skill:'g',q:'I ___ a student.',o:['am','is','are','be'],a:0,e:'С местоимением I всегда используется форма am.'},
 {lvl:1,skill:'v',q:'What is the opposite of “big”?',o:['small','tall','long','loud'],a:0,e:'Big — «большой», противоположное — small «маленький».'},
+{lvl:1,skill:'g',q:'She ___ a new car.',o:['has','have','is','are'],a:0,e:'She — 3-е лицо ед.ч., поэтому используется has.'},
 {lvl:2,skill:'g',q:'Yesterday I ___ to the park.',o:['went','go','gone','goes'],a:0,e:'Past Simple от go — went.'},
+{lvl:2,skill:'g',q:'They ___ playing football now.',o:['are','is','am','be'],a:0,e:'Present Continuous для they требует are.'},
+{lvl:2,skill:'v',q:'I need to ___ some milk from the shop.',o:['buy','bought','buying','buys'],a:0,e:'После need to используется инфинитив без to (buy).'},
 {lvl:3,skill:'g',q:'If it rains tomorrow, we ___ at home.',o:['will stay','stay','would stay','stayed'],a:0,e:'Первый тип условных: If + Present, will + глагол.'},
+{lvl:3,skill:'g',q:'I have ___ this movie three times.',o:['seen','saw','see','seeing'],a:0,e:'Present Perfect требует третьей формы глагола (seen).'},
+{lvl:3,skill:'v',q:'The meeting was ___ because of the storm.',o:['cancelled','cancelleding','cancel','cancels'],a:0,e:'Пассивный залог: was + V3 (cancelled).'},
 {lvl:4,skill:'g',q:'By the time we arrived, the film ___.',o:['had started','started','has started','starts'],a:0,e:'Past Perfect — действие раньше другого в прошлом.'},
+{lvl:4,skill:'g',q:'I wish I ___ more free time.',o:['had','have','has','having'],a:0,e:'I wish + Past Simple для нереальных желаний в настоящем.'},
+{lvl:4,skill:'v',q:'He is ___ to be the best doctor in town.',o:['rumoured','rumour','rumours','rumouring'],a:0,e:'Пассивная конструкция: is rumoured (по слухам).'},
 {lvl:5,skill:'g',q:'___ had I entered the room when the phone rang.',o:['Hardly','No sooner','As soon as','The moment'],a:0,e:'Hardly … when. No sooner требовала бы than.'},
-{lvl:6,skill:'g',q:'The painting, ___ authenticity experts had questioned, sold for a record sum.',o:['whose','which','whom','of which'],a:0,e:'Whose заменяет of which.'}
+{lvl:5,skill:'g',q:'Not only ___ late, but he also forgot the documents.',o:['did he arrive','he arrived','arrived he','he did arrive'],a:0,e:'Инверсия после отрицательных наречий в начале предложения.'},
+{lvl:5,skill:'v',q:'The project was ___ due to lack of funding.',o:['abandoned','abandon','abandoning','abandons'],a:0,e:'Пассивный залог: was + V3 (abandoned).'},
+{lvl:6,skill:'g',q:'The painting, ___ authenticity experts had questioned, sold for a record sum.',o:['whose','which','whom','of which'],a:0,e:'Whose заменяет of which для указания принадлежности.'},
+{lvl:6,skill:'g',q:'Had I known about the traffic, I ___ a different route.',o:['would have taken','would take','took','had taken'],a:0,e:'Третий тип условных (инверсия): Had I known = If I had known, would have + V3.'},
+{lvl:6,skill:'v',q:'Her argument was entirely ___.',o:['unsubstantiated','unsubstantial','unsubscribing','unsubstantiality'],a:0,e:'Unsubstantiated — неподтвержденный, бездоказательный.'}
 ];
 
 const READING=[
 {lvl:1,text:'Tom has a dog. The dog is big and black. Tom plays with the dog in the park every day.',
  q:'Where does Tom play with his dog?',o:['In the park','At home','At school','In the forest'],a:0,e:'В тексте прямо сказано: “Tom plays with the dog in the park every day.”'},
+{lvl:2,text:'Lisa wants to be a vet. She loves animals and reads books about them. She has a cat and two rabbits.',
+ q:'What does Lisa want to be?',o:['A vet','A teacher','A doctor','A writer'],a:0,e:'В первом предложении: “Lisa wants to be a vet.”'},
 {lvl:3,text:'When Sarah started her new job, she was nervous because she didn’t know anyone. However, her colleagues were friendly, and after a week she felt at home.',
- q:'Why did Sarah feel at home after a week?',o:['Her colleagues were friendly','She knew everyone','She liked the office','She got a promotion'],a:0,e:'Причина названа после however: дружелюбные коллеги.'}
+ q:'Why did Sarah feel at home after a week?',o:['Her colleagues were friendly','She knew everyone','She liked the office','She got a promotion'],a:0,e:'Причина названа после however: дружелюбные коллеги.'},
+{lvl:4,text:'The Industrial Revolution brought significant changes to society. While it improved production efficiency, it also led to poor working conditions and urban overcrowding.',
+ q:'What was a negative effect of the Industrial Revolution?',o:['Urban overcrowding','Improved efficiency','Better society','More farms'],a:0,e:'В тексте указано: “led to poor working conditions and urban overcrowding.”'},
+{lvl:5,text:'Despite the overwhelming evidence supporting the new policy, the committee remained skeptical, citing potential long-term economic drawbacks that had not been fully addressed in the proposal.',
+ q:'Why was the committee skeptical?',o:['Potential long-term economic drawbacks','Overwhelming evidence','The new policy','Full address in proposal'],a:0,e:'Они ссылались на "potential long-term economic drawbacks".'}
 ];
 
 const LISTEN=[
 {lvl:1,audio:['Hello! My name is Emma.','I am eight years old.','I have got a cat. Its name is Milo.'],
  q:'How old is Emma?',o:['Eight','Ten','Seven','Nine'],a:0,e:'В записи: “I am eight years old.”'},
+{lvl:2,audio:['Hi, I am looking for the train station.','Go straight and turn left at the bank.','It is next to the post office.'],
+ q:'Where is the train station?',o:['Next to the post office','At the bank','Go straight','Turn right'],a:0,e:'В записи: “It is next to the post office.”'},
 {lvl:3,audio:['Hi Jack! The film starts at seven.','So let’s meet outside the cinema at half past six.','I’ll buy the tickets.'],
- q:'Where will they meet?',o:['Outside the cinema','At Jack’s home','Inside the cinema','At the café'],a:0,e:'“Let’s meet outside the cinema at half past six.”'}
+ q:'Where will they meet?',o:['Outside the cinema','At Jack’s home','Inside the cinema','At the café'],a:0,e:'“Let’s meet outside the cinema at half past six.”'},
+{lvl:4,audio:['The conference has been moved to Friday.','We need more time to prepare the presentation.','Please update your calendars.'],
+ q:'Why was the conference moved?',o:['To prepare the presentation','Because of Friday','To update calendars','It was not moved'],a:0,e:'“We need more time to prepare the presentation.”'},
+{lvl:5,audio:['While the initial results were promising, the researchers cautioned against drawing definitive conclusions.','Further trials are necessary to validate the findings.','The sample size was simply too small.'],
+ q:'Why are further trials necessary?',o:['The sample size was too small','The results were definitive','The initial results were bad','To draw conclusions'],a:0,e:'“The sample size was simply too small.”'}
 ];
 
 const WRITING=[
 {lvl:1,q:'Write the plural form of the word: <b>mouse</b>',show:'mice',accept:['mice'],
  e:'Mouse → mice — исключение, как child → children.'},
+{lvl:1,q:'Write the past tense of the verb: <b>go</b>',show:'went',accept:['went'],
+ e:'Past Simple от go — went.'},
+{lvl:2,q:'Complete the sentence: "She ___ (not / like) apples."',show:"doesn't like",accept:["doesn't like",'does not like'],
+ e:'Present Simple, 3-е лицо ед.ч.: doesn\'t like.'},
 {lvl:3,q:'Fill in the gap with one word:<br>“I have lived here ___ 2015.”',show:'since',accept:['since'],
- e:'Since — с момента времени (с 2015 года).'}
+ e:'Since — с момента времени (с 2015 года).'},
+{lvl:4,q:'Write the correct form of the word in brackets:<br>“If I ___ (be) you, I would accept the offer.”',show:'were',accept:['were'],
+ e:'Second Conditional: If I were you...'}
 ];
 
 const SPEAKING=[
 {lvl:1,type:'read',text:'I like apples and bananas.',expect:'i like apples and bananas',
  e:'Следите за звуком [æ] в apples и не «проглатывайте» -s на конце bananas.'},
+{lvl:1,type:'read',text:'My cat is black and white.',expect:'my cat is black and white',
+ e:'Четко произносите звуки [k] и [t].'},
 {lvl:2,type:'say',text:'What did you do yesterday?',min:3,kw:['yesterday','i','went','played','watched','read','was'],
  sample:'Yesterday I played with my friends.',
  e:'Используйте Past Simple: I went / I played / I watched…'},
+{lvl:3,type:'say',text:'Describe your favorite hobby and why you like it.',min:5,kw:['like','because','fun','relaxing','hobby','enjoy'],
+ sample:'I enjoy reading because it is very relaxing and fun.',
+ e:'Дайте развернутый ответ, используя because.'},
 {lvl:4,type:'say',text:'What are the advantages and disadvantages of social media?',min:10,
  kw:['advantage','disadvantage','social','media','people','because','think','but'],
  sample:'Social media helps people stay connected, but it can also waste a lot of time.',
- e:'Структурируйте ответ: On the one hand… On the other hand…'}
+ e:'Структурируйте ответ: On the one hand… On the other hand…'},
+{lvl:5,type:'say',text:'Do you think artificial intelligence will replace human jobs in the future?',min:12,
+ kw:['ai','intelligence','jobs','future','replace','think','maybe','however'],
+ sample:'I think AI will replace some jobs, however, it will also create new opportunities.',
+ e:'Используйте сложную лексику и связки (however, furthermore).'}
 ];
 
 let S=null, LEN=4;
@@ -498,18 +537,27 @@ if(TTS){
   pickVoice();
   speechSynthesis.onvoiceschanged=pickVoice;
   if(speechSynthesis.getVoices().length === 0) {
-    speechSynthesis.onvoiceschanged = () => {
-      pickVoice();
-    };
+    speechSynthesis.onvoiceschanged = () => { pickVoice(); };
   }
 }
 
+// === ИСПРАВЛЕННЫЙ TTS: без setTimeout вокруг speak(), с жестким таймаутом ===
 function safeSpeak(textParts, rate, callback){
-  if(!TTS){callback&&callback();return;}
-  
-  speechSynthesis.cancel();
+  if(!TTS){
+    if(callback) setTimeout(callback, 0);
+    return;
+  }
   
   const fullText = Array.isArray(textParts) ? textParts.join(' ') : String(textParts);
+  if (!fullText.trim()) {
+    if(callback) setTimeout(callback, 0);
+    return;
+  }
+
+  // Chrome TTS unstuck workaround
+  if (speechSynthesis.speaking || speechSynthesis.pending) {
+    try { speechSynthesis.cancel(); } catch(e){}
+  }
   
   const utterance = new SpeechSynthesisUtterance(fullText);
   utterance.lang = 'en-US';
@@ -518,11 +566,16 @@ function safeSpeak(textParts, rate, callback){
   if(enVoice) utterance.voice = enVoice;
 
   let finished = false;
+  let timeoutId = null;
+
   const finish = () => {
     if(finished) return;
     finished = true;
-    setTimeout(() => { try { speechSynthesis.cancel(); } catch(e){} }, 50);
-    callback && callback();
+    if(timeoutId) clearTimeout(timeoutId);
+    setTimeout(() => {
+      try { speechSynthesis.cancel(); } catch(e){}
+    }, 50);
+    if(callback) callback();
   };
 
   utterance.onend = finish;
@@ -531,16 +584,21 @@ function safeSpeak(textParts, rate, callback){
     finish();
   };
 
-  const maxTime = Math.max(fullText.split(' ').length * 400, 6000); 
-  setTimeout(() => {
-    if(!finished){
+  // Failsafe timeout: 15 секунд максимум
+  timeoutId = setTimeout(() => {
+    if(!finished) {
+      console.warn("TTS timeout forced finish");
       finish();
     }
-  }, maxTime);
-  
-  setTimeout(() => {
-    if(!finished) speechSynthesis.speak(utterance);
-  }, 50);
+  }, 15000);
+
+  // Speak SYNCHRONOUSLY to preserve user gesture context (fixes Chrome freeze)
+  try {
+    speechSynthesis.speak(utterance);
+  } catch(e) {
+    console.warn("TTS speak exception:", e);
+    finish();
+  }
 }
 
 let recog=null,recogBusy=false;
@@ -549,9 +607,9 @@ function stopRecog(){try{recog&&recog.stop();}catch(e){}recogBusy=false;}
 function startQuiz(){
   const emailInput = $('userEmail');
   if(emailInput && emailInput.value.trim()) {
-    localStorage.setItem(USER_EMAIL_KEY, emailInput.value.trim());
+    try { localStorage.setItem(USER_EMAIL_KEY, emailInput.value.trim()); } catch(e){}
   } else {
-    localStorage.removeItem(USER_EMAIL_KEY);
+    try { localStorage.removeItem(USER_EMAIL_KEY); } catch(e){}
   }
 
   const kids=document.body.classList.contains('mode-kids');
@@ -590,14 +648,21 @@ function beginSection(){
   S.secDone=0;renderQuestion();
 }
 
+// === НАДЕЖНЫЙ ВЫБОР ВОПРОСА: никогда не вернет null ===
 function pickQuestion(k){
   const tryOrder=[S.cur[k]];
   for(let d=1;d<=5;d++){if(S.cur[k]-d>=1)tryOrder.push(S.cur[k]-d);if(S.cur[k]+d<=6)tryOrder.push(S.cur[k]+d);}
   for(const l of tryOrder){
     const avail=S.pools[k][l].filter(q=>!S.asked[k].has(q));
-    if(avail.length)return avail[Math.floor(Math.random()*avail.length)];
+    if(avail.length) return avail[Math.floor(Math.random()*avail.length)];
   }
-  return null;
+  // Если вопросы закончились, сбрасываем историю и берем любой доступный
+  S.asked[k].clear();
+  const fallback = S.pools[k][S.cur[k]] || S.pools[k][3];
+  if(fallback && fallback.length) return fallback[Math.floor(Math.random()*fallback.length)];
+  
+  // Абсолютный фоллбэк, если вообще пусто
+  return {lvl:3, q:'Question unavailable', o:['Option 1','Option 2','Option 3','Option 4'], a:0, e:'Bank exhausted.'};
 }
 
 const KEYS=['A','B','C','D'];
@@ -909,9 +974,11 @@ function finish(){
   sendResultToEmail(lvl, acc, correct, S.totalQ, S.score, S.skills, S.sk2, S.ans);
 }
 
+// === ОТПРАВКА С ТАЙМАУТОМ (AbortController), чтобы не висла вечно ===
 async function sendResultToEmail(level, accuracy, correctCount, totalCount, points, skillsList, statsObj, answersArray) {
   const statusEl = $('send-status');
-  const userEmail = localStorage.getItem(USER_EMAIL_KEY) || '';
+  let userEmail = '';
+  try { userEmail = localStorage.getItem(USER_EMAIL_KEY) || ''; } catch(e){}
   
   const summary = skillsList.map(k => `${SK[k].short}: ${ratingToLevel(statsObj[k].c/statsObj[k].t*100 > 0 ? statsObj[k].c/statsObj[k].t*100 : 0)} (${statsObj[k].c}/${statsObj[k].t})`).join(', ');
   
@@ -937,13 +1004,18 @@ async function sendResultToEmail(level, accuracy, correctCount, totalCount, poin
   statusEl.textContent = "Отправляю результат Анне...";
   statusEl.style.color = "#666";
 
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 сек таймаут
+
   try {
     const responseAnna = await fetch("https://formsubmit.co/ajax/annfromcrimea@gmail.com", {
       method: "POST",
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
+      signal: controller.signal
     });
     
+    clearTimeout(timeoutId);
     const resultAnna = await responseAnna.json();
     
     if (!resultAnna.success && resultAnna.success !== "true") {
@@ -952,11 +1024,15 @@ async function sendResultToEmail(level, accuracy, correctCount, totalCount, poin
 
     if (userEmail) {
       try {
+        const controller2 = new AbortController();
+        const timeoutId2 = setTimeout(() => controller2.abort(), 8000);
         await fetch(`https://formsubmit.co/ajax/${userEmail}`, {
           method: "POST",
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify({...payload, _subject: `Ваш результат English Test: ${level}`})
+          body: JSON.stringify({...payload, _subject: `Ваш результат English Test: ${level}`}),
+          signal: controller2.signal
         });
+        clearTimeout(timeoutId2);
         statusEl.textContent = "✅ Результат отправлен Анне и продублирован вам на почту.";
         statusEl.style.color = "green";
       } catch (e) {
@@ -969,6 +1045,7 @@ async function sendResultToEmail(level, accuracy, correctCount, totalCount, poin
     }
 
   } catch (err) {
+    clearTimeout(timeoutId);
     console.error(err);
     statusEl.textContent = "⚠️ Не удалось отправить авто-письмо. Скриньте результат и напишите Анне вручную.";
     statusEl.style.color = "red";
