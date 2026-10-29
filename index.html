@@ -491,19 +491,17 @@
 
 <script>
 /* ============================================================
-   СПИСОК ДИАГНОСТИК — МЕНЯЙ ЗДЕСЬ
-   status: "active"  -> показывается на сайте сейчас
-   status: "hidden"  -> спрятано, появится когда поменяешь на active
-   Порядок в массиве = порядок карточек на экране.
+   СПИСОК ДИАГНОСТИК — ИСПРАВЛЕННЫЕ ССЫЛКИ
+   Теперь каждая карточка ведет НАПРЯМУЮ на файл теста.
    ============================================================ */
 const BASE = "https://annfromcrimea-ctrl.github.io/personal/";
 
 const DIAG_LINKS = [
   // --- АКТИВНЫЕ СЕЙЧАС ---
-  { key:"english", flag:"🇬", name:"English", desc:"Грамматика, лексика, понимание речи (A1–C1).", url:BASE+"english-test.html", status:"active" },
+  { key:"english", flag:"🇬🇧", name:"English", desc:"Грамматика, лексика, понимание речи (A1–C1).", url:BASE+"english-test.html", status:"active" },
   { key:"german", flag:"🇩", name:"Deutsch", desc:"Базовые конструкции, артикли, порядок слов.", url:BASE+"german-test.html", status:"active" },
   { key:"french", flag:"🇫🇷", name:"Français", desc:"Спряжение глаголов, фонетика, бытовая лексика.", url:BASE+"french-test.html", status:"active" },
-  { key:"italian", flag:"🇮", name:"Italiano", desc:"Интонация, диалоги, понимание на слух.", url:BASE+"italian-test.html", status:"active" },
+  { key:"italian", flag:"🇮🇹", name:"Italiano", desc:"Интонация, диалоги, понимание на слух.", url:BASE+"italian-test.html", status:"active" },
   { key:"logo", flag:"🗣️", name:"Логопедия", desc:"Экспресс-скрининг речевого развития ребёнка 2–7 лет.", url:BASE+"logo.html", status:"active" },
   { key:"psycho", flag:"🧠", name:"Психология", desc:"Экспресс-скрининг эмоционального состояния (взрослые / дети).", url:BASE+"psycho-screening.html", status:"active" },
 
@@ -511,7 +509,7 @@ const DIAG_LINKS = [
   { key:"arabic", flag:"🇸🇦", name:"العربية", desc:"Арабский язык: алфавит, базовая лексика, произношение.", url:BASE+"arabic-test.html", status:"hidden" },
   { key:"chinese", flag:"🇨🇳", name:"中文", desc:"Китайский язык: иероглифика, тоны, HSK-база.", url:BASE+"chinese-test.html", status:"hidden" },
   { key:"norwegian", flag:"🇳🇴", name:"Norsk", desc:"Норвежский язык: фонетика, грамматика, разговорная база.", url:BASE+"norwegian-test.html", status:"hidden" },
-  { key:"spanish", flag:"🇪", name:"Español", desc:"Испанский язык: спряжение, лексика, понимание речи.", url:BASE+"spanish-test.html", status:"hidden" }
+  { key:"spanish", flag:"🇪🇸", name:"Español", desc:"Испанский язык: спряжение, лексика, понимание речи.", url:BASE+"spanish-test.html", status:"hidden" }
 ];
 
 /* ---- Рендер активных карточек ---- */
@@ -525,7 +523,8 @@ const DIAG_LINKS = [
         <div class="lang-flag">${d.flag}</div>
         <div class="lang-name">${d.name}</div>
         <div class="lang-desc">${d.desc}</div>
-        <a href="${d.url}" target="_blank" rel="noopener" class="btn-action">Пройти тест →</a>
+        <!-- ВАЖНО: href берется из поля url объекта -->
+        <a href="${d.url}" target="_blank" rel="noopener noreferrer" class="btn-action">Пройти тест →</a>
       </div>`).join("");
 })();
 
