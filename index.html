@@ -14,8 +14,8 @@
     --burgundy: #7a2e36;       /* Основной акцент */
     --burgundy-dark: #5d1f26;  /* Ховер / Темный */
     --paper-bg: #fdfbf7;       /* Цвет бумаги (теплый белый) */
-    --grid-line: rgba(122, 46, 54, 0.08); /* Тонкие линии сетки (бордовые, но бледные) */
-    --margin-line: rgba(122, 46, 54, 0.15); /* Поле слева */
+    --grid-line: rgba(122, 46, 54, 0.08); 
+    --margin-line: rgba(122, 46, 54, 0.15); 
     
     --white: #ffffff;
     --graphite: #2d2d2d;
@@ -43,25 +43,21 @@
   }
 
   /* === ФОНОВЫЙ ПАТТЕРН (Тетрадь + Буквы) === */
-  
-  /* 1. Сетка тетради (клетка или линовка) */
   body::before {
     content: "";
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     z-index: -2; pointer-events: none;
-    /* Создаем эффект линованной бумаги с красным полем слева */
     background-image: 
-      linear-gradient(var(--grid-line) 1px, transparent 1px), /* Горизонтальные линии */
-      linear-gradient(90deg, var(--margin-line) 1px, transparent 1px); /* Вертикальное поле */
-    background-size: 100% 30px, 60px 100%; /* Шаг линий 30px, поле на 60px */
-    background-position: 0 0, 40px 0; /* Смещение поля влево */
+      linear-gradient(var(--grid-line) 1px, transparent 1px), 
+      linear-gradient(90deg, var(--margin-line) 1px, transparent 1px);
+    background-size: 100% 30px, 60px 100%;
+    background-position: 0 0, 40px 0;
     opacity: 0.6;
   }
 
-  /* 2. Декоративные буквы на фоне (водяные знаки) */
   .bg-letters-container {
     position: fixed; inset: 0; z-index: -1; pointer-events: none;
-    overflow: hidden; opacity: 0.04; /* Очень бледно, чтобы не мешать чтению */
+    overflow: hidden; opacity: 0.04;
   }
   .bg-letter {
     position: absolute;
@@ -79,9 +75,8 @@
     background: var(--white); border-radius: var(--radius);
     box-shadow: var(--shadow-md); overflow: hidden;
     margin-bottom: 40px; position: relative;
-    border: 1px solid rgba(122, 46, 54, 0.1); /* Легкая рамка цвета бордо */
+    border: 1px solid rgba(122, 46, 54, 0.1);
   }
-  /* Акцентная полоса сверху шапки */
   header.hero-section::after {
     content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
     background: var(--burgundy);
@@ -97,7 +92,7 @@
   
   .trust-badges { display: flex; gap: 15px; flex-wrap: wrap; }
   .badge { 
-    background: #fff5f6; /* Светло-бордовый фон бейджа */
+    background: #fff5f6; 
     border: 1px solid #ffdada; 
     color: var(--burgundy); 
     padding: 6px 14px; border-radius: 20px; 
@@ -124,7 +119,6 @@
   .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid #f5f5f5; }
   .section-title { font-family: var(--font-serif); font-size: 1.6rem; color: var(--graphite); }
   
-  /* Номер шага в кружке (стиль учебника) */
   .step-num { 
     background: var(--burgundy); color: white; 
     width: 32px; height: 32px; border-radius: 50%; 
@@ -133,7 +127,58 @@
     box-shadow: 0 2px 5px rgba(122, 46, 54, 0.3);
   }
 
-  /* === ФОРМЫ ЯНДЕКСА === */
+  /* === НОВЫЙ ДИЗАЙН БЛОКА СОГЛАСИЯ (БЕЗ IFRAME) === */
+  .consent-card {
+    background: #fff;
+    border: 2px dashed var(--burgundy);
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+  }
+  .consent-card::before {
+    content: "🔒";
+    font-size: 3rem;
+    opacity: 0.1;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  .consent-btn {
+    display: inline-block;
+    background: var(--burgundy);
+    color: white;
+    padding: 14px 32px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: all 0.2s;
+    box-shadow: 0 4px 12px rgba(122, 46, 54, 0.3);
+    margin-top: 15px;
+  }
+  .consent-btn:hover {
+    background: var(--burgundy-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(122, 46, 54, 0.4);
+  }
+  .consent-note {
+    font-size: 0.85rem;
+    color: var(--gray-text);
+    margin-top: 15px;
+    line-height: 1.4;
+  }
+  .consent-help-link {
+    color: var(--burgundy);
+    cursor: pointer;
+    text-decoration: underline;
+    font-weight: 600;
+  }
+
+  /* === СТАРЫЕ СТИЛИ ФОРМ (оставляем для записи, если захочешь вернуть iframe) === */
   .form-frame { 
     background: #fafafa; 
     border: 1px dashed #ddd; 
@@ -157,7 +202,6 @@
     position: relative;
     overflow: hidden;
   }
-  /* Эффект "закладки" при ховере */
   .diag-card::before {
     content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
     background: var(--burgundy); transform: scaleY(0); transition: transform 0.2s;
@@ -217,19 +261,19 @@
   .vid-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 4px; }
   .vid-meta { font-size: 0.8rem; color: #888; }
 
-  /* === КОНТАКТЫ / QR (ИСПРАВЛЕНО: одна линия, компактно) === */
+  /* === КОНТАКТЫ / QR === */
   .contacts-flex { 
     display: flex; 
     justify-content: center; 
-    align-items: flex-start; /* Выравнивание по верхнему краю, если подписи разной высоты */
+    align-items: flex-start; 
     gap: 20px; 
-    flex-wrap: nowrap; /* Жестко в одну строку на ПК */
+    flex-wrap: nowrap; 
     margin-top: 10px; 
   }
   .qr-item { 
     text-align: center; 
-    width: 110px; /* Фиксированная ширина для всех элементов */
-    flex-shrink: 0; /* Не сжиматься */
+    width: 110px; 
+    flex-shrink: 0; 
   }
   .qr-box { 
     width: 110px; height: 110px; 
@@ -244,7 +288,6 @@
     width: 100%; height: 100%; 
     object-fit: contain; 
   }
-  /* Специальный стиль для текстового блока сайта (без картинки) */
   .site-link-box {
     width: 110px; height: 110px; 
     border: 2px solid var(--burgundy); 
@@ -276,15 +319,10 @@
   .qr-link { font-size: 0.75rem; color: var(--burgundy); text-decoration: none; }
   .qr-link:hover { text-decoration: underline; }
 
-  /* Адаптив для контактов: на мобилке разрешаем перенос, но сохраняем компактность */
   @media (max-width: 600px) {
-    .contacts-flex { 
-      flex-wrap: wrap; 
-      gap: 15px; 
-    }
+    .contacts-flex { flex-wrap: wrap; gap: 15px; }
     .qr-item, .qr-box, .site-link-box {
-      width: calc(50% - 10px); /* Два элемента в ряд на телефоне */
-      max-width: 140px;
+      width: calc(50% - 10px); max-width: 140px;
     }
     .qr-box, .site-link-box { height: auto; aspect-ratio: 1/1; }
   }
@@ -311,7 +349,6 @@
     .hero-name { font-size: 2.2rem; }
     .hero-role { font-size: 0.95rem; }
     section.block { padding: 20px; }
-    /* На мобильных убираем сложную сетку фона для производительности, оставляем просто цвет */
     body::before { background-image: none; } 
   }
 </style>
@@ -319,7 +356,6 @@
 </head>
 <body>
 
-<!-- Генератор фоновых букв через JS (чтобы не засирать HTML) -->
 <div class="bg-letters-container" id="bgLetters"></div>
 
 <div class="container">
@@ -344,18 +380,30 @@
     </div>
   </header>
 
-  <!-- БЛОК 1: СОГЛАСИЕ -->
+  <!-- БЛОК 1: СОГЛАСИЕ (ИСПРАВЛЕНО: Без iframe, через новую вкладку) -->
   <section class="block">
     <div class="section-header">
       <span class="step-num">1</span>
       <h2 class="section-title">Согласие на обработку данных</h2>
     </div>
     <p style="margin-bottom: 20px; color: var(--gray-text); font-size: 0.95rem;">
-      Согласно ФЗ-152 «О персональных данных», доступ к материалам, результатам тестов и запись возможны только после вашего официального согласия. Пожалуйста, заполните форму ниже.
+      Согласно ФЗ-152 «О персональных данных», доступ к материалам, результатам тестов и запись возможны только после вашего официального согласия. Пожалуйста, нажмите кнопку ниже, чтобы открыть форму.
     </p>
-    <div class="form-frame">
-      <script src="https://forms.yandex.ru/_static/embed.js"></script>
-      <iframe class="yandex-form" src="https://forms.yandex.ru/u/6a99a8eb02848f4e726049e7?iframe=1" frameborder="0" name="ya-form-consent"></iframe>
+    
+    <div class="consent-card">
+      <h3 style="color:var(--burgundy); margin-bottom:10px;">Шаг 1 из 2</h3>
+      <p style="font-size:0.95rem; color:#555;">Нажмите кнопку, чтобы перейти к официальной форме согласия.</p>
+      
+      <!-- Ссылка открывается в новой вкладке -->
+      <a href="https://forms.yandex.ru/u/6a99a8eb02848f4e726049e7/" target="_blank" class="consent-btn">
+        Открыть форму согласия ↗
+      </a>
+      
+      <p class="consent-note">
+        После отправки формы вы увидите сообщение об успехе.<br>
+        Вернитесь на эту страницу и продолжайте пользоваться сайтом.<br>
+        <span class="consent-help-link" onclick="alert('Если видите ошибку \"Вы уже заполняли\", значит, вы уже давали согласие ранее.\n\nЧтобы дать его заново:\n1. Очистите куки этого сайта в настройках браузера.\n2. Или используйте режим Инкогнито.')">❓ Почему нельзя отправить дважды?</span>
+      </p>
     </div>
   </section>
 
@@ -371,7 +419,7 @@
     <div class="diag-grid" id="diagGrid"><!-- сюда скрипт вставит активные карточки --></div>
   </section>
 
-  <!-- БЛОК 3: ЗАПИСЬ -->
+  <!-- БЛОК 3: ЗАПИСЬ (Тоже убираем iframe ради стабильности) -->
   <section class="block" id="booking-section">
     <div class="section-header">
       <span class="step-num">3</span>
@@ -380,9 +428,19 @@
     <p style="margin-bottom: 20px; color: var(--gray-text); font-size: 0.95rem;">
       После прохождения диагностики выберите удобное время. Мы обсудим детали индивидуально и подтвердим запись.
     </p>
-    <div class="form-frame">
-      <script src="https://forms.yandex.ru/_static/embed.js"></script>
-      <iframe class="yandex-form" src="https://forms.yandex.ru/u/6ac750871f1eb5b511148acd?iframe=1" frameborder="0" name="ya-form-booking"></iframe>
+    
+    <div class="consent-card" style="border-color:var(--sky);">
+      <h3 style="color:var(--sky); margin-bottom:10px;">Готовы начать?</h3>
+      <p style="font-size:0.95rem; color:#555;">Заполните анкету, чтобы забронировать слот.</p>
+      
+      <a href="https://forms.yandex.ru/u/6ac750871f1eb5b511148acd/" target="_blank" class="consent-btn" style="background:var(--sky); box-shadow:0 4px 12px rgba(159,216,255,.4);">
+        Записаться на урок ↗
+      </a>
+      
+      <p class="consent-note">
+        Заявка попадет мне на почту мгновенно.<br>
+        Я свяжусь с вами для подтверждения времени.
+      </p>
     </div>
   </section>
 
@@ -425,37 +483,34 @@
     </div>
   </section>
 
-  <!-- БЛОК 6: КОНТАКТЫ (ИСПРАВЛЕНО: одна линия, компактно, вместо TG — сайт студии) -->
+  <!-- БЛОК 6: КОНТАКТЫ -->
   <section class="block">
     <div class="section-header">
       <span class="step-num">@</span>
       <h2 class="section-title">Сообщества и контакты</h2>
     </div>
     
-    <!-- Контейнер flex для выравнивания в строку -->
     <div class="contacts-flex">
       
-      <!-- 1. ВКонтакте (черный QR со Spotlight) -->
+      <!-- 1. ВКонтакте -->
       <div class="qr-item">
         <div class="qr-box">
-          <!-- Сохрани картинку как qr-vk.jpg рядом с index.html -->
           <img src="qr-vk.jpg" alt="QR VK" onerror="this.src='https://via.placeholder.com/80/f9f5f0/7a2e36?text=VK'">
         </div>
         <span class="qr-label">ВКонтакте</span>
         <a href="https://vk.ru/annfromcrimea" target="_blank" class="qr-link">Вступить ↗</a>
       </div>
 
-      <!-- 2. Chat MAX (синий градиентный QR) -->
+      <!-- 2. Chat MAX -->
       <div class="qr-item">
         <div class="qr-box">
-          <!-- Сохрани картинку как qr-max.jpg рядом с index.html -->
           <img src="qr-max.jpg" alt="QR Max" onerror="this.src='https://via.placeholder.com/80/f9f5f0/7a2e36?text=MAX'">
         </div>
         <span class="qr-label">Chat MAX</span>
         <a href="https://max.ru/join/_wpDnYzIiWKIr6vZUJze0fQuqPMuouIbaJwLQvt58zQ" target="_blank" class="qr-link">Перейти ↗</a>
       </div>
 
-      <!-- 3. Сайт моей студии-->
+      <!-- 3. Сайт студии -->
       <div class="qr-item">
         <a href="https://annfromcrimea.ru/" target="_blank" class="site-link-box">
           <span>САЙТ МОЕЙ<br>СТУДИИ</span>
@@ -491,25 +546,24 @@
 
 <script>
 /* ============================================================
-   СПИСОК ДИАГНОСТИК — ИСПРАВЛЕННЫЕ ССЫЛКИ
-   Теперь каждая карточка ведет НАПРЯМУЮ на файл теста.
+   СПИСОК ДИАГНОСТИК
    ============================================================ */
 const BASE = "https://annfromcrimea-ctrl.github.io/personal/";
 
 const DIAG_LINKS = [
   // --- АКТИВНЫЕ СЕЙЧАС ---
-  { key:"english", flag:"🇬🇧", name:"English", desc:"Грамматика, лексика, понимание речи (A1–C1).", url:BASE+"english-test.html", status:"active" },
+  { key:"english", flag:"🇬", name:"English", desc:"Грамматика, лексика, понимание речи (A1–C1).", url:BASE+"english-test.html", status:"active" },
   { key:"german", flag:"🇩", name:"Deutsch", desc:"Базовые конструкции, артикли, порядок слов.", url:BASE+"german-test.html", status:"active" },
   { key:"french", flag:"🇫🇷", name:"Français", desc:"Спряжение глаголов, фонетика, бытовая лексика.", url:BASE+"french-test.html", status:"active" },
-  { key:"italian", flag:"🇮🇹", name:"Italiano", desc:"Интонация, диалоги, понимание на слух.", url:BASE+"italian-test.html", status:"active" },
+  { key:"italian", flag:"🇮", name:"Italiano", desc:"Интонация, диалоги, понимание на слух.", url:BASE+"italian-test.html", status:"active" },
   { key:"logo", flag:"🗣️", name:"Логопедия", desc:"Экспресс-скрининг речевого развития ребёнка 2–7 лет.", url:BASE+"logo.html", status:"active" },
   { key:"psycho", flag:"🧠", name:"Психология", desc:"Экспресс-скрининг эмоционального состояния (взрослые / дети).", url:BASE+"psycho-screening.html", status:"active" },
 
-  // --- СПРЯТАНЫ, ГОТОВЫ К ВКЛЮЧЕНИЮ ПОЗЖЕ ---
-  { key:"arabic", flag:"🇸🇦", name:"العربية", desc:"Арабский язык: алфавит, базовая лексика, произношение.", url:BASE+"arabic-test.html", status:"hidden" },
+  // --- СПРЯТАНЫ ---
+  { key:"arabic", flag:"🇸", name:"العربية", desc:"Арабский язык: алфавит, базовая лексика, произношение.", url:BASE+"arabic-test.html", status:"hidden" },
   { key:"chinese", flag:"🇨🇳", name:"中文", desc:"Китайский язык: иероглифика, тоны, HSK-база.", url:BASE+"chinese-test.html", status:"hidden" },
   { key:"norwegian", flag:"🇳🇴", name:"Norsk", desc:"Норвежский язык: фонетика, грамматика, разговорная база.", url:BASE+"norwegian-test.html", status:"hidden" },
-  { key:"spanish", flag:"🇪🇸", name:"Español", desc:"Испанский язык: спряжение, лексика, понимание речи.", url:BASE+"spanish-test.html", status:"hidden" }
+  { key:"spanish", flag:"🇪", name:"Español", desc:"Испанский язык: спряжение, лексика, понимание речи.", url:BASE+"spanish-test.html", status:"hidden" }
 ];
 
 /* ---- Рендер активных карточек ---- */
@@ -523,7 +577,6 @@ const DIAG_LINKS = [
         <div class="lang-flag">${d.flag}</div>
         <div class="lang-name">${d.name}</div>
         <div class="lang-desc">${d.desc}</div>
-        <!-- ВАЖНО: href берется из поля url объекта -->
         <a href="${d.url}" target="_blank" rel="noopener noreferrer" class="btn-action">Пройти тест →</a>
       </div>`).join("");
 })();
@@ -533,24 +586,21 @@ const DIAG_LINKS = [
   const container = document.getElementById('bgLetters');
   if(!container) return;
   
-  // Набор символов: латиница, кириллица, цифры, математические знаки
   const chars = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
                  'А','Б','В','Г','Д','Е','Ё','Ж','З','И','Й','К','Л','М','Н','О','П','Р','С','Т','У','Ф','Х','Ц','Ч','Ш','Щ','Ъ','Ы','Ь','Э','Ю','Я',
                  '1','2','3','4','5','6','7','8','9','0','+','-','=','×','÷','%'];
   
-  const count = 40; // Количество букв на экране
+  const count = 40; 
   
   for(let i=0; i<count; i++){
     const span = document.createElement('span');
     span.className = 'bg-letter';
     span.textContent = chars[Math.floor(Math.random() * chars.length)];
     
-    // Позиционирование
     span.style.left = Math.random() * 100 + '%';
     span.style.top = Math.random() * 100 + '%';
     
-    // Размер и поворот
-    const size = 20 + Math.random() * 40; // от 20 до 60 px
+    const size = 20 + Math.random() * 40;
     span.style.fontSize = size + 'px';
     span.style.transform = `rotate(${Math.random() * 60 - 30}deg)`;
     
