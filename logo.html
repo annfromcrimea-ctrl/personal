@@ -14,7 +14,7 @@
     --ok:#059669; --ok-bg:#ecfdf5;
     --warn:#d97706; --warn-bg:#fffbeb;
     --alert:#dc2626; --alert-bg:#fef2f2;
-    --mint:#d1fae5; --pink:#fce7f3;
+    --mint:#d1fae5; --pink:#fce7f3; --peach:#fed7aa;
     --shadow:0 10px 40px -10px rgba(122, 46, 54, 0.08); 
     --radius:16px;
     --serif:'Playfair Display', Georgia, serif;
@@ -26,19 +26,30 @@
     font-family:var(--sans);
     background-color: var(--cream);
     background-image: 
-      radial-gradient(circle at 15% 15%, rgba(209, 250, 229, 0.4) 0%, transparent 25%),
-      radial-gradient(circle at 85% 25%, rgba(224, 242, 254, 0.4) 0%, transparent 25%),
-      radial-gradient(circle at 50% 85%, rgba(252, 231, 243, 0.5) 0%, transparent 30%),
-      radial-gradient(circle at 75% 70%, rgba(254, 215, 170, 0.3) 0%, transparent 25%);
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E"),
+      radial-gradient(circle at 10% 20%, rgba(209, 250, 229, 0.5) 0%, transparent 35%),
+      radial-gradient(circle at 90% 10%, rgba(252, 231, 243, 0.5) 0%, transparent 35%),
+      radial-gradient(circle at 80% 80%, rgba(254, 215, 170, 0.4) 0%, transparent 40%),
+      radial-gradient(circle at 20% 90%, rgba(122, 46, 54, 0.06) 0%, transparent 30%);
+    background-size: 200px 200px, 200% 200%, 200% 200%, 200% 200%, 200% 200%;
+    animation: bgBreathe 30s ease-in-out infinite alternate;
     color:var(--graphite);line-height:1.6;-webkit-font-smoothing:antialiased;min-height: 100vh;overflow-x: hidden;position: relative;
   }
+  @keyframes bgBreathe {
+    0% { background-position: 0 0, 0% 50%, 100% 50%, 50% 100%, 50% 0%; }
+    100% { background-position: 0 0, 100% 50%, 0% 50%, 50% 0%, 50% 100%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    body { animation: none !important; }
+    .doodle { animation: none !important; }
+  }
+
   .doodles{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-  .doodle{position:absolute;font-family:var(--hand);opacity:.15;transform:rotate(var(--r,0deg));font-size:var(--fs,3rem);animation:floaty var(--t,8s) ease-in-out infinite alternate;white-space:nowrap;user-select:none}
+  .doodle{position:absolute;font-family:var(--hand);opacity:.1;transform:rotate(var(--r,0deg));font-size:var(--fs,3rem);animation:floaty var(--t,8s) ease-in-out infinite alternate;white-space:nowrap;user-select:none}
   .doodle.letter{color:var(--burgundy);font-weight:700}
-  .doodle.bubble{font-family:var(--sans);background:var(--white);border:2px dashed var(--burgundy);border-radius:50% 50% 50% 20%;padding:8px 16px;font-size:1.1rem;color:var(--burgundy);font-weight:600;opacity:.2}
-  .doodle.emoji{font-family:'Nunito',sans-serif;opacity:.4;font-size:var(--fs,2.5rem)}
+  .doodle.bubble{font-family:var(--sans);background:var(--white);border:2px dashed var(--burgundy);border-radius:50% 50% 50% 20%;padding:8px 16px;font-size:1.1rem;color:var(--burgundy);font-weight:600;opacity:.15}
+  .doodle.emoji{font-family:'Nunito',sans-serif;opacity:.25;font-size:var(--fs,2.5rem)}
   @keyframes floaty{from{transform:translateY(-10px) rotate(var(--r,0deg))}to{transform:translateY(12px) rotate(calc(var(--r,0deg) + 4deg))}}
-  @media (prefers-reduced-motion:reduce){.doodle{animation:none!important}}
 
   .container{max-width:800px;margin:0 auto;padding:24px 20px 60px;position:relative;z-index:1}
   header.hero{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:40px 32px;margin-bottom:28px;border-top:5px solid var(--burgundy);position:relative;overflow:hidden}
@@ -50,7 +61,7 @@
   .disclaimer{margin-top:20px;background:var(--warn-bg);border:1px solid #fcd34d;border-left:4px solid var(--warn);border-radius:8px;padding:14px 16px;font-size:.88rem;color:#92400e;display:flex;gap:12px;align-items:flex-start;position:relative;line-height: 1.5}
   .disclaimer span{font-size:1.3rem;line-height:1;flex-shrink:0}
 
-  .block{background:var(--white);border-radius:var(--radius);box-shadow:0 4px 20px rgba(0,0,0,.03);padding:32px;margin-bottom:24px;border:1px solid var(--line);transition:transform .3s, box-shadow .3s}
+  .block{background:rgba(255,255,255,0.92);backdrop-filter:blur(8px);border-radius:var(--radius);box-shadow:0 4px 20px rgba(0,0,0,.03);padding:32px;margin-bottom:24px;border:1px solid var(--line);transition:transform .3s, box-shadow .3s}
   .block:hover{box-shadow:var(--shadow)}
   .block h2{font-family:var(--serif);font-size:1.4rem;margin-bottom:8px;display:flex;align-items:center;gap:12px;color:var(--graphite)}
   .block .sub{color:var(--gray);font-size:.95rem;margin-bottom:24px;line-height:1.5}
@@ -112,8 +123,9 @@
   .cta-book a:hover{background:var(--burgundy-dark);transform:translateY(-2px)}
   
   .send-status{text-align:center;font-size:.95rem;font-weight:600;margin-top:24px;padding:16px;border-radius:8px;line-height:1.5}
-  .send-status.ok{color:var(--ok);background:var(--ok-bg)}
-  .send-status.warn{color:#92400e;background:var(--warn-bg)}
+  .send-status.ok{color:var(--ok);background:var(--ok-bg);border:1px solid #a7f3d0}
+  .send-status.warn{color:#92400e;background:var(--warn-bg);border:1px solid #fcd34d}
+  .send-status.error{color:var(--alert);background:var(--alert-bg);border:1px solid #fecaca}
 
   .fas-disclaimer{margin-top: 24px;padding: 16px;background: #f8fafc;border: 1px solid var(--line);border-radius: 8px;font-size: 0.82rem;color: var(--gray);text-align: center;line-height: 1.5}
 
@@ -258,7 +270,7 @@
     </div>
 
     <p class="send-status warn" id="sendStatus">
-      ⚠️ <strong>Важно:</strong> браузеры блокируют фоновую отправку писем из локальных файлов. Мы используем надежный метод отправки. Если откроется новая вкладка с подтверждением — всё прошло успешно!
+      ⏳ Отправляем…
     </p>
     
     <div class="action-buttons">
@@ -274,7 +286,7 @@
   </section>
 
   <footer>
-    © 2024–2026 Анна Драчёва · Логопед · Психолог<br>
+    © 2024–2026 Анна Драчёва · Преподаватель · Логопед · Психолог<br>
     <a href="mailto:annfromcrimea@gmail.com">annfromcrimea@gmail.com</a>
   </footer>
 </div>
@@ -389,7 +401,6 @@ document.getElementById("scrForm").addEventListener("submit", function(e){
   document.getElementById("result").style.display = "block";
   window.scrollTo({top: 0, behavior: "smooth"});
 
-  // Формируем текст отчёта для Анны
   const zp_sound = Math.round(((byZone['sound']||0)/(zoneMax['sound']||1))*100);
   const zp_phono = Math.round(((byZone['phono']||0)/(zoneMax['phono']||1))*100);
   const zp_vocab = Math.round(((byZone['vocab']||0)/(zoneMax['vocab']||1))*100);
@@ -434,43 +445,49 @@ ${recs.join('\n')}
 3. Требуется очная консультация специалиста.
 4. Не является публичной офертой.`;
 
-  // === НАДЕЖНАЯ ОТПРАВКА ЧЕРЕЗ СТАНДАРТНУЮ ФОРМУ (ОБХОДИТ CORS) ===
-  const form = document.createElement("form");
-  form.method = "POST";
-  form.action = "https://formsubmit.app/annfromcrimea@gmail.com";
-  form.target = "_blank"; // Открывает подтверждение в новой вкладке, не уводя родителя с результата
-
-  const addField = (name, value) => {
-    const input = document.createElement("input");
-    input.type = "hidden";
-    input.name = name;
-    input.value = value;
-    form.appendChild(input);
+  btnText.textContent = "Отправляем…";
+  
+  const formData = {
+    _subject: `Скрининг: ${childName} (${age}) — ${pct}%`,
+    childName: childName,
+    age: age,
+    parentName: parentName,
+    phone: phone,
+    email: email,
+    totalScore: `${pct}%`,
+    verdict: verdict,
+    zones: zoneData.join('\n'),
+    details: detail.join('\n'),
+    concern: concern || "Не указано",
+    recommendations: recs.join('\n'),
+    legal: "Согласие 152-ФЗ получено. Не является мед. диагнозом."
   };
 
-  addField("_subject", `Скрининг: ${childName} (${age}) — ${pct}%`);
-  addField("_template", "table");
-  addField("_captcha", "false");
-  addField("Ребёнок", childName);
-  addField("Возраст", age);
-  addField("Родитель", parentName);
-  addField("Телефон", phone);
-  addField("Email родителя", email);
-  addField("Итог", `${pct}% (${verdict})`);
-  addField("Показатели по зонам", zoneData.join('\n'));
-  addField("Что беспокоит", concern || "Не указано");
-  addField("Детализация ответов", detail.join('\n'));
-  addField("Рекомендации для Анны", recs.join('\n'));
-  addField("Юридическая защита", "Согласие 152-ФЗ получено. Не является мед. диагнозом.");
-
-  document.body.appendChild(form);
-  form.submit();
-  document.body.removeChild(form);
-
-  document.getElementById("sendStatus").innerHTML = "✅ Отчёт сформирован и отправлен! Если открылась новая вкладка с подтверждением FormSubmit — письмо успешно ушло Анне.";
-  document.getElementById("sendStatus").className = "send-status ok";
-  
-  btn.disabled = false; spinner.style.display = "none"; btnText.textContent = "Отправляем результат специалисту…";
+  fetch("https://formspree.io/f/mpppjdoz", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify(formData)
+  })
+  .then(response => {
+    if (response.ok) {
+      document.getElementById("sendStatus").innerHTML = "✅ Отчёт отправлен Анне";
+      document.getElementById("sendStatus").className = "send-status ok";
+    } else {
+      throw new Error("Formspree error");
+    }
+  })
+  .catch(error => {
+    document.getElementById("sendStatus").innerHTML = "❌ Ошибка отправки. Пожалуйста, воспользуйтесь кнопкой «Скопировать отчёт» или «Открыть в почте».";
+    document.getElementById("sendStatus").className = "send-status error";
+  })
+  .finally(() => {
+    btn.disabled = false; 
+    spinner.style.display = "none"; 
+    btnText.textContent = "Отправить результат специалисту";
+  });
 });
 
 function copyReport() {
