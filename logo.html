@@ -4,7 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Экспресс-скрининг речи · Анна Драчёва</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- ФАВИКОН: облачко с буквой "Р" (речь) -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ff9d9d'/%3E%3Cstop offset='1' stop-color='%237a2e36'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath fill='url(%23g)' d='M16 20c0-7 6-12 13-12s13 5 13 12c0 1 0 2-1 3 5 1 9 6 9 11 0 7-6 12-13 12H22c-7 0-12-5-12-12 0-5 3-9 8-11-1-1-2-2-2-3z'/%3E%3Ctext x='32' y='42' font-family='Georgia' font-size='24' font-weight='bold' fill='white' text-anchor='middle'%3EР%3C/text%3E%3C/svg%3E">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --burgundy:#7a2e36; --burgundy-dark:#5d1f26; --burgundy-light:#fdf6f7;
@@ -13,12 +17,13 @@
     --ok:#059669; --ok-bg:#ecfdf5;
     --warn:#d97706; --warn-bg:#fffbeb;
     --alert:#dc2626; --alert-bg:#fef2f2;
-    --mint:#d1fae5; --sky:#e0f2fe;
+    --mint:#d1fae5; --sky:#e0f2fe; --pink:#fce7f3; --peach:#fed7aa;
     --shadow:0 10px 40px -10px rgba(122, 46, 54, 0.08); 
     --shadow-hover:0 20px 50px -12px rgba(122, 46, 54, 0.15);
     --radius:16px;
     --serif:'Playfair Display', Georgia, serif;
     --sans:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --hand:'Caveat', cursive;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   
@@ -28,15 +33,48 @@
     background-image: 
       radial-gradient(circle at 15% 15%, rgba(209, 250, 229, 0.4) 0%, transparent 25%),
       radial-gradient(circle at 85% 25%, rgba(224, 242, 254, 0.4) 0%, transparent 25%),
-      radial-gradient(circle at 50% 85%, rgba(253, 246, 247, 0.6) 0%, transparent 30%),
-      url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%237a2e36' fill-opacity='0.03' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
+      radial-gradient(circle at 50% 85%, rgba(252, 231, 243, 0.5) 0%, transparent 30%),
+      radial-gradient(circle at 75% 70%, rgba(254, 215, 170, 0.3) 0%, transparent 25%);
     color:var(--graphite);
     line-height:1.6;
     -webkit-font-smoothing:antialiased;
     min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
   }
   
-  .container{max-width:800px;margin:0 auto;padding:24px 20px 60px}
+  /* ===== ЛОГОПЕДИЧЕСКИЕ DOODLES (плавающие буквы и символы) ===== */
+  .doodles{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .doodle{
+    position:absolute;
+    font-family:var(--hand);
+    opacity:.18;
+    transform:rotate(var(--r,0deg));
+    font-size:var(--fs,3rem);
+    animation:floaty var(--t,8s) ease-in-out infinite alternate;
+    white-space:nowrap;
+    user-select:none;
+  }
+  .doodle.letter{color:var(--burgundy);font-weight:700}
+  .doodle.bubble{
+    font-family:var(--sans);
+    background:var(--white);
+    border:2px dashed var(--burgundy);
+    border-radius:50% 50% 50% 20%;
+    padding:8px 16px;
+    font-size:1.1rem;
+    color:var(--burgundy);
+    font-weight:600;
+    opacity:.25;
+  }
+  .doodle.emoji{font-family:'Nunito',sans-serif;opacity:.5;font-size:var(--fs,2.5rem)}
+  @keyframes floaty{
+    from{transform:translateY(-10px) rotate(var(--r,0deg))}
+    to{transform:translateY(12px) rotate(calc(var(--r,0deg) + 4deg))}
+  }
+  @media (prefers-reduced-motion:reduce){.doodle{animation:none!important}}
+
+  .container{max-width:800px;margin:0 auto;padding:24px 20px 60px;position:relative;z-index:1}
 
   header.hero{
     background:var(--white);
@@ -55,7 +93,7 @@
   }
   header.hero::after{
     content:"";position:absolute;bottom:-30px;left:-30px;width:120px;height:120px;
-    background: radial-gradient(circle, var(--sky) 0%, transparent 70%);
+    background: radial-gradient(circle, var(--pink) 0%, transparent 70%);
     opacity:.5; border-radius: 50%;
   }
   
@@ -88,6 +126,7 @@
     margin-bottom:24px;
     border:1px solid var(--line);
     transition:transform .3s, box-shadow .3s;
+    position: relative;
   }
   .block:hover{box-shadow:var(--shadow-hover)}
   .block h2{font-family:var(--serif);font-size:1.4rem;margin-bottom:8px;display:flex;align-items:center;gap:12px;color:var(--graphite)}
@@ -177,7 +216,6 @@
   .verdict.ok{color:var(--ok)}.verdict.warn{color:var(--warn)}.verdict.alert{color:var(--alert)}
   .verdict-txt{text-align:center;color:var(--graphite);max-width:600px;margin:0 auto 32px;font-size:1.05rem;line-height:1.6}
 
-  /* Зоны — минимализм для родителя: только название + процент + бар */
   .zone{
     border:1px solid var(--line);border-left:5px solid var(--gray);
     border-radius:10px;padding:16px 20px;margin-bottom:12px;background:var(--white);
@@ -211,6 +249,7 @@
   .send-status{text-align:center;font-size:.95rem;font-weight:600;margin-top:24px;padding:12px;border-radius:8px}
   .send-status.ok{color:var(--ok);background:var(--ok-bg)}
   .send-status.err{color:var(--alert);background:var(--alert-bg)}
+  .send-status.warn{color:#92400e;background:var(--warn-bg)}
 
   .fas-disclaimer{
     margin-top: 24px;
@@ -232,6 +271,33 @@
 </style>
 </head>
 <body>
+
+<!-- ===== ЛОГОПЕДИЧЕСКИЕ DOODLES ===== -->
+<div class="doodles" aria-hidden="true">
+  <!-- Буквы алфавита -->
+  <span class="doodle letter" style="top:5%;left:3%;--fs:4rem;--r:-12deg;--t:7s">А</span>
+  <span class="doodle letter" style="top:12%;right:5%;--fs:3.5rem;--r:8deg;--t:9s">Б</span>
+  <span class="doodle letter" style="top:30%;left:2%;--fs:3rem;--r:-6deg;--t:8s">В</span>
+  <span class="doodle letter" style="bottom:25%;right:4%;--fs:3.8rem;--r:10deg;--t:10s">Г</span>
+  <span class="doodle letter" style="bottom:10%;left:5%;--fs:3.2rem;--r:-8deg;--t:7.5s">Д</span>
+  <span class="doodle letter" style="top:55%;right:3%;--fs:3rem;--r:5deg;--t:8.5s">Ж</span>
+  <span class="doodle letter" style="top:75%;left:4%;--fs:3.5rem;--r:-10deg;--t:9.5s">Ш</span>
+  
+  <!-- Облачка речи -->
+  <span class="doodle bubble" style="top:18%;left:6%;--t:8s">а-а-а!</span>
+  <span class="doodle bubble" style="top:45%;right:7%;--t:9s">ма-ма</span>
+  <span class="doodle bubble" style="bottom:40%;left:3%;--t:7.5s">у-у-у</span>
+  <span class="doodle bubble" style="bottom:18%;right:6%;--t:10s">ра-ра</span>
+  
+  <!-- Эмодзи (логопедическая тематика) -->
+  <span class="doodle emoji" style="top:8%;left:45%;--fs:2.5rem;--t:7s">👄</span>
+  <span class="doodle emoji" style="top:35%;right:10%;--fs:2.8rem;--t:8s">🗣️</span>
+  <span class="doodle emoji" style="bottom:30%;left:8%;--fs:2.5rem;--t:9s">👅</span>
+  <span class="doodle emoji" style="top:65%;left:6%;--fs:2.6rem;--t:7.5s">📚</span>
+  <span class="doodle emoji" style="bottom:5%;right:12%;--fs:2.8rem;--t:8.5s">🧩</span>
+  <span class="doodle emoji" style="top:22%;left:8%;--fs:2.2rem;--t:6.5s">⭐</span>
+  <span class="doodle emoji" style="bottom:45%;right:3%;--fs:2.4rem;--t:9.5s">🎈</span>
+</div>
 
 <div class="container">
   <a href="index.html" class="back">← Вернуться к записи к Анне</a>
@@ -290,7 +356,6 @@
     </section>
   </form>
 
-  <!-- РЕЗУЛЬТАТ ДЛЯ РОДИТЕЛЯ — МИНИМУМ ИНФОРМАЦИИ -->
   <section class="block" id="result">
     <div class="score-container">
       <div class="score-ring" id="scoreRing">
@@ -438,7 +503,6 @@ document.getElementById("scrForm").addEventListener("submit",async function(e){
 
   const pct = Math.round((total / TOTAL_MAX) * 100);
 
-  // Вердикт — короткий, без медицинских формулировок
   let verdict, vClass, vTxt;
   if(pct >= 80){
     verdict = "Картина благополучная"; vClass = "ok";
@@ -465,7 +529,6 @@ document.getElementById("scrForm").addEventListener("submit",async function(e){
     else if(zp >= 50) cls = "watch";
     else cls = "attention";
     
-    // Только название зоны + процент + прогресс-бар. Без текстовых пояснений.
     zonesHost.insertAdjacentHTML("beforeend", `
       <div class="zone ${cls}">
         <div class="zone-head">
@@ -476,7 +539,6 @@ document.getElementById("scrForm").addEventListener("submit",async function(e){
       </div>`);
   });
 
-  // Анимация прогресс-баров и кольца
   setTimeout(() => {
     document.querySelectorAll('.progress-fill').forEach(bar => {
       bar.style.width = bar.getAttribute('data-width');
@@ -485,7 +547,6 @@ document.getElementById("scrForm").addEventListener("submit",async function(e){
     document.getElementById('scoreRing').style.background = `conic-gradient(${color} ${pct}%, var(--line) 0%)`;
   }, 100);
 
-  // CTA — короткое, без медицинских обещаний
   const ctaText = document.getElementById("ctaText");
   if(vClass === "ok") ctaText.textContent = "Если хотите получить индивидуальные советы по развитию речи дома — напишите, я подскажу игры под ваш возраст.";
   else if(vClass === "warn") ctaText.textContent = "Чтобы снять сомнения и получить точный маршрут развития — запишитесь на очную диагностику.";
@@ -502,20 +563,17 @@ document.getElementById("scrForm").addEventListener("submit",async function(e){
   window.scrollTo({top: 0, behavior: "smooth"});
 
   // ================================================
-  // === ВСЁ ДЛЯ АННЫ (почта) — ПОЛНЫЙ АНАЛИЗ ===
+  // === ФОРМИРОВАНИЕ ДАННЫХ ДЛЯ ПОЧТЫ ===
   // ================================================
-
-  // Детализация ответов
   const detailText = detail.map((d, i) => 
     `${i+1}. [${d.зона}]\nВопрос: ${d.вопрос}\nОтвет родителя: ${d.ответ}\nБалл: ${d.балл}/3`
   ).join('\n\n-------------------\n\n');
 
-  // Баллы по зонам
   const zoneScoresText = Object.keys(CATS).map(k => 
     `${CATS[k].name}: ${Math.round(((byZone[k]||0)/(zoneMax[k]||1))*100)}%`
   ).join('\n');
 
-  // === УМНЫЕ РЕКОМЕНДАЦИИ (только для Анны) ===
+  // Умные рекомендации для Анны
   const recs = [];
   const zp_sound = Math.round(((byZone['sound']||0)/(zoneMax['sound']||1))*100);
   const zp_phono = Math.round(((byZone['phono']||0)/(zoneMax['phono']||1))*100);
@@ -537,7 +595,6 @@ document.getElementById("scrForm").addEventListener("submit",async function(e){
     recs.push(`\n⚠️ ДОПОЛНИТЕЛЬНО ОТ РОДИТЕЛЯ: "${concern}". На очной диагностике этому уделить первоочередное внимание.`);
   }
 
-  // Предварительное заключение для Анны (не для родителя!)
   let annaVerdict = "";
   if (pct >= 80) {
     annaVerdict = "Предварительное заключение: картина благополучная. Вероятно, достаточно поддерживающих занятий дома. Очно — подтвердить/опровергнуть, дать рекомендации по развитию.";
@@ -549,56 +606,101 @@ document.getElementById("scrForm").addEventListener("submit",async function(e){
 
   const fullRecommendation = `=== ПЕРСОНАЛЬНЫЕ РЕКОМЕНДАЦИИ ДЛЯ АННЫ ===\n\n${annaVerdict}\n\n${recs.join("\n\n")}`;
 
-  // === ЮРИДИЧЕСКАЯ ЗАЩИТА (ФАС + 152-ФЗ) ===
   const fasAndConsentText = `
 === ЮРИДИЧЕСКАЯ ИНФОРМАЦИЯ И СОГЛАСИЯ (ФАС РФ / 152-ФЗ) ===
-1. СОГЛАСИЕ НА ОБРАБОТКУ ПД: ${consentGiven}. Родитель подтвердил добровольное информированное согласие на обработку персональных данных (152-ФЗ) исключительно для проведения скрининга и подготовки рекомендаций.
-2. ОТКАЗ ОТ ОТВЕТСТВЕННОСТИ: Данный экспресс-скрининг носит исключительно информационно-ознакомительный характер. Он НЕ является медицинской услугой, НЕ ставит диагноз и НЕ заменяет очную консультацию логопеда, дефектолога или врача.
-3. ИНДИВИДУАЛЬНЫЕ ОСОБЕННОСТИ: Результаты основаны на субъективной оценке родителя и могут не отражать полную картину. Индивидуальные результаты могут отличаться.
-4. ТРЕБУЕТСЯ ОЧНАЯ КОНСУЛЬТАЦИЯ: Для постановки заключения и составления коррекционного маршрута необходима живая диагностика специалиста.
-5. РЕКЛАМА И ОФЕРТА: Информация не является публичной офертой (ст. 437 ГК РФ). Гарантии конкретного результата не даются, так как они зависят от индивидуальных особенностей ребёнка, регулярности занятий и участия родителей.
-6. ПРОТИВОПОКАЗАНИЯ: Имеются противопоказания (необходимость очной консультации специалиста).
-7. ДАТА И ВРЕМЯ ПРОХОЖДЕНИЯ: ${new Date().toLocaleString('ru-RU')}
+1. СОГЛАСИЕ НА ОБРАБОТКУ ПД: ${consentGiven}.
+2. ОТКАЗ ОТ ОТВЕТСТВЕННОСТИ: Данный скрининг носит исключительно информационно-ознакомительный характер. Он НЕ является медицинской услугой, НЕ ставит диагноз и НЕ заменяет очную консультацию.
+3. ИНДИВИДУАЛЬНЫЕ ОСОБЕННОСТИ: Результаты основаны на субъективной оценке родителя. Индивидуальные результаты могут отличаться.
+4. ТРЕБУЕТСЯ ОЧНАЯ КОНСУЛЬТАЦИЯ: Для постановки заключения необходима живая диагностика специалиста.
+5. НЕ ЯВЛЯЕТСЯ ПУБЛИЧНОЙ ОФЕРТОЙ (ст. 437 ГК РФ). Гарантии результата не даются.
+6. ДАТА И ВРЕМЯ: ${new Date().toLocaleString('ru-RU')}
 ============================================================`;
 
-  const payload = {
-    _subject: `Лого-скрининг: ${childName} (${age}) — ${pct}%`,
-    _template: "table",
-    _captcha: "false",
-    "Ребёнок": childName,
-    "Возраст": age,
-    "Родитель": parentName,
-    "Телефон": phone,
-    "Email": email,
-    "Итоговый результат": `${pct}% (${verdict})`,
-    "Баллы по зонам": zoneScoresText,
-    "Что беспокоит (от родителя)": concern || "Не указано",
-    "Детализация ответов": detailText,
-    "Персональные рекомендации (черновик для Анны)": fullRecommendation,
-    "Юридическая защита (ФАС/152-ФЗ)": fasAndConsentText
-  };
-
-  try {
+  // ================================================
+  // === ОТПРАВКА ПИСЕМ (ДВА ВАРИАНТА) ===
+  // ================================================
+  const st = document.getElementById("sendStatus");
+  
+  // Функция отправки через FormData (надёжнее для formsubmit)
+  async function sendViaFormData() {
+    const formData = new FormData();
+    formData.append("_subject", `Лого-скрининг: ${childName} (${age}) — ${pct}%`);
+    formData.append("_template", "table");
+    formData.append("_captcha", "false");
+    // Копия родителю (если formsubmit поддержит)
+    if (email) formData.append("_cc", email);
+    
+    formData.append("Ребёнок", childName);
+    formData.append("Возраст", age);
+    formData.append("Родитель", parentName);
+    formData.append("Телефон", phone);
+    formData.append("Email родителя", email);
+    formData.append("Итоговый результат", `${pct}% (${verdict})`);
+    formData.append("Баллы по зонам", zoneScoresText);
+    formData.append("Что беспокоит (от родителя)", concern || "Не указано");
+    formData.append("Детализация ответов", detailText);
+    formData.append("Персональные рекомендации (черновик для Анны)", fullRecommendation);
+    formData.append("Юридическая защита (ФАС/152-ФЗ)", fasAndConsentText);
+    
     const r = await fetch(`https://formsubmit.co/ajax/${SEND_EMAIL}`, {
       method: "POST",
-      headers: {"Content-Type": "application/json", "Accept": "application/json"},
-      body: JSON.stringify(payload)
+      body: formData,
+      headers: { "Accept": "application/json" }
     });
-    const j = await r.json();
-    if(j.success === "true" || j.ok){
-      document.getElementById("sendStatus").textContent = "✅ Результат и рекомендации отправлены Анне. Скоро я свяжусь с вами!";
-      document.getElementById("sendStatus").className = "send-status ok";
+    return await r.json();
+  }
+  
+  // Fallback: отправка через mailto (если formsubmit не сработал)
+  function sendViaMailto() {
+    const subject = encodeURIComponent(`Лого-скрининг: ${childName} (${age}) — ${pct}%`);
+    const body = encodeURIComponent(
+      `РЕБЁНОК: ${childName}\nВОЗРАСТ: ${age}\nРОДИТЕЛЬ: ${parentName}\nТЕЛЕФОН: ${phone}\nEMAIL: ${email}\n\nИТОГ: ${pct}% (${verdict})\n\nБАЛЛЫ ПО ЗОНАМ:\n${zoneScoresText}\n\nЧТО БЕСПОКОИТ:\n${concern || "Не указано"}\n\n=== ДЕТАЛИЗАЦИЯ ===\n${detailText}\n\n${fullRecommendation}\n\n${fasAndConsentText}`
+    );
+    window.location.href = `mailto:${SEND_EMAIL}?subject=${subject}&body=${body}`;
+  }
+
+  let sentOk = false;
+  let errorMsg = "";
+  
+  try {
+    const j = await sendViaFormData();
+    if(j.success === "true" || j.success === true || j.ok){
+      sentOk = true;
     } else {
-      throw new Error(j.message || "Нет подтверждения отправки");
+      errorMsg = j.message || "Сервер не подтвердил отправку";
     }
   } catch(err) {
-    document.getElementById("sendStatus").textContent = `⚠️ Автоотправка не удалась. Пожалуйста, сделайте скриншот этой страницы и напишите Анне напрямую: ${SEND_EMAIL}`;
-    document.getElementById("sendStatus").className = "send-status err";
-  } finally {
-    btn.disabled = false;
-    spinner.style.display = "none";
-    btnText.textContent = "Показать результат и отправить Анне 🍃";
+    errorMsg = err.message || "Ошибка сети";
   }
+
+  if (sentOk) {
+    st.textContent = "✅ Результат и рекомендации отправлены Анне. Копия направлена на ваш email. Скоро я свяжусь с вами!";
+    st.className = "send-status ok";
+  } else {
+    st.innerHTML = `⚠️ Автоотправка не сработала (${errorMsg}). <br><br>
+      <strong>Возможные причины:</strong><br>
+      1. Email <code>${SEND_EMAIL}</code> не подтверждён в FormSubmit.co (нужно один раз подтвердить при первой отправке — проверьте почту Анны).<br>
+      2. Письмо попало в спам.<br>
+      3. Блокировщик рекламы/расширения.<br><br>
+      <strong>Решение:</strong> нажмите кнопку ниже — откроется почтовый клиент с готовым письмом для Анны.`;
+    st.className = "send-status warn";
+    
+    // Добавляем кнопку для ручной отправки через mailto
+    const mailtoBtn = document.createElement("button");
+    mailtoBtn.className = "btn";
+    mailtoBtn.style.marginTop = "12px";
+    mailtoBtn.style.background = "var(--white)";
+    mailtoBtn.style.color = "var(--burgundy)";
+    mailtoBtn.style.border = "2px solid var(--burgundy)";
+    mailtoBtn.style.boxShadow = "none";
+    mailtoBtn.textContent = "📧 Открыть письмо для Анны в почтовом клиенте";
+    mailtoBtn.onclick = sendViaMailto;
+    st.parentElement.insertBefore(mailtoBtn, st.nextSibling);
+  }
+  
+  btn.disabled = false;
+  spinner.style.display = "none";
+  btnText.textContent = "Показать результат и отправить Анне 🍃";
 });
 </script>
 </body>
