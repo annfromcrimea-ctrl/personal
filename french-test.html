@@ -429,7 +429,7 @@ const UMK_MAP_FR = {
 const $=id=>document.getElementById(id);
 const SR=window.SpeechRecognition||window.webkitSpeechRecognition||null;
 
-/* ======================= БАНКИ ВОПРОСОВ (3 на уровень на навык = 15 на навык, 75 всего) ======================= */
+/* ======================= БАНКИ ВОПРОСОВ ======================= */
 const BANK=[
   {lvl:1,skill:'g',q:'Je ___ français.',o:['parle','parles','parlons','parlent'],a:0,e:'С местоимением je глагол parler имеет форму parle.'},
   {lvl:1,skill:'g',q:'Elle ___ une sœur.',o:['a','as','ont','ai'],a:0,e:'С elle глагол avoir имеет форму a.'},
@@ -552,44 +552,64 @@ function buildPools(kids){
 /* ---------- НОРМАЛИЗАЦИЯ (Французский) ---------- */
 function normalizeFr(s){
   return String(s).toLowerCase()
-    .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // удаляет акценты (é->e, ç->c и т.д.)
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '') 
     .replace(/œ/g, 'oe').replace(/æ/g, 'ae')
-    .replace(/['’`]/g, '') // удаляет апострофы
-    .replace(/[^a-z0-9 ]/g, '') // удаляет всё, кроме букв, цифр и пробелов
+    .replace(/['’`]/g, '') 
+    .replace(/[^a-z0-9 ]/g, '') 
     .replace(/\s+/g, ' ').trim();
 }
 const normWords=s=>normalizeFr(s).split(' ').filter(Boolean);
 
-/* ---------- TTS с watchdog ---------- */
+/* ---------- TTS с watchdog (ИСПРАВЛЕНО) ---------- */
 let frVoice=null;
 const TTS='speechSynthesis' in window;
-function pickVoice(){
-  const vs=window.speechSynthesis.getVoices();
-  frVoice=vs.find(v=>/^fr/i.test(v.lang)&&/google|amelie|thomas|audrey|female/i.test(v.name))||vs.find(v=>/^fr/i.test(v.lang))||null;
-}
-if(TTS){pickVoice();window.speechSynthesis.onvoiceschanged=pickVoice;}
 
-function speak(text, callback){
-  if(!TTS){if(callback)callback();return;}
+function pickVoice(){
+  const vs = window.speechSynthesis.getVoices();
+  frVoice = vs.find(v => /^fr/i.test(v.lang) && /google|amelie|thomas|audrey|female|france/i.test(v.name.toLowerCase())) 
+         || vs.find(v => /^fr/i.test(v.lang)) 
+         || null;
+}
+if(TTS){
+  pickVoice();
+  window.speechSynthesis.onvoiceschanged = pickVoice;
+}
+
+function speak(text, rate, callback){
+  if(!TTS){
+    if(callback) callback();
+    return;
+  }
   window.speechSynthesis.cancel();
-  const utter=new SpeechSynthesisUtterance(text);
-  utter.lang='fr-FR';
-  utter.rate=0.95;
-  if(frVoice)utter.voice=frVoice;
   
-  let done=false;
-  const finish=()=>{
-    if(!done){
-      done=true;
-      clearTimeout(tid);
-      if(callback)callback();
-    }
-  };
-  utter.onend=finish;
-  utter.onerror=finish;
-  const timeoutMs=Math.max(3000, text.length * 90);
-  const tid=setTimeout(finish, timeoutMs);
-  window.speechSynthesis.speak(utter);
+  // Небольшая задержка критически важна для стабильности в Chrome и iOS Safari после cancel()
+  setTimeout(() => {
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = 'fr-FR';
+    utter.rate = rate || 0.95; // Теперь параметр rate используется корректно
+    
+    if (frVoice) utter.voice = frVoice;
+
+    let done = false;
+    const finish = () => {
+      if (!done) {
+        done = true;
+        clearTimeout(tid);
+        if (callback) callback();
+      }
+    };
+    
+    utter.onend = finish;
+    utter.onerror = (e) => {
+      console.warn('TTS Error:', e);
+      finish(); // Всё равно разблокируем интерфейс при ошибке, чтобы тест не завис
+    };
+    
+    const timeoutMs = Math.max(3000, text.length * 90);
+    const tid = setTimeout(finish, timeoutMs);
+    
+    window.speechSynthesis.speak(utter);
+  }, 50);
 }
 
 /* ---------- Распознавание речи ---------- */
@@ -623,7 +643,6 @@ function startQuiz(){
   const kids=document.body.classList.contains('mode-kids');
   const skills=ORDER.filter(k=>selSkills[k]);
   
-  // Инициализация статистики по уровням для каждого навыка
   const stats={};
   skills.forEach(k=>{
     stats[k]={1:{c:0,t:0},2:{c:0,t:0},3:{c:0,t:0},4:{c:0,t:0},5:{c:0,t:0}};
@@ -678,7 +697,6 @@ function pickQuestion(k){
   if(avail.length>0){
     return avail[Math.floor(Math.random()*avail.length)];
   }
-  // Fallback: если вопросы на этом уровне закончились, очищаем Set для этого уровня
   S.pools[k][lvl].forEach(q=>S.asked[k].delete(q));
   const retry=S.pools[k][lvl].filter(q=>!S.asked[k].has(q));
   return retry.length>0 ? retry[Math.floor(Math.random()*retry.length)] : S.pools[k][lvl][0];
@@ -716,7 +734,7 @@ function renderQuestion(){
         <button type="button" class="playbtn" id="playbtn" onclick="playAudio()">▶ Écouter</button>
         <span class="playcnt" id="playcnt">Сначала прослушайте запись 🎧</span></div>`;
     }else{
-      ex.innerHTML=`<div class="audiobox"><span class="script-fallback">📜 Текст (аудио недоступно): «${q.audio.join(' ')}»</span></div>`;
+      ex.innerHTML=`<div class="audiobox"><span class="script-fallback">📜 Текст (аудио недоступно): «${Array.isArray(q.audio)?q.audio.join(' '):q.audio}»</span></div>`;
       S.played=true;
     }
     $('qtext').textContent=q.q;
@@ -747,14 +765,21 @@ function renderQuestion(){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
+/* ---------- ИСПРАВЛЕННАЯ ФУНКЦИЯ ВОСПРОИЗВЕДЕНИЯ ---------- */
 function playAudio(){
-  if(!TTS)return;
-  const rate=S.current.lvl<=2?0.85:S.current.lvl<=4?0.95:1.0;
-  speak(S.current.audio.join(' '), ()=>{
-    S.plays++;S.played=true;
-    $('playcnt').textContent=`Прослушиваний: ${S.plays} · можно повторить ещё`;
-    $('playbtn').textContent='▶ Écouter encore';
-    const lh=$('lh');if(lh)lh.remove();
+  if(!TTS) return;
+  const rate = S.current.lvl <= 2 ? 0.85 : S.current.lvl <= 4 ? 0.95 : 1.0;
+  const text = Array.isArray(S.current.audio) ? S.current.audio.join(' ') : String(S.current.audio);
+  
+  speak(text, rate, () => {
+    S.plays++;
+    S.played = true;
+    const playcnt = $('playcnt');
+    if(playcnt) playcnt.textContent = `Прослушиваний: ${S.plays} · можно повторить ещё`;
+    const playbtn = $('playbtn');
+    if(playbtn) playbtn.textContent = '▶ Écouter encore';
+    const lh = $('lh');
+    if(lh) lh.remove();
     toggleOptsLock();
   });
 }
@@ -894,11 +919,9 @@ function applyResult(score,correctText,given){
   const k=S.skill,q=S.current,kids=document.body.classList.contains('mode-kids');
   const ok=score>=0.6;
   
-  // Обновляем статистику по уровням
   S.stats[k][q.lvl].t++;
   if(ok)S.stats[k][q.lvl].c++;
 
-  // Адаптивная логика по блокам
   S.blockAnswered++;
   if(ok){
     S.blockCorrect++;
@@ -911,7 +934,6 @@ function applyResult(score,correctText,given){
   if(S.blockAnswered===BLOCK_SIZE){
     if(S.blockCorrect===2) S.cur[k]=Math.min(5, S.cur[k]+1);
     else if(S.blockCorrect===0) S.cur[k]=Math.max(1, S.cur[k]-1);
-    // Если 1 из 2, уровень не меняется
     S.blockCorrect=0;
     S.blockAnswered=0;
   }
@@ -930,7 +952,7 @@ function applyResult(score,correctText,given){
   $('fb-extra').innerHTML='';
   $('fb-expl').textContent=(kids?'💡 ':'')+q.e;
   const tr=$('fb-trans');
-  if(k==='l'){tr.hidden=false;tr.textContent='🎙 '+q.audio.join(' ');}else tr.hidden=true;
+  if(k==='l'){tr.hidden=false;tr.textContent='🎙 '+ (Array.isArray(q.audio)?q.audio.join(' '):q.audio);}else tr.hidden=true;
   
   const lastInSec=S.secDone>=Q_PER_SKILL;
   const lastSection=S.secIdx>=S.skills.length-1;
@@ -980,7 +1002,6 @@ function finish(early=false){
   const correct=S.ans.filter(a=>a.ok).length;
   const acc=S.totalQ>0?Math.round(correct/S.totalQ*100):0;
   
-  // Средний уровень по навыкам
   const finalLevels=S.skills.map(k=>getSkillFinalLevel(k));
   const avgLvl=finalLevels.reduce((a,b)=>a+b,0)/finalLevels.length;
   const lvlName=LVLNAME[Math.round(avgLvl)]||'A2';
@@ -1044,7 +1065,6 @@ function sendEmail(correct, acc, avgLvlIdx, finalLevels){
   const now=new Date();
   const dateStr=now.toLocaleString('ru-RU');
   
-  // Формируем разбивку по уровням и рекомендации по УМК
   let breakdownText='';
   let umkText='Общая рекомендация: ';
   
@@ -1060,7 +1080,6 @@ function sendEmail(correct, acc, avgLvlIdx, finalLevels){
     umkText+=`\n- ${SK[k].short}: ${UMK_MAP_FR[flName]}`;
   });
   
-  // Формируем список ошибок для письма (с пояснениями)
   const wrong=S.ans.filter(a=>!a.ok);
   let errorsText='Нет ошибок';
   if(wrong.length>0){
@@ -1134,7 +1153,6 @@ document.addEventListener('keydown',e=>{
   else if(S.answered&&e.key==='Enter')next();
 });
 
-// Загрузка сохраненных данных
 window.addEventListener('DOMContentLoaded',()=>{
   const name=localStorage.getItem('fr_name');
   const email=localStorage.getItem('fr_email');
