@@ -257,7 +257,6 @@ body.mode-kids .btn-ghost:hover{color:#0c62b8;border-color:#0c62b8}
 </div>
 
 <main>
-<!-- ============ СТАРТ ============ -->
 <section id="scr-start" class="screen">
   <div class="start-grid">
     <div class="board-frame">
@@ -308,7 +307,6 @@ body.mode-kids .btn-ghost:hover{color:#0c62b8;border-color:#0c62b8}
   </div>
 </section>
 
-<!-- ============ ТЕСТ ============ -->
 <section id="scr-quiz" class="screen" hidden>
   <div class="quiz-top">
     <span class="logo">✎ French Check-Up</span>
@@ -359,7 +357,6 @@ body.mode-kids .btn-ghost:hover{color:#0c62b8;border-color:#0c62b8}
   </div>
 </section>
 
-<!-- ============ РЕЗУЛЬТАТ ============ -->
 <section id="scr-result" class="screen" hidden>
   <div class="result-head">
     <div class="stamp" id="stamp">B1<small id="stamp-name">Intermediate</small></div>
@@ -386,6 +383,8 @@ body.mode-kids .btn-ghost:hover{color:#0c62b8;border-color:#0c62b8}
     <div id="mistakes"></div>
   </div>
 
+  <div id="send-status" style="text-align:center; margin:20px 0; font-weight:700; min-height:1.5em;"></div>
+
   <div class="end-actions">
     <button type="button" class="btn-big" style="width:auto;padding:14px 34px" onclick="startQuiz()">Пройти ещё раз ↻</button>
     <button type="button" class="btn-ghost" onclick="goStart()">⚙ Изменить настройки</button>
@@ -394,12 +393,11 @@ body.mode-kids .btn-ghost:hover{color:#0c62b8;border-color:#0c62b8}
 </main>
 
 <script>
-/* ======================= КОНСТАНТЫ И НАВЫКИ ======================= */
-const START_LVL = 2; // A2
+const START_LVL = 2;
 const BLOCK_SIZE = 2;
 const BLOCKS_PER_SKILL = 4;
-const Q_PER_SKILL = BLOCK_SIZE * BLOCKS_PER_SKILL; // 8
-const TOTAL_Q = 5 * Q_PER_SKILL; // 40
+const Q_PER_SKILL = BLOCK_SIZE * BLOCKS_PER_SKILL;
+const TOTAL_Q = 5 * Q_PER_SKILL;
 
 const SK={
   g:{icon:'📚',title:'Грамматика и лексика',short:'Грамматика',
@@ -419,17 +417,16 @@ const LVLFULL={A1:'Beginner · Начальный',A2:'Elementary · Базов�
   B2:'Upper-Intermediate · Выше среднего',C1:'Advanced · Продвинутый'};
 
 const UMK_MAP_FR = {
-  A1: "Édito A1 / Cosmopolite A1",
-  A2: "Édito A2 / Cosmopolite A2",
-  B1: "Édito B1 / Alter Ego + B1",
-  B2: "Édito B2 / Cosmopolite B2",
-  C1: "Le Nouveau Édito C1 / Édito C1"
+  1: "A1: Édito A1 / Cosmopolite A1",
+  2: "A2: Édito A2 / Cosmopolite A2",
+  3: "B1: Édito B1 / Alter Ego + B1",
+  4: "B2: Édito B2 / Cosmopolite B2",
+  5: "C1: Le Nouveau Édito C1 / Édito C1"
 };
 
 const $=id=>document.getElementById(id);
 const SR=window.SpeechRecognition||window.webkitSpeechRecognition||null;
 
-/* ======================= БАНКИ ВОПРОСОВ ======================= */
 const BANK=[
   {lvl:1,skill:'g',q:'Je ___ français.',o:['parle','parles','parlons','parlent'],a:0,e:'С местоимением je глагол parler имеет форму parle.'},
   {lvl:1,skill:'g',q:'Elle ___ une sœur.',o:['a','as','ont','ai'],a:0,e:'С elle глагол avoir имеет форму a.'},
@@ -520,7 +517,6 @@ const SPEAKING=[
   {lvl:5,skill:'s',type:'read',text:'La prose de l\'auteur, labyrinthique mais précise, fuit le sentimentalisme.',expect:'la prose de l auteur labyrinthique mais precise fuit le sentimentalisme',e:'Ключевые слова: labyrinthique, sentimentalisme.'}
 ];
 
-/* ======================= СОСТОЯНИЕ ======================= */
 let S=null;
 const selSkills={g:true,l:true,r:true,w:true,s:true};
 
@@ -549,7 +545,6 @@ function buildPools(kids){
           w:byLevel(WRITING,kids),s:byLevel(SPEAKING,kids)};
 }
 
-/* ---------- НОРМАЛИЗАЦИЯ (Французский) ---------- */
 function normalizeFr(s){
   return String(s).toLowerCase()
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '') 
@@ -560,109 +555,72 @@ function normalizeFr(s){
 }
 const normWords=s=>normalizeFr(s).split(' ').filter(Boolean);
 
-/* ---------- TTS с watchdog (ИСПРАВЛЕНО) ---------- */
 let frVoice=null;
 const TTS='speechSynthesis' in window;
-
 function pickVoice(){
-  const vs = window.speechSynthesis.getVoices();
-  frVoice = vs.find(v => /^fr/i.test(v.lang) && /google|amelie|thomas|audrey|female|france/i.test(v.name.toLowerCase())) 
-         || vs.find(v => /^fr/i.test(v.lang)) 
-         || null;
+  if(!TTS) return;
+  const vs=speechSynthesis.getVoices();
+  if(!vs.length) return;
+  frVoice=vs.find(v=>/^fr/i.test(v.lang)&&/google|amelie|thomas|audrey|female|france/i.test(v.name))
+         ||vs.find(v=>/^fr/i.test(v.lang))||null;
 }
-if(TTS){
-  pickVoice();
-  window.speechSynthesis.onvoiceschanged = pickVoice;
-}
+if(TTS){pickVoice();speechSynthesis.onvoiceschanged=pickVoice;}
 
-function speak(text, rate, callback){
-  if(!TTS){
-    if(callback) callback();
-    return;
-  }
-  window.speechSynthesis.cancel();
-  
-  // Небольшая задержка критически важна для стабильности в Chrome и iOS Safari после cancel()
-  setTimeout(() => {
-    const utter = new SpeechSynthesisUtterance(text);
-    utter.lang = 'fr-FR';
-    utter.rate = rate || 0.95; // Теперь параметр rate используется корректно
-    
-    if (frVoice) utter.voice = frVoice;
-
-    let done = false;
-    const finish = () => {
-      if (!done) {
-        done = true;
-        clearTimeout(tid);
-        if (callback) callback();
-      }
-    };
-    
-    utter.onend = finish;
-    utter.onerror = (e) => {
-      console.warn('TTS Error:', e);
-      finish(); // Всё равно разблокируем интерфейс при ошибке, чтобы тест не завис
-    };
-    
-    const timeoutMs = Math.max(3000, text.length * 90);
-    const tid = setTimeout(finish, timeoutMs);
-    
-    window.speechSynthesis.speak(utter);
-  }, 50);
+function safeSpeak(parts,rate,callback){
+  const done=(()=>{let fired=false;return()=>{if(fired)return;fired=true;if(callback)callback();};})();
+  if(!TTS){setTimeout(done,0);return;}
+  const text=Array.isArray(parts)?parts.join(' '):String(parts);
+  if(!text.trim()){setTimeout(done,0);return;}
+  try{speechSynthesis.cancel();}catch(e){}
+  if(!frVoice)pickVoice();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='fr-FR';u.rate=rate||0.95;u.pitch=1.0;
+  if(frVoice)u.voice=frVoice;
+  const estMs=Math.max(3000,text.length*90);
+  let wd=setTimeout(()=>{console.warn('TTS watchdog');try{speechSynthesis.cancel();}catch(e){}done();},estMs);
+  const clear=()=>clearTimeout(wd);
+  u.onend=()=>{clear();done();};
+  u.onerror=(e)=>{console.warn('TTS error:',e&&e.error);clear();done();};
+  try{speechSynthesis.speak(u);}catch(e){console.warn('TTS ex:',e);clear();done();}
 }
 
-/* ---------- Распознавание речи ---------- */
-let recog=null,recogBusy=false,micTimeout=null;
-function stopRecog(){
-  try{recog&&recog.stop();}catch(e){}
+let recog=null,recogBusy=false,recogWatchdog=null;
+function resetMicUI(){
   recogBusy=false;
-  if(micTimeout){clearTimeout(micTimeout);micTimeout=null;}
+  if(recogWatchdog){clearTimeout(recogWatchdog);recogWatchdog=null;}
+  const btn=$('micbtn');if(btn){btn.classList.remove('rec');btn.textContent='🎤';}
+}
+function stopRecog(){
+  try{recog&&recog.abort&&recog.abort();}catch(e){}
+  try{recog&&recog.stop&&recog.stop();}catch(e){}
+  resetMicUI();
 }
 
-/* ---------- Детерминированный порядок вариантов ---------- */
-function buildOrder(q){
-  if(q._order)return q._order;
-  const opts=q.o.map((t,i)=>({t,ok:i===q.a}));
-  opts.sort((a,b)=>{
-    const hashA=a.t.split('').reduce((acc,char)=>acc+char.charCodeAt(0),0);
-    const hashB=b.t.split('').reduce((acc,char)=>acc+char.charCodeAt(0),0);
-    return hashA-hashB;
-  });
-  q._order=opts;
-  return opts;
+function makeSkillState(){
+  return {
+    curLvl: START_LVL, block: 0, inBlock: 0, blockCorrect: 0, qInSkill: 0,
+    askedByLvl: {1:new Set(),2:new Set(),3:new Set(),4:new Set(),5:new Set()},
+    lvlStats: {1:{c:0,t:0},2:{c:0,t:0},3:{c:0,t:0},4:{c:0,t:0},5:{c:0,t:0}}
+  };
 }
 
-/* ---------- Запуск ---------- */
 function startQuiz(){
-  const name=$('stu-name').value.trim()||'Ученик';
-  const email=$('stu-email').value.trim()||'';
-  localStorage.setItem('fr_name',name);
-  if(email)localStorage.setItem('fr_email',email);
+  const nameInput=$('stu-name'), emailInput=$('stu-email');
+  if(nameInput && nameInput.value.trim()){try{localStorage.setItem('fr_name',nameInput.value.trim());}catch(e){}}
+  if(emailInput && emailInput.value.trim()){try{localStorage.setItem('fr_email',emailInput.value.trim());}catch(e){}}
 
   const kids=document.body.classList.contains('mode-kids');
   const skills=ORDER.filter(k=>selSkills[k]);
-  
-  const stats={};
-  skills.forEach(k=>{
-    stats[k]={1:{c:0,t:0},2:{c:0,t:0},3:{c:0,t:0},4:{c:0,t:0},5:{c:0,t:0}};
-  });
+  const state={};skills.forEach(k=>{state[k]=makeSkillState();});
 
-  S={
-    name, email,
-    skills, secIdx:0, pools:buildPools(kids),
-    asked:{g:new Set(),l:new Set(),r:new Set(),w:new Set(),s:new Set()},
-    cur:{g:START_LVL,l:START_LVL,r:START_LVL,w:START_LVL,s:START_LVL},
-    rating:{g:620,l:620,r:620,w:620,s:620},
-    stats,
-    ans:[], score:0, streak:0, best:0, qIdx:0, secDone:0,
-    skill:skills[0], current:null, order:null, answered:false, played:false, plays:0,
-    speakAttempts:0, bestSpeak:0,
-    blockCorrect:0, blockAnswered:0,
-    totalQ:skills.length * Q_PER_SKILL,
-    earlyFinish:false
-  };
-  
+  S={skills,secIdx:0,per:Q_PER_SKILL,pools:buildPools(kids),state,
+     rating:{g:620,l:620,r:620,w:620,s:620},
+     sk2:{g:{c:0,t:0},l:{c:0,t:0},r:{c:0,t:0},w:{c:0,t:0},s:{c:0,t:0}},
+     ans:[],score:0,streak:0,best:0,qIdx:0,secDone:0,
+     skill:skills[0],current:null,order:null,answered:false,played:false,plays:0,
+     speakAttempts:0,bestSpeak:0,
+     totalQ:skills.length*Q_PER_SKILL};
+
   $('secnav').innerHTML=skills.map(k=>`<span class="snav" data-k="${k}">${SK[k].icon} ${SK[k].short}</span>`).join('');
   show('scr-quiz');
   showIntro();
@@ -671,35 +629,46 @@ function startQuiz(){
 function showIntro(){
   stopRecog();
   const k=S.skill,m=SK[k];
-  if(TTS)window.speechSynthesis.cancel();
+  if(TTS){try{speechSynthesis.cancel();}catch(e){}}
   $('qcard').hidden=true;$('intro').hidden=false;
   $('in-icon').textContent=m.icon;
-  $('in-step').textContent=`Часть ${S.secIdx+1} из ${S.skills.length} · ${Q_PER_SKILL} заданий`;
+  $('in-step').textContent=`Часть ${S.secIdx+1} из ${S.skills.length} · ${S.per} заданий`;
   $('in-title').textContent=m.title;
   let extra='';
-  if(k==='l'&&!TTS)extra=' ⚠ Ваш браузер не поддерживает озвучку — вместо аудио будет показан текст.';
+  if(k==='l'&&!TTS)extra=' ⚠ Браузер не поддерживает озвучку — вместо аудио будет показан текст.';
   if(k==='s'&&!SR)extra=' ⚠ Браузер не поддерживает распознавание речи — включится режим самооценки.';
   $('in-desc').textContent=m.desc+extra;
   const card=$('intro');card.style.animation='none';void card.offsetWidth;card.style.animation='';
   updateHUD();
   window.scrollTo({top:0,behavior:'smooth'});
 }
-
 function beginSection(){
   $('intro').hidden=true;$('qcard').hidden=false;
-  S.secDone=0;S.blockCorrect=0;S.blockAnswered=0;
+  S.secDone=0;
+  const st=S.state[S.skill];
+  st.curLvl=START_LVL;st.block=0;st.inBlock=0;st.blockCorrect=0;st.qInSkill=0;
+  Object.keys(st.lvlStats).forEach(l=>{st.lvlStats[l]={c:0,t:0};});
   renderQuestion();
 }
 
 function pickQuestion(k){
-  const lvl=S.cur[k];
-  const avail=S.pools[k][lvl].filter(q=>!S.asked[k].has(q));
-  if(avail.length>0){
-    return avail[Math.floor(Math.random()*avail.length)];
-  }
-  S.pools[k][lvl].forEach(q=>S.asked[k].delete(q));
-  const retry=S.pools[k][lvl].filter(q=>!S.asked[k].has(q));
-  return retry.length>0 ? retry[Math.floor(Math.random()*retry.length)] : S.pools[k][lvl][0];
+  const st=S.state[k],lvl=st.curLvl;
+  const pool=S.pools[k][lvl]||[];
+  let avail=pool.filter(q=>!st.askedByLvl[lvl].has(q));
+  if(!avail.length){st.askedByLvl[lvl].clear();avail=pool.slice();}
+  const q=avail[0];
+  st.askedByLvl[lvl].add(q);
+  return q;
+}
+
+function buildOrder(q){
+  if(q._order)return q._order;
+  const idx=q.o.map((t,i)=>({t,ok:i===q.a}));
+  let seed=0;const key=(q.q||'')+'|'+q.o.join('|');
+  for(let i=0;i<key.length;i++){seed=(seed*31+key.charCodeAt(i))>>>0;}
+  const rnd=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296;};
+  for(let i=idx.length-1;i>0;i--){const j=Math.floor(rnd()*(i+1));[idx[i],idx[j]]=[idx[j],idx[i]];}
+  q._order=idx;return idx;
 }
 
 const KEYS=['A','B','C','D'];
@@ -707,28 +676,33 @@ function optsHTML(){
   return `<div class="opts">${S.order.map((o,i)=>
     `<button type="button" class="opt" onclick="answer(${i})"><span class="key">${KEYS[i]}</span><span>${o.t}</span></button>`).join('')}</div>`;
 }
-function toggleOptsLock(){
-  document.querySelectorAll('#q-answer .opt').forEach(b=>b.disabled=!S.played);
+function toggleOptsLock(disabled){
+  document.querySelectorAll('#q-answer .opt').forEach(b=>b.disabled=disabled);
 }
 
 function renderQuestion(){
-  const k=S.skill,q=pickQuestion(k);
-  S.answered=false;S.played=false;S.plays=0;S.current=q;S.order=buildOrder(q);
-  S.asked[k].add(q);S.speakAttempts=0;S.bestSpeak=0;
+  const k=S.skill,st=S.state[k],wantLvl=st.curLvl,q=pickQuestion(k);
+  S.answered=false;S.played=false;S.plays=0;S.current=q;S.order=null;
+  S.speakAttempts=0;S.bestSpeak=0;
   $('feedback').hidden=true;
   $('tag-skill').textContent=SK[k].icon+' '+SK[k].short;
-  $('tag-lvl').textContent='Уровень '+LVLNAME[q.lvl];
+  $('tag-lvl').textContent='Уровень '+LVLNAME[wantLvl];
   const ex=$('q-extra'),qa=$('q-answer');
   ex.innerHTML='';$('qtext').textContent='';qa.innerHTML='';
 
+  const gb=$('btn-giveup');if(gb){gb.disabled=false;gb.hidden=false;}
+
   if(k==='g'){
     $('qtext').textContent=q.q;
+    S.order=buildOrder(q);
     qa.innerHTML=optsHTML();
   }else if(k==='r'){
     ex.innerHTML=`<div class="passage">${q.text}</div>`;
     $('qtext').textContent=q.q;
+    S.order=buildOrder(q);
     qa.innerHTML=optsHTML();
   }else if(k==='l'){
+    S.order=buildOrder(q);
     if(TTS){
       ex.innerHTML=`<div class="audiobox">
         <button type="button" class="playbtn" id="playbtn" onclick="playAudio()">▶ Écouter</button>
@@ -739,7 +713,7 @@ function renderQuestion(){
     }
     $('qtext').textContent=q.q;
     qa.innerHTML=optsHTML()+(TTS?'<p class="listen-hint" id="lh">🔒 Варианты откроются после прослушивания</p>':'');
-    if(TTS)toggleOptsLock();
+    if(TTS)toggleOptsLock(true);
   }else if(k==='w'){
     $('qtext').innerHTML=q.q;
     qa.innerHTML=`<div class="write"><div class="wrow">
@@ -758,33 +732,31 @@ function renderQuestion(){
     if(!SR)showSelfEval('Браузер не распознаёт речь — оцените себя сами честно:');
   }
   $('qcount').textContent=(S.qIdx+1)+' / '+S.totalQ;
-  $('pin').style.left=((q.lvl-0.5)/5*100)+'%';
-  document.querySelectorAll('.ruler b').forEach(b=>b.classList.toggle('hot',+b.dataset.l===q.lvl));
-  updateHUD();
+  $('pin').style.left=((wantLvl-0.5)/5*100)+'%';
+  document.querySelectorAll('.ruler b').forEach(b=>b.classList.toggle('hot',+b.dataset.l===wantLvl));
+  updateHUD(wantLvl);
   const card=$('qcard');card.style.animation='none';void card.offsetWidth;card.style.animation='';
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-/* ---------- ИСПРАВЛЕННАЯ ФУНКЦИЯ ВОСПРОИЗВЕДЕНИЯ ---------- */
 function playAudio(){
-  if(!TTS) return;
-  const rate = S.current.lvl <= 2 ? 0.85 : S.current.lvl <= 4 ? 0.95 : 1.0;
-  const text = Array.isArray(S.current.audio) ? S.current.audio.join(' ') : String(S.current.audio);
-  
-  speak(text, rate, () => {
-    S.plays++;
-    S.played = true;
-    const playcnt = $('playcnt');
-    if(playcnt) playcnt.textContent = `Прослушиваний: ${S.plays} · можно повторить ещё`;
-    const playbtn = $('playbtn');
-    if(playbtn) playbtn.textContent = '▶ Écouter encore';
-    const lh = $('lh');
-    if(lh) lh.remove();
-    toggleOptsLock();
-  });
+  if(!TTS)return;
+  const btn=$('playbtn'),cnt=$('playcnt');if(!btn)return;
+  btn.disabled=true;btn.textContent='🔊 Звучит...';cnt.textContent='Подождите окончания записи';
+  const rate=S.current.lvl<=2?0.85:S.current.lvl<=4?0.95:1.0;
+  const unlock=()=>{
+    if(!btn.isConnected)return;
+    btn.disabled=false;btn.textContent='▶ Écouter encore';
+    S.plays++;S.played=true;
+    cnt.textContent=`Прослушиваний: ${S.plays} · можно выбирать ответ 👇`;
+    const lh=$('lh');if(lh)lh.remove();
+    toggleOptsLock(false);
+    document.querySelector('.opts')?.scrollIntoView({behavior:'smooth',block:'center'});
+  };
+  const ht=setTimeout(unlock,20000);
+  safeSpeak(S.current.audio,rate,()=>{clearTimeout(ht);unlock();});
 }
 
-/* ---------- Ответ: варианты ---------- */
 function answer(i){
   if(!S||S.answered)return;
   if(S.skill==='l'&&!S.played)return;
@@ -797,7 +769,6 @@ function answer(i){
   applyResult(ok?1:0,S.current.o[S.current.a],given);
 }
 
-/* ---------- Ответ: письмо ---------- */
 function submitWrite(){
   if(!S||S.answered)return;
   const inp=$('winput'),val=inp.value.trim();
@@ -807,58 +778,44 @@ function submitWrite(){
   applyResult(ok?1:0,S.current.show,val);
 }
 
-/* ---------- Говорение ---------- */
 function startMic(){
   if(!S||S.answered||recogBusy)return;
   if(!SR){showSelfEval('Браузер не распознаёт речь — оцените себя сами честно:');return;}
   try{recog=new SR();}catch(e){showSelfEval('Не удалось запустить микрофон — оцените себя сами:');return;}
   recog.lang='fr-FR';recog.interimResults=false;recog.continuous=false;recog.maxAlternatives=1;
-  
   const btn=$('micbtn');btn.classList.add('rec');btn.textContent='🔴';
   $('micstat').textContent='Je vous écoute… говорите!';
-  recogBusy=true;
-  
-  micTimeout=setTimeout(()=>{
-    if(recogBusy){
-      stopRecog();
-      showSelfEval('Время вышло (12 с). Оцените себя:');
-    }
-  }, 12000);
 
-  recog.onresult=ev=>{
-    const t=ev.results[0][0].transcript;
+  if(recogWatchdog)clearTimeout(recogWatchdog);
+  recogWatchdog=setTimeout(()=>{
+    console.warn('Mic watchdog');
     stopRecog();
-    handleTranscript(t);
-  };
-  recog.onerror=ev=>{
-    stopRecog();
-    if(ev.error==='no-speech'){$('micstat').textContent='Не расслышал 🙉 Нажмите на микрофон ещё раз';}
-    else if(ev.error==='not-allowed'||ev.error==='service-not-allowed'){
-      showSelfEval('Доступ к микрофону запрещён — оцените себя сами:');
-    }else{
-      $('micstat').textContent='Ошибка распознавания. Попробуйте ещё раз или оцените себя:';
+    if(!S.answered&&S.skill==='s'){
+      $('micstat').textContent='Микрофон не отвечает. Оцените себя или попробуйте ещё раз.';
       showSelfEvalButtons();
     }
-  };
-  recog.onend=()=>{};
-  try{recog.start();}catch(e){stopRecog();showSelfEval('Микрофон занят или недоступен — оцените себя сами:');}
-}
+  },12000);
 
-function resetMicUI(){
-  recogBusy=false;
-  if(micTimeout){clearTimeout(micTimeout);micTimeout=null;}
-  const btn=$('micbtn');
-  if(btn){btn.classList.remove('rec');btn.textContent='🎤';}
+  recog.onresult=ev=>{const t=ev.results[0][0]?ev.results[0][0].transcript:'';resetMicUI();if(t)handleTranscript(t);else $('micstat').textContent='Не расслышал 🙉 Попробуйте ещё раз.';};
+  recog.onerror=ev=>{
+    const err=ev.error;resetMicUI();
+    if(err==='no-speech'){$('micstat').textContent='Не расслышал 🙉 Нажмите на микрофон ещё раз';}
+    else if(err==='not-allowed'||err==='service-not-allowed'||err==='security'){
+      $('micstat').textContent='Доступ к микрофону запрещён — оцените себя сами:';
+      showSelfEvalButtons();const b=$('micbtn');if(b)b.hidden=true;
+    }else if(err==='aborted'){}
+    else{$('micstat').textContent='Ошибка распознавания. Оцените себя или попробуйте ещё раз:';showSelfEvalButtons();}
+  };
+  recog.onend=()=>resetMicUI();
+  try{recog.start();recogBusy=true;}catch(e){resetMicUI();showSelfEval('Микрофон занят или недоступен — оцените себя сами:');}
 }
 
 function compareWords(target,said){
   const counts={};said.forEach(w=>counts[w]=(counts[w]||0)+1);
   return target.map(w=>{const hit=counts[w]>0;if(hit)counts[w]--;return{w,hit};});
 }
-
 function handleTranscript(t){
-  const q=S.current,said=normWords(t);
-  let score;
+  const q=S.current,said=normWords(t);let score;
   if(q.type==='read'){
     const target=normWords(q.expect);
     const cmp=compareWords(target,said);
@@ -877,7 +834,6 @@ function handleTranscript(t){
   }
   finalizeSpeaking(Math.max(score,S.bestSpeak),t);
 }
-
 function finalizeSpeaking(score,transcript){
   const q=S.current;
   const correct=q.type==='read'?q.text:q.sample;
@@ -891,13 +847,11 @@ function finalizeSpeaking(score,transcript){
   if(q.type==='say'&&transcript)extra+=`<div class="heard" style="border-left-color:var(--sky)">💬 Пример ответа: «${q.sample}»</div>`;
   $('fb-extra').innerHTML=extra;
 }
-
 function showSelfEval(reason){
   const btn=$('micbtn');if(btn)btn.hidden=true;
   $('micstat').textContent=reason;
   showSelfEvalButtons();
 }
-
 function showSelfEvalButtons(){
   const fb=$('speak-fallback');if(!fb)return;
   fb.innerHTML=`<p class="eval-q" style="margin-top:14px">Как вы справились?</p>
@@ -907,55 +861,62 @@ function showSelfEvalButtons(){
       <button type="button" onclick="selfEval(1)">😎 Отлично</button>
     </div>`;
 }
-
 function selfEval(v){
   if(!S||S.answered)return;
   finalizeSpeaking(v,null);
 }
 
-/* ---------- Общая обработка ---------- */
+function giveUp(){
+  if(!S||S.answered)return;
+  stopRecog();
+  if(TTS){try{speechSynthesis.cancel();}catch(e){}}
+  finish(true);
+}
+
 function applyResult(score,correctText,given){
   S.answered=true;
   const k=S.skill,q=S.current,kids=document.body.classList.contains('mode-kids');
   const ok=score>=0.6;
-  
-  S.stats[k][q.lvl].t++;
-  if(ok)S.stats[k][q.lvl].c++;
+  const st=S.state[k];
 
-  S.blockAnswered++;
-  if(ok){
-    S.blockCorrect++;
-    S.streak++;S.best=Math.max(S.best,S.streak);
-    S.score+=Math.round(q.lvl*10*score)+(S.streak>=3?5:0);
-  }else{
-    S.streak=0;
-  }
+  const dQ=150+(q.lvl-1)*200;
+  const exp=1/(1+Math.pow(10,(dQ-S.rating[k])/400));
+  S.rating[k]+=120*(score-exp);
 
-  if(S.blockAnswered===BLOCK_SIZE){
-    if(S.blockCorrect===2) S.cur[k]=Math.min(5, S.cur[k]+1);
-    else if(S.blockCorrect===0) S.cur[k]=Math.max(1, S.cur[k]-1);
-    S.blockCorrect=0;
-    S.blockAnswered=0;
-  }
-
+  S.sk2[k].t++;
+  let pts=0;
+  if(ok){S.streak++;S.best=Math.max(S.best,S.streak);pts=Math.round(q.lvl*10*score)+(S.streak>=3?5:0);S.score+=pts;S.sk2[k].c++;}
+  else S.streak=0;
   S.qIdx++;S.secDone++;
-  S.ans.push({skill:k,q,ok,given});
-  
-  const good=kids?['Ура, верно! 🎉','Точно! ⭐','Молодец! 🚀','Супер! 🌟']:['Верно!','Точно в цель.','Отлично.','Правильно.'];
-  const bad=kids?['Ой, почти! 🙈','Ничего страшного! 💙','Бывает! Идём дальше 🐾']:['Не совсем.','Неверно.','Мимо.'];
+  S.ans.push({skill:k,q,ok,given,lvl:q.lvl});
+  st.qInSkill++;
+
+  if(!st.lvlStats[q.lvl]) st.lvlStats[q.lvl]={c:0,t:0};
+  st.lvlStats[q.lvl].t++;
+  if(ok) st.lvlStats[q.lvl].c++;
+
+  st.blockCorrect+=ok?1:0;
+  st.inBlock++;
+  if(st.inBlock>=BLOCK_SIZE){
+    if(st.blockCorrect===BLOCK_SIZE)st.curLvl=Math.min(5,st.curLvl+1);
+    else if(st.blockCorrect===0)st.curLvl=Math.max(1,st.curLvl-1);
+    st.blockCorrect=0;st.inBlock=0;st.block++;
+  }
+
+  const good=kids?['Ура, верно! 🎉','Точно! ⭐','Молодец! 🚀','Супер! 🌟']:['Correct !','Точно в цель.','Excellent.','Правильно.'];
+  const bad=kids?['Ой, почти! 🙈','Ничего страшного! 💙','Бывает! Идём дальше 🐾']:['Pas tout à fait.','Incorrect.','Мимо.'];
   const head=$('fb-head');
   head.className='fb-head '+(ok?'good':'badh');
   $('fb-icon').textContent=ok?'✅':'❌';
   $('fb-title').textContent=ok?good[Math.floor(Math.random()*good.length)]
     :bad[Math.floor(Math.random()*bad.length)]+' Образец: '+correctText;
-  
+  const p=$('fb-pts');p.hidden=!ok;if(ok)p.textContent='+'+pts+' очков';
   $('fb-extra').innerHTML='';
   $('fb-expl').textContent=(kids?'💡 ':'')+q.e;
   const tr=$('fb-trans');
-  if(k==='l'){tr.hidden=false;tr.textContent='🎙 '+ (Array.isArray(q.audio)?q.audio.join(' '):q.audio);}else tr.hidden=true;
-  
-  const lastInSec=S.secDone>=Q_PER_SKILL;
-  const lastSection=S.secIdx>=S.skills.length-1;
+  if(k==='l'){tr.hidden=false;tr.textContent='🎙 '+(Array.isArray(q.audio)?q.audio.join(' '):q.audio);}
+  else tr.hidden=true;
+  const lastInSec=S.secDone>=S.per,lastSection=S.secIdx>=S.skills.length-1;
   $('btn-next').textContent=(lastInSec&&lastSection)?'К результатам 🏁':(lastInSec?'Следующая часть →':'Дальше →');
   $('feedback').hidden=false;
   $('pbar').style.width=(S.qIdx/S.totalQ*100)+'%';
@@ -965,17 +926,18 @@ function applyResult(score,correctText,given){
 
 function next(){
   stopRecog();
-  if(S.secDone<Q_PER_SKILL){renderQuestion();return;}
+  if(S.secDone<S.per){renderQuestion();return;}
   S.secIdx++;
   if(S.secIdx<S.skills.length){S.skill=S.skills[S.secIdx];showIntro();}
-  else finish(S.earlyFinish);
+  else finish();
 }
 
-function updateHUD(){
-  const lvl=S.cur[S.skill];
-  $('est').textContent=SK[S.skill].short+': '+LVLNAME[lvl];
+function updateHUD(currentLvl){
+  const st=S.state[S.skill];
+  const shown=currentLvl||st.curLvl;
+  $('est').textContent=SK[S.skill].short+': '+LVLNAME[shown];
   $('score').textContent='Очки: '+S.score;
-  const st=$('streak');st.hidden=S.streak<2;if(!st.hidden)st.textContent='🔥 серия '+S.streak;
+  const s=$('streak');s.hidden=S.streak<2;if(!s.hidden)s.textContent='🔥 серия '+S.streak;
   document.querySelectorAll('.snav').forEach(el=>{
     const k=el.dataset.k,idx=S.skills.indexOf(k);
     el.classList.toggle('now',idx===S.secIdx);
@@ -983,60 +945,125 @@ function updateHUD(){
   });
 }
 
-function getSkillFinalLevel(k){
-  for(let lvl=5;lvl>=1;lvl--){
-    const t=S.stats[k][lvl].t;
-    const c=S.stats[k][lvl].c;
-    if(t>=2 && (c/t)>=0.7) return lvl;
-    if(t===1 && c===1) return lvl;
+function skillFinalLevel(k){
+  const st=S.state[k];
+  let best=1;
+  for(let l=1;l<=5;l++){
+    const s=st.lvlStats[l];
+    if(s&&s.t>=2){if(s.c/s.t>=0.7)best=Math.max(best,l);}
+    else if(s&&s.t===1&&s.c===1)best=Math.max(best,l);
   }
-  return S.cur[k];
+  return best||st.curLvl;
+}
+
+function generateDetailedRecommendations(skillLevels, statsObj) {
+  const topics = {
+    g: {
+      1: "глаголы être/avoir, présent de l'indicatif, базовые местоимения, отрицание ne...pas",
+      2: "passé composé (avoir/être), imparfait, местоимения COD/COI, сравнительная и превосходная степень",
+      3: "futur simple, conditionnel présent, subjonctif présent, местоимения y/en, относительные местоимения qui/que/dont/où",
+      4: "plus-que-parfait, subjonctif passé, порядок местоимений, согласование причастий (accord du participe passé)",
+      5: "gérondif, participe présent, инверсия, сложные союзы (bien que, quoique, pourvu que)"
+    },
+    l: {
+      1: "Понимание базовых фраз о себе, семье, простых инструкций (медленная четкая речь)",
+      2: "Понимание основной информации в коротких сообщениях, объявлениях, простых диалогах",
+      3: "Понимание основных идей четкой речи на знакомые темы (работа, школа, досуг)",
+      4: "Понимание развернутых лекций, сложных аргументов, новостей и фильмов на стандартном языке",
+      5: "Понимание любой устной речи, включая быструю, с акцентами, идиоматическую и специализированную"
+    },
+    r: {
+      1: "Короткие простые тексты, вывески, объявления, личные сообщения",
+      2: "Короткие тексты о повседневных вещах, простые описания событий и чувств",
+      3: "Тексты с повседневной и профессиональной лексикой, понимание точки зрения автора",
+      4: "Сложные современные тексты, художественная и специальная литература, неявные смыслы",
+      5: "Любые тексты, включая абстрактные, структурно сложные, с узкоспециальной лексикой"
+    },
+    w: {
+      1: "Заполнение простых форм, написание коротких открыток, базовые предложения о себе",
+      2: "Короткие простые письма, описание событий, впечатлений, планов",
+      3: "Связные тексты на знакомые темы, личные письма с описанием опыта и впечатлений",
+      4: "Четкие, подробные тексты по широкому кругу тем, эссе с аргументацией",
+      5: "Сложные, хорошо структурированные тексты, стилистически адаптированные под читателя"
+    },
+    s: {
+      1: "Простые фразы о себе, месте жительства, знакомых (с помощью собеседника)",
+      2: "Короткие социальные контакты, описание семьи, условий жизни, образования",
+      3: "Связные высказывания на знакомые темы, описание впечатлений, планов, краткая аргументация",
+      4: "Свободное спонтанное общение с носителями, четкие подробные описания сложных тем",
+      5: "Свободное, точное и беглое выражение мыслей, использование идиом и тонких смысловых оттенков"
+    }
+  };
+
+  const recs = [];
+  for (const k of ['g', 'l', 'r', 'w', 's']) {
+    if (!S.skills.includes(k)) continue;
+    const lvl = skillLevels[k];
+    const name = SK[k].short;
+    const icon = SK[k].icon;
+    const st = statsObj[k];
+    const acc = st.t > 0 ? Math.round((st.c / st.t) * 100) : 0;
+    
+    let status = "";
+    if (acc >= 80) status = "✅ Отлично";
+    else if (acc >= 60) status = "⚠️ Требует внимания";
+    else status = "🚨 Критическая зона";
+
+    recs.push(`${icon} ${name}: Уровень ${lvl} (${status}, точность ${acc}%)`);
+    recs.push(`   🎯 Фокус для работы: ${topics[k][lvl] || 'Базовые навыки'}`);
+    recs.push(`   📊 Прогресс: ${st.c} из ${st.t} верных ответов`);
+    recs.push("");
+  }
+  return recs.join('\n');
 }
 
 function finish(early=false){
   stopRecog();
-  if(TTS)window.speechSynthesis.cancel();
-  S.earlyFinish=early;
+  if(TTS){try{speechSynthesis.cancel();}catch(e){}}
   show('scr-result');
   const kids=document.body.classList.contains('mode-kids');
+
+  const answeredCount=S.ans.length;
   const correct=S.ans.filter(a=>a.ok).length;
-  const acc=S.totalQ>0?Math.round(correct/S.totalQ*100):0;
-  
-  const finalLevels=S.skills.map(k=>getSkillFinalLevel(k));
-  const avgLvl=finalLevels.reduce((a,b)=>a+b,0)/finalLevels.length;
-  const lvlName=LVLNAME[Math.round(avgLvl)]||'A2';
-  
-  $('stamp').firstChild.textContent=lvlName;
-  $('stamp-name').textContent=LVLFULL[lvlName];
-  $('verdict').textContent=kids
-    ?(acc>=80?'Ты суперзвезда французского! 🌟':acc>=50?'Отличная работа! Ты большой молодец 💪':'Хорошая попытка! Практика — и ты чемпион 🚀')
-    :(acc>=80?'Впечатляющий результат — французский у вас в отличной форме.'
-      :acc>=50?'Крепкий результат: база есть, осталось отточить детали.'
-      :'Хорошее начало: регулярная практика быстро поднимет ваш уровень.');
-  
-  $('st-correct').textContent=correct+' / '+S.totalQ;
+  const acc=answeredCount>0?Math.round(correct/answeredCount*100):0;
+
+  const skillLevels={};
+  S.skills.forEach(k=>{skillLevels[k]=skillFinalLevel(k);});
+  const levelsArr=S.skills.filter(k=>S.sk2[k].t>0).map(k=>skillLevels[k]);
+  const avgLvl=levelsArr.length?Math.round(levelsArr.reduce((a,b)=>a+b,0)/levelsArr.length):START_LVL;
+  const lvl=LVLNAME[avgLvl]||'A2';
+
+  $('stamp').firstChild.textContent=lvl;
+  $('stamp-name').textContent=LVLFULL[lvl];
+
+  if(early){
+    $('verdict').textContent=kids
+      ?(answeredCount===0?'Ты даже не начал! Попробуй ещё раз 💪':`Ты сдался после ${answeredCount} вопрос(ов). Но ты всё равно молодец! 🌟`)
+      :(answeredCount===0?'Тест завершён без ответов.':`Тест завершён досрочно. Отвечено: ${answeredCount} из ${S.totalQ}.`);
+  }else{
+    $('verdict').textContent=kids
+      ?(acc>=80?'Ты суперзвезда французского! 🌟':acc>=50?'Отличная работа! Ты большой молодец 💪':'Хорошая попытка! Практика — и ты чемпион 🚀')
+      :(acc>=80?'Впечатляющий результат — французский у вас в отличной форме.'
+        :acc>=50?'Крепкий результат: база есть, осталось отточить детали.'
+        :'Хорошее начало: регулярная практика быстро поднимет ваш уровень.');
+  }
+  $('st-correct').textContent=correct+' / '+answeredCount;
   $('st-acc').textContent=acc+'%';
   $('st-streak').textContent=S.best;
   $('st-score').textContent=S.score;
-  
-  requestAnimationFrame(()=>requestAnimationFrame(()=>{
-    $('mark').style.left=Math.max(2,Math.min(98,((avgLvl-1)/4)*100))+'%';
-    document.querySelectorAll('.scard .bar i').forEach(b=>b.style.width=b.dataset.w+'%');
-  }));
-  
+
   $('skillcards').innerHTML=S.skills.map(k=>{
-    const fl=getSkillFinalLevel(k);
-    const total=S.stats[k][1].t+S.stats[k][2].t+S.stats[k][3].t+S.stats[k][4].t+S.stats[k][5].t;
-    const corr=S.stats[k][1].c+S.stats[k][2].c+S.stats[k][3].c+S.stats[k][4].c+S.stats[k][5].c;
-    const pct=total?Math.round(corr/total*100):0;
+    const sc=S.sk2[k],sl=LVLNAME[skillFinalLevel(k)],pct=sc.t?Math.round(sc.c/sc.t*100):0;
     return `<div class="scard"><div class="ic">${SK[k].icon}</div><h4>${SK[k].title}</h4>
-      <div class="lvl">${LVLNAME[fl]}</div><div class="acc">${corr}/${total} верно · ${pct}%</div>
+      <div class="lvl">${sl}</div><div class="acc">${sc.c}/${sc.t} верно · ${pct}%</div>
       <div class="bar"><i data-w="${pct}"></i></div></div>`;
   }).join('');
-  
+
   const wrong=S.ans.filter(a=>!a.ok);
   if(!wrong.length){
-    $('mistakes').innerHTML='<div class="all-good">🏆 Ни одной ошибки — безупречно!</div>';
+    $('mistakes').innerHTML=answeredCount===0
+      ? '<div class="all-good">🤷 Вы не ответили ни на один вопрос.</div>'
+      : '<div class="all-good">🏆 Ни одной ошибки — безупречно!</div>';
   }else{
     let html='';
     S.skills.forEach(k=>{
@@ -1048,73 +1075,110 @@ function finish(early=false){
         if(k==='w'){text=q.q.replace(/<br>/g,' ').replace(/<[^>]+>/g,'');right=q.show;}
         else if(k==='s'){text=(q.type==='read'?'Прочитайте: ':'Ответьте вслух: ')+q.text;right=q.type==='read'?q.text:'Пример: '+q.sample;}
         else{text=q.q;right=q.o[q.a];}
-        html+=`<div class="m-item"><div class="mq">${text}</div>
-          <div>Ваш ответ: <s>${a.given||'—'}</s> &nbsp;→&nbsp; <span class="fix">✔ ${right}</span></div></div>`;
+        html+=`<div class="m-item"><div class="mq">[${LVLNAME[q.lvl]}] ${text}</div>
+          <div>Ваш ответ: <s>${a.given||'—'}</s> &nbsp;→&nbsp; <span class="fix">✔ ${right}</span></div>
+        </div>`;
       });
     });
     $('mistakes').innerHTML=html;
   }
-  
-  sendEmail(correct, acc, Math.round(avgLvl), finalLevels);
-  
-  if(acc>=60)confetti(kids?130:80);
+  if(acc>=60 && !early)confetti(kids?130:80);
+
+  sendResultToEmail(lvl,avgLvl,acc,correct,answeredCount,S.score,S.skills,S.sk2,S.ans,early,skillLevels);
 }
 
-function sendEmail(correct, acc, avgLvlIdx, finalLevels){
-  const lvlName=LVLNAME[avgLvlIdx]||'A2';
-  const now=new Date();
-  const dateStr=now.toLocaleString('ru-RU');
-  
-  let breakdownText='';
-  let umkText='Общая рекомендация: ';
-  
-  S.skills.forEach(k=>{
-    const fl=finalLevels[S.skills.indexOf(k)];
-    const flName=LVLNAME[fl];
-    breakdownText+=`\n${SK[k].short}: Уровень ${flName}`;
-    for(let lvl=1;lvl<=5;lvl++){
-      const t=S.stats[k][lvl].t;
-      const c=S.stats[k][lvl].c;
-      if(t>0) breakdownText+=` | ${LVLNAME[lvl]}: ${c}/${t}`;
-    }
-    umkText+=`\n- ${SK[k].short}: ${UMK_MAP_FR[flName]}`;
+async function sendResultToEmail(level,avgLvl,accuracy,correctCount,totalCount,points,skillsList,statsObj,answersArray,early,skillLevels){
+  const statusEl=$('send-status');
+  let userEmail='',userName='';
+  try{userEmail=localStorage.getItem('fr_email')||'';}catch(e){}
+  try{userName=localStorage.getItem('fr_name')||'';}catch(e){}
+  const mode=document.body.classList.contains('mode-kids')?'Дети':'Взрослые';
+
+  const detailedRecs = generateDetailedRecommendations(skillLevels, statsObj);
+  const umkAll=UMK_MAP_FR[avgLvl]||UMK_MAP_FR[START_LVL];
+  const umkPerSkill=skillsList.map(k=>`${SK[k].short}: ${UMK_MAP_FR[skillLevels[k]]||'—'}`).join('\n');
+
+  const allMistakes=answersArray.filter(a=>!a.ok).map(a=>{
+    const q=a.q;let qt='',ca='';
+    if(a.skill==='w'){qt=(q.q||'').replace(/<[^>]+>/g,'');ca=q.show;}
+    else if(a.skill==='s'){qt=(q.type==='read'?'Прочитайте: ':'Ответьте вслух: ')+q.text;ca=q.type==='read'?q.text:q.sample;}
+    else{qt=q.q;ca=q.o[q.a];}
+    return {
+      skill:SK[a.skill].short,level:LVLNAME[a.q.lvl],question:qt,
+      user_answer:a.given||'—',correct_answer:ca,explanation:q.e
+    };
   });
-  
-  const wrong=S.ans.filter(a=>!a.ok);
-  let errorsText='Нет ошибок';
-  if(wrong.length>0){
-    errorsText=wrong.map(a=>{
-      const q=a.q;
-      let qText=q.q.replace(/<[^>]+>/g,'');
-      if(a.skill==='s') qText=(q.type==='read'?'Прочитайте: ':'Ответьте: ')+q.text;
-      let right=q.o?q.o[q.a]:(q.show||q.sample);
-      return `[${LVLNAME[q.lvl]}] ${qText}\nОтвет: ${a.given||'—'} | Верно: ${right}\nПояснение: ${q.e}`;
-    }).join('\n\n---\n\n');
+
+  const payload={
+    access_key: "7cecb6a0-7cbd-429d-bce0-8251d650d35d",
+    _subject:`French Check-Up: ${userName||'Без имени'} · ${level} · ${accuracy}% · ${new Date().toLocaleDateString('ru-RU')}${early?' (досрочно)':''}`,
+    from_name: userName || 'Ученик',
+    
+    "✅ Согласие 152-ФЗ": "Пользователь прошел тест и согласен с обработкой данных",
+    
+    "Имя ученика":userName||'Не указано',
+    "Email ученика":userEmail||'Не указан',
+    "Режим":mode,
+    "Дата и время":new Date().toLocaleString('ru-RU'),
+    "Статус":early?'Досрочное завершение (нажал "Сдаться")':'Завершён полностью',
+    "Итоговый уровень (CEFR)":level + ' (' + (LVLFULL[level] || '') + ')',
+    "Точность общая":accuracy+'%',
+    "Верных ответов":`${correctCount} из ${totalCount}`,
+    "Очков набрано":points,
+    "📊 ДЕТАЛЬНЫЙ РАЗБОР ПО НАВЫКАМ И РЕКОМЕНДАЦИИ": detailedRecs,
+    "📚 Рекомендуемый УМК (общий)":umkAll,
+    "📚 Рекомендуемый УМК (по навыкам)":umkPerSkill,
+    "❌ Разбор ошибок (вопрос → ответ ученика → правильный ответ → пояснение)": allMistakes.length
+      ?allMistakes.map((m,i)=>`${i+1}. [${m.level}] ${m.skill}\n   Вопрос: ${m.question}\n   Ответ ученика: ${m.user_answer}\n   ✔ Правильно: ${m.correct_answer}\n   💡 Пояснение: ${m.explanation}`).join('\n\n---\n\n')
+      :'🏆 Ошибок нет — безупречный результат!'
+  };
+
+  statusEl.textContent='Отправляю детальный результат Анне...';
+  statusEl.style.color='#666';
+
+  const ctrl=new AbortController();
+  const tId=setTimeout(()=>ctrl.abort(),15000);
+  try{
+    const r=await fetch('https://api.web3forms.com/submit',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify(payload),
+      signal:ctrl.signal
+    });
+    clearTimeout(tId);
+    const j=await r.json();
+    if(!j.success)throw new Error("Ошибка отправки Анне: " + (j.message || "Неизвестная ошибка"));
+
+    if(userEmail){
+      try{
+        const ctrl2=new AbortController();const t2=setTimeout(()=>ctrl2.abort(),15000);
+        await fetch('https://api.web3forms.com/submit',{
+          method:'POST',
+          headers:{'Content-Type':'application/json','Accept':'application/json'},
+          body:JSON.stringify({
+            ...payload,
+            access_key: "7cecb6a0-7cbd-429d-bce0-8251d650d35d",
+            _subject:`Ваш результат French Check-Up: ${level}${early?' (досрочно)':''}`,
+            from_name: "Анна Драчёва"
+          }),
+          signal:ctrl2.signal
+        });
+        clearTimeout(t2);
+        statusEl.textContent='✅ Результат отправлен Анне и продублирован ученику на почту.';
+        statusEl.style.color='var(--ok)';
+      }catch(e){
+        statusEl.textContent='✅ Результат отправлен Анне. (Не удалось продублировать ученику)';
+        statusEl.style.color='var(--warn)';
+      }
+    }else{
+      statusEl.textContent='✅ Детальный результат успешно отправлен Анне.';
+      statusEl.style.color='var(--ok)';
+    }
+  }catch(err){
+    clearTimeout(tId);console.error(err);
+    statusEl.textContent='⚠️ Не удалось отправить авто-письмо. Скриньте результат и напишите Анне вручную.';
+    statusEl.style.color='var(--bad)';
   }
-
-  const formData=new FormData();
-  formData.append('_subject', `Результат French Check-Up: ${S.name} (${lvlName})`);
-  formData.append('_template', 'table');
-  formData.append('_captcha', 'false');
-  formData.append('name', S.name);
-  formData.append('email', S.email);
-  formData.append('mode', document.body.classList.contains('mode-kids')?'Дети':'Взрослые');
-  formData.append('datetime', dateStr);
-  formData.append('status', S.earlyFinish?'Досрочный (Сдался)':'Полный');
-  formData.append('final_level', lvlName);
-  formData.append('avg_level', avgLvlIdx);
-  formData.append('accuracy', acc+'%');
-  formData.append('correct_total', `${correct} / ${S.totalQ}`);
-  formData.append('score', S.score);
-  formData.append('breakdown_by_level', breakdownText);
-  formData.append('umk_recommendation', umkText);
-  formData.append('errors_detail', errorsText);
-  formData.append('studio_link', 'https://vk.ru/annfromcrimeastudio');
-
-  fetch('https://formsubmit.co/ajax/annfromcrimea@gmail.com', {
-    method: 'POST',
-    body: formData
-  }).catch(err=>console.error('Email send error:', err));
 }
 
 function confetti(n){
@@ -1131,8 +1195,13 @@ function confetti(n){
   setTimeout(()=>box.remove(),6000);
 }
 
-function goStart(){stopRecog();if(TTS)window.speechSynthesis.cancel();show('scr-start');}
+function goStart(){
+  stopRecog();
+  if(TTS){try{speechSynthesis.cancel();}catch(e){}}
+  show('scr-start');
+}
 function show(id){
+  if(id!=='scr-quiz'&&TTS){try{speechSynthesis.cancel();}catch(e){}}
   ['scr-start','scr-quiz','scr-result'].forEach(s=>$(s).hidden=(s!==id));
   const el=$(id);el.style.animation='none';void el.offsetWidth;el.style.animation='';
   window.scrollTo({top:0,behavior:'smooth'});
