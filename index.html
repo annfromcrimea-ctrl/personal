@@ -5,22 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Анна Драчёва — Образование и развитие</title>
 
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%237a2e36'/%3E%3Ctext x='50%25' y='58%25' font-family='Nunito, sans-serif' font-size='42' font-weight='bold' fill='%23fcfaf8' text-anchor='middle' dominant-baseline='middle'%3E%D0%90%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23C3146C'/%3E%3Ctext x='50%25' y='58%25' font-family='Nunito, sans-serif' font-size='42' font-weight='bold' fill='%23fcfaf8' text-anchor='middle' dominant-baseline='middle'%3E%D0%90%3C/text%3E%3C/svg%3E">
 
 <style>
   :root {
-    --burgundy: #7a2e36;
-    --burgundy-dark: #4a161c;
-    --burgundy-soft: #a85a63;
-    --forest: #3f6b4a;
-    --leaf: #6ba368;
-    --paper-bg: #f7fbf7;
+    /* Малиновая палитра под кнопку «Отправить» Яндекс.Формы */
+    --crimson: #C3146C;        /* основной цвет кнопки формы */
+    --crimson-dark: #8A0E4B;   /* hover и тёмные акценты */
+    --crimson-deep: #5C0A33;   /* самый тёмный (градиенты, превью видео) */
+    --crimson-soft: #D76CA2;   /* мягкий розовый (градиенты, декор) */
+    --crimson-mute: #AC4E7E;   /* приглушённый для вторичного текста */
+    --crimson-pale: #FCEFF5;   /* бледно-розовые подложки */
+    --gold-accent: #cfa968;
+    --paper-bg: #fbf6f8;
     --white: #ffffff;
     --graphite: #2d2d2d;
     --gray-text: #5f5f5f;
-    --gold-accent: #cfa968;
-    --shadow-sm: 0 4px 15px rgba(122, 46, 54, 0.06);
-    --shadow-md: 0 10px 30px rgba(122, 46, 54, 0.12);
+    --shadow-sm: 0 4px 15px rgba(195, 20, 108, 0.06);
+    --shadow-md: 0 10px 30px rgba(195, 20, 108, 0.12);
     --radius: 16px;
     --font-sans: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
@@ -44,8 +46,8 @@
     content: "";
     position: fixed; inset: 0; z-index: -5; pointer-events: none;
     background-image:
-      linear-gradient(rgba(122, 46, 54, 0.07) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(122, 46, 54, 0.07) 1px, transparent 1px);
+      linear-gradient(rgba(195, 20, 108, 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(195, 20, 108, 0.07) 1px, transparent 1px);
     background-size: 100% 30px, 30px 100%;
     background-position: 0 0, 0 0;
   }
@@ -66,7 +68,7 @@
   }
   .watermark-svg {
     width: 300px; height: 300px;
-    color: var(--burgundy);
+    color: var(--crimson);
     position: absolute;
   }
   .watermark-svg:nth-child(1) { top: 10%; right: 5%; transform: rotate(15deg); }
@@ -78,8 +80,8 @@
     position: fixed; inset: 0; z-index: -2; pointer-events: none;
     background-image: repeating-linear-gradient(
       45deg,
-      rgba(122, 46, 54, 0.015) 0px,
-      rgba(122, 46, 54, 0.015) 1px,
+      rgba(195, 20, 108, 0.015) 0px,
+      rgba(195, 20, 108, 0.015) 1px,
       transparent 1px,
       transparent 6px
     );
@@ -95,12 +97,12 @@
     opacity: 0.12;
     animation: floaty 15s ease-in-out infinite;
   }
-  .decor-item.leaf { color: var(--leaf); opacity: 0.2; }
-  .decor-item.school { color: var(--burgundy); opacity: 0.1; }
+  .decor-item.leaf { color: var(--crimson-soft); opacity: 0.2; }
+  .decor-item.school { color: var(--crimson); opacity: 0.1; }
   .decor-item.letter {
     font-family: var(--font-sans);
     font-weight: 700;
-    color: var(--burgundy);
+    color: var(--crimson);
     opacity: 0.05;
   }
   @keyframes floaty {
@@ -125,7 +127,7 @@
   
   header.hero-section::after {
     content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
-    background: linear-gradient(90deg, var(--burgundy) 0%, var(--gold-accent) 50%, var(--forest) 100%);
+    background: linear-gradient(90deg, var(--crimson) 0%, var(--gold-accent) 50%, var(--crimson-dark) 100%);
     z-index: 10;
   }
 
@@ -149,7 +151,7 @@
     height: auto;
     object-fit: contain; 
     border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(122, 46, 54, 0.15); 
+    box-shadow: 0 8px 25px rgba(195, 20, 108, 0.15); 
     border: 4px solid var(--white); 
     transition: transform 0.3s ease;
   }
@@ -167,21 +169,21 @@
     position: relative;
   }
   
-  .hero-name { font-family: var(--font-sans); font-size: 2.4rem; font-weight: 700; color: var(--burgundy); margin-bottom: 6px; line-height: 1.1; letter-spacing: -0.5px; }
-  .hero-role { font-size: 0.9rem; color: var(--burgundy-soft); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; font-weight: 700; border-bottom: 1px solid #f0e2d4; padding-bottom: 10px; display: inline-block; }
+  .hero-name { font-family: var(--font-sans); font-size: 2.4rem; font-weight: 700; color: var(--crimson); margin-bottom: 6px; line-height: 1.1; letter-spacing: -0.5px; }
+  .hero-role { font-size: 0.9rem; color: var(--crimson-mute); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; font-weight: 700; border-bottom: 1px solid #f0e2d4; padding-bottom: 10px; display: inline-block; }
   .hero-desc { font-size: 0.98rem; color: var(--graphite); margin-bottom: 24px; max-width: 540px; }
 
   .trust-badges { display: flex; gap: 10px; flex-wrap: wrap; }
   .badge {
     background: #fbf7f0;
     border: 1px solid #e8dfd1;
-    color: var(--burgundy);
+    color: var(--crimson);
     padding: 6px 14px; border-radius: 20px;
     font-size: 0.78rem; font-weight: 700;
     display: flex; align-items: center; gap: 6px;
   }
-  .badge:nth-child(2) { background: #fdf5f5; border-color: #f2dada; color: var(--burgundy-dark); }
-  .badge:nth-child(3) { background: #f2f6f1; border-color: #dbe6d8; color: var(--forest); }
+  .badge:nth-child(2) { background: #fdf5f5; border-color: #f2dada; color: var(--crimson-dark); }
+  .badge:nth-child(3) { background: var(--crimson-pale); border-color: #f3d3e4; color: var(--crimson-dark); }
 
   /* === БЛОКИ === */
   section.block {
@@ -204,12 +206,12 @@
   .section-title { font-family: var(--font-sans); font-size: 1.35rem; font-weight: 700; color: var(--graphite); letter-spacing: -0.3px; }
 
   .step-num {
-    background: linear-gradient(135deg, var(--burgundy) 0%, var(--burgundy-soft) 100%);
+    background: linear-gradient(135deg, var(--crimson) 0%, var(--crimson-soft) 100%);
     color: white;
     width: 30px; height: 30px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
     font-weight: 700; font-size: 0.9rem;
-    box-shadow: 0 3px 8px rgba(122, 46, 54, 0.25);
+    box-shadow: 0 3px 8px rgba(195, 20, 108, 0.25);
     flex-shrink: 0;
   }
 
@@ -227,7 +229,7 @@
     position: relative;
     overflow: hidden;
   }
-  .consent-card h3 { font-size: 1.05rem; margin-bottom: 6px; font-weight: 700; color: var(--burgundy); }
+  .consent-card h3 { font-size: 1.05rem; margin-bottom: 6px; font-weight: 700; color: var(--crimson); }
   .consent-card p { font-size: 0.88rem; margin-bottom: 10px; color: #555; }
 
   .consent-note {
@@ -237,7 +239,7 @@
     line-height: 1.4;
   }
   .consent-help-link {
-    color: var(--burgundy);
+    color: var(--crimson);
     cursor: pointer;
     text-decoration: underline;
     font-weight: 700;
@@ -274,9 +276,9 @@
     outline: none;
     min-width: 0;
   }
-  .code-row input:focus { border-color: var(--burgundy); }
+  .code-row input:focus { border-color: var(--crimson); }
   .code-row button {
-    background: var(--burgundy);
+    background: var(--crimson);
     color: white;
     border: none;
     padding: 12px 20px;
@@ -287,9 +289,9 @@
     transition: background 0.2s;
     white-space: nowrap;
   }
-  .code-row button:hover { background: var(--burgundy-dark); }
+  .code-row button:hover { background: var(--crimson-dark); }
   .code-msg { margin-top: 8px; font-size: 0.8rem; font-weight: 700; min-height: 1em; }
-  .code-msg.ok { color: #2e7d32; }
+  .code-msg.ok { color: var(--crimson-dark); }
   .code-msg.err { color: #c62828; }
 
   /* === ДИАГНОСТИКА === */
@@ -307,13 +309,13 @@
   }
   .diag-card::before {
     content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
-    background: linear-gradient(180deg, var(--gold-accent) 0%, var(--burgundy) 100%);
+    background: linear-gradient(180deg, var(--gold-accent) 0%, var(--crimson) 100%);
     transform: scaleY(0); transition: transform 0.2s;
   }
   .diag-card:hover {
     border-color: var(--gold-accent);
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(122, 46, 54, 0.08);
+    box-shadow: 0 8px 20px rgba(195, 20, 108, 0.08);
   }
   .diag-card:hover::before { transform: scaleY(1); }
 
@@ -323,12 +325,12 @@
 
   .btn-action {
     display: block; width: 100%; text-align: center;
-    background: var(--burgundy); color: white;
+    background: var(--crimson); color: white;
     padding: 10px; border-radius: 8px;
     text-decoration: none; font-weight: 700; font-size: 0.84rem;
     transition: background 0.2s, transform 0.15s;
   }
-  .btn-action:hover { background: var(--forest); transform: translateY(-1px); }
+  .btn-action:hover { background: var(--crimson-dark); transform: translateY(-1px); }
 
   /* === ЛЕНТЫ === */
   .scroll-container { overflow-x: auto; padding-bottom: 10px; scrollbar-width: thin; scrollbar-color: #e6d3c2 transparent; }
@@ -338,15 +340,15 @@
   .item-card {
     width: 290px; background: #fff; border: 1px solid #efe6da;
     border-radius: 12px; padding: 16px;
-    box-shadow: 0 2px 8px rgba(122, 46, 54, 0.03);
+    box-shadow: 0 2px 8px rgba(195, 20, 108, 0.03);
   }
 
   .rev-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
   .rev-avatar {
     width: 38px; height: 38px; border-radius: 50%;
-    background: #fbf1e6; color: var(--burgundy);
+    background: var(--crimson-pale); color: var(--crimson);
     display: flex; align-items: center; justify-content: center;
-    font-weight: 700; font-size: 0.95rem; border: 1px solid #ecd9c2;
+    font-weight: 700; font-size: 0.95rem; border: 1px solid #f3d3e4;
   }
   .rev-info { flex-grow: 1; }
   .rev-name { font-weight: 700; font-size: 0.9rem; display: block; }
@@ -355,7 +357,7 @@
 
   .vid-preview {
     aspect-ratio: 16/9;
-    background: linear-gradient(135deg, var(--burgundy) 0%, var(--burgundy-dark) 100%);
+    background: linear-gradient(135deg, var(--crimson) 0%, var(--crimson-deep) 100%);
     border-radius: 8px;
     margin-bottom: 12px; display: flex; align-items: center; justify-content: center;
     color: white; font-size: 1.4rem; position: relative; overflow: hidden;
@@ -386,28 +388,28 @@
   }
   .qr-box img { width: 100%; height: 100%; object-fit: contain; display: block; }
   .qr-label { font-weight: 700; font-size: 0.82rem; display: block; margin-bottom: 3px; color: var(--graphite); }
-  .qr-link { font-size: 0.78rem; color: var(--burgundy); text-decoration: none; display: inline-block; }
+  .qr-link { font-size: 0.78rem; color: var(--crimson); text-decoration: none; display: inline-block; }
   .qr-link:hover { text-decoration: underline; }
 
   a.qr-box { text-decoration: none; transition: all 0.2s; display: block; width: 100%; margin: 0 auto 8px; }
   a.qr-box:hover {
     border-color: var(--gold-accent);
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(122, 46, 54, 0.12);
+    box-shadow: 0 8px 20px rgba(195, 20, 108, 0.12);
   }
 
   footer {
     margin-top: 30px; padding: 20px 0 10px; text-align: center;
-    font-size: 0.84rem; color: var(--gray-text); border-top: 1px solid rgba(122, 46, 54, 0.1);
+    font-size: 0.84rem; color: var(--gray-text); border-top: 1px solid rgba(195, 20, 108, 0.1);
   }
-  details summary { cursor: pointer; font-weight: 700; color: var(--burgundy); margin-bottom: 10px; list-style: none; }
+  details summary { cursor: pointer; font-weight: 700; color: var(--crimson); margin-bottom: 10px; list-style: none; }
   details summary::after { content: " ▾"; font-size: 0.8em; }
   .legal-docs {
     background: white; padding: 20px; border-radius: 10px;
     text-align: left; margin-top: 10px; border: 1px solid #efe6da;
     font-size: 0.84rem; color: #555;
   }
-  .legal-links a { color: var(--burgundy); text-decoration: none; margin-right: 12px; font-weight: 700; }
+  .legal-links a { color: var(--crimson); text-decoration: none; margin-right: 12px; font-weight: 700; }
 
   /* === МОБИЛЬНАЯ АДАПТАЦИЯ === */
   @media (max-width: 768px) {
@@ -610,7 +612,7 @@
     <div class="contacts-flex">
       <div class="qr-item">
         <div class="qr-box">
-          <img src="qr-vk.png" alt="QR ВКонтакте" loading="lazy" onerror="this.src='https://via.placeholder.com/110/fbf1e6/7a2e36?text=VK'">
+          <img src="qr-vk.png" alt="QR ВКонтакте" loading="lazy" onerror="this.src='https://via.placeholder.com/110/fbf1e6/c3146c?text=VK'">
         </div>
         <span class="qr-label">ВКонтакте</span>
         <a href="https://vk.ru/annfromcrimea" target="_blank" rel="noopener" class="qr-link">Вступить ↗</a>
@@ -618,7 +620,7 @@
 
       <div class="qr-item">
         <div class="qr-box">
-          <img src="qr-max.png" alt="QR Канал MAX" loading="lazy" onerror="this.src='https://via.placeholder.com/110/fbf1e6/7a2e36?text=MAX'">
+          <img src="qr-max.png" alt="QR Канал MAX" loading="lazy" onerror="this.src='https://via.placeholder.com/110/fbf1e6/c3146c?text=MAX'">
         </div>
         <span class="qr-label">Канал MAX</span>
         <a href="https://max.ru/join/_wpDnYzIiWKIr6vZUJze0fQuqPMuouIbaJwLQvt58zQ" target="_blank" rel="noopener" class="qr-link">Перейти ↗</a>
@@ -626,7 +628,7 @@
 
       <div class="qr-item">
         <a class="qr-box" href="https://annfromcrimea.ru/" target="_blank" rel="noopener" title="Открыть сайт студии">
-          <img src="studio.png" alt="Сайт студии annfromcrimea.ru" loading="lazy" onerror="this.src='https://via.placeholder.com/110/fbf1e6/7a2e36?text=studio'">
+          <img src="studio.png" alt="Сайт студии annfromcrimea.ru" loading="lazy" onerror="this.src='https://via.placeholder.com/110/fbf1e6/c3146c?text=studio'">
         </a>
         <span class="qr-label">annfromcrimea.ru</span>
         <a href="https://annfromcrimea.ru/" target="_blank" rel="noopener" class="qr-link">Открыть ↗</a>
@@ -661,7 +663,7 @@ const BASE = "https://annfromcrimea-ctrl.github.io/personal/";
 const DIAG_LINKS = [
   { key:"english", flag:"🇬", name:"English", desc:"Грамматика, лексика, понимание речи (A1–C1).", url:BASE+"english-test.html", status:"active" },
   { key:"german", flag:"🇩", name:"Deutsch", desc:"Базовые конструкции, артикли, порядок слов.", url:BASE+"german-test.html", status:"active" },
-  { key:"french", flag:"🇫🇷", name:"Français", desc:"Спряжение глаголов, фонетика, бытовая лексика.", url:BASE+"french-test.html", status:"active" },
+  { key:"french", flag:"🇫", name:"Français", desc:"Спряжение глаголов, фонетика, бытовая лексика.", url:BASE+"french-test.html", status:"active" },
   { key:"italian", flag:"🇮🇹", name:"Italiano", desc:"Интонация, диалоги, понимание на слух.", url:BASE+"italian-test.html", status:"active" },
   { key:"preschool", flag:"🎒", name:"Готовность к школе", desc:"Комплексная диагностика 5 зон: речь, мотивация, интеллект, социум, моторика.", url:BASE+"preschool.html", status:"active" },
   { key:"logo", flag:"🗣️", name:"Логопедия", desc:"Экспресс-скрининг речевого развития ребёнка 2–7 лет.", url:BASE+"logo.html", status:"active" },
@@ -715,7 +717,7 @@ const DIAG_LINKS = [
       input.disabled = true;
       btn.disabled = true;
       btn.textContent = "Подтверждено";
-      btn.style.background = "#2e7d32";
+      btn.style.background = "var(--crimson-dark)";
     } else {
       msg.textContent = "❌ Неверный код. Проверьте страницу «Спасибо» после отправки формы согласия.";
       msg.className = "code-msg err";
@@ -735,7 +737,7 @@ const DIAG_LINKS = [
   const icons = {
     leaf: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 8C8 10 5.9 16.2 3.8 21.4c-.2.5.3 1 .8.8 1.4-.6 2.8-1.2 4.2-1.8C14 18 17 13 17 8z"/><path d="M17 8c2 0 4-1 5-3-2 0-4 1-5 3z"/></svg>',
     pencil: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 21l3.5-1 12-12a2.1 2.1 0 0 0-3-3l-12 12L3 21z"/><path d="M14.5 6.5l3 3" stroke="white" stroke-width="1.2" fill="none"/></svg>',
-    book: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h7v16H4zM13 4h7v16h-7z" opacity=".85"/><path d="M11 4h2v16h-2z" fill="white" opacity=".5"/></svg>',
+    book: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h7v6H4zM13 4h7v16h-7z" opacity=".85"/><path d="M11 4h2v16h-2z" fill="white" opacity=".5"/></svg>',
     ruler: '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="8" width="20" height="8" rx="1.5"/><path d="M6 8v3M9 8v4M12 8v3M15 8v4M18 8v3" stroke="white" stroke-width="1.1"/></svg>',
     apple: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 7c-1-2-3-2.5-4.5-1.5C5 7 4.5 11 6.5 14.5 8 17 10 19 12 19s4-2 5.5-4.5C19.5 11 19 7 16.5 5.5 15 4.5 13 5 12 7z"/><path d="M12 7c0-2 1-3 2-3.5" stroke="currentColor" stroke-width="1.3" fill="none"/></svg>',
     star: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.7 1.4 6.8L12 17.8 5.9 20.5l1.4-6.8L2.2 9l6.9-.7L12 2z"/></svg>',
