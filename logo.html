@@ -26,18 +26,19 @@
     font-family:var(--sans);
     background-color: var(--cream);
     background-image: 
-      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E"),
-      radial-gradient(circle at 10% 20%, rgba(209, 250, 229, 0.5) 0%, transparent 35%),
-      radial-gradient(circle at 90% 10%, rgba(252, 231, 243, 0.5) 0%, transparent 35%),
-      radial-gradient(circle at 80% 80%, rgba(254, 215, 170, 0.4) 0%, transparent 40%),
-      radial-gradient(circle at 20% 90%, rgba(122, 46, 54, 0.06) 0%, transparent 30%);
-    background-size: 200px 200px, 200% 200%, 200% 200%, 200% 200%, 200% 200%;
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E"),
+      radial-gradient(circle at 10% 20%, rgba(209, 250, 229, 0.7) 0%, transparent 40%),
+      radial-gradient(circle at 90% 10%, rgba(252, 231, 243, 0.7) 0%, transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(254, 215, 170, 0.6) 0%, transparent 45%),
+      radial-gradient(circle at 20% 90%, rgba(122, 46, 54, 0.08) 0%, transparent 35%),
+      radial-gradient(circle at 50% 50%, rgba(253, 186, 116, 0.4) 0%, transparent 50%);
+    background-size: 200px 200px, 200% 200%, 200% 200%, 200% 200%, 200% 200%, 200% 200%;
     animation: bgBreathe 30s ease-in-out infinite alternate;
     color:var(--graphite);line-height:1.6;-webkit-font-smoothing:antialiased;min-height: 100vh;overflow-x: hidden;position: relative;
   }
   @keyframes bgBreathe {
-    0% { background-position: 0 0, 0% 50%, 100% 50%, 50% 100%, 50% 0%; }
-    100% { background-position: 0 0, 100% 50%, 0% 50%, 50% 0%, 50% 100%; }
+    0% { background-position: 0 0, 0% 50%, 100% 50%, 50% 100%, 50% 0%, 50% 50%; }
+    100% { background-position: 0 0, 100% 50%, 0% 50%, 50% 0%, 50% 100%, 60% 60%; }
   }
   @media (prefers-reduced-motion: reduce) {
     body { animation: none !important; }
@@ -45,23 +46,23 @@
   }
 
   .doodles{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-  .doodle{position:absolute;font-family:var(--hand);opacity:.1;transform:rotate(var(--r,0deg));font-size:var(--fs,3rem);animation:floaty var(--t,8s) ease-in-out infinite alternate;white-space:nowrap;user-select:none}
+  .doodle{position:absolute;font-family:var(--hand);opacity:.15;transform:rotate(var(--r,0deg));font-size:var(--fs,3rem);animation:floaty var(--t,8s) ease-in-out infinite alternate;white-space:nowrap;user-select:none}
   .doodle.letter{color:var(--burgundy);font-weight:700}
-  .doodle.bubble{font-family:var(--sans);background:var(--white);border:2px dashed var(--burgundy);border-radius:50% 50% 50% 20%;padding:8px 16px;font-size:1.1rem;color:var(--burgundy);font-weight:600;opacity:.15}
-  .doodle.emoji{font-family:'Nunito',sans-serif;opacity:.25;font-size:var(--fs,2.5rem)}
+  .doodle.bubble{font-family:var(--sans);background:var(--white);border:2px dashed var(--burgundy);border-radius:50% 50% 50% 20%;padding:8px 16px;font-size:1.1rem;color:var(--burgundy);font-weight:600;opacity:.2}
+  .doodle.emoji{font-family:'Nunito',sans-serif;opacity:.3;font-size:var(--fs,2.5rem)}
   @keyframes floaty{from{transform:translateY(-10px) rotate(var(--r,0deg))}to{transform:translateY(12px) rotate(calc(var(--r,0deg) + 4deg))}}
 
   .container{max-width:800px;margin:0 auto;padding:24px 20px 60px;position:relative;z-index:1}
   header.hero{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:40px 32px;margin-bottom:28px;border-top:5px solid var(--burgundy);position:relative;overflow:hidden}
-  header.hero::before{content:"";position:absolute;top:-40px;right:-40px;width:160px;height:160px;background: radial-gradient(circle, var(--mint) 0%, transparent 70%);opacity:.5; border-radius: 50%}
-  header.hero::after{content:"";position:absolute;bottom:-30px;left:-30px;width:120px;height:120px;background: radial-gradient(circle, var(--pink) 0%, transparent 70%);opacity:.5; border-radius: 50%}
+  header.hero::before{content:"";position:absolute;top:-40px;right:-40px;width:160px;height:160px;background: radial-gradient(circle, var(--mint) 0%, transparent 70%);opacity:.6; border-radius: 50%}
+  header.hero::after{content:"";position:absolute;bottom:-30px;left:-30px;width:120px;height:120px;background: radial-gradient(circle, var(--pink) 0%, transparent 70%);opacity:.6; border-radius: 50%}
   .hero h1{font-family:var(--serif);color:var(--burgundy);font-size:2.2rem;line-height:1.2;margin-bottom:8px;position:relative}
   .hero .role{font-size:.85rem;color:var(--gray);text-transform:uppercase;letter-spacing:1.5px;font-weight:600;margin-bottom:16px;position:relative}
   .hero p{color:var(--graphite);font-size:1.05rem;max-width:640px;line-height:1.7;position:relative}
   .disclaimer{margin-top:20px;background:var(--warn-bg);border:1px solid #fcd34d;border-left:4px solid var(--warn);border-radius:8px;padding:14px 16px;font-size:.88rem;color:#92400e;display:flex;gap:12px;align-items:flex-start;position:relative;line-height: 1.5}
   .disclaimer span{font-size:1.3rem;line-height:1;flex-shrink:0}
 
-  .block{background:rgba(255,255,255,0.92);backdrop-filter:blur(8px);border-radius:var(--radius);box-shadow:0 4px 20px rgba(0,0,0,.03);padding:32px;margin-bottom:24px;border:1px solid var(--line);transition:transform .3s, box-shadow .3s}
+  .block{background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);border-radius:var(--radius);box-shadow:0 4px 20px rgba(0,0,0,.03);padding:32px;margin-bottom:24px;border:1px solid var(--line);transition:transform .3s, box-shadow .3s}
   .block:hover{box-shadow:var(--shadow)}
   .block h2{font-family:var(--serif);font-size:1.4rem;margin-bottom:8px;display:flex;align-items:center;gap:12px;color:var(--graphite)}
   .block .sub{color:var(--gray);font-size:.95rem;margin-bottom:24px;line-height:1.5}
@@ -188,7 +189,7 @@
   <span class="doodle emoji" style="top:25%;right:12%;--fs:2.8rem;--t:8s">🗣️</span>
   <span class="doodle emoji" style="bottom:30%;left:10%;--fs:2.5rem;--t:9s">👅</span>
   <span class="doodle emoji" style="top:55%;left:8%;--fs:2.6rem;--t:7.5s">📚</span>
-  <span class="doodle emoji" style="bottom:8%;right:15%;--fs:2.8rem;--t:8.5s">🧩</span>
+  <span class="doodle emoji" style="bottom:8%;right:15%;--fs:2.8rem;--t:8.5s"></span>
   <span class="doodle emoji" style="top:15%;left:10%;--fs:2.2rem;--t:6.5s">⭐</span>
   <span class="doodle emoji" style="bottom:40%;right:5%;--fs:2.4rem;--t:9.5s">🎈</span>
   <span class="doodle emoji" style="top:40%;left:85%;--fs:2.3rem;--t:8s">🎨</span>
@@ -227,9 +228,7 @@
       </div>
       <div class="fields" style="margin-top:18px">
         <div><label class="fl">Ваше имя *</label><input type="text" id="parentName" required placeholder="Как к вам обращаться?"></div>
-        <div><label class="fl">Телефон *</label><input type="tel" id="phone" required placeholder="+7 (___) ___-__-__"></div>
       </div>
-      <div style="margin-top:18px"><label class="fl">E-mail *</label><input type="email" id="email" required placeholder="Для отправки результатов"></div>
     </section>
 
     <div id="questionsHost"></div>
@@ -246,7 +245,7 @@
       </label>
       <button type="submit" class="btn" id="submitBtn">
         <span class="spinner" id="btnSpinner"></span>
-        <span id="btnText">Отправляем результат специалисту…</span>
+        <span id="btnText">Получить результат</span>
       </button>
     </section>
   </form>
@@ -269,15 +268,6 @@
       <a href="index.html#booking-section">Записаться на диагностику к Анне →</a>
     </div>
 
-    <p class="send-status warn" id="sendStatus">
-      ⏳ Отправляем данные…
-    </p>
-    
-    <div class="action-buttons">
-      <button class="btn btn-secondary" onclick="copyReport()">📋 Скопировать отчёт</button>
-      <button class="btn btn-secondary" onclick="openMailto()">📧 Открыть в почте</button>
-    </div>
-
     <div class="fas-disclaimer">
       * Результаты носят информационный характер и не являются медицинским диагнозом.
     </div>
@@ -298,7 +288,7 @@ const CATS = {
   phono:  {name:"Фонематический слух", icon:"👂"},
   vocab:  {name:"Словарь и грамматика", icon:"📖"},
   speech: {name:"Связная речь и понимание", icon:"💬"},
-  motor:  {name:"Артикуляция и моторика", icon:"✋"}
+  motor:  {name:"Артикуляция и моторика", icon:""}
 };
 
 const QUESTIONS = [
@@ -352,19 +342,14 @@ document.getElementById("scrForm").addEventListener("submit", function(e){
   const btn = document.getElementById("submitBtn");
   const spinner = document.getElementById("btnSpinner");
   const btnText = document.getElementById("btnText");
-  const sendStatus = document.getElementById("sendStatus");
   
   btn.disabled = true; 
   spinner.style.display = "block"; 
-  btnText.textContent = "Отправляем…";
-  sendStatus.className = "send-status warn";
-  sendStatus.innerHTML = "⏳ Отправляем данные…";
+  btnText.textContent = "Обрабатываем…";
 
   const childName = this.childName.value.trim();
   const parentName = this.parentName.value.trim();
   const age = this.ageGroup.value;
-  const phone = this.phone.value.trim();
-  const email = this.email.value.trim();
   const concern = this.concern.value.trim();
 
   let total = 0; const byZone = {}; const detail = [];
@@ -415,49 +400,130 @@ document.getElementById("scrForm").addEventListener("submit", function(e){
   const zp_motor = Math.round(((byZone['motor']||0)/(zoneMax['motor']||1))*100);
 
   const recs = [];
+  
+  // ЗВУКОПРОИЗНОШЕНИЕ
   if (zp_sound < 80) {
-    recs.push("1. ЗВУКОПРОИЗНОШЕНИЕ:");
-    recs.push("- Ежедневная артикуляционная гимнастика (5-7 мин): упражнения «Чашечка», «Лошадка», «Грибок», «Вкусное варенье».");
-    recs.push("- Не пытаться самостоятельно ставить свистящие, шипящие или сонорные (Р, Л) звуки без контроля логопеда, чтобы не закрепить неправильный артикуляционный уклад.");
-    recs.push("- Контролировать собственную чистую речь при общении с ребёнком, не сюсюкать.");
+    recs.push("=== ЗВУКОПРОИЗНОШЕНИЕ ===");
+    recs.push("ПРИОРИТЕТ: Высокий");
+    recs.push("");
+    recs.push("АРТИКУЛЯЦИОННАЯ ГИМНАСТИКА (ежедневно 5-7 мин):");
+    recs.push("1. «Чашечка» — широкий язык поднять кверху, удерживать 5-7 сек.");
+    recs.push("2. «Лошадка» — цокать языком, присасывая к нёбу.");
+    recs.push("3. «Грибок» — присосать широкий язык к нёбу, удерживать.");
+    recs.push("4. «Вкусное варенье» — широким языком облизать верхнюю губу.");
+    recs.push("5. «Иголочка» — узкий язык высунуть вперёд.");
+    recs.push("");
+    recs.push("КОНТРОЛЬ:");
+    recs.push("- Не сюсюкать, говорить чисто.");
+    recs.push("- Не ставить звуки самостоятельно без логопеда (риск закрепления неправильного уклада).");
+    recs.push("");
+    recs.push("ПОСОБИЯ:");
+    recs.push("- Книга: «Артикуляционная гимнастика» Т.А. Куликовская (с иллюстрациями).");
+    recs.push("- Пособие: «Логопедические домашние задания» Т.А. Ткаченко.");
+    recs.push("- Видео: YouTube-канал «Логопедия для всех» (упражнения в картинках).");
   }
+  
+  // ФОНЕМАТИЧЕСКИЙ СЛУХ
   if (zp_phono < 80) {
-    recs.push("2. ФОНЕМАТИЧЕСКИЙ СЛУХ:");
-    recs.push("- Игры на различение звуков: «Поймай звук» (хлопни, когда услышишь звук С), «Назови слова на заданный звук».");
-    recs.push("- Чтение стихов с интонационным выделением целевых звуков.");
-    recs.push("- Упражнения на определение первого/последнего звука в слове, деление слов на слоги (хлопками или шагами).");
+    recs.push("");
+    recs.push("=== ФОНЕМАТИЧЕСКИЙ СЛУХ ===");
+    recs.push("ПРИОРИТЕТ: Высокий");
+    recs.push("");
+    recs.push("ИГРЫ (ежедневно 10 мин):");
+    recs.push("1. «Поймай звук» — хлопни, когда услышишь звук [С] в ряду слов.");
+    recs.push("2. «Назови слова» — придумать слова на заданный звук.");
+    recs.push("3. «Определи первый звук» — в словах: мак, сок, дом, кот.");
+    recs.push("4. «Раздели на слоги» — хлопками: ма-ши-на, со-ба-ка.");
+    recs.push("5. «Повтори без ошибки» — взрослый называет пары: дом-том, коса-коза.");
+    recs.push("");
+    recs.push("ПОСОБИЯ:");
+    recs.push("- Книга: «Развитие фонематического восприятия» Н.В. Нищевой.");
+    recs.push("- Рабочая тетрадь: «От А до Я» (подготовка к грамоте).");
+    recs.push("- Игры: лото «Звуки и буквы», карточки с картинками на оппозиционные звуки.");
   }
+  
+  // СЛОВАРЬ И ГРАММАТИКА
   if (zp_vocab < 80) {
-    recs.push("3. СЛОВАРЬ И ГРАММАТИКА:");
-    recs.push("- Расширение словаря через бытовые ситуации: проговаривайте все действия («Мы моем чашку, чашка синяя, она стоит на столе»).");
-    recs.push("- Игры «Один – много» (стул – стулья), «Назови ласково» (дом – домик), «Кто что делает?».");
-    recs.push("- Чтение книг с обязательным обсуждением прочитанного, вопросом «Почему?» и «Что будет дальше?».");
+    recs.push("");
+    recs.push("=== СЛОВАРЬ И ГРАММАТИКА ===");
+    recs.push("ПРИОРИТЕТ: Средний");
+    recs.push("");
+    recs.push("ЕЖЕДНЕВНЫЕ ЗАНЯТИЯ:");
+    recs.push("1. Проговаривайте все действия: «Мы моем чашку, чашка синяя, она стоит на столе».");
+    recs.push("2. Игры: «Один – много» (стул-стулья), «Назови ласково» (дом-домик).");
+    recs.push("3. «Кто что делает?» — врач лечит, учитель учит, повар варит.");
+    recs.push("4. Чтение с обсуждением: «Почему герой так поступил? Что будет дальше?».");
+    recs.push("5. «Четвёртый лишний» — найти лишнее слово в ряду (стул, стол, кровать, яблоко).");
+    recs.push("");
+    recs.push("ПОСОБИЯ:");
+    recs.push("- Книга: «Развитие речи» О.С. Ушаковой (по возрастам).");
+    recs.push("- Серия: «Мои первые слова» с картинками.");
+    recs.push("- Игры: лото «Профессии», «Одежда», «Продукты», «Животные».");
+    recs.push("- Карточки Домана или Зайцева для расширения словаря.");
   }
+  
+  // СВЯЗНАЯ РЕЧЬ
   if (zp_speech < 80) {
-    recs.push("4. СВЯЗНАЯ РЕЧЬ:");
-    recs.push("- Совместное составление рассказов по сериям картинок или по прочитанному сюжету.");
-    recs.push("- Игра «Что было сначала, а что потом?».");
-    recs.push("- Поощрение любых попыток ребёнка строить длинные, распространённые предложения, не перебивая и давая время на формулировку мысли.");
+    recs.push("");
+    recs.push("=== СВЯЗНАЯ РЕЧЬ ===");
+    recs.push("ПРИОРИТЕТ: Средний");
+    recs.push("");
+    recs.push("УПРАЖНЕНИЯ:");
+    recs.push("1. Пересказ по картинкам: «Что сначала, что потом?».");
+    recs.push("2. Составление рассказов по серии картинок (3-4 картинки).");
+    recs.push("3. «Что было сначала, а что потом?» — восстановление последовательности.");
+    recs.push("4. Поощрение длинных предложений: не перебивать, дать время на формулировку.");
+    recs.push("5. «Расскажи про...» — про игрушку, про прогулку, про мультфильм.");
+    recs.push("");
+    recs.push("ПОСОБИЯ:");
+    recs.push("- Серия книг: «Учимся пересказывать» (по сказкам).");
+    recs.push("- Пособие: «Составление рассказов по картинкам» (Т.А. Ткаченко).");
+    recs.push("- Карточки: серии картинок для составления рассказов (изд. «Карьера Пресс»).");
   }
+  
+  // МОТОРИКА
   if (zp_motor < 80) {
-    recs.push("5. МОТОРИКА:");
-    recs.push("- Развитие мелкой моторики напрямую связано с речевыми центрами мозга: лепка из пластилина или солёного теста, шнуровки, мозаика, нанизывание бусин, вырезание ножницами.");
-    recs.push("- Пальчиковые игры со стихами («Сорока-ворона», «Этот пальчик...») ежедневно.");
-    recs.push("- Общий массаж и су-джок терапия для снятия мышечного напряжения.");
+    recs.push("");
+    recs.push("=== МЕЛКАЯ МОТОРИКА ===");
+    recs.push("ПРИОРИТЕТ: Высокий (связана с речевыми центрами!)");
+    recs.push("");
+    recs.push("ЕЖЕДНЕВНЫЕ ЗАНЯТИЯ (15-20 мин):");
+    recs.push("1. Лепка: пластилин, солёное тесто (разминать, раскатывать, отщипывать).");
+    recs.push("2. Шнуровки: ботинок, карточки со шнуровкой.");
+    recs.push("3. Мозаика: выкладывание по образцу и свободно.");
+    recs.push("4. Нанизывание: бусины, макароны на шнурок.");
+    recs.push("5. Вырезание ножницами: прямые линии, затем фигуры.");
+    recs.push("6. Пальчиковые игры: «Сорока-ворона», «Этот пальчик...» со стихами.");
+    recs.push("7. Су-джок терапия: массаж шариками с шипами.");
+    recs.push("");
+    recs.push("ПОСОБИЯ:");
+    recs.push("- Книга: «Пальчиковые игры» И.А. Галкиной.");
+    recs.push("- Набор: «Шнуровки» (деревянные или картонные).");
+    recs.push("- Мозаика: крупная (для 3-4 лет), мелкая (для 5-6 лет).");
+    recs.push("- Су-джок мячики и кольца (продаются в аптеке).");
   }
+  
+  // ОБЩИЕ РЕКОМЕНДАЦИИ
   if (recs.length === 0) {
-    recs.push("ОБЩИЕ РЕКОМЕНДАЦИИ:");
-    recs.push("- Развитие в норме. Поддерживать через ежедневное чтение, обсуждение прочитанного, пальчиковые игры и создание богатой речевой среды.");
+    recs.push("=== ОБЩИЕ РЕКОМЕНДАЦИИ ===");
+    recs.push("Развитие в норме. Поддерживать через:");
+    recs.push("1. Ежедневное чтение (15-20 мин) с обсуждением.");
+    recs.push("2. Пальчиковые игры со стихами.");
+    recs.push("3. Создание богатой речевой среды: проговаривать действия, задавать вопросы.");
+    recs.push("4. Настольные игры: лото, домино, мемо (развитие внимания и речи).");
   }
+  
   if (concern) {
-    recs.push(`\nДОПОЛНИТЕЛЬНО ОТ РОДИТЕЛЯ:\n${concern}`);
+    recs.push("");
+    recs.push("=== ДОПОЛНИТЕЛЬНО ОТ РОДИТЕЛЯ ===");
+    recs.push(concern);
   }
 
   const legalText = `ЮРИДИЧЕСКАЯ ИНФОРМАЦИЯ (ФЗ «О рекламе» и 152-ФЗ):
 1. Данный экспресс-скрининг носит исключительно информационно-ознакомительный характер.
 2. Результаты не являются медицинской услугой, диагнозом, заключением ПМПК или заменой очной консультации специалиста.
 3. Информация не является публичной офертой (ст. 437 ГК РФ).
-4. Обработка персональных данных (имя, телефон, email) осуществляется с добровольного согласия субъекта ПД в соответствии с Федеральным законом № 152-ФЗ «О персональных данных» исключительно для цели обратной связи по результатам скрининга.`;
+4. Обработка персональных данных (имя) осуществляется с добровольного согласия субъекта ПД в соответствии с Федеральным законом № 152-ФЗ «О персональных данных» исключительно для цели обратной связи по результатам скрининга.`;
 
   globalReportText = `ЭКСПРЕСС-СКРИНИНГ РЕЧИ
 Дата: ${new Date().toLocaleString('ru-RU')}
@@ -465,8 +531,6 @@ document.getElementById("scrForm").addEventListener("submit", function(e){
 РЕБЁНОК: ${childName}
 ВОЗРАСТ: ${age}
 РОДИТЕЛЬ: ${parentName}
-ТЕЛЕФОН: ${phone}
-EMAIL: ${email}
 
 ИТОГ: ${pct}% (${verdict})
 
@@ -476,7 +540,6 @@ ${zoneData.join('\n')}
 ДЕТАЛИЗАЦИЯ ОТВЕТОВ:
 ${detail.join('\n')}
 
-РЕКОМЕНДАЦИИ ДЛЯ АННЫ (ИСЧЕРПЫВАЮЩИЕ):
 ${recs.join('\n')}
 
 ${legalText}`;
@@ -488,8 +551,6 @@ ${legalText}`;
     childName: childName,
     age: age,
     parentName: parentName,
-    phone: phone,
-    email: email,
     totalScore: `${pct}%`,
     verdict: verdict,
     zones: zoneData.join('\n'),
@@ -509,40 +570,15 @@ ${legalText}`;
   })
   .then(response => response.json())
   .then(data => {
-    if (data.success) {
-      sendStatus.className = "send-status ok";
-      sendStatus.innerHTML = "✅ Отчёт успешно отправлен Анне";
-    } else {
-      throw new Error(data.message || "Ошибка сервера Web3Forms");
-    }
+    if (!data.success) throw new Error(data.message || "Ошибка");
   })
-  .catch(error => {
-    console.error("Web3Forms error:", error);
-    sendStatus.className = "send-status error";
-    sendStatus.innerHTML = "❌ Ошибка отправки. Пожалуйста, воспользуйтесь кнопкой «Скопировать отчёт» или «Открыть в почте» ниже.";
-  })
+  .catch(error => console.error("Web3Forms error:", error))
   .finally(() => {
     btn.disabled = false; 
     spinner.style.display = "none"; 
-    btnText.textContent = "Отправить результат специалисту";
+    btnText.textContent = "Получить результат";
   });
 });
-
-function copyReport() {
-  navigator.clipboard.writeText(globalReportText).then(() => {
-    alert("✅ Полный отчёт скопирован! Вставьте его в сообщение Анне в Telegram, WhatsApp или в письмо.");
-  }).catch(() => {
-    alert("Не удалось скопировать. Используйте кнопку 'Открыть в почте'.");
-  });
-}
-
-function openMailto() {
-  const childNameVal = document.getElementById('childName').value || "Ребёнок";
-  const ageVal = document.getElementById('ageGroup').value || "Не указан";
-  const subject = encodeURIComponent(`Экспресс-скрининг речи: ${childNameVal} (${ageVal})`);
-  const body = encodeURIComponent(globalReportText);
-  window.location.href = `mailto:${SEND_EMAIL}?subject=${subject}&body=${body}`;
-}
 </script>
 </body>
 </html>
