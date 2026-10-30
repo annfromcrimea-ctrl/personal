@@ -4,29 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Экспресс-скрининг речи · Анна Драчёва</title>
-
-<!-- ФАВИКОН: облачко с буквой "Р" -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ff9d9d'/%3E%3Cstop offset='1' stop-color='%237a2e36'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath fill='url(%23g)' d='M16 20c0-7 6-12 13-12s13 5 13 12c0 1 0 2-1 3 5 1 9 6 9 11 0 7-6 12-13 12H22c-7 0-12-5-12-12 0-5 3-9 8-11-1-1-2-2-2-3z'/%3E%3Ctext x='32' y='42' font-family='Georgia' font-size='24' font-weight='bold' fill='white' text-anchor='middle'%3EР%3C/text%3E%3C/svg%3E">
-
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --burgundy:#7a2e36; --burgundy-dark:#5d1f26; --burgundy-light:#fdf6f7;
     --cream:#fffbf7; --white:#fff;
-    --graphite:#2d2d2d; --gray:#6b7280; --gold:#cfa968; --line:#e5e7eb;
+    --graphite:#2d2d2d; --gray:#6b7280; --line:#e5e7eb;
     --ok:#059669; --ok-bg:#ecfdf5;
     --warn:#d97706; --warn-bg:#fffbeb;
     --alert:#dc2626; --alert-bg:#fef2f2;
-    --mint:#d1fae5; --sky:#e0f2fe; --pink:#fce7f3; --peach:#fed7aa;
+    --mint:#d1fae5; --pink:#fce7f3;
     --shadow:0 10px 40px -10px rgba(122, 46, 54, 0.08); 
-    --shadow-hover:0 20px 50px -12px rgba(122, 46, 54, 0.15);
     --radius:16px;
     --serif:'Playfair Display', Georgia, serif;
     --sans:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     --hand:'Caveat', cursive;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  
   body{
     font-family:var(--sans);
     background-color: var(--cream);
@@ -35,179 +30,62 @@
       radial-gradient(circle at 85% 25%, rgba(224, 242, 254, 0.4) 0%, transparent 25%),
       radial-gradient(circle at 50% 85%, rgba(252, 231, 243, 0.5) 0%, transparent 30%),
       radial-gradient(circle at 75% 70%, rgba(254, 215, 170, 0.3) 0%, transparent 25%);
-    color:var(--graphite);
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-    min-height: 100vh;
-    overflow-x: hidden;
-    position: relative;
+    color:var(--graphite);line-height:1.6;-webkit-font-smoothing:antialiased;min-height: 100vh;overflow-x: hidden;position: relative;
   }
-  
-  /* ===== ЛОГОПЕДИЧЕСКИЕ DOODLES — МНОГО БУКВ ПО ВСЕМУ ФОНУ ===== */
   .doodles{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-  .doodle{
-    position:absolute;
-    font-family:var(--hand);
-    opacity:.15;
-    transform:rotate(var(--r,0deg));
-    font-size:var(--fs,3rem);
-    animation:floaty var(--t,8s) ease-in-out infinite alternate;
-    white-space:nowrap;
-    user-select:none;
-  }
+  .doodle{position:absolute;font-family:var(--hand);opacity:.15;transform:rotate(var(--r,0deg));font-size:var(--fs,3rem);animation:floaty var(--t,8s) ease-in-out infinite alternate;white-space:nowrap;user-select:none}
   .doodle.letter{color:var(--burgundy);font-weight:700}
-  .doodle.bubble{
-    font-family:var(--sans);
-    background:var(--white);
-    border:2px dashed var(--burgundy);
-    border-radius:50% 50% 50% 20%;
-    padding:8px 16px;
-    font-size:1.1rem;
-    color:var(--burgundy);
-    font-weight:600;
-    opacity:.2;
-  }
+  .doodle.bubble{font-family:var(--sans);background:var(--white);border:2px dashed var(--burgundy);border-radius:50% 50% 50% 20%;padding:8px 16px;font-size:1.1rem;color:var(--burgundy);font-weight:600;opacity:.2}
   .doodle.emoji{font-family:'Nunito',sans-serif;opacity:.4;font-size:var(--fs,2.5rem)}
-  @keyframes floaty{
-    from{transform:translateY(-10px) rotate(var(--r,0deg))}
-    to{transform:translateY(12px) rotate(calc(var(--r,0deg) + 4deg))}
-  }
+  @keyframes floaty{from{transform:translateY(-10px) rotate(var(--r,0deg))}to{transform:translateY(12px) rotate(calc(var(--r,0deg) + 4deg))}}
   @media (prefers-reduced-motion:reduce){.doodle{animation:none!important}}
 
   .container{max-width:800px;margin:0 auto;padding:24px 20px 60px;position:relative;z-index:1}
-
-  header.hero{
-    background:var(--white);
-    border-radius:var(--radius);
-    box-shadow:var(--shadow);
-    padding:40px 32px;
-    margin-bottom:28px;
-    border-top:5px solid var(--burgundy);
-    position:relative;
-    overflow:hidden;
-  }
-  header.hero::before{
-    content:"";position:absolute;top:-40px;right:-40px;width:160px;height:160px;
-    background: radial-gradient(circle, var(--mint) 0%, transparent 70%);
-    opacity:.5; border-radius: 50%;
-  }
-  header.hero::after{
-    content:"";position:absolute;bottom:-30px;left:-30px;width:120px;height:120px;
-    background: radial-gradient(circle, var(--pink) 0%, transparent 70%);
-    opacity:.5; border-radius: 50%;
-  }
-  
+  header.hero{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:40px 32px;margin-bottom:28px;border-top:5px solid var(--burgundy);position:relative;overflow:hidden}
+  header.hero::before{content:"";position:absolute;top:-40px;right:-40px;width:160px;height:160px;background: radial-gradient(circle, var(--mint) 0%, transparent 70%);opacity:.5; border-radius: 50%}
+  header.hero::after{content:"";position:absolute;bottom:-30px;left:-30px;width:120px;height:120px;background: radial-gradient(circle, var(--pink) 0%, transparent 70%);opacity:.5; border-radius: 50%}
   .hero h1{font-family:var(--serif);color:var(--burgundy);font-size:2.2rem;line-height:1.2;margin-bottom:8px;position:relative}
   .hero .role{font-size:.85rem;color:var(--gray);text-transform:uppercase;letter-spacing:1.5px;font-weight:600;margin-bottom:16px;position:relative}
   .hero p{color:var(--graphite);font-size:1.05rem;max-width:640px;line-height:1.7;position:relative}
-  
-  .disclaimer{
-    margin-top:20px;
-    background:var(--warn-bg);
-    border:1px solid #fcd34d;
-    border-left:4px solid var(--warn);
-    border-radius:8px;
-    padding:14px 16px;
-    font-size:.88rem;
-    color:#92400e;
-    display:flex;
-    gap:12px;
-    align-items:flex-start;
-    position:relative;
-    line-height: 1.5;
-  }
+  .disclaimer{margin-top:20px;background:var(--warn-bg);border:1px solid #fcd34d;border-left:4px solid var(--warn);border-radius:8px;padding:14px 16px;font-size:.88rem;color:#92400e;display:flex;gap:12px;align-items:flex-start;position:relative;line-height: 1.5}
   .disclaimer span{font-size:1.3rem;line-height:1;flex-shrink:0}
 
-  .block{
-    background:var(--white);
-    border-radius:var(--radius);
-    box-shadow:0 4px 20px rgba(0,0,0,.03);
-    padding:32px;
-    margin-bottom:24px;
-    border:1px solid var(--line);
-    transition:transform .3s, box-shadow .3s;
-    position: relative;
-  }
-  .block:hover{box-shadow:var(--shadow-hover)}
+  .block{background:var(--white);border-radius:var(--radius);box-shadow:0 4px 20px rgba(0,0,0,.03);padding:32px;margin-bottom:24px;border:1px solid var(--line);transition:transform .3s, box-shadow .3s}
+  .block:hover{box-shadow:var(--shadow)}
   .block h2{font-family:var(--serif);font-size:1.4rem;margin-bottom:8px;display:flex;align-items:center;gap:12px;color:var(--graphite)}
   .block .sub{color:var(--gray);font-size:.95rem;margin-bottom:24px;line-height:1.5}
-  .cat-tag{
-    display:inline-flex;align-items:center;gap:6px;
-    background:var(--burgundy-light);
-    border:1px solid #f3dce0;
-    color:var(--burgundy);
-    font-size:.75rem;font-weight:700;
-    padding:4px 12px;border-radius:20px;
-    text-transform:uppercase;letter-spacing:.5px;
-  }
+  .cat-tag{display:inline-flex;align-items:center;gap:6px;background:var(--burgundy-light);border:1px solid #f3dce0;color:var(--burgundy);font-size:.75rem;font-weight:700;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px}
 
   .q{border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:16px;background:var(--white);transition:.2s}
   .q:hover{border-color:#d1d5db}
   .q-text{font-weight:600;margin-bottom:16px;display:block;font-size:1.02rem;color:var(--graphite)}
   .q-text small{font-weight:400;color:var(--gray);font-size:.85rem}
   .opts{display:grid;gap:10px}
-  .opt{
-    display:flex;gap:12px;align-items:flex-start;
-    background:var(--cream);
-    border:2px solid transparent;
-    border-radius:10px;
-    padding:14px 16px;
-    cursor:pointer;
-    transition:.2s;
-    font-size:.95rem;
-    position:relative;
-  }
+  .opt{display:flex;gap:12px;align-items:flex-start;background:var(--cream);border:2px solid transparent;border-radius:10px;padding:14px 16px;cursor:pointer;transition:.2s;font-size:.95rem;position:relative}
   .opt:hover{background:var(--white);border-color:#d1d5db}
   .opt input{margin-top:3px;accent-color:var(--burgundy);width:18px;height:18px;flex-shrink:0}
   .opt.sel{border-color:var(--burgundy);background:var(--burgundy-light);box-shadow:0 0 0 3px rgba(122,46,54,.08)}
-  .opt.sel::after{
-    content:"✓";position:absolute;right:16px;top:50%;transform:translateY(-50%);
-    color:var(--burgundy);font-weight:900;font-size:1.2rem;
-  }
+  .opt.sel::after{content:"✓";position:absolute;right:16px;top:50%;transform:translateY(-50%);color:var(--burgundy);font-weight:900;font-size:1.2rem}
 
   .fields{display:grid;grid-template-columns:1fr 1fr;gap:18px}
   @media(max-width:600px){.fields{grid-template-columns:1fr}}
   label.fl{display:block;font-size:.85rem;color:var(--gray);margin-bottom:6px;font-weight:600}
-  input[type=text],input[type=email],input[type=tel],select,textarea{
-    width:100%;padding:12px 14px;
-    border:1.5px solid var(--line);border-radius:10px;
-    font:inherit;font-size:.95rem;background:var(--white);color:var(--graphite);
-    transition:.2s;
-  }
+  input[type=text],input[type=email],input[type=tel],select,textarea{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;font:inherit;font-size:.95rem;background:var(--white);color:var(--graphite);transition:.2s}
   input:focus,select:focus,textarea:focus{outline:none;border-color:var(--burgundy);box-shadow:0 0 0 4px rgba(122,46,54,.08)}
   textarea{resize:vertical;min-height:90px}
 
   .agree{display:flex;gap:12px;align-items:flex-start;margin-top:24px;font-size:.88rem;color:var(--gray);line-height:1.5}
   .agree input{width:18px;height:18px;margin-top:2px;flex-shrink:0;accent-color:var(--burgundy)}
-  .agree a{color:var(--burgundy);text-decoration:underline}
-  
-  .btn{
-    display:flex;align-items:center;justify-content:center;gap:8px;
-    width:100%;text-align:center;
-    background:var(--burgundy);color:#fff;border:none;
-    padding:16px;border-radius:10px;
-    font-weight:700;font-size:1.05rem;cursor:pointer;
-    margin-top:24px;transition:.2s;
-    box-shadow:0 4px 14px rgba(122,46,54,.25);
-  }
+  .btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;text-align:center;background:var(--burgundy);color:#fff;border:none;padding:16px;border-radius:10px;font-weight:700;font-size:1.05rem;cursor:pointer;margin-top:24px;transition:.2s;box-shadow:0 4px 14px rgba(122,46,54,.25)}
   .btn:hover{background:var(--burgundy-dark);transform:translateY(-1px)}
-  .btn:active{transform:translateY(1px)}
   .btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
   .spinner{width:20px;height:20px;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;display:none}
   @keyframes spin{to{transform:rotate(360deg)}}
 
   #result{display:none;animation:fadeIn .6s ease-out}
   @keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
-  
   .score-container{display:flex;flex-direction:column;align-items:center;margin-bottom:32px}
-  .score-ring{
-    width:180px;height:180px;border-radius:50%;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
-    position:relative;
-    background:conic-gradient(var(--burgundy) 0%, var(--line) 0%);
-    transition:background 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow:var(--shadow);
-  }
+  .score-ring{width:180px;height:180px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;background:conic-gradient(var(--burgundy) 0%, var(--line) 0%);transition:background 1.5s cubic-bezier(0.4, 0, 0.2, 1);box-shadow:var(--shadow)}
   .score-ring::before{content:"";position:absolute;inset:8px;background:var(--white);border-radius:50%}
   .score-ring .num{position:relative;font-size:3rem;font-weight:800;color:var(--burgundy);line-height:1;z-index:1}
   .score-ring .lbl{position:relative;font-size:.75rem;letter-spacing:2px;color:var(--gray);font-weight:600;margin-top:4px;z-index:1}
@@ -216,10 +94,7 @@
   .verdict.ok{color:var(--ok)}.verdict.warn{color:var(--warn)}.verdict.alert{color:var(--alert)}
   .verdict-txt{text-align:center;color:var(--graphite);max-width:600px;margin:0 auto 32px;font-size:1.05rem;line-height:1.6}
 
-  .zone{
-    border:1px solid var(--line);border-left:5px solid var(--gray);
-    border-radius:10px;padding:16px 20px;margin-bottom:12px;background:var(--white);
-  }
+  .zone{border:1px solid var(--line);border-left:5px solid var(--gray);border-radius:10px;padding:16px 20px;margin-bottom:12px;background:var(--white)}
   .zone.good{border-left-color:var(--ok);background:var(--ok-bg)}
   .zone.watch{border-left-color:var(--warn);background:var(--warn-bg)}
   .zone.attention{border-left-color:var(--alert);background:var(--alert-bg)}
@@ -227,54 +102,35 @@
   .zone h4{font-size:1rem;font-weight:700;display:flex;align-items:center;gap:8px;margin:0}
   .zone-pct{font-weight:800;font-size:1.1rem}
   .zone.good .zone-pct{color:var(--ok)}.zone.watch .zone-pct{color:var(--warn)}.zone.attention .zone-pct{color:var(--alert)}
-  
   .progress-bar{height:8px;background:rgba(0,0,0,.06);border-radius:4px;overflow:hidden}
   .progress-fill{height:100%;border-radius:4px;transition:width 1.5s cubic-bezier(0.4, 0, 0.2, 1);width:0}
-  .zone.good .progress-fill{background:var(--ok)}
-  .zone.watch .progress-fill{background:var(--warn)}
-  .zone.attention .progress-fill{background:var(--alert)}
+  .zone.good .progress-fill{background:var(--ok)}.zone.watch .progress-fill{background:var(--warn)}.zone.attention .progress-fill{background:var(--alert)}
 
-  .cta-book{
-    background:var(--burgundy-light);border:1px solid #f3dce0;
-    border-radius:12px;padding:28px;text-align:center;margin-top:32px;
-  }
+  .cta-book{background:var(--burgundy-light);border:1px solid #f3dce0;border-radius:12px;padding:28px;text-align:center;margin-top:32px}
   .cta-book p{color:var(--graphite);margin-bottom:18px;font-size:1.05rem;font-weight:500}
-  .cta-book a{
-    display:inline-block;background:var(--burgundy);color:#fff;
-    text-decoration:none;padding:14px 28px;border-radius:10px;
-    font-weight:700;transition:.2s;box-shadow:0 4px 14px rgba(122,46,54,.2);
-  }
+  .cta-book a{display:inline-block;background:var(--burgundy);color:#fff;text-decoration:none;padding:14px 28px;border-radius:10px;font-weight:700;transition:.2s;box-shadow:0 4px 14px rgba(122,46,54,.2)}
   .cta-book a:hover{background:var(--burgundy-dark);transform:translateY(-2px)}
   
-  .send-status{text-align:center;font-size:.95rem;font-weight:600;margin-top:24px;padding:12px;border-radius:8px}
+  .send-status{text-align:center;font-size:.95rem;font-weight:600;margin-top:24px;padding:16px;border-radius:8px;line-height:1.5}
   .send-status.ok{color:var(--ok);background:var(--ok-bg)}
-  .send-status.err{color:var(--alert);background:var(--alert-bg)}
   .send-status.warn{color:#92400e;background:var(--warn-bg)}
 
-  .fas-disclaimer{
-    margin-top: 24px;
-    padding: 16px;
-    background: #f8fafc;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    font-size: 0.82rem;
-    color: var(--gray);
-    text-align: center;
-    line-height: 1.5;
-  }
+  .fas-disclaimer{margin-top: 24px;padding: 16px;background: #f8fafc;border: 1px solid var(--line);border-radius: 8px;font-size: 0.82rem;color: var(--gray);text-align: center;line-height: 1.5}
+
+  .action-buttons{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+  @media(max-width:500px){.action-buttons{grid-template-columns:1fr}}
+  .btn-secondary{background:var(--white);color:var(--burgundy);border:2px solid var(--burgundy);box-shadow:none}
+  .btn-secondary:hover{background:var(--burgundy-light)}
 
   footer{text-align:center;padding:32px 0 0;font-size:.85rem;color:var(--gray);border-top:1px solid var(--line);margin-top:40px;line-height:1.8}
   footer a{color:var(--burgundy);text-decoration:none;font-weight:600}
-  footer a:hover{text-decoration:underline}
   .back{display:inline-flex;align-items:center;gap:6px;margin-bottom:20px;color:var(--burgundy);text-decoration:none;font-size:.95rem;font-weight:600;transition:.2s}
   .back:hover{gap:10px}
 </style>
 </head>
 <body>
 
-<!-- ===== МНОГО БУКВ И СИМВОЛОВ ПО ВСЕМУ ФОНУ ===== -->
 <div class="doodles" aria-hidden="true">
-  <!-- Буквы алфавита — много, по всему фону -->
   <span class="doodle letter" style="top:3%;left:2%;--fs:4rem;--r:-12deg;--t:7s">А</span>
   <span class="doodle letter" style="top:8%;right:4%;--fs:3.5rem;--r:8deg;--t:9s">Б</span>
   <span class="doodle letter" style="top:15%;left:5%;--fs:3rem;--r:-6deg;--t:8s">В</span>
@@ -306,8 +162,6 @@
   <span class="doodle letter" style="top:10%;left:70%;--fs:3.2rem;--r:-8deg;--t:8s">Э</span>
   <span class="doodle letter" style="top:28%;left:20%;--fs:3rem;--r:6deg;--t:9s">Ю</span>
   <span class="doodle letter" style="top:42%;left:75%;--fs:3.4rem;--r:-5deg;--t:7.5s">Я</span>
-  
-  <!-- Облачка речи со слогами -->
   <span class="doodle bubble" style="top:6%;left:25%;--t:8s">ма-ма</span>
   <span class="doodle bubble" style="top:20%;right:20%;--t:9s">па-па</span>
   <span class="doodle bubble" style="top:35%;left:15%;--t:7.5s">ба-ба</span>
@@ -318,8 +172,6 @@
   <span class="doodle bubble" style="bottom:25%;right:25%;--t:8.5s">у-у-у</span>
   <span class="doodle bubble" style="top:75%;left:60%;--t:9.5s">ра-ра</span>
   <span class="doodle bubble" style="top:88%;left:30%;--t:7s">ла-ла</span>
-  
-  <!-- Эмодзи логопедической тематики -->
   <span class="doodle emoji" style="top:10%;left:50%;--fs:2.5rem;--t:7s">👄</span>
   <span class="doodle emoji" style="top:25%;right:12%;--fs:2.8rem;--t:8s">🗣️</span>
   <span class="doodle emoji" style="bottom:30%;left:10%;--fs:2.5rem;--t:9s">👅</span>
@@ -341,14 +193,13 @@
     <p>Короткая ориентировочная проверка (5–7 минут). Поможет понять, есть ли у ребёнка признаки, на которые стоит обратить внимание, и подготовиться к разговору со специалистом.</p>
     <div class="disclaimer">
       <span>⚠️</span>
-      <div>Результаты скрининга носят исключительно информационно-ознакомительный характер. Они <strong>не являются медицинской услугой, диагнозом</strong> и не заменяют очную консультацию специалиста. Индивидуальные результаты могут отличаться. Имеются противопоказания, необходима очная консультация.</div>
+      <div>Результаты скрининга носят исключительно информационно-ознакомительный характер. Они <strong>не являются медицинской услугой, диагнозом</strong> и не заменяют очную консультацию специалиста.</div>
     </div>
   </header>
 
   <form id="scrForm">
     <section class="block">
       <h2><span class="cat-tag">📋 Старт</span> О ком говорим</h2>
-      <p class="sub">Возраст важен: нормы речевого развития сильно зависят от него.</p>
       <div class="fields">
         <div><label class="fl">Имя ребёнка *</label><input type="text" id="childName" required placeholder="Например, Миша"></div>
         <div><label class="fl">Возраст *</label>
@@ -363,7 +214,7 @@
         </div>
       </div>
       <div class="fields" style="margin-top:18px">
-        <div><label class="fl">Ваше имя (родитель) *</label><input type="text" id="parentName" required placeholder="Как к вам обращаться?"></div>
+        <div><label class="fl">Ваше имя *</label><input type="text" id="parentName" required placeholder="Как к вам обращаться?"></div>
         <div><label class="fl">Телефон *</label><input type="tel" id="phone" required placeholder="+7 (___) ___-__-__"></div>
       </div>
       <div style="margin-top:18px"><label class="fl">E-mail *</label><input type="email" id="email" required placeholder="Для отправки результатов"></div>
@@ -373,18 +224,17 @@
 
     <section class="block">
       <h2><span class="cat-tag">💬 Дополнительно</span> Что беспокоит больше всего?</h2>
-      <p class="sub">Свободный текст поможет точнее подобрать направление консультации.</p>
-      <textarea id="concern" placeholder="Например: путает звуки Р и Л, плохо строит предложения, быстро устаёт на занятиях..."></textarea>
+      <textarea id="concern" placeholder="Например: путает звуки Р и Л, плохо строит предложения..."></textarea>
     </section>
 
     <section class="block">
       <label class="agree">
         <input type="checkbox" id="consentBox" required>
-        <span>Я даю добровольное информированное согласие на обработку указанных персональных данных (включая имя ребёнка, контакты и ответы) в соответствии с 152-ФЗ исключительно для проведения скрининга и подготовки рекомендаций. Ознакомлен(а) с политикой конфиденциальности.</span>
+        <span>Я даю согласие на обработку указанных данных в соответствии с 152-ФЗ для проведения скрининга.</span>
       </label>
       <button type="submit" class="btn" id="submitBtn">
         <span class="spinner" id="btnSpinner"></span>
-        <span id="btnText">Показать результат и отправить Анне 🍃</span>
+        <span id="btnText">Отправляем результат специалисту…</span>
       </button>
     </section>
   </form>
@@ -396,7 +246,6 @@
         <span class="lbl">РЕЗУЛЬТАТ</span>
       </div>
     </div>
-    
     <div class="verdict" id="rVerdict">—</div>
     <p class="verdict-txt" id="rVerdictTxt"></p>
 
@@ -408,10 +257,18 @@
       <a href="index.html#booking-section">Записаться на диагностику к Анне →</a>
     </div>
 
-    <p class="send-status" id="sendStatus">Отправляем результат специалисту…</p>
+    <p class="send-status warn" id="sendStatus">
+      ⚠️ <strong>Важно:</strong> если вы открыли файл с компьютера, браузер мог заблокировать автоматическую отправку письма.<br>
+      Используйте кнопки ниже, чтобы гарантированно передать результат Анне:
+    </p>
     
+    <div class="action-buttons">
+      <button class="btn btn-secondary" onclick="copyReport()">📋 Скопировать отчёт</button>
+      <button class="btn btn-secondary" onclick="openMailto()">📧 Открыть в почте</button>
+    </div>
+
     <div class="fas-disclaimer">
-      * Результаты носят исключительно информационный характер и не являются медицинским диагнозом. Не является медицинской услугой. Необходима очная консультация специалиста.
+      * Результаты носят информационный характер и не являются медицинским диагнозом.
     </div>
 
     <button class="btn" style="background:var(--white);color:var(--burgundy);border:2px solid var(--burgundy);box-shadow:none;margin-top:16px" onclick="location.reload()">Пройти заново</button>
@@ -419,13 +276,12 @@
 
   <footer>
     © 2024–2026 Анна Драчёва · Логопед · Психолог<br>
-    Оператор ПД · reg. №91-26-057013 · <a href="mailto:annfromcrimea@gmail.com">annfromcrimea@gmail.com</a>
+    <a href="mailto:annfromcrimea@gmail.com">annfromcrimea@gmail.com</a>
   </footer>
 </div>
 
 <script>
 const SEND_EMAIL = "annfromcrimea@gmail.com";
-
 const CATS = {
   sound:  {name:"Звукопроизношение", icon:"🔤"},
   phono:  {name:"Фонематический слух", icon:"👂"},
@@ -435,32 +291,19 @@ const CATS = {
 };
 
 const QUESTIONS = [
-  {id:"s1", cat:"sound", q:"Произносит ли ребёнок все гласные и большинство согласных понятно?",
-   opts:[{t:"Да, речь понятна окружающим",b:3},{t:"Понятна близким, иногда искажает звуки",b:2},{t:"Много непонятных звуков, заменяет/пропускает",b:0}]},
-  {id:"s2", cat:"sound", q:"Как обстоит дело со свистящими и шипящими (С, Ш, Ч)?",
-   opts:[{t:"Произносит чисто",b:3},{t:"Есть дефект, но старается",b:1},{t:"Не даёт / заменяет другими звуками",b:0}]},
-  {id:"s3", cat:"sound", q:"Звуки Р и Л (или их заглушки) появляются?",
-   opts:[{t:"Р и Л есть или активно формируются",b:3},{t:"Один из звуков отсутствует",b:1},{t:"Оба отсутствуют, нет попыток",b:0}], ageSensitive:true},
-  {id:"p1", cat:"phono", q:"Ребёнок различает похожие слова на слух (дом/том, бочка/почка)?",
-   opts:[{t:"Да, слышит разницу",b:3},{t:"Частично, путает некоторые пары",b:1},{t:"Нет, воспринимает одинаково",b:0}]},
-  {id:"p2", cat:"phono", q:"Может определить первый звук в слове или найти слово на заданный звук?",
-   opts:[{t:"Легко справляется",b:3},{t:"С помощью взрослого",b:1},{t:"Затрудняется даже с поддержкой",b:0}]},
-  {id:"v1", cat:"vocab", q:"Словарный запас соответствует возрасту (называет предметы, действия, признаки)?",
-   opts:[{t:"Да, богатый для возраста",b:3},{t:"Бедноват, повторяющиеся слова",b:1},{t:"Очень ограничен",b:0}]},
-  {id:"v2", cat:"vocab", q:"Строит фразы/предложения нужной длины для своего возраста?",
-   opts:[{t:"Да, говорит предложениями",b:3},{t:"В основном короткие фразы",b:1},{t:"Отдельные слова, лепет",b:0}]},
-  {id:"v3", cat:"vocab", q:"Правильно использует окончания, предлоги, рода и числа?",
-   opts:[{t:"Практически без ошибок",b:3},{t:"Иногда ошибается (напр., 'красные мяч')",b:1},{t:"Частые грамматические ошибки",b:0}]},
-  {id:"c1", cat:"speech", q:"Понимает инструкции из 2–3 шагов («возьми книгу и положи на стол»)?",
-   opts:[{t:"Да, выполняет точно",b:3},{t:"Выполняет частично",b:1},{t:"Нужно повторять/показывать",b:0}]},
-  {id:"c2", cat:"speech", q:"Может рассказать о событии или пересказать простую историю?",
-   opts:[{t:"Да, последовательно",b:3},{t:"Фрагментарно, с подсказками",b:1},{t:"Не может или не пытается",b:0}]},
-  {id:"c3", cat:"speech", q:"Речь плавная? Есть ли запинки, повторы, судорожные паузы?",
-   opts:[{t:"Плавная, без запинок",b:3},{t:"Изредка запинается при волнении",b:1},{t:"Частые запинки/повторы слогов",b:0}]},
-  {id:"m1", cat:"motor", q:"Может выполнить артикуляционные движения: высунуть язык, улыбнуться, надуть щёки?",
-   opts:[{t:"Да, легко и симметрично",b:3},{t:"С трудом, одно движение слабее",b:1},{t:"Не получается / объём движений мал",b:0}]},
-  {id:"m2", cat:"motor", q:"Мелкая моторика рук (лепка, рисование, застёжки) развита для возраста?",
-   opts:[{t:"Да, уверенно",b:3},{t:"Неуверенно, быстро устаёт",b:1},{t:"Значительно отстаёт",b:0}]}
+  {id:"s1", cat:"sound", q:"Произносит ли ребёнок все гласные и большинство согласных понятно?", opts:[{t:"Да, речь понятна окружающим",b:3},{t:"Понятна близким, иногда искажает",b:2},{t:"Много непонятных звуков",b:0}]},
+  {id:"s2", cat:"sound", q:"Как обстоит дело со свистящими и шипящими (С, Ш, Ч)?", opts:[{t:"Произносит чисто",b:3},{t:"Есть дефект, но старается",b:1},{t:"Не даёт / заменяет",b:0}]},
+  {id:"s3", cat:"sound", q:"Звуки Р и Л появляются?", opts:[{t:"Р и Л есть или формируются",b:3},{t:"Один отсутствует",b:1},{t:"Оба отсутствуют",b:0}], ageSensitive:true},
+  {id:"p1", cat:"phono", q:"Ребёнок различает похожие слова на слух (дом/том)?", opts:[{t:"Да, слышит разницу",b:3},{t:"Частично путает",b:1},{t:"Воспринимает одинаково",b:0}]},
+  {id:"p2", cat:"phono", q:"Может определить первый звук в слове?", opts:[{t:"Легко справляется",b:3},{t:"С помощью взрослого",b:1},{t:"Затрудняется",b:0}]},
+  {id:"v1", cat:"vocab", q:"Словарный запас соответствует возрасту?", opts:[{t:"Да, богатый",b:3},{t:"Бедноват",b:1},{t:"Очень ограничен",b:0}]},
+  {id:"v2", cat:"vocab", q:"Строит фразы нужной длины?", opts:[{t:"Да, говорит предложениями",b:3},{t:"Короткие фразы",b:1},{t:"Отдельные слова",b:0}]},
+  {id:"v3", cat:"vocab", q:"Правильно использует окончания и предлоги?", opts:[{t:"Практически без ошибок",b:3},{t:"Иногда ошибается",b:1},{t:"Частые ошибки",b:0}]},
+  {id:"c1", cat:"speech", q:"Понимает инструкции из 2–3 шагов?", opts:[{t:"Да, выполняет точно",b:3},{t:"Выполняет частично",b:1},{t:"Нужно повторять",b:0}]},
+  {id:"c2", cat:"speech", q:"Может пересказать простую историю?", opts:[{t:"Да, последовательно",b:3},{t:"Фрагментарно",b:1},{t:"Не может",b:0}]},
+  {id:"c3", cat:"speech", q:"Речь плавная? Есть ли запинки?", opts:[{t:"Плавная, без запинок",b:3},{t:"Изредка запинается",b:1},{t:"Частые запинки",b:0}]},
+  {id:"m1", cat:"motor", q:"Может выполнить артикуляционные движения?", opts:[{t:"Да, легко",b:3},{t:"С трудом",b:1},{t:"Не получается",b:0}]},
+  {id:"m2", cat:"motor", q:"Мелкая моторика развита для возраста?", opts:[{t:"Да, уверенно",b:3},{t:"Неуверенно",b:1},{t:"Отстаёт",b:0}]}
 ];
 
 const zoneMax = {};
@@ -472,20 +315,13 @@ let lastCat=null;
 QUESTIONS.forEach((q,idx)=>{
   if(q.cat!==lastCat){
     const c=CATS[q.cat];
-    host.insertAdjacentHTML("beforeend",`
-      <section class="block">
-        <h2><span class="cat-tag">${c.icon} ${c.name}</span></h2>
-        <p class="sub">Выберите вариант, который ближе всего к тому, что вы наблюдаете дома.</p>
-        <div id="grp-${q.cat}"></div>
-      </section>`);
+    host.insertAdjacentHTML("beforeend",`<section class="block"><h2><span class="cat-tag">${c.icon} ${c.name}</span></h2><div id="grp-${q.cat}"></div></section>`);
     lastCat=q.cat;
   }
   document.getElementById("grp-"+q.cat).insertAdjacentHTML("beforeend",`
     <div class="q" data-id="${q.id}">
       <span class="q-text">${idx+1}. ${q.q}${q.ageSensitive?' <small>(учитываем возраст)</small>':''}</span>
-      <div class="opts">
-        ${q.opts.map(o=>`<label class="opt"><input type="radio" name="${q.id}" value="${o.b}" required><span>${o.t}</span></label>`).join("")}
-      </div>
+      <div class="opts">${q.opts.map(o=>`<label class="opt"><input type="radio" name="${q.id}" value="${o.b}" required><span>${o.t}</span></label>`).join("")}</div>
     </div>`);
 });
 
@@ -497,237 +333,146 @@ document.addEventListener("change",e=>{
   }
 });
 
+let globalReportText = "";
+
 document.getElementById("scrForm").addEventListener("submit",async function(e){
   e.preventDefault();
-  
   const btn = document.getElementById("submitBtn");
   const spinner = document.getElementById("btnSpinner");
   const btnText = document.getElementById("btnText");
-  
-  btn.disabled = true;
-  spinner.style.display = "block";
-  btnText.textContent = "Анализируем ответы…";
+  btn.disabled = true; spinner.style.display = "block"; btnText.textContent = "Анализируем…";
 
-  const fd = new FormData(this);
   const childName = this.childName.value.trim();
   const parentName = this.parentName.value.trim();
   const age = this.ageGroup.value;
   const phone = this.phone.value.trim();
   const email = this.email.value.trim();
   const concern = this.concern.value.trim();
-  const consentGiven = this.consentBox.checked ? "ДА" : "НЕТ";
 
-  let total = 0; 
-  const byZone = {};
-  const detail = [];
-  
+  let total = 0; const byZone = {}; const detail = [];
   QUESTIONS.forEach(q => {
-    const val = parseInt(fd.get(q.id)) || 0;
-    total += val; 
-    byZone[q.cat] = (byZone[q.cat] || 0) + val;
+    const val = parseInt(this.querySelector(`input[name="${q.id}"]:checked`).value) || 0;
+    total += val; byZone[q.cat] = (byZone[q.cat] || 0) + val;
     const sel = this.querySelector(`input[name="${q.id}"]:checked`);
-    detail.push({
-      зона: CATS[q.cat].name,
-      вопрос: q.q,
-      ответ: sel ? sel.nextElementSibling.textContent : "—",
-      балл: val
-    });
+    detail.push(`${CATS[q.cat].name}: ${q.q} → ${sel.nextElementSibling.textContent} (${val}/3)`);
   });
 
   const pct = Math.round((total / TOTAL_MAX) * 100);
-
   let verdict, vClass, vTxt;
-  if(pct >= 80){
-    verdict = "Картина благополучная"; vClass = "ok";
-    vTxt = "По большинству показателей развитие речи выглядит соответствующим возрасту. Продолжайте общаться с ребёнком, читать вслух и играть словами.";
-  } else if(pct >= 55){
-    verdict = "Есть зоны для внимания"; vClass = "warn";
-    vTxt = "В отдельных направлениях заметны признаки, на которые стоит обратить внимание. Консультация специалиста поможет не упустить момент.";
-  } else {
-    verdict = "Рекомендуется очная диагностика"; vClass = "alert";
-    vTxt = "По нескольким зонам есть выраженные признаки, требующие внимания. Рекомендуем живое обследование у логопеда.";
-  }
+  if(pct >= 80){ verdict = "Картина благополучная"; vClass = "ok"; vTxt = "Развитие речи выглядит соответствующим возрасту."; }
+  else if(pct >= 55){ verdict = "Есть зоны для внимания"; vClass = "warn"; vTxt = "В отдельных направлениях заметны признаки, требующие наблюдения."; }
+  else{ verdict = "Рекомендуется очная диагностика"; vClass = "alert"; vTxt = "Есть выраженные признаки, требующие внимания логопеда."; }
 
-  // === РЕНДЕР ДЛЯ РОДИТЕЛЯ ===
-  const zonesHost = document.getElementById("zonesHost"); 
-  zonesHost.innerHTML = "";
-  
+  const zonesHost = document.getElementById("zonesHost"); zonesHost.innerHTML = "";
   const zoneData = [];
   Object.keys(CATS).forEach(key => {
-    const got = byZone[key] || 0;
-    const mx = zoneMax[key] || 1;
-    const zp = Math.round((got / mx) * 100);
-    zoneData.push({name: CATS[key].name, icon: CATS[key].icon, pct: zp});
-    
-    let cls;
-    if(zp >= 80) cls = "good";
-    else if(zp >= 50) cls = "watch";
-    else cls = "attention";
-    
-    zonesHost.insertAdjacentHTML("beforeend", `
-      <div class="zone ${cls}">
-        <div class="zone-head">
-          <h4>${CATS[key].icon} ${CATS[key].name}</h4>
-          <span class="zone-pct">${zp}%</span>
-        </div>
-        <div class="progress-bar"><div class="progress-fill" style="width:0%" data-width="${zp}%"></div></div>
-      </div>`);
+    const zp = Math.round(((byZone[key]||0)/(zoneMax[key]||1))*100);
+    zoneData.push(`${CATS[key].icon} ${CATS[key].name}: ${zp}%`);
+    let cls = zp >= 80 ? "good" : (zp >= 50 ? "watch" : "attention");
+    zonesHost.insertAdjacentHTML("beforeend", `<div class="zone ${cls}"><div class="zone-head"><h4>${CATS[key].icon} ${CATS[key].name}</h4><span class="zone-pct">${zp}%</span></div><div class="progress-bar"><div class="progress-fill" style="width:0%" data-width="${zp}%"></div></div></div>`);
   });
 
   setTimeout(() => {
-    document.querySelectorAll('.progress-fill').forEach(bar => {
-      bar.style.width = bar.getAttribute('data-width');
-    });
-    const color = vClass === 'ok' ? 'var(--ok)' : vClass === 'warn' ? 'var(--warn)' : 'var(--alert)';
+    document.querySelectorAll('.progress-fill').forEach(bar => bar.style.width = bar.getAttribute('data-width'));
+    const color = vClass === 'ok' ? 'var(--ok)' : (vClass === 'warn' ? 'var(--warn)' : 'var(--alert)');
     document.getElementById('scoreRing').style.background = `conic-gradient(${color} ${pct}%, var(--line) 0%)`;
   }, 100);
 
-  const ctaText = document.getElementById("ctaText");
-  if(vClass === "ok") ctaText.textContent = "Если хотите получить индивидуальные советы по развитию речи дома — напишите, я подскажу игры под ваш возраст.";
-  else if(vClass === "warn") ctaText.textContent = "Чтобы снять сомнения и получить точный маршрут развития — запишитесь на очную диагностику.";
-  else ctaText.textContent = "Есть основания для скорейшего обследования. Запишитесь на диагностику — и мы составим индивидуальный план занятий.";
-
   document.getElementById("rScore").textContent = pct + "%";
-  const rv = document.getElementById("rVerdict"); 
-  rv.textContent = verdict; 
-  rv.className = "verdict " + vClass;
+  const rv = document.getElementById("rVerdict"); rv.textContent = verdict; rv.className = "verdict " + vClass;
   document.getElementById("rVerdictTxt").textContent = vTxt;
   
+  const ctaText = document.getElementById("ctaText");
+  if(vClass === "ok") ctaText.textContent = "Если хотите получить советы по развитию речи дома — напишите, я подскажу игры.";
+  else ctaText.textContent = "Чтобы снять сомнения и получить точный маршрут — запишитесь на очную диагностику.";
+
   document.getElementById("scrForm").style.display = "none";
   document.getElementById("result").style.display = "block";
   window.scrollTo({top: 0, behavior: "smooth"});
 
-  // ================================================
-  // === ДВА ОТДЕЛЬНЫХ ПИСЬМА ===
-  // ================================================
-  const st = document.getElementById("sendStatus");
-  
-  // 1. КОРОТКОЕ ПИСЬМО РОДИТЕЛЮ (только то, что на экране)
-  const parentZonesText = zoneData.map(z => `${z.icon} ${z.name}: ${z.pct}%`).join('\n');
-  const parentBody = `Здравствуйте, ${parentName}!
-
-Вы прошли экспресс-скрининг речевого развития для ${childName} (${age}).
-
-ВАШ РЕЗУЛЬТАТ: ${pct}%
-${verdict}
-
-${vTxt}
-
-ПОКАЗАТЕЛИ ПО ЗОНАМ:
-${parentZonesText}
-
-${ctaText}
-
-С уважением,
-Анна Драчёва · Логопед · Психолог
-
----
-Результаты носят информационный характер и не являются диагнозом.`;
-
-  // 2. ПОЛНОЕ ПИСЬМО АННЕ
-  const detailText = detail.map((d, i) => 
-    `${i+1}. [${d.зона}]\nВопрос: ${d.вопрос}\nОтвет: ${d.ответ}\nБалл: ${d.балл}/3`
-  ).join('\n\n');
-
-  const zoneScoresText = zoneData.map(z => `${z.name}: ${z.pct}%`).join('\n');
-
-  const recs = [];
+  // Формируем текст отчёта для Анны
   const zp_sound = Math.round(((byZone['sound']||0)/(zoneMax['sound']||1))*100);
   const zp_phono = Math.round(((byZone['phono']||0)/(zoneMax['phono']||1))*100);
   const zp_vocab = Math.round(((byZone['vocab']||0)/(zoneMax['vocab']||1))*100);
   const zp_speech = Math.round(((byZone['speech']||0)/(zoneMax['speech']||1))*100);
   const zp_motor = Math.round(((byZone['motor']||0)/(zoneMax['motor']||1))*100);
 
-  if (zp_sound < 80) recs.push("🔤 ЗВУКОПРОИЗНОШЕНИЕ: артикуляционная гимнастика перед зеркалом, очная проверка постановки звуков.");
-  if (zp_phono < 80) recs.push("👂 ФОНЕМАТИЧЕСКИЙ СЛУХ: игры на различение звуков, хлопать слоги, искать заданный звук.");
-  if (zp_vocab < 80) recs.push("📖 СЛОВАРЬ: читать вслух, обсуждать, мягко корректировать грамматику.");
-  if (zp_speech < 80) recs.push("💬 СВЯЗНАЯ РЕЧЬ: пересказ мультфильмов, открытые вопросы.");
-  if (zp_motor < 80) recs.push("✋ МОТОРИКА: лепка, шнуровки, пальчиковые игры, упражнения для язычка.");
-  
+  const recs = [];
+  if (zp_sound < 80) recs.push("🔤 Звукопроизношение: артикуляционная гимнастика, очная проверка.");
+  if (zp_phono < 80) recs.push("👂 Фонематический слух: игры на различение звуков.");
+  if (zp_vocab < 80) recs.push("📖 Словарь: читать вслух, мягко корректировать грамматику.");
+  if (zp_speech < 80) recs.push("💬 Связная речь: пересказ мультфильмов, открытые вопросы.");
+  if (zp_motor < 80) recs.push("✋ Моторика: лепка, шнуровки, пальчиковые игры.");
   if (recs.length === 0) recs.push("✅ Развитие в норме. Поддерживать через чтение и игры.");
-  if (concern) recs.push(`⚠️ ОТ РОДИТЕЛЯ: "${concern}"`);
+  if (concern) recs.push(`⚠️ УЧЕСТЬ НА ДИАГНОСТИКЕ: ${concern}`);
 
-  let annaVerdict = "";
-  if (pct >= 80) annaVerdict = "Картина благополучная. Очно подтвердить.";
-  else if (pct >= 55) annaVerdict = "Есть зоны риска. Требуется очная диагностика.";
-  else annaVerdict = "Выраженные отклонения. СРОЧНАЯ очная диагностика.";
-
-  const fullAnnaBody = `ПОЛНЫЙ ОТЧЁТ ДЛЯ АННЫ
-
-Ребёнок: ${childName}
-Возраст: ${age}
-Родитель: ${parentName}
-Телефон: ${phone}
-Email: ${email}
+  globalReportText = `ЭКСПРЕСС-СКРИНИНГ РЕЧИ
 Дата: ${new Date().toLocaleString('ru-RU')}
 
-ИТОГ: ${pct}% (${verdict})
-Предварительное заключение: ${annaVerdict}
+РЕБЁНОК: ${childName}
+ВОЗРАСТ: ${age}
+РОДИТЕЛЬ: ${parentName}
+ТЕЛЕФОН: ${phone}
+EMAIL: ${email}
 
-БАЛЛЫ ПО ЗОНАМ:
-${zoneScoresText}
+ИТОГ: ${pct}% (${verdict})
+
+ПОКАЗАТЕЛИ ПО ЗОНАМ:
+${zoneData.join('\n')}
 
 ДЕТАЛИЗАЦИЯ ОТВЕТОВ:
-${detailText}
+${detail.join('\n')}
 
-ЧТО БЕСПОКОИТ РОДИТЕЛЯ:
+ЧТО БЕСПОКОИТ:
 ${concern || "Не указано"}
 
-РЕКОМЕНДАЦИИ:
-${recs.join('\n\n')}
+РЕКОМЕНДАЦИИ ДЛЯ АННЫ:
+${recs.join('\n')}
 
-СОГЛАСИЕ НА ОБРАБОТКУ ПД: ${consentGiven}
-Это не мед. услуга, не диагноз. Требуется очная консультация.`;
+=== ЮРИДИЧЕСКАЯ ЗАЩИТА (ФАС/152-ФЗ) ===
+1. Согласие на обработку ПД получено (галочка установлена).
+2. Скрининг носит информационный характер, не является мед. услугой или диагнозом.
+3. Требуется очная консультация специалиста.
+4. Не является публичной офертой.`;
 
-  // Отправка через formsubmit
-  async function sendEmail(to, subject, body) {
+  // Попытка автоматической отправки через formsubmit.app
+  try {
     const formData = new FormData();
-    formData.append("_subject", subject);
+    formData.append("_subject", `Скрининг: ${childName} (${age}) — ${pct}%`);
     formData.append("_template", "table");
     formData.append("_captcha", "false");
-    formData.append("message", body);
+    formData.append("message", globalReportText);
     
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000);
-    
-    try {
-      const r = await fetch(`https://formsubmit.co/ajax/${to}`, {
-        method: "POST",
-        body: formData,
-        headers: { "Accept": "application/json" },
-        signal: controller.signal
-      });
-      clearTimeout(timeoutId);
-      const j = await r.json();
-      return j.success === "true" || j.success === true || j.ok;
-    } catch(err) {
-      clearTimeout(timeoutId);
-      return false;
+    const r = await fetch(`https://formsubmit.app/ajax/${SEND_EMAIL}`, {
+      method: "POST", body: formData, headers: { "Accept": "application/json" }
+    });
+    const j = await r.json();
+    if(j.success === "true" || j.success === true || j.ok) {
+      document.getElementById("sendStatus").innerHTML = "✅ Письмо успешно отправлено Анне через formsubmit.app!";
+      document.getElementById("sendStatus").className = "send-status ok";
+    } else {
+      throw new Error("FormSubmit не подтвердил");
     }
-  }
-
-  // Отправляем оба письма параллельно
-  const [annaOk, parentOk] = await Promise.all([
-    sendEmail(SEND_EMAIL, `Лого-скрининг: ${childName} (${age}) — ${pct}%`, fullAnnaBody),
-    email ? sendEmail(email, `Результат скрининга для ${childName}`, parentBody) : Promise.resolve(true)
-  ]);
-
-  if (annaOk && parentOk) {
-    st.textContent = "✅ Результат отправлен Анне. Копия направлена на ваш email. Скоро свяжусь с вами!";
-    st.className = "send-status ok";
-  } else if (annaOk) {
-    st.textContent = "✅ Результат отправлен Анне. Копия на ваш email не дошла — проверьте почту или напишите напрямую.";
-    st.className = "send-status ok";
-  } else {
-    st.innerHTML = `⚠️ Письмо не отправлено. Email ${SEND_EMAIL} не подтверждён в FormSubmit.co.<br><br>
-      <strong>Решение:</strong> зайдите на https://formsubmit.co и подтвердите email. Либо напишите напрямую: ${SEND_EMAIL}`;
-    st.className = "send-status err";
+  } catch(err) {
+    document.getElementById("sendStatus").innerHTML = "⚠️ Браузер заблокировал автоотправку (частое явление при открытии файла с компьютера).<br><strong>Пожалуйста, нажмите одну из кнопок ниже, чтобы передать результат Анне:</strong>";
   }
   
-  btn.disabled = false;
-  spinner.style.display = "none";
-  btnText.textContent = "Показать результат и отправить Анне 🍃";
+  btn.disabled = false; spinner.style.display = "none"; btnText.textContent = "Отправляем результат специалисту…";
 });
+
+function copyReport() {
+  navigator.clipboard.writeText(globalReportText).then(() => {
+    alert("✅ Полный отчёт скопирован! Теперь вы можете вставить его в сообщение Анне в Telegram, WhatsApp или в письмо.");
+  }).catch(() => {
+    alert("Не удалось скопировать. Пожалуйста, используйте кнопку 'Открыть в почте'.");
+  });
+}
+
+function openMailto() {
+  const subject = encodeURIComponent(`Экспресс-скрининг речи: ${document.getElementById('childName').value} (${document.getElementById('ageGroup').value})`);
+  const body = encodeURIComponent(globalReportText);
+  window.location.href = `mailto:${SEND_EMAIL}?subject=${subject}&body=${body}`;
+}
 </script>
 </body>
 </html>
