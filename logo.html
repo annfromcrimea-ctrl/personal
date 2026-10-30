@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Экспресс-скрининг речи · Анна Драчёва</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ff9d9d'/%3E%3Cstop offset='1' stop-color='%237a2e36'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath fill='url(%23g)' d='M16 20c0-7 6-12 13-12s13 5 13 12c0 1 0 2-1 3 5 1 9 6 9 11 0 7-6 12-13 12H22c-7 0-12-5-12-12 0-5 3-9 8-11-1-1-2-2-2-3z'/%3E%3Ctext x='32' y='42' font-family='Georgia' font-size='24' font-weight='bold' fill='white' text-anchor='middle'%3EР%3C/text%3E%3C/svg%3E">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Nunito+Sans:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
     --burgundy:#7a2e36; --burgundy-dark:#5d1f26; --burgundy-light:#fdf6f7;
@@ -17,28 +17,29 @@
     --mint:#d1fae5; --pink:#fce7f3; --peach:#fed7aa;
     --shadow:0 10px 40px -10px rgba(122, 46, 54, 0.08); 
     --radius:16px;
-    --serif:'Playfair Display', Georgia, serif;
-    --sans:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    --hand:'Caveat', cursive;
+    --serif:'Nunito Sans', Nunito, sans-serif;
+    --sans:'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
+    --hand:'Nunito', cursive;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   body{
     font-family:var(--sans);
     background-color: var(--cream);
     background-image: 
-      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E"),
-      radial-gradient(circle at 10% 20%, rgba(209, 250, 229, 0.7) 0%, transparent 40%),
-      radial-gradient(circle at 90% 10%, rgba(252, 231, 243, 0.7) 0%, transparent 40%),
-      radial-gradient(circle at 80% 80%, rgba(254, 215, 170, 0.6) 0%, transparent 45%),
-      radial-gradient(circle at 20% 90%, rgba(122, 46, 54, 0.08) 0%, transparent 35%),
-      radial-gradient(circle at 50% 50%, rgba(253, 186, 116, 0.4) 0%, transparent 50%);
-    background-size: 200px 200px, 200% 200%, 200% 200%, 200% 200%, 200% 200%, 200% 200%;
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E"),
+      radial-gradient(circle at 10% 20%, rgba(209, 250, 229, 0.9) 0%, transparent 45%),
+      radial-gradient(circle at 90% 10%, rgba(252, 231, 243, 0.9) 0%, transparent 45%),
+      radial-gradient(circle at 80% 80%, rgba(254, 215, 170, 0.85) 0%, transparent 50%),
+      radial-gradient(circle at 20% 90%, rgba(253, 186, 116, 0.7) 0%, transparent 40%),
+      radial-gradient(circle at 50% 50%, rgba(251, 146, 60, 0.5) 0%, transparent 55%),
+      radial-gradient(circle at 70% 30%, rgba(167, 243, 208, 0.7) 0%, transparent 45%);
+    background-size: 200px 200px, 200% 200%, 200% 200%, 200% 200%, 200% 200%, 200% 200%, 200% 200%;
     animation: bgBreathe 30s ease-in-out infinite alternate;
-    color:var(--graphite);line-height:1.6;-webkit-font-smoothing:antialiased;min-height: 100vh;overflow-x: hidden;position: relative;
+    color:var(--graphite);line-height:1.5;-webkit-font-smoothing:antialiased;min-height: 100vh;overflow-x: hidden;position: relative;
   }
   @keyframes bgBreathe {
-    0% { background-position: 0 0, 0% 50%, 100% 50%, 50% 100%, 50% 0%, 50% 50%; }
-    100% { background-position: 0 0, 100% 50%, 0% 50%, 50% 0%, 50% 100%, 60% 60%; }
+    0% { background-position: 0 0, 0% 50%, 100% 50%, 50% 100%, 50% 0%, 50% 50%, 70% 30%; }
+    100% { background-position: 0 0, 100% 50%, 0% 50%, 50% 0%, 50% 100%, 60% 60%, 30% 70%; }
   }
   @media (prefers-reduced-motion: reduce) {
     body { animation: none !important; }
@@ -46,98 +47,98 @@
   }
 
   .doodles{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-  .doodle{position:absolute;font-family:var(--hand);opacity:.15;transform:rotate(var(--r,0deg));font-size:var(--fs,3rem);animation:floaty var(--t,8s) ease-in-out infinite alternate;white-space:nowrap;user-select:none}
-  .doodle.letter{color:var(--burgundy);font-weight:700}
-  .doodle.bubble{font-family:var(--sans);background:var(--white);border:2px dashed var(--burgundy);border-radius:50% 50% 50% 20%;padding:8px 16px;font-size:1.1rem;color:var(--burgundy);font-weight:600;opacity:.2}
-  .doodle.emoji{font-family:'Nunito',sans-serif;opacity:.3;font-size:var(--fs,2.5rem)}
+  .doodle{position:absolute;font-family:var(--hand);opacity:.2;transform:rotate(var(--r,0deg));font-size:var(--fs,3rem);animation:floaty var(--t,8s) ease-in-out infinite alternate;white-space:nowrap;user-select:none}
+  .doodle.letter{color:var(--burgundy);font-weight:800}
+  .doodle.bubble{font-family:var(--sans);background:var(--white);border:2px dashed var(--burgundy);border-radius:50% 50% 50% 20%;padding:8px 16px;font-size:1.1rem;color:var(--burgundy);font-weight:700;opacity:.25}
+  .doodle.emoji{font-family:'Nunito',sans-serif;opacity:.35;font-size:var(--fs,2.5rem)}
   @keyframes floaty{from{transform:translateY(-10px) rotate(var(--r,0deg))}to{transform:translateY(12px) rotate(calc(var(--r,0deg) + 4deg))}}
 
-  .container{max-width:800px;margin:0 auto;padding:24px 20px 60px;position:relative;z-index:1}
-  header.hero{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:40px 32px;margin-bottom:28px;border-top:5px solid var(--burgundy);position:relative;overflow:hidden}
-  header.hero::before{content:"";position:absolute;top:-40px;right:-40px;width:160px;height:160px;background: radial-gradient(circle, var(--mint) 0%, transparent 70%);opacity:.6; border-radius: 50%}
-  header.hero::after{content:"";position:absolute;bottom:-30px;left:-30px;width:120px;height:120px;background: radial-gradient(circle, var(--pink) 0%, transparent 70%);opacity:.6; border-radius: 50%}
-  .hero h1{font-family:var(--serif);color:var(--burgundy);font-size:2.2rem;line-height:1.2;margin-bottom:8px;position:relative}
-  .hero .role{font-size:.85rem;color:var(--gray);text-transform:uppercase;letter-spacing:1.5px;font-weight:600;margin-bottom:16px;position:relative}
-  .hero p{color:var(--graphite);font-size:1.05rem;max-width:640px;line-height:1.7;position:relative}
-  .disclaimer{margin-top:20px;background:var(--warn-bg);border:1px solid #fcd34d;border-left:4px solid var(--warn);border-radius:8px;padding:14px 16px;font-size:.88rem;color:#92400e;display:flex;gap:12px;align-items:flex-start;position:relative;line-height: 1.5}
+  .container{max-width:800px;margin:0 auto;padding:20px 16px 50px;position:relative;z-index:1}
+  header.hero{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px 24px;margin-bottom:20px;border-top:5px solid var(--burgundy);position:relative;overflow:hidden}
+  header.hero::before{content:"";position:absolute;top:-40px;right:-40px;width:160px;height:160px;background: radial-gradient(circle, var(--mint) 0%, transparent 70%);opacity:.7; border-radius: 50%}
+  header.hero::after{content:"";position:absolute;bottom:-30px;left:-30px;width:120px;height:120px;background: radial-gradient(circle, var(--pink) 0%, transparent 70%);opacity:.7; border-radius: 50%}
+  .hero h1{font-family:var(--serif);color:var(--burgundy);font-size:1.9rem;line-height:1.2;margin-bottom:6px;position:relative;font-weight:800}
+  .hero .role{font-size:.8rem;color:var(--gray);text-transform:uppercase;letter-spacing:1.5px;font-weight:700;margin-bottom:12px;position:relative}
+  .hero p{color:var(--graphite);font-size:.95rem;max-width:640px;line-height:1.5;position:relative}
+  .disclaimer{margin-top:16px;background:var(--warn-bg);border:1px solid #fcd34d;border-left:4px solid var(--warn);border-radius:8px;padding:12px 14px;font-size:.85rem;color:#92400e;display:flex;gap:12px;align-items:flex-start;position:relative;line-height: 1.4}
   .disclaimer span{font-size:1.3rem;line-height:1;flex-shrink:0}
 
-  .block{background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);border-radius:var(--radius);box-shadow:0 4px 20px rgba(0,0,0,.03);padding:32px;margin-bottom:24px;border:1px solid var(--line);transition:transform .3s, box-shadow .3s}
+  .block{background:rgba(255,255,255,0.97);backdrop-filter:blur(8px);border-radius:var(--radius);box-shadow:0 4px 20px rgba(0,0,0,.03);padding:24px;margin-bottom:18px;border:1px solid var(--line);transition:transform .3s, box-shadow .3s}
   .block:hover{box-shadow:var(--shadow)}
-  .block h2{font-family:var(--serif);font-size:1.4rem;margin-bottom:8px;display:flex;align-items:center;gap:12px;color:var(--graphite)}
-  .block .sub{color:var(--gray);font-size:.95rem;margin-bottom:24px;line-height:1.5}
-  .cat-tag{display:inline-flex;align-items:center;gap:6px;background:var(--burgundy-light);border:1px solid #f3dce0;color:var(--burgundy);font-size:.75rem;font-weight:700;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px}
+  .block h2{font-family:var(--serif);font-size:1.25rem;margin-bottom:6px;display:flex;align-items:center;gap:10px;color:var(--graphite);font-weight:800}
+  .block .sub{color:var(--gray);font-size:.9rem;margin-bottom:20px;line-height:1.4}
+  .cat-tag{display:inline-flex;align-items:center;gap:6px;background:var(--burgundy-light);border:1px solid #f3dce0;color:var(--burgundy);font-size:.7rem;font-weight:800;padding:4px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px}
 
-  .q{border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:16px;background:var(--white);transition:.2s}
+  .q{border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:12px;background:var(--white);transition:.2s}
   .q:hover{border-color:#d1d5db}
-  .q-text{font-weight:600;margin-bottom:16px;display:block;font-size:1.02rem;color:var(--graphite)}
-  .q-text small{font-weight:400;color:var(--gray);font-size:.85rem}
-  .opts{display:grid;gap:10px}
-  .opt{display:flex;gap:12px;align-items:flex-start;background:var(--cream);border:2px solid transparent;border-radius:10px;padding:14px 16px;cursor:pointer;transition:.2s;font-size:.95rem;position:relative}
+  .q-text{font-weight:700;margin-bottom:12px;display:block;font-size:.95rem;color:var(--graphite)}
+  .q-text small{font-weight:400;color:var(--gray);font-size:.8rem}
+  .opts{display:grid;gap:8px}
+  .opt{display:flex;gap:10px;align-items:flex-start;background:var(--cream);border:2px solid transparent;border-radius:8px;padding:12px 14px;cursor:pointer;transition:.2s;font-size:.9rem;position:relative}
   .opt:hover{background:var(--white);border-color:#d1d5db}
-  .opt input{margin-top:3px;accent-color:var(--burgundy);width:18px;height:18px;flex-shrink:0}
+  .opt input{margin-top:2px;accent-color:var(--burgundy);width:16px;height:16px;flex-shrink:0}
   .opt.sel{border-color:var(--burgundy);background:var(--burgundy-light);box-shadow:0 0 0 3px rgba(122,46,54,.08)}
-  .opt.sel::after{content:"✓";position:absolute;right:16px;top:50%;transform:translateY(-50%);color:var(--burgundy);font-weight:900;font-size:1.2rem}
+  .opt.sel::after{content:"✓";position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--burgundy);font-weight:900;font-size:1.1rem}
 
-  .fields{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}
   @media(max-width:600px){.fields{grid-template-columns:1fr}}
-  label.fl{display:block;font-size:.85rem;color:var(--gray);margin-bottom:6px;font-weight:600}
-  input[type=text],input[type=email],input[type=tel],select,textarea{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;font:inherit;font-size:.95rem;background:var(--white);color:var(--graphite);transition:.2s}
+  label.fl{display:block;font-size:.8rem;color:var(--gray);margin-bottom:4px;font-weight:700}
+  input[type=text],input[type=email],input[type=tel],select,textarea{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:8px;font:inherit;font-size:.9rem;background:var(--white);color:var(--graphite);transition:.2s;font-weight:600}
   input:focus,select:focus,textarea:focus{outline:none;border-color:var(--burgundy);box-shadow:0 0 0 4px rgba(122,46,54,.08)}
-  textarea{resize:vertical;min-height:90px}
+  textarea{resize:vertical;min-height:80px}
 
-  .agree{display:flex;gap:12px;align-items:flex-start;margin-top:24px;font-size:.88rem;color:var(--gray);line-height:1.5}
-  .agree input{width:18px;height:18px;margin-top:2px;flex-shrink:0;accent-color:var(--burgundy)}
-  .btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;text-align:center;background:var(--burgundy);color:#fff;border:none;padding:16px;border-radius:10px;font-weight:700;font-size:1.05rem;cursor:pointer;margin-top:24px;transition:.2s;box-shadow:0 4px 14px rgba(122,46,54,.25)}
+  .agree{display:flex;gap:10px;align-items:flex-start;margin-top:20px;font-size:.85rem;color:var(--gray);line-height:1.4}
+  .agree input{width:16px;height:16px;margin-top:2px;flex-shrink:0;accent-color:var(--burgundy)}
+  .btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;text-align:center;background:var(--burgundy);color:#fff;border:none;padding:14px;border-radius:10px;font-weight:800;font-size:1rem;cursor:pointer;margin-top:20px;transition:.2s;box-shadow:0 4px 14px rgba(122,46,54,.25);font-family:var(--sans)}
   .btn:hover{background:var(--burgundy-dark);transform:translateY(-1px)}
   .btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
-  .spinner{width:20px;height:20px;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;display:none}
+  .spinner{width:18px;height:18px;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;display:none}
   @keyframes spin{to{transform:rotate(360deg)}}
 
   #result{display:none;animation:fadeIn .6s ease-out}
   @keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
-  .score-container{display:flex;flex-direction:column;align-items:center;margin-bottom:32px}
-  .score-ring{width:180px;height:180px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;background:conic-gradient(var(--burgundy) 0%, var(--line) 0%);transition:background 1.5s cubic-bezier(0.4, 0, 0.2, 1);box-shadow:var(--shadow)}
+  .score-container{display:flex;flex-direction:column;align-items:center;margin-bottom:24px}
+  .score-ring{width:160px;height:160px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;background:conic-gradient(var(--burgundy) 0%, var(--line) 0%);transition:background 1.5s cubic-bezier(0.4, 0, 0.2, 1);box-shadow:var(--shadow)}
   .score-ring::before{content:"";position:absolute;inset:8px;background:var(--white);border-radius:50%}
-  .score-ring .num{position:relative;font-size:3rem;font-weight:800;color:var(--burgundy);line-height:1;z-index:1}
-  .score-ring .lbl{position:relative;font-size:.75rem;letter-spacing:2px;color:var(--gray);font-weight:600;margin-top:4px;z-index:1}
+  .score-ring .num{position:relative;font-size:2.5rem;font-weight:800;color:var(--burgundy);line-height:1;z-index:1}
+  .score-ring .lbl{position:relative;font-size:.7rem;letter-spacing:2px;color:var(--gray);font-weight:700;margin-top:4px;z-index:1}
   
-  .verdict{text-align:center;font-family:var(--serif);font-size:1.6rem;margin-bottom:8px;font-weight:700}
+  .verdict{text-align:center;font-family:var(--serif);font-size:1.4rem;margin-bottom:6px;font-weight:800}
   .verdict.ok{color:var(--ok)}.verdict.warn{color:var(--warn)}.verdict.alert{color:var(--alert)}
-  .verdict-txt{text-align:center;color:var(--graphite);max-width:600px;margin:0 auto 32px;font-size:1.05rem;line-height:1.6}
+  .verdict-txt{text-align:center;color:var(--graphite);max-width:600px;margin:0 auto 24px;font-size:.95rem;line-height:1.5}
 
-  .zone{border:1px solid var(--line);border-left:5px solid var(--gray);border-radius:10px;padding:16px 20px;margin-bottom:12px;background:var(--white)}
+  .zone{border:1px solid var(--line);border-left:5px solid var(--gray);border-radius:8px;padding:14px 16px;margin-bottom:10px;background:var(--white)}
   .zone.good{border-left-color:var(--ok);background:var(--ok-bg)}
   .zone.watch{border-left-color:var(--warn);background:var(--warn-bg)}
   .zone.attention{border-left-color:var(--alert);background:var(--alert-bg)}
-  .zone-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-  .zone h4{font-size:1rem;font-weight:700;display:flex;align-items:center;gap:8px;margin:0}
-  .zone-pct{font-weight:800;font-size:1.1rem}
+  .zone-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+  .zone h4{font-size:.9rem;font-weight:700;display:flex;align-items:center;gap:6px;margin:0}
+  .zone-pct{font-weight:800;font-size:1rem}
   .zone.good .zone-pct{color:var(--ok)}.zone.watch .zone-pct{color:var(--warn)}.zone.attention .zone-pct{color:var(--alert)}
-  .progress-bar{height:8px;background:rgba(0,0,0,.06);border-radius:4px;overflow:hidden}
+  .progress-bar{height:6px;background:rgba(0,0,0,.06);border-radius:4px;overflow:hidden}
   .progress-fill{height:100%;border-radius:4px;transition:width 1.5s cubic-bezier(0.4, 0, 0.2, 1);width:0}
   .zone.good .progress-fill{background:var(--ok)}.zone.watch .progress-fill{background:var(--warn)}.zone.attention .progress-fill{background:var(--alert)}
 
-  .cta-book{background:var(--burgundy-light);border:1px solid #f3dce0;border-radius:12px;padding:28px;text-align:center;margin-top:32px}
-  .cta-book p{color:var(--graphite);margin-bottom:18px;font-size:1.05rem;font-weight:500}
-  .cta-book a{display:inline-block;background:var(--burgundy);color:#fff;text-decoration:none;padding:14px 28px;border-radius:10px;font-weight:700;transition:.2s;box-shadow:0 4px 14px rgba(122,46,54,.2)}
+  .cta-book{background:var(--burgundy-light);border:1px solid #f3dce0;border-radius:12px;padding:22px;text-align:center;margin-top:24px}
+  .cta-book p{color:var(--graphite);margin-bottom:14px;font-size:.95rem;font-weight:600}
+  .cta-book a{display:inline-block;background:var(--burgundy);color:#fff;text-decoration:none;padding:12px 24px;border-radius:8px;font-weight:700;transition:.2s;box-shadow:0 4px 14px rgba(122,46,54,.2);font-size:.95rem}
   .cta-book a:hover{background:var(--burgundy-dark);transform:translateY(-2px)}
   
-  .send-status{text-align:center;font-size:.95rem;font-weight:600;margin-top:24px;padding:16px;border-radius:8px;line-height:1.5}
+  .send-status{text-align:center;font-size:.9rem;font-weight:700;margin-top:20px;padding:14px;border-radius:8px;line-height:1.4}
   .send-status.ok{color:var(--ok);background:var(--ok-bg);border:1px solid #a7f3d0}
   .send-status.warn{color:#92400e;background:var(--warn-bg);border:1px solid #fcd34d}
   .send-status.error{color:var(--alert);background:var(--alert-bg);border:1px solid #fecaca}
 
-  .fas-disclaimer{margin-top: 24px;padding: 16px;background: #f8fafc;border: 1px solid var(--line);border-radius: 8px;font-size: 0.82rem;color: var(--gray);text-align: center;line-height: 1.5}
+  .fas-disclaimer{margin-top: 20px;padding: 14px;background: #f8fafc;border: 1px solid var(--line);border-radius: 8px;font-size: .8rem;color: var(--gray);text-align: center;line-height: 1.4}
 
-  .action-buttons{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+  .action-buttons{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
   @media(max-width:500px){.action-buttons{grid-template-columns:1fr}}
-  .btn-secondary{background:var(--white);color:var(--burgundy);border:2px solid var(--burgundy);box-shadow:none}
+  .btn-secondary{background:var(--white);color:var(--burgundy);border:2px solid var(--burgundy);box-shadow:none;font-weight:700;font-size:.9rem}
   .btn-secondary:hover{background:var(--burgundy-light)}
 
-  footer{text-align:center;padding:32px 0 0;font-size:.85rem;color:var(--gray);border-top:1px solid var(--line);margin-top:40px;line-height:1.8}
-  footer a{color:var(--burgundy);text-decoration:none;font-weight:600}
-  .back{display:inline-flex;align-items:center;gap:6px;margin-bottom:20px;color:var(--burgundy);text-decoration:none;font-size:.95rem;font-weight:600;transition:.2s}
+  footer{text-align:center;padding:24px 0 0;font-size:.8rem;color:var(--gray);border-top:1px solid var(--line);margin-top:32px;line-height:1.6}
+  footer a{color:var(--burgundy);text-decoration:none;font-weight:700}
+  .back{display:inline-flex;align-items:center;gap:6px;margin-bottom:16px;color:var(--burgundy);text-decoration:none;font-size:.9rem;font-weight:700;transition:.2s}
   .back:hover{gap:10px}
 </style>
 </head>
@@ -203,10 +204,10 @@
   <header class="hero">
     <h1>Экспресс-скрининг речевого развития</h1>
     <div class="role">Анна Драчёва · Логопед · Психолог</div>
-    <p>Короткая ориентировочная проверка (5–7 минут). Поможет понять, есть ли у ребёнка признаки, на которые стоит обратить внимание, и подготовиться к разговору со специалистом.</p>
+    <p>Короткая ориентировочная проверка (5–7 минут). Поможет понять, есть ли у ребёнка признаки, на которые стоит обратить внимание.</p>
     <div class="disclaimer">
       <span>⚠️</span>
-      <div>Результаты скрининга носят исключительно информационно-ознакомительный характер. Они не являются медицинской услугой, диагнозом и не заменяют очную консультацию специалиста.</div>
+      <div>Результаты носят информационный характер и не заменяют очную консультацию специалиста.</div>
     </div>
   </header>
 
@@ -226,7 +227,7 @@
           </select>
         </div>
       </div>
-      <div class="fields" style="margin-top:18px">
+      <div class="fields" style="margin-top:14px">
         <div><label class="fl">Ваше имя *</label><input type="text" id="parentName" required placeholder="Как к вам обращаться?"></div>
       </div>
     </section>
@@ -234,14 +235,14 @@
     <div id="questionsHost"></div>
 
     <section class="block">
-      <h2><span class="cat-tag">💬 Дополнительно</span> Что беспокоит больше всего?</h2>
+      <h2><span class="cat-tag">💬 Дополнительно</span> Что беспокоит?</h2>
       <textarea id="concern" placeholder="Например: путает звуки Р и Л, плохо строит предложения..."></textarea>
     </section>
 
     <section class="block">
       <label class="agree">
         <input type="checkbox" id="consentBox" required>
-        <span>Я даю согласие на обработку указанных данных в соответствии с 152-ФЗ для проведения скрининга.</span>
+        <span>Я даю согласие на обработку данных в соответствии с 152-ФЗ.</span>
       </label>
       <button type="submit" class="btn" id="submitBtn">
         <span class="spinner" id="btnSpinner"></span>
@@ -260,7 +261,7 @@
     <div class="verdict" id="rVerdict">—</div>
     <p class="verdict-txt" id="rVerdictTxt"></p>
 
-    <h2 style="font-family:var(--serif);font-size:1.3rem;margin-bottom:20px;text-align:center">Показатели по зонам</h2>
+    <h2 style="font-family:var(--serif);font-size:1.2rem;margin-bottom:16px;text-align:center;font-weight:800">Показатели по зонам</h2>
     <div id="zonesHost"></div>
 
     <div class="cta-book" id="ctaBook">
@@ -272,7 +273,7 @@
       * Результаты носят информационный характер и не являются медицинским диагнозом.
     </div>
 
-    <button class="btn" style="background:var(--white);color:var(--burgundy);border:2px solid var(--burgundy);box-shadow:none;margin-top:16px" onclick="location.reload()">Пройти заново</button>
+    <button class="btn" style="background:var(--white);color:var(--burgundy);border:2px solid var(--burgundy);box-shadow:none;margin-top:16px;font-weight:700" onclick="location.reload()">Пройти заново</button>
   </section>
 
   <footer>
@@ -284,11 +285,11 @@
 <script>
 const SEND_EMAIL = "annfromcrimea@gmail.com";
 const CATS = {
-  sound:  {name:"Звукопроизношение", icon:"🔤"},
-  phono:  {name:"Фонематический слух", icon:"👂"},
+  sound:  {name:"Звукопроизношение", icon:""},
+  phono:  {name:"Фонематический слух", icon:""},
   vocab:  {name:"Словарь и грамматика", icon:"📖"},
-  speech: {name:"Связная речь и понимание", icon:"💬"},
-  motor:  {name:"Артикуляция и моторика", icon:""}
+  speech: {name:"Связная речь", icon:""},
+  motor:  {name:"Артикуляция и моторика", icon:"✋"}
 };
 
 const QUESTIONS = [
@@ -401,7 +402,6 @@ document.getElementById("scrForm").addEventListener("submit", function(e){
 
   const recs = [];
   
-  // ЗВУКОПРОИЗНОШЕНИЕ
   if (zp_sound < 80) {
     recs.push("=== ЗВУКОПРОИЗНОШЕНИЕ ===");
     recs.push("ПРИОРИТЕТ: Высокий");
@@ -415,115 +415,108 @@ document.getElementById("scrForm").addEventListener("submit", function(e){
     recs.push("");
     recs.push("КОНТРОЛЬ:");
     recs.push("- Не сюсюкать, говорить чисто.");
-    recs.push("- Не ставить звуки самостоятельно без логопеда (риск закрепления неправильного уклада).");
+    recs.push("- Не ставить звуки самостоятельно без логопеда.");
     recs.push("");
     recs.push("ПОСОБИЯ:");
-    recs.push("- Книга: «Артикуляционная гимнастика» Т.А. Куликовская (с иллюстрациями).");
+    recs.push("- Книга: «Артикуляционная гимнастика» Т.А. Куликовская.");
     recs.push("- Пособие: «Логопедические домашние задания» Т.А. Ткаченко.");
-    recs.push("- Видео: YouTube-канал «Логопедия для всех» (упражнения в картинках).");
+    recs.push("- Видео: YouTube-канал «Логопедия для всех».");
   }
   
-  // ФОНЕМАТИЧЕСКИЙ СЛУХ
   if (zp_phono < 80) {
     recs.push("");
     recs.push("=== ФОНЕМАТИЧЕСКИЙ СЛУХ ===");
     recs.push("ПРИОРИТЕТ: Высокий");
     recs.push("");
     recs.push("ИГРЫ (ежедневно 10 мин):");
-    recs.push("1. «Поймай звук» — хлопни, когда услышишь звук [С] в ряду слов.");
+    recs.push("1. «Поймай звук» — хлопни, когда услышишь звук [С].");
     recs.push("2. «Назови слова» — придумать слова на заданный звук.");
-    recs.push("3. «Определи первый звук» — в словах: мак, сок, дом, кот.");
-    recs.push("4. «Раздели на слоги» — хлопками: ма-ши-на, со-ба-ка.");
-    recs.push("5. «Повтори без ошибки» — взрослый называет пары: дом-том, коса-коза.");
+    recs.push("3. «Определи первый звук» — в словах: мак, сок, дом.");
+    recs.push("4. «Раздели на слоги» — хлопками: ма-ши-на.");
+    recs.push("5. «Повтори без ошибки» — пары: дом-том, коса-коза.");
     recs.push("");
     recs.push("ПОСОБИЯ:");
     recs.push("- Книга: «Развитие фонематического восприятия» Н.В. Нищевой.");
-    recs.push("- Рабочая тетрадь: «От А до Я» (подготовка к грамоте).");
-    recs.push("- Игры: лото «Звуки и буквы», карточки с картинками на оппозиционные звуки.");
+    recs.push("- Рабочая тетрадь: «От А до Я».");
+    recs.push("- Игры: лото «Звуки и буквы».");
   }
   
-  // СЛОВАРЬ И ГРАММАТИКА
   if (zp_vocab < 80) {
     recs.push("");
     recs.push("=== СЛОВАРЬ И ГРАММАТИКА ===");
     recs.push("ПРИОРИТЕТ: Средний");
     recs.push("");
     recs.push("ЕЖЕДНЕВНЫЕ ЗАНЯТИЯ:");
-    recs.push("1. Проговаривайте все действия: «Мы моем чашку, чашка синяя, она стоит на столе».");
-    recs.push("2. Игры: «Один – много» (стул-стулья), «Назови ласково» (дом-домик).");
-    recs.push("3. «Кто что делает?» — врач лечит, учитель учит, повар варит.");
-    recs.push("4. Чтение с обсуждением: «Почему герой так поступил? Что будет дальше?».");
-    recs.push("5. «Четвёртый лишний» — найти лишнее слово в ряду (стул, стол, кровать, яблоко).");
+    recs.push("1. Проговаривайте все действия.");
+    recs.push("2. Игры: «Один – много», «Назови ласково».");
+    recs.push("3. «Кто что делает?» — врач лечит, учитель учит.");
+    recs.push("4. Чтение с обсуждением.");
+    recs.push("5. «Четвёртый лишний».");
     recs.push("");
     recs.push("ПОСОБИЯ:");
-    recs.push("- Книга: «Развитие речи» О.С. Ушаковой (по возрастам).");
+    recs.push("- Книга: «Развитие речи» О.С. Ушаковой.");
     recs.push("- Серия: «Мои первые слова» с картинками.");
-    recs.push("- Игры: лото «Профессии», «Одежда», «Продукты», «Животные».");
-    recs.push("- Карточки Домана или Зайцева для расширения словаря.");
+    recs.push("- Игры: лото «Профессии», «Одежда», «Продукты».");
   }
   
-  // СВЯЗНАЯ РЕЧЬ
   if (zp_speech < 80) {
     recs.push("");
     recs.push("=== СВЯЗНАЯ РЕЧЬ ===");
     recs.push("ПРИОРИТЕТ: Средний");
     recs.push("");
     recs.push("УПРАЖНЕНИЯ:");
-    recs.push("1. Пересказ по картинкам: «Что сначала, что потом?».");
-    recs.push("2. Составление рассказов по серии картинок (3-4 картинки).");
-    recs.push("3. «Что было сначала, а что потом?» — восстановление последовательности.");
-    recs.push("4. Поощрение длинных предложений: не перебивать, дать время на формулировку.");
-    recs.push("5. «Расскажи про...» — про игрушку, про прогулку, про мультфильм.");
+    recs.push("1. Пересказ по картинкам.");
+    recs.push("2. Составление рассказов по серии картинок.");
+    recs.push("3. «Что было сначала, а что потом?».");
+    recs.push("4. Поощрение длинных предложений.");
+    recs.push("5. «Расскажи про...».");
     recs.push("");
     recs.push("ПОСОБИЯ:");
-    recs.push("- Серия книг: «Учимся пересказывать» (по сказкам).");
-    recs.push("- Пособие: «Составление рассказов по картинкам» (Т.А. Ткаченко).");
-    recs.push("- Карточки: серии картинок для составления рассказов (изд. «Карьера Пресс»).");
+    recs.push("- Серия: «Учимся пересказывать».");
+    recs.push("- Пособие: «Составление рассказов по картинкам» Т.А. Ткаченко.");
   }
   
-  // МОТОРИКА
   if (zp_motor < 80) {
     recs.push("");
     recs.push("=== МЕЛКАЯ МОТОРИКА ===");
     recs.push("ПРИОРИТЕТ: Высокий (связана с речевыми центрами!)");
     recs.push("");
     recs.push("ЕЖЕДНЕВНЫЕ ЗАНЯТИЯ (15-20 мин):");
-    recs.push("1. Лепка: пластилин, солёное тесто (разминать, раскатывать, отщипывать).");
-    recs.push("2. Шнуровки: ботинок, карточки со шнуровкой.");
-    recs.push("3. Мозаика: выкладывание по образцу и свободно.");
-    recs.push("4. Нанизывание: бусины, макароны на шнурок.");
-    recs.push("5. Вырезание ножницами: прямые линии, затем фигуры.");
-    recs.push("6. Пальчиковые игры: «Сорока-ворона», «Этот пальчик...» со стихами.");
-    recs.push("7. Су-джок терапия: массаж шариками с шипами.");
+    recs.push("1. Лепка: пластилин, солёное тесто.");
+    recs.push("2. Шнуровки.");
+    recs.push("3. Мозаика.");
+    recs.push("4. Нанизывание: бусины, макароны.");
+    recs.push("5. Вырезание ножницами.");
+    recs.push("6. Пальчиковые игры со стихами.");
+    recs.push("7. Су-джок терапия.");
     recs.push("");
     recs.push("ПОСОБИЯ:");
     recs.push("- Книга: «Пальчиковые игры» И.А. Галкиной.");
-    recs.push("- Набор: «Шнуровки» (деревянные или картонные).");
-    recs.push("- Мозаика: крупная (для 3-4 лет), мелкая (для 5-6 лет).");
-    recs.push("- Су-джок мячики и кольца (продаются в аптеке).");
+    recs.push("- Набор: «Шнуровки».");
+    recs.push("- Мозаика.");
+    recs.push("- Су-джок мячики (в аптеке).");
   }
   
-  // ОБЩИЕ РЕКОМЕНДАЦИИ
   if (recs.length === 0) {
     recs.push("=== ОБЩИЕ РЕКОМЕНДАЦИИ ===");
     recs.push("Развитие в норме. Поддерживать через:");
-    recs.push("1. Ежедневное чтение (15-20 мин) с обсуждением.");
-    recs.push("2. Пальчиковые игры со стихами.");
-    recs.push("3. Создание богатой речевой среды: проговаривать действия, задавать вопросы.");
-    recs.push("4. Настольные игры: лото, домино, мемо (развитие внимания и речи).");
+    recs.push("1. Ежедневное чтение (15-20 мин).");
+    recs.push("2. Пальчиковые игры.");
+    recs.push("3. Богатая речевая среда.");
+    recs.push("4. Настольные игры: лото, домино.");
   }
   
   if (concern) {
     recs.push("");
-    recs.push("=== ДОПОЛНИТЕЛЬНО ОТ РОДИТЕЛЯ ===");
+    recs.push("=== ДОПОЛНИТЕЛЬНО ===");
     recs.push(concern);
   }
 
-  const legalText = `ЮРИДИЧЕСКАЯ ИНФОРМАЦИЯ (ФЗ «О рекламе» и 152-ФЗ):
-1. Данный экспресс-скрининг носит исключительно информационно-ознакомительный характер.
-2. Результаты не являются медицинской услугой, диагнозом, заключением ПМПК или заменой очной консультации специалиста.
-3. Информация не является публичной офертой (ст. 437 ГК РФ).
-4. Обработка персональных данных (имя) осуществляется с добровольного согласия субъекта ПД в соответствии с Федеральным законом № 152-ФЗ «О персональных данных» исключительно для цели обратной связи по результатам скрининга.`;
+  const legalText = `ЮРИДИЧЕСКАЯ ИНФОРМАЦИЯ (152-ФЗ):
+1. Скрининг носит информационный характер.
+2. Не является медицинской услугой или диагнозом.
+3. Не является публичной офертой (ст. 437 ГК РФ).
+4. Обработка данных с согласия по 152-ФЗ.`;
 
   globalReportText = `ЭКСПРЕСС-СКРИНИНГ РЕЧИ
 Дата: ${new Date().toLocaleString('ru-RU')}
@@ -534,11 +527,8 @@ document.getElementById("scrForm").addEventListener("submit", function(e){
 
 ИТОГ: ${pct}% (${verdict})
 
-ПОКАЗАТЕЛИ ПО ЗОНАМ:
+ПОКАЗАТЕЛИ:
 ${zoneData.join('\n')}
-
-ДЕТАЛИЗАЦИЯ ОТВЕТОВ:
-${detail.join('\n')}
 
 ${recs.join('\n')}
 
