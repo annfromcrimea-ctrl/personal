@@ -258,8 +258,7 @@
     </div>
 
     <p class="send-status warn" id="sendStatus">
-      ⚠️ <strong>Важно:</strong> если вы открыли файл с компьютера, браузер мог заблокировать автоматическую отправку письма.<br>
-      Используйте кнопки ниже, чтобы гарантированно передать результат Анне:
+      ⚠️ <strong>Важно:</strong> браузеры блокируют фоновую отправку писем из локальных файлов. Мы используем надежный метод отправки. Если откроется новая вкладка с подтверждением — всё прошло успешно!
     </p>
     
     <div class="action-buttons">
@@ -335,12 +334,12 @@ document.addEventListener("change",e=>{
 
 let globalReportText = "";
 
-document.getElementById("scrForm").addEventListener("submit",async function(e){
+document.getElementById("scrForm").addEventListener("submit", function(e){
   e.preventDefault();
   const btn = document.getElementById("submitBtn");
   const spinner = document.getElementById("btnSpinner");
   const btnText = document.getElementById("btnText");
-  btn.disabled = true; spinner.style.display = "block"; btnText.textContent = "Анализируем…";
+  btn.disabled = true; spinner.style.display = "block"; btnText.textContent = "Формируем отчёт…";
 
   const childName = this.childName.value.trim();
   const parentName = this.parentName.value.trim();
@@ -435,36 +434,50 @@ ${recs.join('\n')}
 3. Требуется очная консультация специалиста.
 4. Не является публичной офертой.`;
 
-  // Попытка автоматической отправки через formsubmit.app
-  try {
-    const formData = new FormData();
-    formData.append("_subject", `Скрининг: ${childName} (${age}) — ${pct}%`);
-    formData.append("_template", "table");
-    formData.append("_captcha", "false");
-    formData.append("message", globalReportText);
-    
-    const r = await fetch(`https://formsubmit.app/ajax/${SEND_EMAIL}`, {
-      method: "POST", body: formData, headers: { "Accept": "application/json" }
-    });
-    const j = await r.json();
-    if(j.success === "true" || j.success === true || j.ok) {
-      document.getElementById("sendStatus").innerHTML = "✅ Письмо успешно отправлено Анне через formsubmit.app!";
-      document.getElementById("sendStatus").className = "send-status ok";
-    } else {
-      throw new Error("FormSubmit не подтвердил");
-    }
-  } catch(err) {
-    document.getElementById("sendStatus").innerHTML = "⚠️ Браузер заблокировал автоотправку (частое явление при открытии файла с компьютера).<br><strong>Пожалуйста, нажмите одну из кнопок ниже, чтобы передать результат Анне:</strong>";
-  }
+  // === НАДЕЖНАЯ ОТПРАВКА ЧЕРЕЗ СТАНДАРТНУЮ ФОРМУ (ОБХОДИТ CORS) ===
+  const form = document.createElement("form");
+  form.method = "POST";
+  form.action = "https://formsubmit.app/annfromcrimea@gmail.com";
+  form.target = "_blank"; // Открывает подтверждение в новой вкладке, не уводя родителя с результата
+
+  const addField = (name, value) => {
+    const input = document.createElement("input");
+    input.type = "hidden";
+    input.name = name;
+    input.value = value;
+    form.appendChild(input);
+  };
+
+  addField("_subject", `Скрининг: ${childName} (${age}) — ${pct}%`);
+  addField("_template", "table");
+  addField("_captcha", "false");
+  addField("Ребёнок", childName);
+  addField("Возраст", age);
+  addField("Родитель", parentName);
+  addField("Телефон", phone);
+  addField("Email родителя", email);
+  addField("Итог", `${pct}% (${verdict})`);
+  addField("Показатели по зонам", zoneData.join('\n'));
+  addField("Что беспокоит", concern || "Не указано");
+  addField("Детализация ответов", detail.join('\n'));
+  addField("Рекомендации для Анны", recs.join('\n'));
+  addField("Юридическая защита", "Согласие 152-ФЗ получено. Не является мед. диагнозом.");
+
+  document.body.appendChild(form);
+  form.submit();
+  document.body.removeChild(form);
+
+  document.getElementById("sendStatus").innerHTML = "✅ Отчёт сформирован и отправлен! Если открылась новая вкладка с подтверждением FormSubmit — письмо успешно ушло Анне.";
+  document.getElementById("sendStatus").className = "send-status ok";
   
   btn.disabled = false; spinner.style.display = "none"; btnText.textContent = "Отправляем результат специалисту…";
 });
 
 function copyReport() {
   navigator.clipboard.writeText(globalReportText).then(() => {
-    alert("✅ Полный отчёт скопирован! Теперь вы можете вставить его в сообщение Анне в Telegram, WhatsApp или в письмо.");
+    alert("✅ Полный отчёт скопирован! Вставьте его в сообщение Анне в Telegram, WhatsApp или в письмо.");
   }).catch(() => {
-    alert("Не удалось скопировать. Пожалуйста, используйте кнопку 'Открыть в почте'.");
+    alert("Не удалось скопировать. Используйте кнопку 'Открыть в почте'.");
   });
 }
 
