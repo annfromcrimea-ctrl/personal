@@ -270,7 +270,7 @@
     </div>
 
     <p class="send-status warn" id="sendStatus">
-      ⏳ Отправляем…
+      ⏳ Отправляем данные…
     </p>
     
     <div class="action-buttons">
@@ -347,11 +347,18 @@ document.addEventListener("change",e=>{
 let globalReportText = "";
 
 document.getElementById("scrForm").addEventListener("submit", function(e){
-  e.preventDefault();
+  e.preventDefault(); // ГАРАНТИРОВАННО предотвращаем перезагрузку и открытие новых вкладок
+  
   const btn = document.getElementById("submitBtn");
   const spinner = document.getElementById("btnSpinner");
   const btnText = document.getElementById("btnText");
-  btn.disabled = true; spinner.style.display = "block"; btnText.textContent = "Формируем отчёт…";
+  const sendStatus = document.getElementById("sendStatus");
+  
+  btn.disabled = true; 
+  spinner.style.display = "block"; 
+  btnText.textContent = "Отправляем…";
+  sendStatus.className = "send-status warn";
+  sendStatus.innerHTML = "⏳ Отправляем данные…";
 
   const childName = this.childName.value.trim();
   const parentName = this.parentName.value.trim();
@@ -445,8 +452,7 @@ ${recs.join('\n')}
 3. Требуется очная консультация специалиста.
 4. Не является публичной офертой.`;
 
-  btnText.textContent = "Отправляем…";
-  
+  // Чистая AJAX-отправка на Formspree без создания форм и новых вкладок
   const formData = {
     _subject: `Скрининг: ${childName} (${age}) — ${pct}%`,
     childName: childName,
@@ -473,15 +479,16 @@ ${recs.join('\n')}
   })
   .then(response => {
     if (response.ok) {
-      document.getElementById("sendStatus").innerHTML = "✅ Отчёт отправлен Анне";
-      document.getElementById("sendStatus").className = "send-status ok";
+      sendStatus.className = "send-status ok";
+      sendStatus.innerHTML = "✅ Отчёт успешно отправлен Анне";
     } else {
-      throw new Error("Formspree error");
+      throw new Error("Ошибка сервера Formspree");
     }
   })
   .catch(error => {
-    document.getElementById("sendStatus").innerHTML = "❌ Ошибка отправки. Пожалуйста, воспользуйтесь кнопкой «Скопировать отчёт» или «Открыть в почте».";
-    document.getElementById("sendStatus").className = "send-status error";
+    console.error("Formspree error:", error);
+    sendStatus.className = "send-status error";
+    sendStatus.innerHTML = "❌ Ошибка отправки. Пожалуйста, воспользуйтесь кнопкой «Скопировать отчёт» или «Открыть в почте» ниже.";
   })
   .finally(() => {
     btn.disabled = false; 
@@ -499,7 +506,9 @@ function copyReport() {
 }
 
 function openMailto() {
-  const subject = encodeURIComponent(`Экспресс-скрининг речи: ${document.getElementById('childName').value} (${document.getElementById('ageGroup').value})`);
+  const childNameVal = document.getElementById('childName').value || "Ребёнок";
+  const ageVal = document.getElementById('ageGroup').value || "Не указан";
+  const subject = encodeURIComponent(`Экспресс-скрининг речи: ${childNameVal} (${ageVal})`);
   const body = encodeURIComponent(globalReportText);
   window.location.href = `mailto:${SEND_EMAIL}?subject=${subject}&body=${body}`;
 }
