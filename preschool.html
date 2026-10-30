@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Скрининг готовности к школе · Анна Драчёва</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --board1:#2c3e50; --board2:#1a252f;
+  --chalk:#f5f1e6; --chalk-dim:rgba(245,241,230,.55);
+  --yellow:#ffd35c; --pink:#ff9d9d; --mint:#8fe3c0; --sky:#9fd8ff;
+  --paper:#fdfcf5; --ink:#25333e; --line:#cfdff0; --marginline:#ff9d9d;
+  --card:#1e2a36; --card-edge:rgba(245,241,230,.17); --btn-ink:#3a2b00;
+  --ok:#3fae72; --bad:#e4574d; --radius:14px;
+}
+body.mode-kids{
+  --board1:#6fb7f0; --board2:#d6ecfd;
+  --chalk:#1a3f6e; --chalk-dim:rgba(26,63,110,.55);
+  --yellow:#ffb520; --pink:#ff6f91; --mint:#22c993; --sky:#4d96ff;
+  --card:#ffffff; --card-edge:#b9dcf3; --ok:#2ec474; --bad:#ff5d55; --radius:22px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',sans-serif;color:var(--chalk);background:linear-gradient(160deg,var(--board1),var(--board2)) fixed;min-height:100vh;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.35;
+  background-image:radial-gradient(rgba(255,255,255,.09) 1px,transparent 1.6px),radial-gradient(rgba(255,255,255,.06) 1px,transparent 1.4px);
+  background-size:90px 90px,140px 140px;background-position:0 0,45px 60px}
+::selection{background:var(--yellow);color:#3a2b00}
+
+.doodles{position:fixed;inset:0;z-index:0;pointer-events:none}
+.doodle{position:absolute;font-family:'Caveat',cursive;color:var(--chalk);opacity:.16;transform:rotate(var(--r,0deg));font-size:var(--fs,2rem);animation:floaty var(--t,7s) ease-in-out infinite alternate;white-space:nowrap}
+.doodle.emoji{font-family:'Nunito',sans-serif;opacity:.85}
+@keyframes floaty{from{transform:translateY(-8px) rotate(var(--r,0deg))}to{transform:translateY(10px) rotate(calc(var(--r,0deg) + 3deg))}}
+body.mode-class .d-kids{display:none}
+body.mode-kids .d-class{display:none}
+
+main{position:relative;z-index:1;max-width:1120px;margin:0 auto;padding:clamp(16px,4vw,44px)}
+.screen{animation:screenIn .55s cubic-bezier(.2,.9,.3,1) both}
+@keyframes screenIn{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+[hidden]{display:none!important}
+
+.start-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(22px,4vw,48px);align-items:center;min-height:86vh}
+.board-frame{position:relative;border:10px solid transparent;border-image:linear-gradient(140deg,#a06b35,#7c4d20 45%,#b07a40) 1;
+  padding:clamp(22px,4vw,44px);background:radial-gradient(120% 90% at 20% 10%,rgba(255,255,255,.05),transparent 60%),linear-gradient(155deg,#34495e,#1a252f);
+  box-shadow:0 24px 60px rgba(0,0,0,.45),inset 0 0 60px rgba(0,0,0,.35)}
+body.mode-kids .board-frame{border:6px solid #fff;border-radius:26px;border-image:none;background:linear-gradient(160deg,#eaf7ff,#fff);box-shadow:0 20px 50px rgba(38,110,170,.25)}
+.chalk-tag{font-family:'Caveat',cursive;font-size:clamp(1.2rem,2.4vw,1.6rem);color:var(--yellow);letter-spacing:.04em}
+body.mode-kids .chalk-tag{color:var(--pink)}
+h1.hand{font-family:'Caveat',cursive;font-weight:700;color:var(--chalk);font-size:clamp(2.6rem,6.5vw,4.9rem);line-height:1.02;margin:.35rem 0 .2rem}
+h1.hand em{font-style:normal;color:var(--yellow)}
+body.mode-kids h1.hand{color:var(--ink)}
+body.mode-kids h1.hand em{color:var(--sky)}
+.sub{max-width:48ch;font-size:clamp(.96rem,1.6vw,1.08rem);line-height:1.55;color:var(--chalk-dim);margin-top:12px}
+body.mode-kids .sub{color:#40607c}
+.tiles{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}
+.tile{width:58px;height:58px;display:grid;place-items:center;background:var(--paper);color:var(--ink);border-radius:10px;font-weight:900;font-size:1.2rem;box-shadow:0 6px 0 rgba(0,0,0,.28);transform:rotate(var(--r));transition:transform .25s;cursor:default}
+.tile:hover{transform:rotate(0deg) translateY(-8px) scale(1.06)}
+.tile.y{background:var(--yellow)} .tile.p{background:var(--pink);color:#fff}
+.tile.m{background:var(--mint);color:#0c3b2a} .tile.s{background:var(--sky);color:#fff} .tile.g2{background:#c9b2ff;color:#3a2b6e}
+.tile.wide{width:auto;padding:0 14px;display:flex;gap:8px;align-items:center;font-size:.92rem}
+.tray{position:absolute;left:8%;right:8%;bottom:-9px;height:16px;background:linear-gradient(#a06b35,#6d4119);border-radius:3px;box-shadow:0 6px 14px rgba(0,0,0,.4)}
+.tray i{position:absolute;top:-9px;width:52px;height:9px;border-radius:4px;background:#fbf7ea;box-shadow:0 2px 4px rgba(0,0,0,.35)}
+.tray i.c2{left:80px;background:var(--yellow);transform:rotate(-2deg)}
+.tray i.c1{left:14px;transform:rotate(1deg)}
+body.mode-kids .tray{display:none}
+
+.note-card{background:linear-gradient(90deg,transparent 0 40px,var(--marginline) 40px 42px,transparent 42px),repeating-linear-gradient(var(--paper) 0 30px,var(--line) 30px 31px);
+  color:var(--ink);border-radius:var(--radius);padding:26px 24px 26px 54px;box-shadow:0 18px 44px rgba(0,0,0,.35);transform:rotate(.6deg)}
+.note-card h2{font-size:1.35rem;font-weight:900;margin-bottom:10px}
+.pick{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:4px}
+.pick.flex{display:flex;flex-wrap:wrap}
+.pick.flex .mode-btn{flex:1;min-width:86px}
+.pick-label{font-size:.72rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#68819a;margin:10px 0 4px}
+.mode-btn{font-family:inherit;font-weight:800;font-size:.85rem;cursor:pointer;border:2px dashed #9db6c9;background:rgba(255,255,255,.65);color:#33506b;border-radius:12px;padding:10px 4px;transition:all .2s}
+.mode-btn:hover{transform:translateY(-2px)}
+.mode-btn.on{border-style:solid;border-color:var(--sky);background:#e3f1ff;box-shadow:0 4px 12px rgba(77,150,255,.3)}
+body.mode-kids .mode-btn.on{background:#fff3d6;border-color:var(--yellow)}
+.mode-note{font-size:.82rem;color:#5a768e;min-height:2em;margin:8px 0 12px}
+
+.input-group{margin-bottom:12px}
+.input-group label{display:block;font-size:.82rem;font-weight:800;color:#5a768e;margin-bottom:4px}
+.input-group input{width:100%;font-family:inherit;font-size:1rem;font-weight:700;color:var(--ink);padding:10px 14px;border:2px solid #d7e3ee;border-radius:10px;outline:none;transition:border-color .2s}
+.input-group input:focus{border-color:var(--sky);box-shadow:0 0 0 4px rgba(77,150,255,.15)}
+
+.btn-big{width:100%;font-family:inherit;font-weight:900;font-size:1.12rem;padding:15px;border:none;border-radius:14px;cursor:pointer;background:var(--yellow);color:var(--btn-ink);box-shadow:0 6px 0 #c99a1e,0 14px 26px rgba(0,0,0,.22);transition:transform .15s,box-shadow .15s}
+.btn-big:hover{transform:translateY(-3px);box-shadow:0 9px 0 #c99a1e,0 20px 32px rgba(0,0,0,.26)}
+.btn-big:active{transform:translateY(2px);box-shadow:0 3px 0 #c99a1e}
+.tiny{font-size:.78rem;color:#68819a;text-align:center;margin-top:10px}
+
+.quiz-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:10px}
+.logo{font-family:'Caveat',cursive;font-size:1.6rem;color:var(--yellow);white-space:nowrap}
+body.mode-kids .logo{color:#134a76}
+.progress{flex:1;min-width:130px;height:12px;border-radius:99px;background:rgba(255,255,255,.14);overflow:hidden}
+body.mode-kids .progress{background:rgba(255,255,255,.75)}
+.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--yellow),var(--pink));transition:width .5s cubic-bezier(.3,.9,.3,1)}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font-size:.8rem;font-weight:800;padding:6px 12px;border-radius:99px;background:rgba(255,255,255,.12);border:1px solid var(--card-edge)}
+body.mode-kids .chip{background:#fff;color:#134a76;border-color:#bfe2f8}
+.chip.est{background:var(--yellow);color:var(--btn-ink);border-color:transparent}
+.chip.streak{background:var(--pink);color:#fff;border-color:transparent}
+.qcount{font-weight:800;font-size:.9rem;color:var(--chalk-dim)}
+body.mode-kids .qcount{color:#3e6c93}
+
+.secnav{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.snav{font-size:.82rem;font-weight:900;padding:6px 14px;border-radius:99px;background:rgba(255,255,255,.09);color:var(--chalk-dim);border:1px solid var(--card-edge);transition:all .3s}
+body.mode-kids .snav{background:rgba(255,255,255,.6);color:#5a7ea0}
+.snav.now{background:var(--sky);color:#fff;border-color:transparent;transform:translateY(-2px)}
+.snav.done{opacity:.65;text-decoration:line-through}
+
+.ruler{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:4px 0 20px}
+.ruler b{text-align:center;font-size:.75rem;font-weight:800;letter-spacing:.05em;padding:7px 0;border-radius:8px;background:rgba(255,255,255,.09);color:var(--chalk-dim);transition:all .35s}
+body.mode-kids .ruler b{background:rgba(255,255,255,.65);color:#5a7ea0}
+.ruler b.hot{background:var(--yellow);color:var(--btn-ink);transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.25)}
+.pin{position:absolute;top:-15px;left:0;width:0;height:0;transition:left .55s cubic-bezier(.3,1.1,.4,1);border-left:8px solid transparent;border-right:8px solid transparent;border-top:10px solid var(--pink);transform:translateX(-50%);filter:drop-shadow(0 3px 3px rgba(0,0,0,.3))}
+
+.qcard{position:relative;border-radius:var(--radius);color:var(--ink);
+  background:linear-gradient(90deg,transparent 0 46px,var(--marginline) 46px 48px,transparent 48px),repeating-linear-gradient(var(--paper) 0 33px,var(--line) 33px 34px);
+  box-shadow:0 22px 50px rgba(0,0,0,.4);padding:28px 30px 26px 66px;animation:cardIn .45s cubic-bezier(.2,.9,.3,1) both}
+@keyframes cardIn{from{opacity:0;transform:translateY(18px) rotate(-.6deg)}to{opacity:1;transform:rotate(-.35deg)}}
+.qmeta{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.tag{font-size:.74rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:6px}
+.tag.l{background:#fff3d0;color:#8a6400}.tag.sk{background:#e6f7ef;color:#146c4a}
+.qtext{font-size:clamp(1.1rem,2.2vw,1.4rem);font-weight:800;line-height:1.4;margin-bottom:18px}
+
+.opts{display:grid;gap:12px}
+.opt{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;font-family:inherit;font-size:.95rem;font-weight:700;color:var(--ink);cursor:pointer;background:#fff;border:2px solid #d7e3ee;border-radius:12px;padding:14px 16px;transition:transform .15s,box-shadow .15s,border-color .15s,background .2s;line-height:1.4}
+.opt:hover:not(:disabled){transform:translateX(4px);border-color:var(--sky);box-shadow:0 8px 18px rgba(31,90,150,.12)}
+.opt .key{flex:none;width:28px;height:28px;display:grid;place-items:center;border-radius:9px;background:#eef4fa;color:#33506b;font-weight:900;transition:all .2s;font-size:.9rem}
+.opt:hover:not(:disabled) .key{background:var(--sky);color:#fff}
+.opt:disabled{cursor:default;opacity:.55}
+.opt.correct{background:#e5f8ec;border-color:var(--ok);opacity:1}
+.opt.correct .key{background:var(--ok);color:#fff}
+.opt.wrong{background:#fde8e6;border-color:var(--bad);opacity:1;animation:shake .4s}
+.opt.wrong .key{background:var(--bad);color:#fff}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}55%{transform:translateX(6px)}80%{transform:translateX(-3px)}}
+
+.feedback{margin-top:20px;border-top:2px dashed #cfdff0;padding-top:18px;animation:screenIn .4s both}
+.fb-head{display:flex;align-items:center;gap:10px;font-size:1.15rem;font-weight:900;margin-bottom:8px;flex-wrap:wrap}
+.fb-head .pts{margin-left:auto;font-size:.95rem;color:#8a6400;background:#fff3d0;padding:4px 10px;border-radius:8px}
+.fb-head.good{color:var(--ok)}.fb-head.badh{color:var(--bad)}
+.fb-expl{font-size:.96rem;line-height:1.5;color:#41586c;max-width:62ch}
+.btn-next{margin-top:16px;font-family:inherit;font-weight:900;font-size:1rem;cursor:pointer;border:none;border-radius:12px;padding:13px 30px;background:var(--sky);color:#fff;box-shadow:0 5px 0 #2f6db3;transition:transform .15s,box-shadow .15s}
+.btn-next:hover{transform:translateY(-2px);box-shadow:0 7px 0 #2f6db3}
+.btn-next:active{transform:translateY(2px);box-shadow:0 2px 0 #2f6db3}
+
+.intro{text-align:center;padding:44px 34px}
+.intro .big{font-size:3.4rem;line-height:1}
+.intro .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:#8a6400;background:#fff3d0;display:inline-block;padding:5px 14px;border-radius:99px;margin:14px 0 8px}
+.intro h2{font-size:1.9rem;font-weight:900;margin-bottom:10px}
+.intro p{color:#41586c;line-height:1.55;max-width:46ch;margin:0 auto 22px}
+.intro .btn-big{max-width:320px;margin:0 auto}
+
+.result-head{text-align:center;margin:10px 0 24px}
+.stamp{display:inline-block;padding:14px 38px;border:5px solid var(--pink);border-radius:14px;color:var(--pink);transform:rotate(-5deg);font-family:'Caveat',cursive;font-size:clamp(3rem,8vw,5.2rem);line-height:1;font-weight:700;animation:stampIn .5s cubic-bezier(.2,1.6,.4,1) both .2s}
+@keyframes stampIn{from{opacity:0;transform:rotate(-14deg) scale(2.2)}to{opacity:1;transform:rotate(-5deg) scale(1)}}
+.stamp small{display:block;font-family:'Nunito';font-size:.92rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;margin-top:6px}
+.result-title{font-weight:800;color:var(--chalk-dim);margin-top:16px;font-size:1.05rem}
+body.mode-kids .result-title{color:#2e5d84}
+
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:26px 0}
+.stat{background:var(--card);border:1px solid var(--card-edge);border-radius:var(--radius);padding:18px;text-align:center}
+.stat b{display:block;font-size:2rem;font-weight:900;color:var(--yellow)}
+.stat:nth-child(2) b{color:var(--mint)}.stat:nth-child(3) b{color:var(--pink)}.stat:nth-child(4) b{color:var(--sky)}
+.stat span{font-size:.8rem;font-weight:700;color:var(--chalk-dim);letter-spacing:.04em;text-transform:uppercase}
+
+.skillcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-bottom:8px}
+.scard{background:var(--card);border:1px solid var(--card-edge);border-radius:var(--radius);padding:18px;text-align:center}
+.scard .ic{font-size:1.8rem}
+.scard h4{font-size:.82rem;font-weight:900;letter-spacing:.05em;text-transform:uppercase;color:var(--chalk-dim);margin:6px 0 8px}
+.scard .lvl{font-family:'Caveat',cursive;font-size:2.2rem;font-weight:700;line-height:1;color:var(--yellow)}
+.scard .acc{font-size:.82rem;font-weight:800;color:var(--chalk-dim);margin-top:6px}
+.scard .bar{height:8px;border-radius:99px;background:rgba(255,255,255,.13);overflow:hidden;margin-top:8px}
+body.mode-kids .scard .bar{background:#e4f1fb}
+.scard .bar i{display:block;height:100%;width:0;border-radius:99px;background:var(--mint);transition:width 1s .3s cubic-bezier(.3,.9,.3,1)}
+
+.mistakes{margin-top:22px}
+.mistakes h3{font-size:1.05rem;font-weight:900;margin-bottom:12px}
+.m-group{font-size:.9rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase;color:var(--yellow);margin:16px 0 8px}
+.m-item{background:var(--card);border-left:5px solid var(--bad);border-radius:10px;padding:14px 16px;margin-bottom:10px;font-size:.93rem;line-height:1.5}
+.m-item .mq{font-weight:800;margin-bottom:4px}
+.m-item .fix{color:var(--mint);font-weight:800}
+.all-good{background:var(--card);border-left:5px solid var(--ok);border-radius:10px;padding:16px;font-weight:800}
+
+.end-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:30px 0 40px}
+.btn-ghost{font-family:inherit;font-weight:800;font-size:.95rem;cursor:pointer;background:transparent;color:var(--chalk);border:2px solid var(--card-edge);border-radius:12px;padding:14px 24px;transition:all .2s}
+.btn-ghost:hover{border-color:var(--yellow);color:var(--yellow);transform:translateY(-2px)}
+body.mode-kids .btn-ghost{color:#134a76;border-color:#a8d5f2}
+body.mode-kids .btn-ghost:hover{color:#0c62b8;border-color:#0c62b8}
+
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:50;overflow:hidden}
+.confetti i{position:absolute;top:-20px;width:10px;height:14px;border-radius:2px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+
+@media (max-width:900px){.start-grid{grid-template-columns:1fr;min-height:auto;gap:26px;padding-top:8px}.note-card{transform:none}}
+@media (max-width:560px){.qcard{padding-left:22px;background:repeating-linear-gradient(var(--paper) 0 33px,var(--line) 33px 34px)}.ruler b{font-size:.62rem}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body class="mode-class">
+
+<div class="doodles" aria-hidden="true">
+  <span class="doodle d-class" style="top:8%;left:4%;--fs:2.4rem;--r:-8deg;--t:6s">Готовность к школе</span>
+  <span class="doodle d-class" style="top:22%;right:6%;--fs:2rem;--r:6deg;--t:8s">психология · логопедия</span>
+  <span class="doodle d-class" style="bottom:16%;left:6%;--fs:2.2rem;--r:4deg;--t:7s">★ В добрый путь! ★</span>
+  <span class="doodle d-class" style="bottom:30%;right:4%;--fs:2.2rem;--r:-5deg;--t:9s">ФГОС ДО 🎒</span>
+  <span class="doodle d-class" style="top:55%;left:2%;--fs:1.8rem;--r:2deg;--t:6.5s">мотивация ✎</span>
+  <span class="doodle d-kids emoji" style="top:7%;left:5%;--fs:2.6rem;--t:6s">☁️</span>
+  <span class="doodle d-kids emoji" style="top:12%;right:8%;--fs:2.8rem;--t:8s">⭐</span>
+  <span class="doodle d-kids emoji" style="bottom:14%;left:6%;--fs:2.8rem;--t:7s">🎒</span>
+  <span class="doodle d-kids emoji" style="bottom:28%;right:5%;--fs:2.5rem;--t:9s">🎈</span>
+  <span class="doodle d-kids emoji" style="top:50%;left:2%;--fs:2.2rem;--t:6.5s">🏫</span>
+</div>
+
+<main>
+<section id="scr-start" class="screen">
+  <div class="start-grid">
+    <div class="board-frame">
+      <div class="chalk-tag">экспертная диагностика · 5 зон · ФГОС ДО</div>
+      <h1 class="hand">Готов ли ребенок к <em>школе</em>?</h1>
+      <p class="sub">Профессиональный скрининг от логопеда-психолога. Оцениваем не только академические знания, но и мотивацию, речь, социализацию и моторику — то, что реально важно в 1 классе.</p>
+      <div class="tiles" aria-hidden="true">
+        <div class="tile m wide" style="--r:-5deg">🗣️ Речь</div>
+        <div class="tile s wide" style="--r:4deg">🎯 Мотивация</div>
+        <div class="tile y wide" style="--r:-3deg">🧠 Интеллект</div>
+        <div class="tile p wide" style="--r:5deg">👥 Социум</div>
+        <div class="tile g2 wide" style="--r:-4deg">✋ Моторика</div>
+      </div>
+      <div class="tray" aria-hidden="true"><i class="c1"></i><i class="c2"></i></div>
+    </div>
+
+    <div class="note-card">
+      <h2>Настройки ✏️</h2>
+      
+      <div class="input-group">
+        <label for="stu-name">Имя ребенка</label>
+        <input type="text" id="stu-name" placeholder="Например: Миша" autocomplete="name">
+      </div>
+      <div class="input-group">
+        <label for="stu-email">Email родителя (необязательно)</label>
+        <input type="email" id="stu-email" placeholder="anna@example.com" autocomplete="email">
+      </div>
+
+      <p class="pick-label">Возраст ребенка</p>
+      <div class="pick" role="group">
+        <button type="button" class="mode-btn" data-mode="5-6" onclick="setMode('5-6')">5–6 лет</button>
+        <button type="button" class="mode-btn on" data-mode="6-7" onclick="setMode('6-7')">6–7 лет</button>
+      </div>
+
+      <p class="mode-note" id="mode-note">Возраст 6–7 лет: вопросы ориентированы на детей, идущих в школу в этом году.</p>
+      <button type="button" class="btn-big" onclick="startQuiz()">Начать диагностику →</button>
+      <p class="tiny">Заполняет родитель. Время прохождения: 5–7 минут.</p>
+    </div>
+  </div>
+</section>
+
+<section id="scr-quiz" class="screen" hidden>
+  <div class="quiz-top">
+    <span class="logo">✎ School Readiness</span>
+    <div class="progress"><i id="pbar"></i></div>
+    <span class="qcount" id="qcount">1 / 40</span>
+    <div class="chips">
+      <span class="chip est" id="est">—</span>
+      <span class="chip" id="score">Баллы: 0</span>
+    </div>
+  </div>
+
+  <div class="secnav" id="secnav"></div>
+
+  <div class="ruler" aria-hidden="true">
+    <div class="pin" id="pin" style="left:10%"></div>
+    <b data-l="1">Низкий</b><b data-l="2">Ниже нормы</b><b data-l="3">Норма</b>
+    <b data-l="4">Выше нормы</b><b data-l="5">Высокий</b>
+  </div>
+
+  <article class="qcard intro" id="intro" hidden>
+    <div class="big" id="in-icon">🎯</div>
+    <div class="step" id="in-step">Часть 1 из 5</div>
+    <h2 id="in-title">Зона</h2>
+    <p id="in-desc">…</p>
+    <button type="button" class="btn-big" onclick="beginSection()">Начать часть →</button>
+  </article>
+
+  <article class="qcard" id="qcard" hidden>
+    <div class="qmeta">
+      <span class="tag sk" id="tag-skill">Зона</span>
+      <span class="tag l" id="tag-lvl">Вопрос 1</span>
+    </div>
+    <p class="qtext" id="qtext">…</p>
+    <div id="q-answer"></div>
+    <div class="feedback" id="feedback" hidden>
+      <div class="fb-head" id="fb-head"><span id="fb-icon"></span><b id="fb-title"></b><span class="pts" id="fb-pts" hidden></span></div>
+      <p class="fb-expl" id="fb-expl"></p>
+      <button type="button" class="btn-next" id="btn-next" onclick="next()">Дальше →</button>
+    </div>
+  </article>
+  
+  <div style="text-align:center; margin-top:20px;">
+    <button type="button" class="btn-ghost" onclick="finish(true)">🏳️ Завершить досрочно</button>
+  </div>
+</section>
+
+<section id="scr-result" class="screen" hidden>
+  <div class="result-head">
+    <div class="stamp" id="stamp">Готов<small id="stamp-name">к школе</small></div>
+    <p class="result-title" id="verdict">—</p>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat"><b id="st-correct">0</b><span>баллов</span></div>
+    <div class="stat"><b id="st-acc">0%</b><span>готовность</span></div>
+    <div class="stat"><b id="st-best">0</b><span>лучшая зона</span></div>
+    <div class="stat"><b id="st-weak">0</b><span>зона риска</span></div>
+  </div>
+
+  <div class="skillcards" id="skillcards"></div>
+
+  <div class="mistakes">
+    <h3>📝 Зоны, требующие внимания</h3>
+    <div id="mistakes"></div>
+  </div>
+
+  <div id="send-status" style="text-align:center; margin:20px 0; font-weight:700; min-height:1.5em;"></div>
+
+  <div class="end-actions">
+    <button type="button" class="btn-big" style="width:auto;padding:14px 34px" onclick="startQuiz()">Пройти ещё раз ↻</button>
+    <button type="button" class="btn-ghost" onclick="goStart()">⚙ Изменить настройки</button>
+  </div>
+</section>
+</main>
+
+<script>
+const START_LVL = 3; // Норма
+const Q_PER_ZONE = 8;
+const TOTAL_Q = 5 * Q_PER_ZONE;
+
+const SK={
+  speech:{icon:'🗣️',title:'Речевая готовность',short:'Речь',
+     desc:'Фонематический слух, словарный запас, связная речь, звукопроизношение. База для чтения и письма.'},
+  motivation:{icon:'🎯',title:'Психологическая и мотивационная',short:'Мотивация',
+     desc:'Желание учиться, усидчивость, реакция на неудачу, умение действовать по правилу и инструкции.'},
+  intellect:{icon:'🧠',title:'Интеллектуальная готовность',short:'Интеллект',
+     desc:'Причинно-следственные связи, ориентировка в пространстве и времени, счет, память, внимание.'},
+  social:{icon:'👥',title:'Социально-коммуникативная',short:'Социум',
+     desc:'Общение со сверстниками и взрослыми, умение просить о помощи, разрешение конфликтов.'},
+  motor:{icon:'✋',title:'Физиологическая и моторика',short:'Моторика',
+     desc:'Мелкая моторика (готовность руки к письму), самообслуживание, координация, режим дня.'}
+};
+const ORDER=['speech','motivation','intellect','social','motor'];
+const LVLNAME={1:'Низкий',2:'Ниже нормы',3:'Норма',4:'Выше нормы',5:'Высокий'};
+const LVLFULL={
+  1:'Низкий уровень · Требуется интенсивная подготовка',
+  2:'Ниже среднего · Есть зоны риска, нужна коррекция',
+  3:'Средний (Норма) · Базовая готовность есть',
+  4:'Выше среднего · Хорошая база, есть потенциал',
+  5:'Высокий · Полная готовность к школе'
+};
+
+const RESOURCES_MAP = {
+  1: "Начальный уровень: Кузнецова «Ступеньки», Жукова «Букварь», Бортник «Готовимся к школе»",
+  2: "Базовый уровень: Кумон «Учимся считать/писать», Узорова «300 заданий», Полякова «Математика»",
+  3: "Оптимальный уровень: Нефедова «Готовность к школе», Колесникова «Математические ступеньки»",
+  4: "Продвинутый уровень: Петерсон «Раз ступенька», Женевац «Логика», задания олимпиадного типа",
+  5: "Высокий уровень: Поддержка интереса через энциклопедии, шахматы, проектные задачи"
+};
+
+const $=id=>document.getElementById(id);
+
+const BANK={
+  speech:[
+    {q:'Как ребенок строит предложения?',o:['Развернутые фразы (5-6 слов), правильно использует предлоги','Фразы есть, но иногда путает окончания или предлоги','Говорит короткими фразами (2-3 слова) или отдельными словами'],a:0,e:'Развернутая речь — база для понимания текста на уроке.'},
+    {q:'Различает ли ребенок похожие звуки на слух (например, бочка-почка, дом-том)?',o:['Да, четко различает','Иногда путает, особенно в быстрой речи','Не различает, воспринимает как одинаковые'],a:0,e:'Фонематический слух критичен для обучения чтению и письму (профилактика дисграфии).'},
+    {q:'Может ли ребенок пересказать короткий сюжет (мультфильм, сказку)?',o:['Да, последовательно, сохраняет главную мысль','Пересказывает фрагментарно, нужна помощь наводящими вопросами','Затрудняется, не может связать события'],a:0,e:'Связная речь показывает умение удерживать структуру повествования.'},
+    {q:'Насколько чистое звукопроизношение ребенка?',o:['Все звуки произносит четко','Есть 1-2 искаженных звука (например, Р, Л, шипящие)','Много нечетких звуков, речь малопонятна окружающим'],a:0,e:'Чистая речь важна для уверенности ребенка в классе и диктанта.'},
+    {q:'Может ли ребенок определить первый/последний звук в слове?',o:['Да, легко справляется','Справляется с помощью взрослого или с подсказкой','Затрудняется, не понимает задания'],a:0,e:'Звукобуквенный анализ — прямой навык для обучения грамоте.'},
+    {q:'Понимает ли ребенок инструкции из 2-3 шагов («Возьми книгу, положи на стол и сядь»)?',o:['Да, выполняет точно с первого раза','Выполняет частично, нужно повторять','Теряется, выполняет только первое действие'],a:0,e:'Умение удерживать инструкцию — ключевой навык для урока.'},
+    {q:'Интересуется ли ребенок буквами, пытается ли «читать»?',o:['Да, знает некоторые буквы, складывает слоги','Интерес есть, но путает буквы','Интереса к буквам и чтению нет'],a:0,e:'Интерес к чтению — маркер внутренней мотивации к обучению.'},
+    {q:'Может ли ребенок подобрать антонимы (большой-маленький, день-ночь)?',o:['Да, легко подбирает пары','Подбирает с подсказкой','Затрудняется'],a:0,e:'Работа с антонимами развивает гибкость мышления и словарный запас.'}
+  ],
+  motivation:[
+    {q:'Хочет ли ребенок идти в школу?',o:['Да, проявляет живой интерес, задает вопросы','Относится нейтрально, идет «за компанию»','Отказывается, боится или говорит «не хочу»'],a:0,e:'Позитивная мотивация — главный фактор успешной адаптации.'},
+    {q:'Может ли ребенок заниматься одним делом 15-20 минут (рисовать, собирать конструктор)?',o:['Да, увлеченно и сосредоточенно','Может, но часто отвлекается, нужно напоминать','Быстро бросает, не может усидеть и 5 минут'],a:0,e:'Усидчивость напрямую влияет на способность сидеть на уроке.'},
+    {q:'Как ребенок реагирует, если у него не получается задание?',o:['Пробует еще раз или спокойно просит помочь','Расстраивается, но быстро успокаивается','Бросает дело, плачет, злится или отказывается'],a:0,e:'Реакция на неудачу показывает уровень тревожности и устойчивость.'},
+    {q:'Может ли ребенок действовать по правилу или образцу (сделать «как на картинке»)?',o:['Да, внимательно смотрит и повторяет','Старается, но часто отвлекается от образца','Делает по-своему, игнорирует правило'],a:0,e:'Умение действовать по образцу — основа учебной деятельности.'},
+    {q:'Понимает ли ребенок разницу между «хочу» и «надо»?',o:['Да, может сделать нужное дело, даже если не хочется','Понимает, но требует постоянного контроля','Делает только то, что хочет прямо сейчас'],a:0,e:'Произвольность поведения — главный критерий школьной зрелости.'},
+    {q:'Насколько ребенок самостоятелен в выполнении простых заданий?',o:['Делает сам, обращается за помощью только по делу','Начинает сам, но быстро зовет взрослого','Сразу просит сделать за него'],a:0,e:'Самостоятельность снижает нагрузку на учителя и родителя.'},
+    {q:'Любознателен ли ребенок? Задает ли вопросы «почему?», «как?»?',o:['Да, постоянно интересуется новым','Иногда спрашивает, если тема интересна','Не проявляет интереса к новому'],a:0,e:'Любознательность — двигатель познавательной активности.'},
+    {q:'Как ребенок реагирует на замечания?',o:['Принимает, старается исправить','Обижается, но быстро отходит','Агрессирует, замыкается или игнорирует'],a:0,e:'Адекватная реакция на обратную связь важна для обучения.'}
+  ],
+  intellect:[
+    {q:'Считает ли ребенок в пределах 10 (прямой и обратный счет)?',o:['Да, уверенно считает в обе стороны','Считает до 10, но обратный счет затруднен','Затрудняется, путает цифры'],a:0,e:'Базовый счет — фундамент для математики в 1 классе.'},
+    {q:'Ориентируется ли ребенок в пространстве (право/лево, над/под, между)?',o:['Да, путает редко','Путает право и лево, но понимает верх/низ','Затрудняется в базовой ориентировке'],a:0,e:'Путаница право/лево — частая причина зеркального письма букв.'},
+    {q:'Знает ли ребенок дни недели, части суток, времена года?',o:['Знает все, может назвать по порядку','Знает частично, путает последовательность','Не знает или путает понятия'],a:0,e:'Ориентировка во времени нужна для понимания расписания.'},
+    {q:'Может ли ребенок установить причинно-следственную связь (почему идет дождь, зачем люди едят)?',o:['Да, рассуждает логично','Отвечает односложно, нужна помощь','Затрудняется объяснить причину'],a:0,e:'Логическое мышление важнее заученных фактов.'},
+    {q:'Может ли ребенок найти лишний предмет в ряду и объяснить почему?',o:['Да, легко находит и аргументирует','Находит, но не может объяснить','Не видит лишнего предмета'],a:0,e:'Классификация и обобщение — база для аналитического мышления.'},
+    {q:'Знает ли ребенок свой адрес, имена родителей, профессию мамы/папы?',o:['Знает все основные данные','Знает имя, но путает адрес или профессию','Не знает или не запоминает'],a:0,e:'Базовые социальные знания о себе и семье.'},
+    {q:'Может ли ребенок запомнить и повторить 3-4 не связанных слова?',o:['Да, запоминает сразу','Нужно повторить 2-3 раза','Забывает даже после повторения'],a:0,e:'Слуховая память критична для запоминания инструкций на уроке.'},
+    {q:'Может ли ребенок найти 3-5 отличий на двух похожих картинках?',o:['Да, находит быстро и внимательно','Находит, но пропускает детали','Не удерживает фокус, быстро сдается'],a:0,e:'Устойчивость внимания — залог успешного списывания и проверки работ.'}
+  ],
+  social:[
+    {q:'Как ребенок общается со сверстниками?',o:['Легко находит общий язык, играет в команде','Играет рядом, но избегает активных контактов','Конфликтует, дерется или полностью изолируется'],a:0,e:'Умение играть по правилам — основа школьной социализации.'},
+    {q:'Может ли ребенок обратиться к незнакомому взрослому (учителю) с просьбой?',o:['Да, не боится задать вопрос','Стесняется, но может, если очень нужно','Боится, молчит, даже если проблема серьезная'],a:0,e:'Умение просить о помощи предотвращает многие школьные проблемы.'},
+    {q:'Как ребенок разрешает конфликты (отняли игрушку)?',o:['Пытается договориться или зовет взрослого','Плачет или жалуется','Агрессирует (толкает, кусает) или замыкается'],a:0,e:'Конструктивное разрешение конфликтов — маркер эмоционального интеллекта.'},
+    {q:'Может ли ребенок слушать другого, не перебивая?',o:['Да, умеет ждать своей очереди','Часто перебивает, но реагирует на замечание','Постоянно перебивает, не слышит других'],a:0,e:'Умение слушать — 50% успеха на уроке.'},
+    {q:'Понимает ли ребенок эмоции других людей (что друг расстроен, зол)?',o:['Да, сочувствует, может поддержать','Понимает, но не всегда реагирует','Не замечает или игнорирует эмоции'],a:0,e:'Эмпатия помогает выстраивать отношения в классе.'},
+    {q:'Соблюдает ли ребенок правила в совместных играх?',o:['Да, принимает правила и следует им','Иногда нарушает, если проигрывает','Отказывается от правил, хочет только побеждать'],a:0,e:'Принятие правил — переход от игровой к учебной деятельности.'},
+    {q:'Проявляет ли ребенок инициативу в играх и общении?',o:['Да, часто предлагает идеи','Иногда присоединяется к другим','Предпочитает, чтобы другие решали за него'],a:0,e:'Инициативность связана с лидерскими качествами и уверенностью.'},
+    {q:'Как ребенок ведет себя в новой обстановке (гости, кружок)?',o:['Быстро адаптируется, интересуется','Нужно время, чтобы освоиться','Долго держится за родителя, плачет'],a:0,e:'Адаптивность важна для первых месяцев в школе.'}
+  ],
+  motor:[
+    {q:'Как ребенок держит ручку/карандаш?',o:['Трехпальцевый захват, рука не напряжена','Держит всей ладонью или слишком сильно сжимает','Отказывается рисовать, быстро устает'],a:0,e:'Правильный захват — профилактика усталости и плохого почерка.'},
+    {q:'Может ли ребенок аккуратно обвести фигуру по контуру, не выходя за линии?',o:['Да, рука уверенная, линии ровные','Старается, но часто выходит за контур','Линии дрожащие, задание вызывает раздражение'],a:0,e:'Зрительно-моторная координация — база для письма.'},
+    {q:'Может ли ребенок самостоятельно одеться, застегнуть пуговицы, завязать шнурки?',o:['Да, делает все сам','Одевается сам, но шнурки/пуговицы — с трудом','Нуждается в постоянной помощи взрослого'],a:0,e:'Самообслуживание снижает стресс на переменах и в раздевалке.'},
+    {q:'Может ли ребенок организовать свое рабочее место (собрать портфель, разложить тетради)?',o:['Да, делает сам по списку или памяти','Собирает, но часто что-то забывает','Не умеет, ждет, пока соберет родитель'],a:0,e:'Организованность — ключ к самостоятельности в учебе.'},
+    {q:'Развита ли координация движений (может поймать мяч, постоять на одной ноге)?',o:['Да, движения уверенные и точные','Координация есть, но неловкость в сложных движениях','Часто спотыкается, роняет предметы'],a:0,e:'Общая моторика тесно связана с развитием речи и мозга.'},
+    {q:'Вынослив ли ребенок? Может ли он выдержать нагрузку 3-4 урока?',o:['Да, активен и бодр','К концу дня устает, но терпит','Быстро истощается, жалуется на головную боль'],a:0,e:'Физическая выносливость определяет работоспособность.'},
+    {q:'Соблюдает ли ребенок режим дня (ложится и встает в одно время)?',o:['Да, режим стабилен','Иногда сбивается, особенно в выходные','Режима нет, ложится поздно'],a:0,e:'Режим дня — фундамент нервной системы и внимания.'},
+    {q:'Сформированы ли гигиенические навыки (сам моет руки, пользуется туалетом)?',o:['Да, полностью самостоятелен','Напоминает, но делает сам','Нуждается в контроле и помощи'],a:0,e:'Базовая гигиена — обязательное условие для комфортной школы.'}
+  ]
+};
+
+let S=null;
+
+function setMode(m){
+  document.body.classList.toggle('mode-kids',m==='5-6');
+  document.body.classList.toggle('mode-class',m!=='5-6');
+  document.querySelectorAll('.mode-btn[data-mode]').forEach(b=>b.classList.toggle('on',b.dataset.mode===m));
+  $('mode-note').textContent=m==='5-6'
+    ?'Возраст 5–6 лет: вопросы ориентированы на раннюю подготовку и выявление зон роста.'
+    :'Возраст 6–7 лет: вопросы ориентированы на детей, идущих в школу в этом году.';
+}
+
+function startQuiz(){
+  const nameInput=$('stu-name'), emailInput=$('stu-email');
+  if(nameInput && nameInput.value.trim()){try{localStorage.setItem('sr_name',nameInput.value.trim());}catch(e){}}
+  if(emailInput && emailInput.value.trim()){try{localStorage.setItem('sr_email',emailInput.value.trim());}catch(e){}}
+
+  const skills=ORDER;
+  const state={};skills.forEach(k=>{state[k]={lvlStats:{1:{c:0,t:0},2:{c:0,t:0},3:{c:0,t:0},4:{c:0,t:0},5:{c:0,t:0}}};});
+
+  S={skills,secIdx:0,per:Q_PER_ZONE,state,
+     sk2:{speech:{c:0,t:0},motivation:{c:0,t:0},intellect:{c:0,t:0},social:{c:0,t:0},motor:{c:0,t:0}},
+     ans:[],score:0,qIdx:0,secDone:0,
+     skill:skills[0],current:null,order:null,answered:false,
+     totalQ:skills.length*Q_PER_ZONE};
+
+  $('secnav').innerHTML=skills.map(k=>`<span class="snav" data-k="${k}">${SK[k].icon} ${SK[k].short}</span>`).join('');
+  show('scr-quiz');
+  showIntro();
+}
+
+function showIntro(){
+  const k=S.skill,m=SK[k];
+  $('qcard').hidden=true;$('intro').hidden=false;
+  $('in-icon').textContent=m.icon;
+  $('in-step').textContent=`Часть ${S.secIdx+1} из ${S.skills.length} · ${S.per} вопросов`;
+  $('in-title').textContent=m.title;
+  $('in-desc').textContent=m.desc;
+  const card=$('intro');card.style.animation='none';void card.offsetWidth;card.style.animation='';
+  updateHUD();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function beginSection(){
+  $('intro').hidden=true;$('qcard').hidden=false;
+  S.secDone=0;
+  renderQuestion();
+}
+
+function pickQuestion(k){
+  const pool=BANK[k];
+  const asked = S.ans.filter(a=>a.skill===k).map(a=>a.qIdxInZone);
+  const avail = pool.map((q,i)=>({q,i})).filter(x=>!asked.includes(x.i));
+  if(avail.length>0){
+    const pick = avail[Math.floor(Math.random()*avail.length)];
+    return {q:pick.q, idx:pick.i};
+  }
+  return {q:pool[0], idx:0};
+}
+
+function buildOrder(q){
+  if(q._order)return q._order;
+  const idx=q.o.map((t,i)=>({t,ok:i===q.a}));
+  let seed=0;const key=(q.q||'')+'|'+q.o.join('|');
+  for(let i=0;i<key.length;i++){seed=(seed*31+key.charCodeAt(i))>>>0;}
+  const rnd=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296;};
+  for(let i=idx.length-1;i>0;i--){const j=Math.floor(rnd()*(i+1));[idx[i],idx[j]]=[idx[j],idx[i]];}
+  q._order=idx;return idx;
+}
+
+const KEYS=['A','B','C'];
+function optsHTML(){
+  return `<div class="opts">${S.order.map((o,i)=>
+    `<button type="button" class="opt" onclick="answer(${i})"><span class="key">${KEYS[i]}</span><span>${o.t}</span></button>`).join('')}</div>`;
+}
+
+function renderQuestion(){
+  const k=S.skill;
+  const pick = pickQuestion(k);
+  const q = pick.q;
+  S.answered=false;S.current=q;S.order=buildOrder(q);
+  $('feedback').hidden=true;
+  $('tag-skill').textContent=SK[k].icon+' '+SK[k].short;
+  $('tag-lvl').textContent='Вопрос '+(S.secDone+1)+' из '+S.per;
+  const qa=$('q-answer');
+  $('qtext').textContent=q.q;
+  qa.innerHTML=optsHTML();
+
+  $('qcount').textContent=(S.qIdx+1)+' / '+S.totalQ;
+  $('pin').style.left=((S.secDone/S.per)*100)+'%';
+  document.querySelectorAll('.ruler b').forEach((b,i)=>b.classList.toggle('hot',i===2)); // Норма по умолчанию
+  updateHUD();
+  const card=$('qcard');card.style.animation='none';void card.offsetWidth;card.style.animation='';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function answer(i){
+  if(!S||S.answered)return;
+  const ok=S.order[i].ok,given=S.order[i].t;
+  document.querySelectorAll('#q-answer .opt').forEach((b,j)=>{
+    b.disabled=true;
+    if(S.order[j].ok)b.classList.add('correct');
+    else if(j===i)b.classList.add('wrong');
+  });
+  applyResult(ok?2:(i===1?1:0),S.current.o[S.current.a],given);
+}
+
+function applyResult(score,correctText,given){
+  S.answered=true;
+  const k=S.skill,q=S.current;
+  const st=S.state[k];
+  const lvl = score===2?4:(score===1?3:2); // 2 балла = выше нормы, 1 = норма, 0 = ниже
+
+  st.lvlStats[lvl].t++;
+  if(score>0) st.lvlStats[lvl].c++;
+
+  S.sk2[k].t++;
+  S.score+=score;
+  if(score===2) S.sk2[k].c++;
+
+  S.qIdx++;S.secDone++;
+  S.ans.push({skill:k,q,ok:score>0,given,score,qIdxInZone:S.ans.filter(a=>a.skill===k).length});
+  
+  const good=['Отлично! 👍','Хороший результат!','Верно!'];
+  const bad=['Есть над чем поработать.','Требует внимания.','Зона роста.'];
+  const head=$('fb-head');
+  head.className='fb-head '+(score>0?'good':'badh');
+  $('fb-icon').textContent=score>0?'✅':'⚠️';
+  $('fb-title').textContent=score>0?good[Math.floor(Math.random()*good.length)]
+    :bad[Math.floor(Math.random()*bad.length)];
+  
+  $('fb-expl').textContent=q.e;
+  
+  const lastInSec=S.secDone>=S.per;
+  const lastSection=S.secIdx>=S.skills.length-1;
+  $('btn-next').textContent=(lastInSec&&lastSection)?'К результатам 🏁':(lastInSec?'Следующая зона →':'Дальше →');
+  $('feedback').hidden=false;
+  $('pbar').style.width=(S.qIdx/S.totalQ*100)+'%';
+  updateHUD();
+  $('feedback').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function next(){
+  if(S.secDone<S.per){renderQuestion();return;}
+  S.secIdx++;
+  if(S.secIdx<S.skills.length){S.skill=S.skills[S.secIdx];showIntro();}
+  else finish();
+}
+
+function updateHUD(){
+  $('est').textContent=SK[S.skill].short;
+  $('score').textContent='Баллы: '+S.score;
+  document.querySelectorAll('.snav').forEach(el=>{
+    const k=el.dataset.k,idx=S.skills.indexOf(k);
+    el.classList.toggle('now',idx===S.secIdx);
+    el.classList.toggle('done',idx<S.secIdx);
+  });
+}
+
+function getZoneLevel(k){
+  const st=S.state[k].lvlStats;
+  // Взвешенная оценка
+  const total = st[1].t+st[2].t+st[3].t+st[4].t+st[5].t;
+  if(total===0) return 3;
+  const score = (st[5].c*5 + st[4].c*4 + st[3].c*3 + st[2].c*2 + st[1].c*1) / total;
+  return Math.round(score);
+}
+
+function generateDetailedRecommendations(skillLevels) {
+  const topics = {
+    speech: {
+      1: "Критическое отставание. Требуется срочная работа с логопедом: постановка звуков, развитие фонематического слуха, расширение словаря. Без этого обучение чтению будет идти с трудом.",
+      2: "Есть пробелы. Рекомендуются ежедневные игры на звукобуквенный анализ, артикуляционная гимнастика, совместное чтение с обсуждением. Консультация логопеда желательна.",
+      3: "Базовый уровень в норме. Поддерживайте через чтение вслух, обсуждение прочитанного, игры в слова.",
+      4: "Хороший уровень. Можно углублять: пересказы, составление рассказов по картинкам, изучение букв.",
+      5: "Отличная база. Ребенок готов к углубленному изучению языка, можно начинать обучение чтению."
+    },
+    motivation: {
+      1: "Низкая учебная мотивация. Ребенок не готов к школьным нагрузкам. Нужна работа психолога по формированию произвольности, снижению тревожности, развитию интереса через игру.",
+      2: "Мотивация нестабильна. Важно хвалить за процесс, а не результат. Вводите короткие занятия (10-15 мин) с обязательным успехом в конце.",
+      3: "Приемлемый уровень. Поддерживайте интерес, не перегружайте. Соблюдайте режим дня.",
+      4: "Хорошая мотивация. Ребенок понимает «надо». Можно вводить более сложные задачи.",
+      5: "Высокая готовность. Ребенок хочет учиться и умеет преодолевать трудности."
+    },
+    intellect: {
+      1: "Интеллектуальная незрелость. Нужна коррекционная работа: игры на логику, память, внимание. Не форсируйте академические знания (счет, буквы), пока не разовьете мышление.",
+      2: "Есть пробелы в базовых представлениях. Играйте в настольные игры, учите ориентировку в пространстве (право/лево), считайте в быту.",
+      3: "База сформирована. Ребенок справится с программой 1 класса при поддержке.",
+      4: "Хороший уровень. Можно давать олимпиадные задания, задачи на смекалку.",
+      5: "Высокий уровень. Ребенок готов к углубленным программам."
+    },
+    social: {
+      1: "Социальная незрелость. Ребенку будет очень тяжело в коллективе. Нужны групповые занятия, проигрывание школьных ситуаций, работа с психологом.",
+      2: "Есть трудности в коммуникации. Учите просить о помощи, разрешать конфликты словами. Запишите в секцию/кружок для практики общения.",
+      3: "Норма. Ребенок умеет общаться, но иногда нуждается в поддержке.",
+      4: "Хорошие социальные навыки. Ребенок легко вольется в коллектив.",
+      5: "Отличная коммуникация. Ребенок может стать лидером в классе."
+    },
+    motor: {
+      1: "Моторная незрелость. Рука не готова к письму. Категорически нельзя форсировать прописи! Нужны лепка, шнуровки, су-джок, пальчиковые игры. Консультация нейропсихолога.",
+      2: "Моторика развита слабо. Ежедневные занятия: раскраски, обводки, вырезание, застегивание пуговиц. Развивайте самостоятельность в быту.",
+      3: "Базовый уровень. Рука готова к нагрузке, но быстро устает. Делайте перерывы.",
+      4: "Хорошая моторика. Ребенок готов к письму.",
+      5: "Отличная координация и самообслуживание. Полная физиологическая готовность."
+    }
+  };
+
+  const recs = [];
+  for (const k of ['speech', 'motivation', 'intellect', 'social', 'motor']) {
+    const lvl = skillLevels[k];
+    const name = SK[k].short;
+    const icon = SK[k].icon;
+    const st = S.sk2[k];
+    const maxScore = st.t * 2;
+    const acc = maxScore > 0 ? Math.round((st.c / st.t) * 100) : 0; // % максимальных баллов
+    
+    let status = "";
+    if (acc >= 80) status = "✅ Отлично";
+    else if (acc >= 50) status = "⚠️ Требует внимания";
+    else status = "🚨 Критическая зона";
+
+    recs.push(`${icon} ${name}: Уровень «${LVLNAME[lvl]}» (${status})`);
+    recs.push(`   📊 Баллы: ${st.c} из ${maxScore} возможных`);
+    recs.push(`   💡 Рекомендация: ${topics[k][lvl]}`);
+    recs.push("");
+  }
+  return recs.join('\n');
+}
+
+function finish(early=false){
+  show('scr-result');
+  const kids=document.body.classList.contains('mode-kids');
+
+  const maxPossibleScore = TOTAL_Q * 2;
+  const acc = maxPossibleScore > 0 ? Math.round((S.score / maxPossibleScore) * 100) : 0;
+
+  const skillLevels={};
+  S.skills.forEach(k=>{skillLevels[k]=getZoneLevel(k);});
+  
+  const avgLvl = Math.round(S.skills.reduce((sum,k)=>sum+skillLevels[k],0)/S.skills.length);
+
+  $('stamp').firstChild.textContent=LVLNAME[avgLvl];
+  $('stamp-name').textContent=LVLFULL[avgLvl];
+
+  if(early){
+    $('verdict').textContent=`Тест завершен досрочно. Отвечено: ${S.qIdx} из ${S.totalQ}.`;
+  }else{
+    if(acc>=80) $('verdict').textContent='Ребенок полностью готов к школе! Отличная база по всем направлениям. 🌟';
+    else if(acc>=60) $('verdict').textContent='Базовая готовность есть, но есть зоны, которые нужно подтянуть перед 1 классом. 💪';
+    else if(acc>=40) $('verdict').textContent='Есть серьезные пробелы. Рекомендуется интенсивная подготовка с специалистами. 🎯';
+    else $('verdict').textContent='Ребенок не готов к школьным нагрузкам. Требуется комплексная коррекционная работа. 🚨';
+  }
+
+  $('st-correct').textContent=S.score+' / '+maxPossibleScore;
+  $('st-acc').textContent=acc+'%';
+  
+  // Найти лучшую и худшую зоны
+  let bestZone = S.skills[0], worstZone = S.skills[0];
+  let bestAcc = -1, worstAcc = 101;
+  S.skills.forEach(k=>{
+    const st = S.sk2[k];
+    const zAcc = st.t > 0 ? (st.c/st.t)*100 : 0;
+    if(zAcc > bestAcc) { bestAcc = zAcc; bestZone = k; }
+    if(zAcc < worstAcc) { worstAcc = zAcc; worstZone = k; }
+  });
+  $('st-best').textContent=SK[bestZone].icon;
+  $('st-weak').textContent=SK[worstZone].icon;
+
+  $('skillcards').innerHTML=S.skills.map(k=>{
+    const sl=LVLNAME[skillLevels[k]];
+    const st=S.sk2[k];
+    const maxS = st.t*2;
+    const pct=maxS?Math.round((st.c/maxS)*100):0;
+    return `<div class="scard"><div class="ic">${SK[k].icon}</div><h4>${SK[k].title}</h4>
+      <div class="lvl">${sl}</div><div class="acc">${st.c}/${maxS} балл. · ${pct}%</div>
+      <div class="bar"><i data-w="${pct}"></i></div></div>`;
+  }).join('');
+
+  requestAnimationFrame(()=>{
+    document.querySelectorAll('.scard .bar i').forEach(b=>b.style.width=b.dataset.w+'%');
+  });
+
+  // Зоны риска для родителя
+  const weakZones = S.skills.filter(k=>{
+    const st = S.sk2[k];
+    const maxS = st.t*2;
+    return maxS===0 || (st.c/maxS) < 0.6;
+  });
+
+  if(weakZones.length===0){
+    $('mistakes').innerHTML='<div class="all-good">🏆 Все зоны в норме! Ребенок отлично готов к школе.</div>';
+  }else{
+    let html='';
+    weakZones.forEach(k=>{
+      html+=`<div class="m-group">${SK[k].icon} ${SK[k].title}</div>`;
+      const st = S.sk2[k];
+      const maxS = st.t*2;
+      const pct = maxS?Math.round((st.c/maxS)*100):0;
+      html+=`<div class="m-item"><div class="mq">Результат: ${pct}% (Уровень: ${LVLNAME[skillLevels[k]]})</div>
+        <div>В этой зоне ребенок набрал ${st.c} из ${maxS} возможных баллов. <span class="fix">Рекомендуется консультация специалиста.</span></div></div>`;
+    });
+    $('mistakes').innerHTML=html;
+  }
+
+  sendResultToEmail(avgLvl,acc,S.score,maxPossibleScore,skillLevels,early);
+  
+  if(acc>=60)confetti(100);
+}
+
+async function sendResultToEmail(avgLvl,accuracy,points,maxPoints,skillLevels,early){
+  const statusEl=$('send-status');
+  let userEmail='',userName='';
+  try{userEmail=localStorage.getItem('sr_email')||'';}catch(e){}
+  try{userName=localStorage.getItem('sr_name')||'';}catch(e){}
+  const ageMode = document.body.classList.contains('mode-kids') ? '5-6 лет' : '6-7 лет';
+
+  const detailedRecs = generateDetailedRecommendations(skillLevels);
+  const resAll = RESOURCES_MAP[avgLvl] || RESOURCES_MAP[3];
+
+  const allMistakes = S.ans.filter(a=>!a.ok).map(a=>{
+    return {
+      zone:SK[a.skill].short,
+      question:a.q.q,
+      user_answer:a.given,
+      correct_answer:a.q.o[a.q.a],
+      explanation:a.q.e
+    };
+  });
+
+  const payload={
+    access_key: "cb596794-660b-4afd-9951-ec7114891119",
+    _subject:`Скрининг к школе: ${userName||'Без имени'} (${ageMode}) · ${accuracy}% · ${LVLNAME[avgLvl]}`,
+    from_name: userName || 'Родитель',
+    
+    "✅ Согласие 152-ФЗ": "Пользователь прошел тест и согласен с обработкой данных",
+    
+    "Имя ребенка":userName||'Не указано',
+    "Email родителя":userEmail||'Не указан',
+    "Возраст":ageMode,
+    "Дата и время":new Date().toLocaleString('ru-RU'),
+    "Статус":early?'Досрочное завершение':'Завершён полностью',
+    
+    "Итоговый уровень готовности":LVLNAME[avgLvl] + ' (' + LVLFULL[avgLvl] + ')',
+    "Общий процент готовности":accuracy+'%',
+    "Набрано баллов":`${points} из ${maxPoints}`,
+    
+    "📊 ДЕТАЛЬНЫЙ РАЗБОР ПО 5 ЗОНАМ (ФГОС ДО)": detailedRecs,
+    
+    "📚 Рекомендуемые пособия и ресурсы": resAll,
+    
+    "⚠️ Подробный разбор ошибок и слабых мест": allMistakes.length
+      ?allMistakes.map((m,i)=>`${i+1}. [${m.zone}]\n   Вопрос: ${m.question}\n   Ответ родителя: ${m.user_answer}\n   ✔ Оптимально: ${m.correct_answer}\n   💡 Комментарий: ${m.explanation}`).join('\n\n---\n\n')
+      :'🏆 Ошибок нет — ребенок полностью готов!'
+  };
+
+  statusEl.textContent='Отправляю детальный результат Анне...';
+  statusEl.style.color='#666';
+
+  const ctrl=new AbortController();
+  const tId=setTimeout(()=>ctrl.abort(),15000);
+  try{
+    const r=await fetch('https://api.web3forms.com/submit',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify(payload),
+      signal:ctrl.signal
+    });
+    clearTimeout(tId);
+    const j=await r.json();
+    if(!j.success)throw new Error("Ошибка отправки Анне: " + (j.message || "Неизвестная ошибка"));
+
+    if(userEmail){
+      try{
+        const ctrl2=new AbortController();const t2=setTimeout(()=>ctrl2.abort(),15000);
+        await fetch('https://api.web3forms.com/submit',{
+          method:'POST',
+          headers:{'Content-Type':'application/json','Accept':'application/json'},
+          body:JSON.stringify({
+            ...payload,
+            access_key: "cb596794-660b-4afd-9951-ec7114891119",
+            _subject:`Результат скрининга готовности к школе: ${LVLNAME[avgLvl]}`,
+            from_name: "Анна Драчёва (Логопед-психолог)"
+          }),
+          signal:ctrl2.signal
+        });
+        clearTimeout(t2);
+        statusEl.textContent='✅ Результат отправлен Анне и продублирован родителю на почту.';
+        statusEl.style.color='var(--ok)';
+      }catch(e){
+        statusEl.textContent='✅ Результат отправлен Анне. (Не удалось продублировать родителю)';
+        statusEl.style.color='var(--warn)';
+      }
+    }else{
+      statusEl.textContent='✅ Детальный результат успешно отправлен Анне.';
+      statusEl.style.color='var(--ok)';
+    }
+  }catch(err){
+    clearTimeout(tId);console.error(err);
+    statusEl.textContent='⚠️ Не удалось отправить авто-письмо. Скриньте результат и напишите Анне вручную.';
+    statusEl.style.color='var(--bad)';
+  }
+}
+
+function confetti(n){
+  const box=document.createElement('div');box.className='confetti';document.body.appendChild(box);
+  const colors=['#ffd35c','#ff9d9d','#8fe3c0','#9fd8ff','#ffffff','#ff8f6b'];
+  for(let i=0;i<n;i++){
+    const p=document.createElement('i');
+    p.style.left=Math.random()*100+'vw';p.style.background=colors[i%colors.length];
+    p.style.animationDuration=(2.4+Math.random()*2.4)+'s';
+    p.style.animationDelay=(Math.random()*1.2)+'s';
+    p.style.transform='rotate('+Math.random()*360+'deg)';
+    box.appendChild(p);
+  }
+  setTimeout(()=>box.remove(),6000);
+}
+
+function goStart(){show('scr-start');}
+function show(id){
+  ['scr-start','scr-quiz','scr-result'].forEach(s=>$(s).hidden=(s!==id));
+  const el=$(id);el.style.animation='none';void el.offsetWidth;el.style.animation='';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+document.addEventListener('keydown',e=>{
+  if($('scr-quiz').hidden||!S)return;
+  if(!$('intro').hidden&&e.key==='Enter'){beginSection();return;}
+  const map={'1':0,'2':1,'3':2,'a':0,'b':1,'c':2};
+  const key=e.key.toLowerCase();
+  if(!S.answered&&map[key]!==undefined&&S.order)answer(map[key]);
+  else if(S.answered&&e.key==='Enter')next();
+});
+
+window.addEventListener('DOMContentLoaded',()=>{
+  const name=localStorage.getItem('sr_name');
+  const email=localStorage.getItem('sr_email');
+  if(name)$('stu-name').value=name;
+  if(email)$('stu-email').value=email;
+});
+</script>
+</body>
+</html>
