@@ -3,515 +3,103 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Экспресс-скрининг речи · Анна Драчёва</title>
+<title>Экспресс-скрининг речевого развития</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ff9d9d'/%3E%3Cstop offset='1' stop-color='%237a2e36'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath fill='url(%23g)' d='M16 20c0-7 6-12 13-12s13 5 13 12c0 1 0 2-1 3 5 1 9 6 9 11 0 7-6 12-13 12H22c-7 0-12-5-12-12 0-5 3-9 8-11-1-1-2-2-2-3z'/%3E%3Ctext x='32' y='42' font-family='Georgia' font-size='24' font-weight='bold' fill='white' text-anchor='middle'%3EР%3C/text%3E%3C/svg%3E">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --burgundy:#7a2e36; --burgundy-dark:#5d1f26; --burgundy-light:#fdf6f7;
-    --cream:#fffbf7; --white:#fff;
-    --graphite:#2d2d2d; --gray:#6b7280; --line:#e5e7eb;
-    --ok:#059669; --ok-bg:#ecfdf5;
-    --warn:#d97706; --warn-bg:#fffbeb;
-    --alert:#dc2626; --alert-bg:#fef2f2;
-    --mint:#d1fae5; --pink:#fce7f3; --peach:#fed7aa;
-    --shadow:0 10px 40px -10px rgba(122, 46, 54, 0.08); 
-    --radius:16px;
-    --serif:'Playfair Display', Georgia, serif;
-    --sans:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    --hand:'Caveat', cursive;
+  body { 
+    font-family: 'Inter', Arial, sans-serif; 
+    max-width: 600px; 
+    margin: 40px auto; 
+    padding: 20px; 
+    line-height: 1.6; 
+    color: #2d2d2d; 
+    background-color: #fffbf7;
   }
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{
-    font-family:var(--sans);
-    background-color: var(--cream);
-    background-image: 
-      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E"),
-      radial-gradient(circle at 10% 20%, rgba(209, 250, 229, 0.5) 0%, transparent 35%),
-      radial-gradient(circle at 90% 10%, rgba(252, 231, 243, 0.5) 0%, transparent 35%),
-      radial-gradient(circle at 80% 80%, rgba(254, 215, 170, 0.4) 0%, transparent 40%),
-      radial-gradient(circle at 20% 90%, rgba(122, 46, 54, 0.06) 0%, transparent 30%);
-    background-size: 200px 200px, 200% 200%, 200% 200%, 200% 200%, 200% 200%;
-    animation: bgBreathe 30s ease-in-out infinite alternate;
-    color:var(--graphite);line-height:1.6;-webkit-font-smoothing:antialiased;min-height: 100vh;overflow-x: hidden;position: relative;
+  h2 { color: #7a2e36; margin-bottom: 10px; }
+  .form-group { margin-bottom: 20px; }
+  label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 15px; }
+  input[type="text"], input[type="email"], textarea { 
+    width: 100%; 
+    padding: 12px; 
+    border: 1.5px solid #e5e7eb; 
+    border-radius: 8px; 
+    box-sizing: border-box; 
+    font-size: 15px;
+    transition: border-color 0.2s;
   }
-  @keyframes bgBreathe {
-    0% { background-position: 0 0, 0% 50%, 100% 50%, 50% 100%, 50% 0%; }
-    100% { background-position: 0 0, 100% 50%, 0% 50%, 50% 0%, 50% 100%; }
+  input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
+    outline: none;
+    border-color: #7a2e36;
+    box-shadow: 0 0 0 3px rgba(122, 46, 54, 0.1);
   }
-  @media (prefers-reduced-motion: reduce) {
-    body { animation: none !important; }
-    .doodle { animation: none !important; }
+  .checkbox-group { display: flex; align-items: flex-start; gap: 12px; margin-top: 15px; }
+  .checkbox-group input[type="checkbox"] { margin-top: 4px; width: 18px; height: 18px; accent-color: #7a2e36; flex-shrink: 0; }
+  .checkbox-group label { font-weight: 400; font-size: 14px; color: #555; line-height: 1.4; cursor: pointer; }
+  button { 
+    background-color: #7a2e36; 
+    color: white; 
+    padding: 14px 24px; 
+    border: none; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    font-size: 16px; 
+    font-weight: 600;
+    width: 100%;
+    margin-top: 10px;
+    transition: background-color 0.2s;
   }
-
-  .doodles{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-  .doodle{position:absolute;font-family:var(--hand);opacity:.1;transform:rotate(var(--r,0deg));font-size:var(--fs,3rem);animation:floaty var(--t,8s) ease-in-out infinite alternate;white-space:nowrap;user-select:none}
-  .doodle.letter{color:var(--burgundy);font-weight:700}
-  .doodle.bubble{font-family:var(--sans);background:var(--white);border:2px dashed var(--burgundy);border-radius:50% 50% 50% 20%;padding:8px 16px;font-size:1.1rem;color:var(--burgundy);font-weight:600;opacity:.15}
-  .doodle.emoji{font-family:'Nunito',sans-serif;opacity:.25;font-size:var(--fs,2.5rem)}
-  @keyframes floaty{from{transform:translateY(-10px) rotate(var(--r,0deg))}to{transform:translateY(12px) rotate(calc(var(--r,0deg) + 4deg))}}
-
-  .container{max-width:800px;margin:0 auto;padding:24px 20px 60px;position:relative;z-index:1}
-  header.hero{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:40px 32px;margin-bottom:28px;border-top:5px solid var(--burgundy);position:relative;overflow:hidden}
-  header.hero::before{content:"";position:absolute;top:-40px;right:-40px;width:160px;height:160px;background: radial-gradient(circle, var(--mint) 0%, transparent 70%);opacity:.5; border-radius: 50%}
-  header.hero::after{content:"";position:absolute;bottom:-30px;left:-30px;width:120px;height:120px;background: radial-gradient(circle, var(--pink) 0%, transparent 70%);opacity:.5; border-radius: 50%}
-  .hero h1{font-family:var(--serif);color:var(--burgundy);font-size:2.2rem;line-height:1.2;margin-bottom:8px;position:relative}
-  .hero .role{font-size:.85rem;color:var(--gray);text-transform:uppercase;letter-spacing:1.5px;font-weight:600;margin-bottom:16px;position:relative}
-  .hero p{color:var(--graphite);font-size:1.05rem;max-width:640px;line-height:1.7;position:relative}
-  .disclaimer{margin-top:20px;background:var(--warn-bg);border:1px solid #fcd34d;border-left:4px solid var(--warn);border-radius:8px;padding:14px 16px;font-size:.88rem;color:#92400e;display:flex;gap:12px;align-items:flex-start;position:relative;line-height: 1.5}
-  .disclaimer span{font-size:1.3rem;line-height:1;flex-shrink:0}
-
-  .block{background:rgba(255,255,255,0.92);backdrop-filter:blur(8px);border-radius:var(--radius);box-shadow:0 4px 20px rgba(0,0,0,.03);padding:32px;margin-bottom:24px;border:1px solid var(--line);transition:transform .3s, box-shadow .3s}
-  .block:hover{box-shadow:var(--shadow)}
-  .block h2{font-family:var(--serif);font-size:1.4rem;margin-bottom:8px;display:flex;align-items:center;gap:12px;color:var(--graphite)}
-  .block .sub{color:var(--gray);font-size:.95rem;margin-bottom:24px;line-height:1.5}
-  .cat-tag{display:inline-flex;align-items:center;gap:6px;background:var(--burgundy-light);border:1px solid #f3dce0;color:var(--burgundy);font-size:.75rem;font-weight:700;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px}
-
-  .q{border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:16px;background:var(--white);transition:.2s}
-  .q:hover{border-color:#d1d5db}
-  .q-text{font-weight:600;margin-bottom:16px;display:block;font-size:1.02rem;color:var(--graphite)}
-  .q-text small{font-weight:400;color:var(--gray);font-size:.85rem}
-  .opts{display:grid;gap:10px}
-  .opt{display:flex;gap:12px;align-items:flex-start;background:var(--cream);border:2px solid transparent;border-radius:10px;padding:14px 16px;cursor:pointer;transition:.2s;font-size:.95rem;position:relative}
-  .opt:hover{background:var(--white);border-color:#d1d5db}
-  .opt input{margin-top:3px;accent-color:var(--burgundy);width:18px;height:18px;flex-shrink:0}
-  .opt.sel{border-color:var(--burgundy);background:var(--burgundy-light);box-shadow:0 0 0 3px rgba(122,46,54,.08)}
-  .opt.sel::after{content:"✓";position:absolute;right:16px;top:50%;transform:translateY(-50%);color:var(--burgundy);font-weight:900;font-size:1.2rem}
-
-  .fields{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-  @media(max-width:600px){.fields{grid-template-columns:1fr}}
-  label.fl{display:block;font-size:.85rem;color:var(--gray);margin-bottom:6px;font-weight:600}
-  input[type=text],input[type=email],input[type=tel],select,textarea{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;font:inherit;font-size:.95rem;background:var(--white);color:var(--graphite);transition:.2s}
-  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--burgundy);box-shadow:0 0 0 4px rgba(122,46,54,.08)}
-  textarea{resize:vertical;min-height:90px}
-
-  .agree{display:flex;gap:12px;align-items:flex-start;margin-top:24px;font-size:.88rem;color:var(--gray);line-height:1.5}
-  .agree input{width:18px;height:18px;margin-top:2px;flex-shrink:0;accent-color:var(--burgundy)}
-  .btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;text-align:center;background:var(--burgundy);color:#fff;border:none;padding:16px;border-radius:10px;font-weight:700;font-size:1.05rem;cursor:pointer;margin-top:24px;transition:.2s;box-shadow:0 4px 14px rgba(122,46,54,.25)}
-  .btn:hover{background:var(--burgundy-dark);transform:translateY(-1px)}
-  .btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
-  .spinner{width:20px;height:20px;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;display:none}
-  @keyframes spin{to{transform:rotate(360deg)}}
-
-  #result{display:none;animation:fadeIn .6s ease-out}
-  @keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
-  .score-container{display:flex;flex-direction:column;align-items:center;margin-bottom:32px}
-  .score-ring{width:180px;height:180px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;background:conic-gradient(var(--burgundy) 0%, var(--line) 0%);transition:background 1.5s cubic-bezier(0.4, 0, 0.2, 1);box-shadow:var(--shadow)}
-  .score-ring::before{content:"";position:absolute;inset:8px;background:var(--white);border-radius:50%}
-  .score-ring .num{position:relative;font-size:3rem;font-weight:800;color:var(--burgundy);line-height:1;z-index:1}
-  .score-ring .lbl{position:relative;font-size:.75rem;letter-spacing:2px;color:var(--gray);font-weight:600;margin-top:4px;z-index:1}
-  
-  .verdict{text-align:center;font-family:var(--serif);font-size:1.6rem;margin-bottom:8px;font-weight:700}
-  .verdict.ok{color:var(--ok)}.verdict.warn{color:var(--warn)}.verdict.alert{color:var(--alert)}
-  .verdict-txt{text-align:center;color:var(--graphite);max-width:600px;margin:0 auto 32px;font-size:1.05rem;line-height:1.6}
-
-  .zone{border:1px solid var(--line);border-left:5px solid var(--gray);border-radius:10px;padding:16px 20px;margin-bottom:12px;background:var(--white)}
-  .zone.good{border-left-color:var(--ok);background:var(--ok-bg)}
-  .zone.watch{border-left-color:var(--warn);background:var(--warn-bg)}
-  .zone.attention{border-left-color:var(--alert);background:var(--alert-bg)}
-  .zone-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-  .zone h4{font-size:1rem;font-weight:700;display:flex;align-items:center;gap:8px;margin:0}
-  .zone-pct{font-weight:800;font-size:1.1rem}
-  .zone.good .zone-pct{color:var(--ok)}.zone.watch .zone-pct{color:var(--warn)}.zone.attention .zone-pct{color:var(--alert)}
-  .progress-bar{height:8px;background:rgba(0,0,0,.06);border-radius:4px;overflow:hidden}
-  .progress-fill{height:100%;border-radius:4px;transition:width 1.5s cubic-bezier(0.4, 0, 0.2, 1);width:0}
-  .zone.good .progress-fill{background:var(--ok)}.zone.watch .progress-fill{background:var(--warn)}.zone.attention .progress-fill{background:var(--alert)}
-
-  .cta-book{background:var(--burgundy-light);border:1px solid #f3dce0;border-radius:12px;padding:28px;text-align:center;margin-top:32px}
-  .cta-book p{color:var(--graphite);margin-bottom:18px;font-size:1.05rem;font-weight:500}
-  .cta-book a{display:inline-block;background:var(--burgundy);color:#fff;text-decoration:none;padding:14px 28px;border-radius:10px;font-weight:700;transition:.2s;box-shadow:0 4px 14px rgba(122,46,54,.2)}
-  .cta-book a:hover{background:var(--burgundy-dark);transform:translateY(-2px)}
-  
-  .send-status{text-align:center;font-size:.95rem;font-weight:600;margin-top:24px;padding:16px;border-radius:8px;line-height:1.5}
-  .send-status.ok{color:var(--ok);background:var(--ok-bg);border:1px solid #a7f3d0}
-  .send-status.warn{color:#92400e;background:var(--warn-bg);border:1px solid #fcd34d}
-  .send-status.error{color:var(--alert);background:var(--alert-bg);border:1px solid #fecaca}
-
-  .fas-disclaimer{margin-top: 24px;padding: 16px;background: #f8fafc;border: 1px solid var(--line);border-radius: 8px;font-size: 0.82rem;color: var(--gray);text-align: center;line-height: 1.5}
-
-  .action-buttons{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
-  @media(max-width:500px){.action-buttons{grid-template-columns:1fr}}
-  .btn-secondary{background:var(--white);color:var(--burgundy);border:2px solid var(--burgundy);box-shadow:none}
-  .btn-secondary:hover{background:var(--burgundy-light)}
-
-  footer{text-align:center;padding:32px 0 0;font-size:.85rem;color:var(--gray);border-top:1px solid var(--line);margin-top:40px;line-height:1.8}
-  footer a{color:var(--burgundy);text-decoration:none;font-weight:600}
-  .back{display:inline-flex;align-items:center;gap:6px;margin-bottom:20px;color:var(--burgundy);text-decoration:none;font-size:.95rem;font-weight:600;transition:.2s}
-  .back:hover{gap:10px}
+  button:hover { background-color: #5d1f26; }
+  .legal-note { font-size: 13px; color: #6b7280; margin-top: 24px; border-top: 1px solid #e5e7eb; padding-top: 16px; line-height: 1.5; }
 </style>
 </head>
 <body>
 
-<div class="doodles" aria-hidden="true">
-  <span class="doodle letter" style="top:3%;left:2%;--fs:4rem;--r:-12deg;--t:7s">А</span>
-  <span class="doodle letter" style="top:8%;right:4%;--fs:3.5rem;--r:8deg;--t:9s">Б</span>
-  <span class="doodle letter" style="top:15%;left:5%;--fs:3rem;--r:-6deg;--t:8s">В</span>
-  <span class="doodle letter" style="top:22%;right:8%;--fs:3.8rem;--r:10deg;--t:10s">Г</span>
-  <span class="doodle letter" style="top:30%;left:3%;--fs:3.2rem;--r:-8deg;--t:7.5s">Д</span>
-  <span class="doodle letter" style="top:38%;right:2%;--fs:3rem;--r:5deg;--t:8.5s">Е</span>
-  <span class="doodle letter" style="top:45%;left:4%;--fs:3.5rem;--r:-10deg;--t:9.5s">Ж</span>
-  <span class="doodle letter" style="top:52%;right:6%;--fs:3.3rem;--r:7deg;--t:8s">З</span>
-  <span class="doodle letter" style="top:60%;left:2%;--fs:3rem;--r:-5deg;--t:7s">И</span>
-  <span class="doodle letter" style="top:68%;right:3%;--fs:3.6rem;--r:9deg;--t:9s">К</span>
-  <span class="doodle letter" style="top:75%;left:5%;--fs:3.2rem;--r:-7deg;--t:8.5s">Л</span>
-  <span class="doodle letter" style="top:82%;right:5%;--fs:3.4rem;--r:6deg;--t:7.5s">М</span>
-  <span class="doodle letter" style="top:88%;left:3%;--fs:3rem;--r:-9deg;--t:10s">Н</span>
-  <span class="doodle letter" style="top:92%;right:7%;--fs:3.5rem;--r:8deg;--t:8s">О</span>
-  <span class="doodle letter" style="top:5%;left:45%;--fs:3rem;--r:-4deg;--t:9s">П</span>
-  <span class="doodle letter" style="top:12%;left:85%;--fs:3.2rem;--r:6deg;--t:7.5s">Р</span>
-  <span class="doodle letter" style="top:25%;left:90%;--fs:3rem;--r:-8deg;--t:8s">С</span>
-  <span class="doodle letter" style="top:40%;left:88%;--fs:3.5rem;--r:5deg;--t:9s">Т</span>
-  <span class="doodle letter" style="top:55%;left:92%;--fs:3.2rem;--r:-6deg;--t:7s">У</span>
-  <span class="doodle letter" style="top:70%;left:87%;--fs:3rem;--r:7deg;--t:8.5s">Ф</span>
-  <span class="doodle letter" style="top:85%;left:90%;--fs:3.4rem;--r:-5deg;--t:9.5s">Х</span>
-  <span class="doodle letter" style="top:95%;left:45%;--fs:3rem;--r:8deg;--t:7s">Ц</span>
-  <span class="doodle letter" style="top:18%;left:15%;--fs:3.2rem;--r:-7deg;--t:8s">Ч</span>
-  <span class="doodle letter" style="top:35%;left:80%;--fs:3.5rem;--r:6deg;--t:9s">Ш</span>
-  <span class="doodle letter" style="top:50%;left:10%;--fs:3rem;--r:-9deg;--t:7.5s">Щ</span>
-  <span class="doodle letter" style="top:65%;left:82%;--fs:3.3rem;--r:5deg;--t:8.5s">Ъ</span>
-  <span class="doodle letter" style="top:78%;left:15%;--fs:3rem;--r:-6deg;--t:9s">Ы</span>
-  <span class="doodle letter" style="top:90%;left:80%;--fs:3.5rem;--r:7deg;--t:7s">Ь</span>
-  <span class="doodle letter" style="top:10%;left:70%;--fs:3.2rem;--r:-8deg;--t:8s">Э</span>
-  <span class="doodle letter" style="top:28%;left:20%;--fs:3rem;--r:6deg;--t:9s">Ю</span>
-  <span class="doodle letter" style="top:42%;left:75%;--fs:3.4rem;--r:-5deg;--t:7.5s">Я</span>
-  <span class="doodle bubble" style="top:6%;left:25%;--t:8s">ма-ма</span>
-  <span class="doodle bubble" style="top:20%;right:20%;--t:9s">па-па</span>
-  <span class="doodle bubble" style="top:35%;left:15%;--t:7.5s">ба-ба</span>
-  <span class="doodle bubble" style="bottom:35%;right:15%;--t:10s">дя-дя</span>
-  <span class="doodle bubble" style="bottom:15%;left:20%;--t:8s">мяу</span>
-  <span class="doodle bubble" style="top:48%;left:70%;--t:9s">гав</span>
-  <span class="doodle bubble" style="top:62%;left:25%;--t:7.5s">а-а-а</span>
-  <span class="doodle bubble" style="bottom:25%;right:25%;--t:8.5s">у-у-у</span>
-  <span class="doodle bubble" style="top:75%;left:60%;--t:9.5s">ра-ра</span>
-  <span class="doodle bubble" style="top:88%;left:30%;--t:7s">ла-ла</span>
-  <span class="doodle emoji" style="top:10%;left:50%;--fs:2.5rem;--t:7s">👄</span>
-  <span class="doodle emoji" style="top:25%;right:12%;--fs:2.8rem;--t:8s">🗣️</span>
-  <span class="doodle emoji" style="bottom:30%;left:10%;--fs:2.5rem;--t:9s">👅</span>
-  <span class="doodle emoji" style="top:55%;left:8%;--fs:2.6rem;--t:7.5s">📚</span>
-  <span class="doodle emoji" style="bottom:8%;right:15%;--fs:2.8rem;--t:8.5s">🧩</span>
-  <span class="doodle emoji" style="top:15%;left:10%;--fs:2.2rem;--t:6.5s">⭐</span>
-  <span class="doodle emoji" style="bottom:40%;right:5%;--fs:2.4rem;--t:9.5s">🎈</span>
-  <span class="doodle emoji" style="top:40%;left:85%;--fs:2.3rem;--t:8s">🎨</span>
-  <span class="doodle emoji" style="top:70%;left:5%;--fs:2.5rem;--t:7s">🧸</span>
-  <span class="doodle emoji" style="bottom:20%;left:50%;--fs:2.6rem;--t:9s">🎯</span>
-</div>
+<h2>Экспресс-скрининг речевого развития</h2>
+<p style="margin-bottom: 24px; color: #555;">Заполните форму ниже. Результаты и предварительные рекомендации будут отправлены специалисту для анализа.</p>
 
-<div class="container">
-  <a href="index.html" class="back">← Вернуться к записи к Анне</a>
-
-  <header class="hero">
-    <h1>Экспресс-скрининг речевого развития</h1>
-    <div class="role">Анна Драчёва · Логопед · Психолог</div>
-    <p>Короткая ориентировочная проверка (5–7 минут). Поможет понять, есть ли у ребёнка признаки, на которые стоит обратить внимание, и подготовиться к разговору со специалистом.</p>
-    <div class="disclaimer">
-      <span>⚠️</span>
-      <div>Результаты скрининга носят исключительно информационно-ознакомительный характер. Они <strong>не являются медицинской услугой, диагнозом</strong> и не заменяют очную консультацию специалиста.</div>
-    </div>
-  </header>
-
-  <form id="scrForm">
-    <section class="block">
-      <h2><span class="cat-tag">📋 Старт</span> О ком говорим</h2>
-      <div class="fields">
-        <div><label class="fl">Имя ребёнка *</label><input type="text" id="childName" required placeholder="Например, Миша"></div>
-        <div><label class="fl">Возраст *</label>
-          <select id="ageGroup" required>
-            <option value="">— выберите возраст —</option>
-            <option value="2-3 года">2–3 года</option>
-            <option value="3-4 года">3–4 года</option>
-            <option value="4-5 лет">4–5 лет</option>
-            <option value="5-6 лет">5–6 лет</option>
-            <option value="6-7 лет">6–7 лет</option>
-          </select>
-        </div>
-      </div>
-      <div class="fields" style="margin-top:18px">
-        <div><label class="fl">Ваше имя *</label><input type="text" id="parentName" required placeholder="Как к вам обращаться?"></div>
-        <div><label class="fl">Телефон *</label><input type="tel" id="phone" required placeholder="+7 (___) ___-__-__"></div>
-      </div>
-      <div style="margin-top:18px"><label class="fl">E-mail *</label><input type="email" id="email" required placeholder="Для отправки результатов"></div>
-    </section>
-
-    <div id="questionsHost"></div>
-
-    <section class="block">
-      <h2><span class="cat-tag">💬 Дополнительно</span> Что беспокоит больше всего?</h2>
-      <textarea id="concern" placeholder="Например: путает звуки Р и Л, плохо строит предложения..."></textarea>
-    </section>
-
-    <section class="block">
-      <label class="agree">
-        <input type="checkbox" id="consentBox" required>
-        <span>Я даю согласие на обработку указанных данных в соответствии с 152-ФЗ для проведения скрининга.</span>
-      </label>
-      <button type="submit" class="btn" id="submitBtn">
-        <span class="spinner" id="btnSpinner"></span>
-        <span id="btnText">Отправляем результат специалисту…</span>
-      </button>
-    </section>
-  </form>
-
-  <section class="block" id="result">
-    <div class="score-container">
-      <div class="score-ring" id="scoreRing">
-        <span class="num" id="rScore">0%</span>
-        <span class="lbl">РЕЗУЛЬТАТ</span>
-      </div>
-    </div>
-    <div class="verdict" id="rVerdict">—</div>
-    <p class="verdict-txt" id="rVerdictTxt"></p>
-
-    <h2 style="font-family:var(--serif);font-size:1.3rem;margin-bottom:20px;text-align:center">Показатели по зонам</h2>
-    <div id="zonesHost"></div>
-
-    <div class="cta-book" id="ctaBook">
-      <p id="ctaText"></p>
-      <a href="index.html#booking-section">Записаться на диагностику к Анне →</a>
-    </div>
-
-    <p class="send-status warn" id="sendStatus">
-      ⏳ Отправляем данные…
-    </p>
-    
-    <div class="action-buttons">
-      <button class="btn btn-secondary" onclick="copyReport()">📋 Скопировать отчёт</button>
-      <button class="btn btn-secondary" onclick="openMailto()">📧 Открыть в почте</button>
-    </div>
-
-    <div class="fas-disclaimer">
-      * Результаты носят информационный характер и не являются медицинским диагнозом.
-    </div>
-
-    <button class="btn" style="background:var(--white);color:var(--burgundy);border:2px solid var(--burgundy);box-shadow:none;margin-top:16px" onclick="location.reload()">Пройти заново</button>
-  </section>
-
-  <footer>
-    © 2024–2026 Анна Драчёва · Преподаватель · Логопед · Психолог<br>
-    <a href="mailto:annfromcrimea@gmail.com">annfromcrimea@gmail.com</a>
-  </footer>
-</div>
-
-<script>
-const SEND_EMAIL = "annfromcrimea@gmail.com";
-const CATS = {
-  sound:  {name:"Звукопроизношение", icon:"🔤"},
-  phono:  {name:"Фонематический слух", icon:"👂"},
-  vocab:  {name:"Словарь и грамматика", icon:"📖"},
-  speech: {name:"Связная речь и понимание", icon:"💬"},
-  motor:  {name:"Артикуляция и моторика", icon:"✋"}
-};
-
-const QUESTIONS = [
-  {id:"s1", cat:"sound", q:"Произносит ли ребёнок все гласные и большинство согласных понятно?", opts:[{t:"Да, речь понятна окружающим",b:3},{t:"Понятна близким, иногда искажает",b:2},{t:"Много непонятных звуков",b:0}]},
-  {id:"s2", cat:"sound", q:"Как обстоит дело со свистящими и шипящими (С, Ш, Ч)?", opts:[{t:"Произносит чисто",b:3},{t:"Есть дефект, но старается",b:1},{t:"Не даёт / заменяет",b:0}]},
-  {id:"s3", cat:"sound", q:"Звуки Р и Л появляются?", opts:[{t:"Р и Л есть или формируются",b:3},{t:"Один отсутствует",b:1},{t:"Оба отсутствуют",b:0}], ageSensitive:true},
-  {id:"p1", cat:"phono", q:"Ребёнок различает похожие слова на слух (дом/том)?", opts:[{t:"Да, слышит разницу",b:3},{t:"Частично путает",b:1},{t:"Воспринимает одинаково",b:0}]},
-  {id:"p2", cat:"phono", q:"Может определить первый звук в слове?", opts:[{t:"Легко справляется",b:3},{t:"С помощью взрослого",b:1},{t:"Затрудняется",b:0}]},
-  {id:"v1", cat:"vocab", q:"Словарный запас соответствует возрасту?", opts:[{t:"Да, богатый",b:3},{t:"Бедноват",b:1},{t:"Очень ограничен",b:0}]},
-  {id:"v2", cat:"vocab", q:"Строит фразы нужной длины?", opts:[{t:"Да, говорит предложениями",b:3},{t:"Короткие фразы",b:1},{t:"Отдельные слова",b:0}]},
-  {id:"v3", cat:"vocab", q:"Правильно использует окончания и предлоги?", opts:[{t:"Практически без ошибок",b:3},{t:"Иногда ошибается",b:1},{t:"Частые ошибки",b:0}]},
-  {id:"c1", cat:"speech", q:"Понимает инструкции из 2–3 шагов?", opts:[{t:"Да, выполняет точно",b:3},{t:"Выполняет частично",b:1},{t:"Нужно повторять",b:0}]},
-  {id:"c2", cat:"speech", q:"Может пересказать простую историю?", opts:[{t:"Да, последовательно",b:3},{t:"Фрагментарно",b:1},{t:"Не может",b:0}]},
-  {id:"c3", cat:"speech", q:"Речь плавная? Есть ли запинки?", opts:[{t:"Плавная, без запинок",b:3},{t:"Изредка запинается",b:1},{t:"Частые запинки",b:0}]},
-  {id:"m1", cat:"motor", q:"Может выполнить артикуляционные движения?", opts:[{t:"Да, легко",b:3},{t:"С трудом",b:1},{t:"Не получается",b:0}]},
-  {id:"m2", cat:"motor", q:"Мелкая моторика развита для возраста?", opts:[{t:"Да, уверенно",b:3},{t:"Неуверенно",b:1},{t:"Отстаёт",b:0}]}
-];
-
-const zoneMax = {};
-QUESTIONS.forEach(q=>{ const mx=Math.max(...q.opts.map(o=>o.b)); zoneMax[q.cat]=(zoneMax[q.cat]||0)+mx; });
-const TOTAL_MAX = Object.values(zoneMax).reduce((a,b)=>a+b,0);
-
-const host=document.getElementById("questionsHost");
-let lastCat=null;
-QUESTIONS.forEach((q,idx)=>{
-  if(q.cat!==lastCat){
-    const c=CATS[q.cat];
-    host.insertAdjacentHTML("beforeend",`<section class="block"><h2><span class="cat-tag">${c.icon} ${c.name}</span></h2><div id="grp-${q.cat}"></div></section>`);
-    lastCat=q.cat;
-  }
-  document.getElementById("grp-"+q.cat).insertAdjacentHTML("beforeend",`
-    <div class="q" data-id="${q.id}">
-      <span class="q-text">${idx+1}. ${q.q}${q.ageSensitive?' <small>(учитываем возраст)</small>':''}</span>
-      <div class="opts">${q.opts.map(o=>`<label class="opt"><input type="radio" name="${q.id}" value="${o.b}" required><span>${o.t}</span></label>`).join("")}</div>
-    </div>`);
-});
-
-document.addEventListener("change",e=>{
-  if(e.target.type==="radio"){
-    const wrap=e.target.closest(".q");
-    wrap.querySelectorAll(".opt").forEach(l=>l.classList.remove("sel"));
-    e.target.closest(".opt").classList.add("sel");
-  }
-});
-
-let globalReportText = "";
-
-document.getElementById("scrForm").addEventListener("submit", function(e){
-  e.preventDefault(); // ГАРАНТИРОВАННО предотвращаем перезагрузку и открытие новых вкладок
+<form action="https://formspree.io/f/mpppjdoz" method="POST">
   
-  const btn = document.getElementById("submitBtn");
-  const spinner = document.getElementById("btnSpinner");
-  const btnText = document.getElementById("btnText");
-  const sendStatus = document.getElementById("sendStatus");
+  <div class="form-group">
+    <label for="email">Ваш email для связи *</label>
+    <input type="email" id="email" name="email" required placeholder="example@mail.ru">
+  </div>
+
+  <div class="form-group">
+    <label for="child_name">Имя ребёнка *</label>
+    <input type="text" id="child_name" name="child_name" required placeholder="Например, Миша">
+  </div>
+
+  <div class="form-group">
+    <label for="age">Возраст ребёнка *</label>
+    <input type="text" id="age" name="age" required placeholder="Например, 4 года">
+  </div>
+
+  <div class="form-group">
+    <label for="message">Описание ситуации или жалобы *</label>
+    <textarea id="message" name="message" rows="5" required placeholder="Опишите, что именно вас беспокоит в речевом развитии ребёнка..."></textarea>
+  </div>
+
+  <div class="form-group checkbox-group">
+    <input type="checkbox" id="consent_152" name="consent_152fz" value="Согласие на обработку персональных данных получено в полном объеме" required>
+    <label for="consent_152">Я даю свое согласие на обработку персональных данных в соответствии с Федеральным законом от 27.07.2006 N 152-ФЗ "О персональных данных". *</label>
+  </div>
+
+  Скрытые поля для вашего письма (клиент их не видит, но вы получите их в уведомлении Formspree):
+  <input type="hidden" name="_subject" value="Новая заявка: Экспресс-скрининг речевого развития">
   
-  btn.disabled = true; 
-  spinner.style.display = "block"; 
-  btnText.textContent = "Отправляем…";
-  sendStatus.className = "send-status warn";
-  sendStatus.innerHTML = "⏳ Отправляем данные…";
-
-  const childName = this.childName.value.trim();
-  const parentName = this.parentName.value.trim();
-  const age = this.ageGroup.value;
-  const phone = this.phone.value.trim();
-  const email = this.email.value.trim();
-  const concern = this.concern.value.trim();
-
-  let total = 0; const byZone = {}; const detail = [];
-  QUESTIONS.forEach(q => {
-    const val = parseInt(this.querySelector(`input[name="${q.id}"]:checked`).value) || 0;
-    total += val; byZone[q.cat] = (byZone[q.cat] || 0) + val;
-    const sel = this.querySelector(`input[name="${q.id}"]:checked`);
-    detail.push(`${CATS[q.cat].name}: ${q.q} → ${sel.nextElementSibling.textContent} (${val}/3)`);
-  });
-
-  const pct = Math.round((total / TOTAL_MAX) * 100);
-  let verdict, vClass, vTxt;
-  if(pct >= 80){ verdict = "Картина благополучная"; vClass = "ok"; vTxt = "Развитие речи выглядит соответствующим возрасту."; }
-  else if(pct >= 55){ verdict = "Есть зоны для внимания"; vClass = "warn"; vTxt = "В отдельных направлениях заметны признаки, требующие наблюдения."; }
-  else{ verdict = "Рекомендуется очная диагностика"; vClass = "alert"; vTxt = "Есть выраженные признаки, требующие внимания логопеда."; }
-
-  const zonesHost = document.getElementById("zonesHost"); zonesHost.innerHTML = "";
-  const zoneData = [];
-  Object.keys(CATS).forEach(key => {
-    const zp = Math.round(((byZone[key]||0)/(zoneMax[key]||1))*100);
-    zoneData.push(`${CATS[key].icon} ${CATS[key].name}: ${zp}%`);
-    let cls = zp >= 80 ? "good" : (zp >= 50 ? "watch" : "attention");
-    zonesHost.insertAdjacentHTML("beforeend", `<div class="zone ${cls}"><div class="zone-head"><h4>${CATS[key].icon} ${CATS[key].name}</h4><span class="zone-pct">${zp}%</span></div><div class="progress-bar"><div class="progress-fill" style="width:0%" data-width="${zp}%"></div></div></div>`);
-  });
-
-  setTimeout(() => {
-    document.querySelectorAll('.progress-fill').forEach(bar => bar.style.width = bar.getAttribute('data-width'));
-    const color = vClass === 'ok' ? 'var(--ok)' : (vClass === 'warn' ? 'var(--warn)' : 'var(--alert)');
-    document.getElementById('scoreRing').style.background = `conic-gradient(${color} ${pct}%, var(--line) 0%)`;
-  }, 100);
-
-  document.getElementById("rScore").textContent = pct + "%";
-  const rv = document.getElementById("rVerdict"); rv.textContent = verdict; rv.className = "verdict " + vClass;
-  document.getElementById("rVerdictTxt").textContent = vTxt;
+  <input type="hidden" name="fas_disclaimer" value="ЮРИДИЧЕСКАЯ ЗАЩИТА (ФАС): Данный скрининг и любые полученные результаты носят исключительно информационно-ознакомительный характер. Они не являются медицинской услугой, не ставят диагноз и не заменяют очную консультацию врача-специалиста (логопеда, дефектолога, невролога). Информация на сайте не является публичной офертой.">
   
-  const ctaText = document.getElementById("ctaText");
-  if(vClass === "ok") ctaText.textContent = "Если хотите получить советы по развитию речи дома — напишите, я подскажу игры.";
-  else ctaText.textContent = "Чтобы снять сомнения и получить точный маршрут — запишитесь на очную диагностику.";
+  <input type="hidden" name="comprehensive_recommendation" value="ИСЧЕРПЫВАЮЩАЯ РЕКОМЕНДАЦИЯ СПЕЦИАЛИСТА (предварительная): 1. Для точной оценки речевого развития необходима очная диагностика, включающая проверку строения и подвижности артикуляционного аппарата, фонематического слуха, словарного запаса, грамматического строя и связной речи. 2. До визита к специалисту рекомендуется ежедневно развивать мелкую моторику (лепка, пазлы, шнуровки, пальчиковые игры). 3. Ежедневно читайте ребёнку книги вслух с активным обсуждением прочитанного, задавайте открытые вопросы. 4. Исключите фоновый шум (работающий телевизор, гаджеты) во время непосредственного общения с ребёнком. 5. Не требуйте от ребёнка немедленного идеального повторения сложных слов, используйте метод 'эха' (спокойно повторите слово правильно после ребёнка, без акцента на его ошибке). 6. При наличии стойких нарушений звукопроизношения, задержки речевого развития или нарушений темпо-ритмической организации речи после 4 лет показана очная работа с логопедом и, при необходимости, консультация невролога.">
 
-  document.getElementById("scrForm").style.display = "none";
-  document.getElementById("result").style.display = "block";
-  window.scrollTo({top: 0, behavior: "smooth"});
+  <div class="form-group">
+    <button type="submit">Отправить заявку специалисту</button>
+  </div>
 
-  const zp_sound = Math.round(((byZone['sound']||0)/(zoneMax['sound']||1))*100);
-  const zp_phono = Math.round(((byZone['phono']||0)/(zoneMax['phono']||1))*100);
-  const zp_vocab = Math.round(((byZone['vocab']||0)/(zoneMax['vocab']||1))*100);
-  const zp_speech = Math.round(((byZone['speech']||0)/(zoneMax['speech']||1))*100);
-  const zp_motor = Math.round(((byZone['motor']||0)/(zoneMax['motor']||1))*100);
+  <div class="legal-note">
+    Нажимая кнопку "Отправить заявку специалисту", вы подтверждаете свое согласие на обработку персональных данных и ознакомлены с тем, что данный сервис носит информационный характер и не заменяет очную медицинскую консультацию.
+  </div>
 
-  const recs = [];
-  if (zp_sound < 80) recs.push("🔤 Звукопроизношение: артикуляционная гимнастика, очная проверка.");
-  if (zp_phono < 80) recs.push("👂 Фонематический слух: игры на различение звуков.");
-  if (zp_vocab < 80) recs.push("📖 Словарь: читать вслух, мягко корректировать грамматику.");
-  if (zp_speech < 80) recs.push("💬 Связная речь: пересказ мультфильмов, открытые вопросы.");
-  if (zp_motor < 80) recs.push("✋ Моторика: лепка, шнуровки, пальчиковые игры.");
-  if (recs.length === 0) recs.push("✅ Развитие в норме. Поддерживать через чтение и игры.");
-  if (concern) recs.push(`⚠️ УЧЕСТЬ НА ДИАГНОСТИКЕ: ${concern}`);
+</form>
 
-  globalReportText = `ЭКСПРЕСС-СКРИНИНГ РЕЧИ
-Дата: ${new Date().toLocaleString('ru-RU')}
-
-РЕБЁНОК: ${childName}
-ВОЗРАСТ: ${age}
-РОДИТЕЛЬ: ${parentName}
-ТЕЛЕФОН: ${phone}
-EMAIL: ${email}
-
-ИТОГ: ${pct}% (${verdict})
-
-ПОКАЗАТЕЛИ ПО ЗОНАМ:
-${zoneData.join('\n')}
-
-ДЕТАЛИЗАЦИЯ ОТВЕТОВ:
-${detail.join('\n')}
-
-ЧТО БЕСПОКОИТ:
-${concern || "Не указано"}
-
-РЕКОМЕНДАЦИИ ДЛЯ АННЫ:
-${recs.join('\n')}
-
-=== ЮРИДИЧЕСКАЯ ЗАЩИТА (ФАС/152-ФЗ) ===
-1. Согласие на обработку ПД получено (галочка установлена).
-2. Скрининг носит информационный характер, не является мед. услугой или диагнозом.
-3. Требуется очная консультация специалиста.
-4. Не является публичной офертой.`;
-
-  // Чистая AJAX-отправка на Formspree без создания форм и новых вкладок
-  const formData = {
-    _subject: `Скрининг: ${childName} (${age}) — ${pct}%`,
-    childName: childName,
-    age: age,
-    parentName: parentName,
-    phone: phone,
-    email: email,
-    totalScore: `${pct}%`,
-    verdict: verdict,
-    zones: zoneData.join('\n'),
-    details: detail.join('\n'),
-    concern: concern || "Не указано",
-    recommendations: recs.join('\n'),
-    legal: "Согласие 152-ФЗ получено. Не является мед. диагнозом."
-  };
-
-  fetch("https://formspree.io/f/mpppjdoz", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Accept": "application/json"
-    },
-    body: JSON.stringify(formData)
-  })
-  .then(response => {
-    if (response.ok) {
-      sendStatus.className = "send-status ok";
-      sendStatus.innerHTML = "✅ Отчёт успешно отправлен Анне";
-    } else {
-      throw new Error("Ошибка сервера Formspree");
-    }
-  })
-  .catch(error => {
-    console.error("Formspree error:", error);
-    sendStatus.className = "send-status error";
-    sendStatus.innerHTML = "❌ Ошибка отправки. Пожалуйста, воспользуйтесь кнопкой «Скопировать отчёт» или «Открыть в почте» ниже.";
-  })
-  .finally(() => {
-    btn.disabled = false; 
-    spinner.style.display = "none"; 
-    btnText.textContent = "Отправить результат специалисту";
-  });
-});
-
-function copyReport() {
-  navigator.clipboard.writeText(globalReportText).then(() => {
-    alert("✅ Полный отчёт скопирован! Вставьте его в сообщение Анне в Telegram, WhatsApp или в письмо.");
-  }).catch(() => {
-    alert("Не удалось скопировать. Используйте кнопку 'Открыть в почте'.");
-  });
-}
-
-function openMailto() {
-  const childNameVal = document.getElementById('childName').value || "Ребёнок";
-  const ageVal = document.getElementById('ageGroup').value || "Не указан";
-  const subject = encodeURIComponent(`Экспресс-скрининг речи: ${childNameVal} (${ageVal})`);
-  const body = encodeURIComponent(globalReportText);
-  window.location.href = `mailto:${SEND_EMAIL}?subject=${subject}&body=${body}`;
-}
-</script>
 </body>
 </html>
