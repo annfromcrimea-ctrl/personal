@@ -22,7 +22,6 @@
   }
   *{box-sizing:border-box;margin:0;padding:0}
   
-  /* Улучшенный детский, но премиальный фон */
   body{
     font-family:var(--sans);
     background-color: var(--cream);
@@ -39,7 +38,6 @@
   
   .container{max-width:800px;margin:0 auto;padding:24px 20px 60px}
 
-  /* Header */
   header.hero{
     background:var(--white);
     border-radius:var(--radius);
@@ -50,7 +48,6 @@
     position:relative;
     overflow:hidden;
   }
-  /* Декоративные "пузырьки" в шапке */
   header.hero::before{
     content:"";position:absolute;top:-40px;right:-40px;width:160px;height:160px;
     background: radial-gradient(circle, var(--mint) 0%, transparent 70%);
@@ -83,7 +80,6 @@
   }
   .disclaimer span{font-size:1.3rem;line-height:1;flex-shrink:0}
 
-  /* Blocks */
   .block{
     background:var(--white);
     border-radius:var(--radius);
@@ -106,7 +102,6 @@
     text-transform:uppercase;letter-spacing:.5px;
   }
 
-  /* Questions */
   .q{border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:16px;background:var(--white);transition:.2s}
   .q:hover{border-color:#d1d5db}
   .q-text{font-weight:600;margin-bottom:16px;display:block;font-size:1.02rem;color:var(--graphite)}
@@ -131,7 +126,6 @@
     color:var(--burgundy);font-weight:900;font-size:1.2rem;
   }
 
-  /* Fields */
   .fields{display:grid;grid-template-columns:1fr 1fr;gap:18px}
   @media(max-width:600px){.fields{grid-template-columns:1fr}}
   label.fl{display:block;font-size:.85rem;color:var(--gray);margin-bottom:6px;font-weight:600}
@@ -144,7 +138,6 @@
   input:focus,select:focus,textarea:focus{outline:none;border-color:var(--burgundy);box-shadow:0 0 0 4px rgba(122,46,54,.08)}
   textarea{resize:vertical;min-height:90px}
 
-  /* Consent & Button */
   .agree{display:flex;gap:12px;align-items:flex-start;margin-top:24px;font-size:.88rem;color:var(--gray);line-height:1.5}
   .agree input{width:18px;height:18px;margin-top:2px;flex-shrink:0;accent-color:var(--burgundy)}
   .agree a{color:var(--burgundy);text-decoration:underline}
@@ -164,7 +157,6 @@
   .spinner{width:20px;height:20px;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;display:none}
   @keyframes spin{to{transform:rotate(360deg)}}
 
-  /* Results */
   #result{display:none;animation:fadeIn .6s ease-out}
   @keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
   
@@ -185,26 +177,24 @@
   .verdict.ok{color:var(--ok)}.verdict.warn{color:var(--warn)}.verdict.alert{color:var(--alert)}
   .verdict-txt{text-align:center;color:var(--graphite);max-width:600px;margin:0 auto 32px;font-size:1.05rem;line-height:1.6}
 
+  /* Зоны — минимализм для родителя: только название + процент + бар */
   .zone{
     border:1px solid var(--line);border-left:5px solid var(--gray);
-    border-radius:10px;padding:18px 20px;margin-bottom:16px;background:var(--white);
+    border-radius:10px;padding:16px 20px;margin-bottom:12px;background:var(--white);
   }
   .zone.good{border-left-color:var(--ok);background:var(--ok-bg)}
   .zone.watch{border-left-color:var(--warn);background:var(--warn-bg)}
   .zone.attention{border-left-color:var(--alert);background:var(--alert-bg)}
-  .zone-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-  .zone h4{font-size:1.05rem;font-weight:700;display:flex;align-items:center;gap:8px;margin:0}
+  .zone-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+  .zone h4{font-size:1rem;font-weight:700;display:flex;align-items:center;gap:8px;margin:0}
   .zone-pct{font-weight:800;font-size:1.1rem}
   .zone.good .zone-pct{color:var(--ok)}.zone.watch .zone-pct{color:var(--warn)}.zone.attention .zone-pct{color:var(--alert)}
   
-  .progress-bar{height:8px;background:rgba(0,0,0,.06);border-radius:4px;overflow:hidden;margin-bottom:10px}
+  .progress-bar{height:8px;background:rgba(0,0,0,.06);border-radius:4px;overflow:hidden}
   .progress-fill{height:100%;border-radius:4px;transition:width 1.5s cubic-bezier(0.4, 0, 0.2, 1);width:0}
   .zone.good .progress-fill{background:var(--ok)}
   .zone.watch .progress-fill{background:var(--warn)}
   .zone.attention .progress-fill{background:var(--alert)}
-  
-  .zone p{font-size:.92rem;color:var(--graphite);margin:0;line-height:1.5}
-  .zone strong{font-weight:700}
 
   .cta-book{
     background:var(--burgundy-light);border:1px solid #f3dce0;
@@ -252,7 +242,7 @@
     <p>Короткая ориентировочная проверка (5–7 минут). Поможет понять, есть ли у ребёнка признаки, на которые стоит обратить внимание, и подготовиться к разговору со специалистом.</p>
     <div class="disclaimer">
       <span>⚠️</span>
-      <div>Результаты скрининга носят исключительно ознакомительный (информационный) характер, не являются медицинской услугой, диагнозом или заменой очной консультации специалиста. Индивидуальные результаты могут отличаться. Имеются противопоказания, необходима очная консультация.</div>
+      <div>Результаты скрининга носят исключительно информационно-ознакомительный характер. Они <strong>не являются медицинской услугой, диагнозом</strong> и не заменяют очную консультацию специалиста. Индивидуальные результаты могут отличаться. Имеются противопоказания, необходима очная консультация.</div>
     </div>
   </header>
 
@@ -291,15 +281,16 @@
     <section class="block">
       <label class="agree">
         <input type="checkbox" id="consentBox" required>
-        <span>Я даю согласие на обработку указанных данных в соответствии с 152-ФЗ для проведения скрининга и подготовки рекомендаций. Ознакомлен(а) с политикой конфиденциальности.</span>
+        <span>Я даю добровольное информированное согласие на обработку указанных персональных данных (включая имя ребёнка, контакты и ответы) в соответствии с 152-ФЗ исключительно для проведения скрининга и подготовки рекомендаций. Ознакомлен(а) с политикой конфиденциальности.</span>
       </label>
       <button type="submit" class="btn" id="submitBtn">
         <span class="spinner" id="btnSpinner"></span>
-        <span id="btnText">Показать результат 🍃</span>
+        <span id="btnText">Показать результат и отправить Анне 🍃</span>
       </button>
     </section>
   </form>
 
+  <!-- РЕЗУЛЬТАТ ДЛЯ РОДИТЕЛЯ — МИНИМУМ ИНФОРМАЦИИ -->
   <section class="block" id="result">
     <div class="score-container">
       <div class="score-ring" id="scoreRing">
@@ -311,7 +302,7 @@
     <div class="verdict" id="rVerdict">—</div>
     <p class="verdict-txt" id="rVerdictTxt"></p>
 
-    <h2 style="font-family:var(--serif);font-size:1.3rem;margin-bottom:20px;text-align:center">Разбор по зонам развития</h2>
+    <h2 style="font-family:var(--serif);font-size:1.3rem;margin-bottom:20px;text-align:center">Показатели по зонам</h2>
     <div id="zonesHost"></div>
 
     <div class="cta-book" id="ctaBook">
@@ -426,6 +417,7 @@ document.getElementById("scrForm").addEventListener("submit",async function(e){
   const phone = this.phone.value.trim();
   const email = this.email.value.trim();
   const concern = this.concern.value.trim();
+  const consentGiven = this.consentBox.checked ? "ДА, галочка установлена родителем" : "НЕТ";
 
   let total = 0; 
   const byZone = {};
@@ -446,18 +438,20 @@ document.getElementById("scrForm").addEventListener("submit",async function(e){
 
   const pct = Math.round((total / TOTAL_MAX) * 100);
 
+  // Вердикт — короткий, без медицинских формулировок
   let verdict, vClass, vTxt;
   if(pct >= 80){
     verdict = "Картина благополучная"; vClass = "ok";
     vTxt = "По большинству показателей развитие речи выглядит соответствующим возрасту. Продолжайте общаться с ребёнком, читать вслух и играть словами.";
   } else if(pct >= 55){
     verdict = "Есть зоны для внимания"; vClass = "warn";
-    vTxt = "В отдельных направлениях заметны признаки, которые стоит наблюдать. Консультация специалиста поможет не упустить момент.";
+    vTxt = "В отдельных направлениях заметны признаки, на которые стоит обратить внимание. Консультация специалиста поможет не упустить момент.";
   } else {
     verdict = "Рекомендуется очная диагностика"; vClass = "alert";
-    vTxt = "По нескольким зонам есть выраженные признаки отклонения от возрастной нормы. Рекомендуем живое обследование у логопеда.";
+    vTxt = "По нескольким зонам есть выраженные признаки, требующие внимания. Рекомендуем живое обследование у логопеда.";
   }
 
+  // === РЕНДЕР ДЛЯ РОДИТЕЛЯ — МИНИМУМ ===
   const zonesHost = document.getElementById("zonesHost"); 
   zonesHost.innerHTML = "";
   
@@ -466,11 +460,12 @@ document.getElementById("scrForm").addEventListener("submit",async function(e){
     const mx = zoneMax[key] || 1;
     const zp = Math.round((got / mx) * 100);
     
-    let cls, label, tip;
-    if(zp >= 80){ cls="good"; label="Соответствует норме"; tip="По этой зоне признаков для беспокойства нет."; }
-    else if(zp >= 50){ cls="watch"; label="Стоит понаблюдать"; tip="Есть отдельные затруднения — полезна игровая практика."; }
-    else { cls="attention"; label="Требуется внимание специалиста"; tip="Здесь признаки наиболее выражены — рекомендуем очную работу."; }
+    let cls;
+    if(zp >= 80) cls = "good";
+    else if(zp >= 50) cls = "watch";
+    else cls = "attention";
     
+    // Только название зоны + процент + прогресс-бар. Без текстовых пояснений.
     zonesHost.insertAdjacentHTML("beforeend", `
       <div class="zone ${cls}">
         <div class="zone-head">
@@ -478,10 +473,10 @@ document.getElementById("scrForm").addEventListener("submit",async function(e){
           <span class="zone-pct">${zp}%</span>
         </div>
         <div class="progress-bar"><div class="progress-fill" style="width:0%" data-width="${zp}%"></div></div>
-        <p><strong>${label}.</strong> ${tip}</p>
       </div>`);
   });
 
+  // Анимация прогресс-баров и кольца
   setTimeout(() => {
     document.querySelectorAll('.progress-fill').forEach(bar => {
       bar.style.width = bar.getAttribute('data-width');
@@ -490,10 +485,11 @@ document.getElementById("scrForm").addEventListener("submit",async function(e){
     document.getElementById('scoreRing').style.background = `conic-gradient(${color} ${pct}%, var(--line) 0%)`;
   }, 100);
 
+  // CTA — короткое, без медицинских обещаний
   const ctaText = document.getElementById("ctaText");
   if(vClass === "ok") ctaText.textContent = "Если хотите получить индивидуальные советы по развитию речи дома — напишите, я подскажу игры под ваш возраст.";
   else if(vClass === "warn") ctaText.textContent = "Чтобы снять сомнения и получить точный маршрут развития — запишитесь на очную диагностику.";
-  else ctaText.textContent = "Есть основания для скорейшего обследования. Запишитесь на диагностику, и мы составим индивидуальный план занятий.";
+  else ctaText.textContent = "Есть основания для скорейшего обследования. Запишитесь на диагностику — и мы составим индивидуальный план занятий.";
 
   document.getElementById("rScore").textContent = pct + "%";
   const rv = document.getElementById("rVerdict"); 
@@ -505,16 +501,65 @@ document.getElementById("scrForm").addEventListener("submit",async function(e){
   document.getElementById("result").style.display = "block";
   window.scrollTo({top: 0, behavior: "smooth"});
 
-  // Формирование текста для почты с соблюдением ФАС
+  // ================================================
+  // === ВСЁ ДЛЯ АННЫ (почта) — ПОЛНЫЙ АНАЛИЗ ===
+  // ================================================
+
+  // Детализация ответов
   const detailText = detail.map((d, i) => 
     `${i+1}. [${d.зона}]\nВопрос: ${d.вопрос}\nОтвет родителя: ${d.ответ}\nБалл: ${d.балл}/3`
   ).join('\n\n-------------------\n\n');
 
+  // Баллы по зонам
   const zoneScoresText = Object.keys(CATS).map(k => 
     `${CATS[k].name}: ${Math.round(((byZone[k]||0)/(zoneMax[k]||1))*100)}%`
   ).join('\n');
 
-  const fasDisclaimer = "ЮРИДИЧЕСКОЕ ПРИМЕЧАНИЕ (ФАС РФ): Результаты скрининга носят исключительно информационный (ознакомительный) характер, не являются медицинской услугой, диагнозом или заменой очной консультации специалиста. Индивидуальные результаты могут отличаться. Не является публичной офертой.";
+  // === УМНЫЕ РЕКОМЕНДАЦИИ (только для Анны) ===
+  const recs = [];
+  const zp_sound = Math.round(((byZone['sound']||0)/(zoneMax['sound']||1))*100);
+  const zp_phono = Math.round(((byZone['phono']||0)/(zoneMax['phono']||1))*100);
+  const zp_vocab = Math.round(((byZone['vocab']||0)/(zoneMax['vocab']||1))*100);
+  const zp_speech = Math.round(((byZone['speech']||0)/(zoneMax['speech']||1))*100);
+  const zp_motor = Math.round(((byZone['motor']||0)/(zoneMax['motor']||1))*100);
+
+  if (zp_sound < 80) recs.push("🔤 ЗВУКОПРОИЗНОШЕНИЕ: рекомендована ежедневная артикуляционная гимнастика перед зеркалом и очная проверка техники постановки звуков.");
+  if (zp_phono < 80) recs.push("👂 ФОНЕМАТИЧЕСКИЙ СЛУХ: добавить игры на различение звуков на слух, хлопать слоги, искать заданный звук в начале/конце слова.");
+  if (zp_vocab < 80) recs.push("📖 СЛОВАРЬ И ГРАММАТИКА: ежедневно читать вслух, обсуждать прочитанное, мягко корректировать грамматические ошибки, проговаривая правильный вариант без акцента на ошибке.");
+  if (zp_speech < 80) recs.push("💬 СВЯЗНАЯ РЕЧЬ: просить пересказывать мультфильмы или события дня своими словами, задавать открытые вопросы (кто, что сделал, почему).");
+  if (zp_motor < 80) recs.push("✋ МОТОРИКА И АРТИКУЛЯЦИЯ: лепка, шнуровки, пальчиковые игры, нанизывание бусин, упражнения для язычка и губ.");
+  
+  if (recs.length === 0) {
+    recs.push("✅ Развитие соответствует возрасту. Рекомендация: поддерживать текущий уровень через ежедневное чтение, настольные игры и богатую речевую среду.");
+  }
+  
+  if (concern) {
+    recs.push(`\n⚠️ ДОПОЛНИТЕЛЬНО ОТ РОДИТЕЛЯ: "${concern}". На очной диагностике этому уделить первоочередное внимание.`);
+  }
+
+  // Предварительное заключение для Анны (не для родителя!)
+  let annaVerdict = "";
+  if (pct >= 80) {
+    annaVerdict = "Предварительное заключение: картина благополучная. Вероятно, достаточно поддерживающих занятий дома. Очно — подтвердить/опровергнуть, дать рекомендации по развитию.";
+  } else if (pct >= 55) {
+    annaVerdict = "Предварительное заключение: есть зоны риска. Требуется очная диагностика для уточнения картины и составления коррекционного маршрута.";
+  } else {
+    annaVerdict = "Предварительное заключение: выраженные признаки отклонения от возрастной нормы. Необходима СРОЧНАЯ очная диагностика — чем раньше начать коррекцию, тем лучше прогноз.";
+  }
+
+  const fullRecommendation = `=== ПЕРСОНАЛЬНЫЕ РЕКОМЕНДАЦИИ ДЛЯ АННЫ ===\n\n${annaVerdict}\n\n${recs.join("\n\n")}`;
+
+  // === ЮРИДИЧЕСКАЯ ЗАЩИТА (ФАС + 152-ФЗ) ===
+  const fasAndConsentText = `
+=== ЮРИДИЧЕСКАЯ ИНФОРМАЦИЯ И СОГЛАСИЯ (ФАС РФ / 152-ФЗ) ===
+1. СОГЛАСИЕ НА ОБРАБОТКУ ПД: ${consentGiven}. Родитель подтвердил добровольное информированное согласие на обработку персональных данных (152-ФЗ) исключительно для проведения скрининга и подготовки рекомендаций.
+2. ОТКАЗ ОТ ОТВЕТСТВЕННОСТИ: Данный экспресс-скрининг носит исключительно информационно-ознакомительный характер. Он НЕ является медицинской услугой, НЕ ставит диагноз и НЕ заменяет очную консультацию логопеда, дефектолога или врача.
+3. ИНДИВИДУАЛЬНЫЕ ОСОБЕННОСТИ: Результаты основаны на субъективной оценке родителя и могут не отражать полную картину. Индивидуальные результаты могут отличаться.
+4. ТРЕБУЕТСЯ ОЧНАЯ КОНСУЛЬТАЦИЯ: Для постановки заключения и составления коррекционного маршрута необходима живая диагностика специалиста.
+5. РЕКЛАМА И ОФЕРТА: Информация не является публичной офертой (ст. 437 ГК РФ). Гарантии конкретного результата не даются, так как они зависят от индивидуальных особенностей ребёнка, регулярности занятий и участия родителей.
+6. ПРОТИВОПОКАЗАНИЯ: Имеются противопоказания (необходимость очной консультации специалиста).
+7. ДАТА И ВРЕМЯ ПРОХОЖДЕНИЯ: ${new Date().toLocaleString('ru-RU')}
+============================================================`;
 
   const payload = {
     _subject: `Лого-скрининг: ${childName} (${age}) — ${pct}%`,
@@ -527,9 +572,10 @@ document.getElementById("scrForm").addEventListener("submit",async function(e){
     "Email": email,
     "Итоговый результат": `${pct}% (${verdict})`,
     "Баллы по зонам": zoneScoresText,
-    "Что беспокоит": concern || "Не указано",
+    "Что беспокоит (от родителя)": concern || "Не указано",
     "Детализация ответов": detailText,
-    "Юридическое примечание (ФАС)": fasDisclaimer
+    "Персональные рекомендации (черновик для Анны)": fullRecommendation,
+    "Юридическая защита (ФАС/152-ФЗ)": fasAndConsentText
   };
 
   try {
@@ -540,7 +586,7 @@ document.getElementById("scrForm").addEventListener("submit",async function(e){
     });
     const j = await r.json();
     if(j.success === "true" || j.ok){
-      document.getElementById("sendStatus").textContent = "✅ Результат успешно отправлен Анне. Скоро я свяжусь с вами!";
+      document.getElementById("sendStatus").textContent = "✅ Результат и рекомендации отправлены Анне. Скоро я свяжусь с вами!";
       document.getElementById("sendStatus").className = "send-status ok";
     } else {
       throw new Error(j.message || "Нет подтверждения отправки");
@@ -551,7 +597,7 @@ document.getElementById("scrForm").addEventListener("submit",async function(e){
   } finally {
     btn.disabled = false;
     spinner.style.display = "none";
-    btnText.textContent = "Показать результат 🍃";
+    btnText.textContent = "Показать результат и отправить Анне 🍃";
   }
 });
 </script>
