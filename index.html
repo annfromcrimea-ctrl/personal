@@ -14,7 +14,7 @@
     --burgundy-soft: #a85a63;
     --forest: #3f6b4a;
     --leaf: #6ba368;
-    --paper-bg: #faf2e9;
+    --paper-bg: #f7fbf7; /* Очень светлый зеленоватый оттенок */
     --white: #ffffff;
     --graphite: #2d2d2d;
     --gray-text: #5f5f5f;
@@ -37,32 +37,45 @@
     overflow-x: hidden;
   }
 
-  /* === ФОН В СТИЛЕ СТАРИННОГО АЛЬБОМА === */
+  /* === ТЕТРАДНЫЙ ФОН С ЭЛЕМЕНТАМИ СПЕЦИАЛЬНОСТИ === */
+  
+  /* 1. Базовый цвет и клеточки */
   body::before {
     content: "";
-    position: fixed; inset: 0; z-index: -3; pointer-events: none;
-    background: 
-      radial-gradient(circle at 10% 10%, rgba(207, 169, 104, 0.08) 0%, transparent 40%),
-      radial-gradient(circle at 90% 90%, rgba(122, 46, 54, 0.05) 0%, transparent 45%),
-      linear-gradient(135deg, #fdfbf7 0%, #f6efe6 100%);
-  }
-
-  /* Клеточки как в тетради (хорошо видны) */
-  .grid-overlay {
-    position: fixed; inset: 0; z-index: -2; pointer-events: none;
+    position: fixed; inset: 0; z-index: -5; pointer-events: none;
     background-image:
       linear-gradient(rgba(122, 46, 54, 0.07) 1px, transparent 1px),
       linear-gradient(90deg, rgba(122, 46, 54, 0.07) 1px, transparent 1px);
-    background-size: 100% 30px, 60px 100%;
-    background-position: 0 0, 40px 0;
-    -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 80%);
-            mask-image: radial-gradient(ellipse at center, #000 30%, transparent 80%);
+    background-size: 100% 30px, 30px 100%; /* Ровные клеточки */
+    background-position: 0 0, 0 0;
   }
 
-  /* Тонкая текстура бумаги (для уюта) */
+  /* 2. Красные поля (как в тетради) */
   body::after {
     content: "";
-    position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    position: fixed; top: 0; bottom: 0; left: 40px; width: 2px; z-index: -4; pointer-events: none;
+    background-color: rgba(207, 169, 104, 0.4); /* Золотисто-красная линия */
+  }
+
+  /* 3. Водяные знаки (Логопедия, Психология, Педагогика) */
+  .watermarks {
+    position: fixed; inset: 0; z-index: -3; pointer-events: none;
+    display: flex; flex-direction: column; justify-content: space-around;
+    padding: 5% 10%;
+    opacity: 0.03; /* Очень прозрачные, чтобы не мешать */
+  }
+  .watermark-svg {
+    width: 300px; height: 300px;
+    color: var(--burgundy);
+    position: absolute;
+  }
+  .watermark-svg:nth-child(1) { top: 10%; right: 5%; transform: rotate(15deg); }
+  .watermark-svg:nth-child(2) { top: 40%; left: 5%; transform: rotate(-10deg); }
+  .watermark-svg:nth-child(3) { bottom: 10%; right: 15%; transform: rotate(25deg); }
+
+  /* 4. Мягкая текстура бумаги */
+  .paper-texture {
+    position: fixed; inset: 0; z-index: -2; pointer-events: none;
     background-image: repeating-linear-gradient(
       45deg,
       rgba(122, 46, 54, 0.015) 0px,
@@ -70,35 +83,34 @@
       transparent 1px,
       transparent 6px
     );
-    opacity: 0.8;
   }
 
-  /* === ДЕКОР В ТЕМЕ ПЕДАГОГА === */
+  /* 5. Плавающий декор */
   .decor-layer {
-    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    position: fixed; inset: 0; z-index: -1; pointer-events: none;
     overflow: hidden;
   }
   .decor-item {
     position: absolute;
-    opacity: 0.15;
-    animation: floaty 14s ease-in-out infinite;
+    opacity: 0.12;
+    animation: floaty 15s ease-in-out infinite;
   }
-  .decor-item.leaf { color: var(--leaf); opacity: 0.25; }
-  .decor-item.school { color: var(--burgundy); opacity: 0.12; }
+  .decor-item.leaf { color: var(--leaf); opacity: 0.2; }
+  .decor-item.school { color: var(--burgundy); opacity: 0.1; }
   .decor-item.letter {
     font-family: var(--font-sans);
     font-weight: 700;
     color: var(--burgundy);
-    opacity: 0.06;
+    opacity: 0.05;
   }
   @keyframes floaty {
     0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-10px) rotate(4deg); }
+    50% { transform: translateY(-12px) rotate(4deg); }
   }
 
-  .container { max-width: 1050px; margin: 0 auto; padding: 20px 16px; position: relative; z-index: 1; }
+  .container { max-width: 1050px; margin: 0 auto; padding: 20px 16px 20px 60px; position: relative; z-index: 1; }
 
-  /* === ШАПКА (АДАПТИВНАЯ К ЛЮБОМУ ФОТО) === */
+  /* === ШАПКА (Умная, фото без обрезки) === */
   header.hero-section {
     display: flex; 
     align-items: stretch; 
@@ -108,40 +120,42 @@
     overflow: hidden;
     margin-bottom: 20px; 
     position: relative;
-    border: 1px solid rgba(207, 169, 104, 0.3); /* Золотистая рамка */
+    border: 1px solid rgba(207, 169, 104, 0.3);
   }
   
-  /* Золотая полоса сверху */
   header.hero-section::after {
     content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
     background: linear-gradient(90deg, var(--burgundy) 0%, var(--gold-accent) 50%, var(--forest) 100%);
     z-index: 10;
   }
 
-  /* Контейнер фото: фиксируем пропорции (3:4) для ПК */
   .hero-photo-wrapper { 
-    width: 340px; 
-    min-height: 440px;
+    width: 40%; 
+    max-width: 400px;
     flex-shrink: 0; 
-    background: #f5ece3; 
+    background: linear-gradient(135deg, #f8f0e8 0%, #f2e8de 100%); 
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: relative;
-    overflow: hidden;
+    border-right: 1px solid #efe6da;
   }
-  
-  /* Универсальное свойство для фото любого размера */
+
   .hero-photo-img { 
-    width: 100%; 
-    height: 100%; 
-    object-fit: cover; /* Заполняет блок без искажений */
-    object-position: center 20%; /* Фокус на верхней трети (лицо) */
-    display: block; 
-    position: absolute;
-    top: 0; left: 0;
-    transition: transform 0.5s ease;
+    max-width: 100%; 
+    max-height: 480px; 
+    width: auto;
+    height: auto;
+    object-fit: contain; 
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(122, 46, 54, 0.15); 
+    border: 4px solid var(--white); 
+    transition: transform 0.3s ease;
   }
-  
+
   .hero-photo-wrapper:hover .hero-photo-img {
-    transform: scale(1.03); /* Легкий зум при наведении */
+    transform: scale(1.02); 
   }
 
   .hero-content { 
@@ -397,14 +411,23 @@
 
   /* === МОБИЛЬНАЯ АДАПТАЦИЯ === */
   @media (max-width: 768px) {
-    /* На мобильном фото сверху, текст снизу */
+    .container { padding: 16px 12px 16px 40px; }
+    body::after { left: 24px; } /* Сдвигаем красную линию ближе к краю */
+    
     header.hero-section { flex-direction: column; }
     
-    /* Задаем высоту для фото на мобильном */
     .hero-photo-wrapper { 
       width: 100%; 
-      height: 380px; /* Достаточно высокая, чтобы фото смотрелось хорошо */
-      min-height: auto;
+      max-width: none;
+      height: auto;
+      min-height: 280px; 
+      padding: 20px;
+      border-right: none;
+      border-bottom: 1px solid #efe6da;
+    }
+    
+    .hero-photo-img {
+      max-height: 350px; 
     }
     
     .hero-content { padding: 24px 20px; }
@@ -414,10 +437,8 @@
     
     section.block { padding: 18px 16px; margin-bottom: 16px; }
     
-    /* Форма на мобильном чуть короче */
     iframe.yandex-form { height: 500px; }
     
-    /* Контакты: на мобильном оставляем в 3 колонки, но ужимаем отступы */
     .contacts-flex { gap: 8px; }
     .qr-box { padding: 4px; border-radius: 6px; }
     .qr-label { font-size: 0.7rem; }
@@ -431,14 +452,22 @@
 </head>
 <body>
 
-<div class="grid-overlay"></div>
+<!-- Фоновые слои -->
+<div class="watermarks">
+  <!-- Символ логопедии / речи (пузырь диалога) -->
+  <svg class="watermark-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+  <!-- Символ психологии (мозг/полушария) -->
+  <svg class="watermark-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a9 9 0 0 0-9 9c0 2.4 1.2 4.5 3 5.7V21h12v-4.3c1.8-1.2 3-3.3 3-5.7a9 9 0 0 0-9-9zm-2 14h4v2h-4v-2z"/></svg>
+  <!-- Символ педагогики (глобус) -->
+  <svg class="watermark-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 0 1-8-8 8 8 0 0 1 8-8 8 8 0 0 1 8 8 8 8 0 0 1-8 8zm0-14c-2.2 0-4 1.8-4 4h2c0-1.1.9-2 2-2s2 .9 2 2h2c0-2.2-1.8-4-4-4zm-2 6h4v2h-4v-2z"/></svg>
+</div>
+<div class="paper-texture"></div>
 <div class="decor-layer" id="decorLayer"></div>
 
 <div class="container">
 
   <header class="hero-section">
     <div class="hero-photo-wrapper">
-      <!-- Фото может быть любого размера, CSS сам его подгонит -->
       <img src="anna.jpg" alt="Анна Драчёва" class="hero-photo-img">
     </div>
     
@@ -697,7 +726,7 @@ const DIAG_LINKS = [
   input.addEventListener("keydown", (e) => { if (e.key === "Enter") verify(); });
 })();
 
-/* === ДЕКОР В ТЕМЕ ПЕДАГОГА (Школьные предметы + Буквы) === */
+/* === ДЕКОР В ТЕМЕ ПЕДАГОГА === */
 (function generateDecor(){
   const layer = document.getElementById('decorLayer');
   if(!layer) return;
@@ -709,7 +738,6 @@ const DIAG_LINKS = [
     ruler: '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="8" width="20" height="8" rx="1.5"/><path d="M6 8v3M9 8v4M12 8v3M15 8v4M18 8v3" stroke="white" stroke-width="1.1"/></svg>',
     apple: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 7c-1-2-3-2.5-4.5-1.5C5 7 4.5 11 6.5 14.5 8 17 10 19 12 19s4-2 5.5-4.5C19.5 11 19 7 16.5 5.5 15 4.5 13 5 12 7z"/><path d="M12 7c0-2 1-3 2-3.5" stroke="currentColor" stroke-width="1.3" fill="none"/></svg>',
     star: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.7 1.4 6.8L12 17.8 5.9 20.5l1.4-6.8L2.2 9l6.9-.7L12 2z"/></svg>',
-    /* Новые элементы: лампочка (идея), глобус, буква А */
     bulb: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 2.4 1.2 4.5 3 5.7V17h8v-2.3c1.8-1.2 3-3.3 3-5.7a7 7 0 0 0-7-7zm-3 17h6v2H9v-2z"/></svg>',
     globe: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 0 1-8-8 8 8 0 0 1 8-8 8 8 0 0 1 8 8 8 8 0 0 1-8 8zm0-14c-2.2 0-4 1.8-4 4h2c0-1.1.9-2 2-2s2 .9 2 2h2c0-2.2-1.8-4-4-4zm-2 6h4v2h-4v-2z"/></svg>'
   };
@@ -720,7 +748,6 @@ const DIAG_LINKS = [
 
   function rand(min,max){ return Math.random()*(max-min)+min; }
 
-  // Размещаем предметы
   const allKeys = [...leafKeys, ...schoolKeys, ...schoolKeys];
   allKeys.forEach((key) => {
     const el = document.createElement('div');
@@ -739,7 +766,6 @@ const DIAG_LINKS = [
     layer.appendChild(el);
   });
 
-  // Размещаем буквы
   for(let i=0; i<30; i++){
     const span = document.createElement('span');
     span.className = 'decor-item letter';
