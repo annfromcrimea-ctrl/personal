@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="it">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Italiano Check-Up · A1 → C2 · 5 навыков</title>
+<title>Italiano Check-Up · A1 → C1 · 5 навыков</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -71,7 +71,6 @@ body.mode-kids .tray{display:none}
   color:var(--ink);border-radius:var(--radius);padding:26px 24px 26px 54px;box-shadow:0 18px 44px rgba(0,0,0,.35);transform:rotate(.6deg)}
 .note-card h2{font-size:1.35rem;font-weight:900;margin-bottom:10px}
 .pick{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:4px}
-.pick.three{grid-template-columns:repeat(3,1fr)}
 .pick.flex{display:flex;flex-wrap:wrap}
 .pick.flex .mode-btn{flex:1;min-width:86px}
 .pick-label{font-size:.72rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#68819a;margin:10px 0 4px}
@@ -80,6 +79,12 @@ body.mode-kids .tray{display:none}
 .mode-btn.on{border-style:solid;border-color:var(--sky);background:#e3f1ff;box-shadow:0 4px 12px rgba(77,150,255,.3)}
 body.mode-kids .mode-btn.on{background:#fff3d6;border-color:var(--yellow)}
 .mode-note{font-size:.82rem;color:#5a768e;min-height:2em;margin:8px 0 12px}
+
+.input-group{margin-bottom:12px}
+.input-group label{display:block;font-size:.82rem;font-weight:800;color:#5a768e;margin-bottom:4px}
+.input-group input{width:100%;font-family:inherit;font-size:1rem;font-weight:700;color:var(--ink);padding:10px 14px;border:2px solid #d7e3ee;border-radius:10px;outline:none;transition:border-color .2s}
+.input-group input:focus{border-color:var(--sky);box-shadow:0 0 0 4px rgba(77,150,255,.15)}
+
 .btn-big{width:100%;font-family:inherit;font-weight:900;font-size:1.12rem;padding:15px;border:none;border-radius:14px;cursor:pointer;background:var(--yellow);color:var(--btn-ink);box-shadow:0 6px 0 #c99a1e,0 14px 26px rgba(0,0,0,.22);transition:transform .15s,box-shadow .15s}
 .btn-big:hover{transform:translateY(-3px);box-shadow:0 9px 0 #c99a1e,0 20px 32px rgba(0,0,0,.26)}
 .btn-big:active{transform:translateY(2px);box-shadow:0 3px 0 #c99a1e}
@@ -105,7 +110,7 @@ body.mode-kids .snav{background:rgba(255,255,255,.6);color:#5a7ea0}
 .snav.now{background:var(--sky);color:#fff;border-color:transparent;transform:translateY(-2px)}
 .snav.done{opacity:.65;text-decoration:line-through}
 
-.ruler{position:relative;display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin:4px 0 20px}
+.ruler{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:4px 0 20px}
 .ruler b{text-align:center;font-size:.75rem;font-weight:800;letter-spacing:.05em;padding:7px 0;border-radius:8px;background:rgba(255,255,255,.09);color:var(--chalk-dim);transition:all .35s}
 body.mode-kids .ruler b{background:rgba(255,255,255,.65);color:#5a7ea0}
 .ruler b.hot{background:var(--yellow);color:var(--btn-ink);transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.25)}
@@ -192,8 +197,7 @@ body.mode-kids .result-title{color:#2e5d84}
 .gauge span{flex:1}
 .gauge span:nth-child(1){background:#5aa9e6;border-radius:99px 0 0 99px}
 .gauge span:nth-child(2){background:#57c7a3}.gauge span:nth-child(3){background:#ffd35c}
-.gauge span:nth-child(4){background:#ffab4a}.gauge span:nth-child(5){background:#ff8f6b}
-.gauge span:nth-child(6){background:#ff6f91;border-radius:0 99px 99px 0}
+.gauge span:nth-child(4){background:#ffab4a}.gauge span:nth-child(5){background:#ff8f6b;border-radius:0 99px 99px 0}
 .gauge .mark{position:absolute;top:-9px;width:4px;height:44px;background:#fff;border-radius:4px;box-shadow:0 0 0 2px rgba(0,0,0,.35);transform:translateX(-50%);transition:left 1s cubic-bezier(.3,1,.4,1)}
 .gauge-labels{display:flex;justify-content:space-between;font-size:.78rem;font-weight:800;color:var(--chalk-dim)}
 body.mode-kids .gauge-labels{color:#3e6c93}
@@ -220,7 +224,6 @@ body.mode-kids .scard .bar{background:#e4f1fb}
 .m-item{background:var(--card);border-left:5px solid var(--bad);border-radius:10px;padding:14px 16px;margin-bottom:10px;font-size:.93rem;line-height:1.5}
 .m-item .mq{font-weight:800;margin-bottom:4px}
 .m-item .fix{color:var(--mint);font-weight:800}
-.m-item .why{color:var(--chalk-dim);font-size:.86rem}
 .all-good{background:var(--card);border-left:5px solid var(--ok);border-radius:10px;padding:16px;font-weight:800}
 
 .end-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:30px 0 40px}
@@ -234,14 +237,14 @@ body.mode-kids .btn-ghost:hover{color:#0c62b8;border-color:#0c62b8}
 @keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
 
 @media (max-width:900px){.start-grid{grid-template-columns:1fr;min-height:auto;gap:26px;padding-top:8px}.note-card{transform:none}}
-@media (max-width:560px){.qcard{padding-left:22px;background:repeating-linear-gradient(var(--paper) 0 33px,var(--line) 33px 34px)}.ruler b{font-size:.62rem}.pick.three{grid-template-columns:1fr}}
+@media (max-width:560px){.qcard{padding-left:22px;background:repeating-linear-gradient(var(--paper) 0 33px,var(--line) 33px 34px)}.ruler b{font-size:.62rem}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body class="mode-class">
 
 <div class="doodles" aria-hidden="true">
-  <span class="doodle d-class" style="top:8%;left:4%;--fs:2.4rem;--r:-8deg;--t:6s">A1 · B2 · C2</span>
+  <span class="doodle d-class" style="top:8%;left:4%;--fs:2.4rem;--r:-8deg;--t:6s">A1 · B1 · C1</span>
   <span class="doodle d-class" style="top:22%;right:6%;--fs:2rem;--r:6deg;--t:8s">essere o non essere?</span>
   <span class="doodle d-class" style="bottom:16%;left:6%;--fs:2.2rem;--r:4deg;--t:7s">★ In bocca al lupo! ★</span>
   <span class="doodle d-class" style="bottom:30%;right:4%;--fs:2.2rem;--r:-5deg;--t:9s">il congiuntivo… 🎧</span>
@@ -258,9 +261,9 @@ body.mode-kids .btn-ghost:hover{color:#0c62b8;border-color:#0c62b8}
 <section id="scr-start" class="screen">
   <div class="start-grid">
     <div class="board-frame">
-      <div class="chalk-tag">мини-экзамен · итальянский · 5 навыков · A1 → C2</div>
+      <div class="chalk-tag">мини-экзамен · итальянский · 5 навыков · A1 → C1</div>
       <h1 class="hand">Проверь свой <em>Italiano</em>!</h1>
-      <p class="sub">Полная диагностика: <b>грамматика и лексика 📚, аудирование 🎧, чтение 📖, письмо ✍️ и говорение 🎤</b>. Каждая секция подстраивается под вас, а в конце — уровень по шкале CEFR для каждого навыка и разбор ошибок.</p>
+      <p class="sub">Полная диагностика: <b>грамматика и лексика 📚, аудирование 🎧, чтение 📖, письмо ✍️ и говорение 🎤</b>. Адаптивная система подстроится под вас, а в конце вы получите уровень по шкале CEFR для каждого навыка.</p>
       <div class="tiles" aria-hidden="true">
         <div class="tile m wide" style="--r:-5deg">📚 Grammatica</div>
         <div class="tile s wide" style="--r:4deg">🎧 Ascolto</div>
@@ -273,6 +276,15 @@ body.mode-kids .btn-ghost:hover{color:#0c62b8;border-color:#0c62b8}
 
     <div class="note-card">
       <h2>Настройки ✏️</h2>
+      
+      <div class="input-group">
+        <label for="stu-name">Имя и фамилия ученика</label>
+        <input type="text" id="stu-name" placeholder="Например: Анна Драчёва" autocomplete="name">
+      </div>
+      <div class="input-group">
+        <label for="stu-email">Email ученика (необязательно)</label>
+        <input type="email" id="stu-email" placeholder="anna@example.com" autocomplete="email">
+      </div>
 
       <p class="pick-label">Для кого</p>
       <div class="pick" role="group">
@@ -289,16 +301,9 @@ body.mode-kids .btn-ghost:hover{color:#0c62b8;border-color:#0c62b8}
         <button type="button" class="mode-btn sk on" data-sk="s" onclick="toggleSkill('s')">🎤 Говор.</button>
       </div>
 
-      <p class="pick-label">Заданий на навык</p>
-      <div class="pick three" role="group">
-        <button type="button" class="mode-btn len" data-n="3" onclick="setLen(3)">3 · экспресс</button>
-        <button type="button" class="mode-btn len on" data-n="4" onclick="setLen(4)">4 · стандарт</button>
-        <button type="button" class="mode-btn len" data-n="5" onclick="setLen(5)">5 · подробно</button>
-      </div>
-
-      <p class="mode-note" id="mode-note">Классический режим: полный банк заданий, включая «взрослые» темы.</p>
+      <p class="mode-note" id="mode-note">Классический режим: полный банк заданий, включая «взрослые» темы. Фиксировано: 8 вопросов на навык.</p>
       <button type="button" class="btn-big" onclick="startQuiz()">Начать тест →</button>
-      <p class="tiny">Подсказка: варианты — клавиши 1–4, дальше — Enter. Для говорения нужен микрофон 🎤</p>
+      <p class="tiny">Подсказка: варианты — клавиши 1–4 или A–D, Enter — далее/проверить.</p>
     </div>
   </div>
 </section>
@@ -308,7 +313,7 @@ body.mode-kids .btn-ghost:hover{color:#0c62b8;border-color:#0c62b8}
   <div class="quiz-top">
     <span class="logo">✎ Italiano Check-Up</span>
     <div class="progress"><i id="pbar"></i></div>
-    <span class="qcount" id="qcount">1 / 20</span>
+    <span class="qcount" id="qcount">1 / 40</span>
     <div class="chips">
       <span class="chip est" id="est">—</span>
       <span class="chip" id="score">Очки: 0</span>
@@ -319,9 +324,9 @@ body.mode-kids .btn-ghost:hover{color:#0c62b8;border-color:#0c62b8}
   <div class="secnav" id="secnav"></div>
 
   <div class="ruler" aria-hidden="true">
-    <div class="pin" id="pin" style="left:8.33%"></div>
+    <div class="pin" id="pin" style="left:10%"></div>
     <b data-l="1">A1</b><b data-l="2">A2</b><b data-l="3">B1</b>
-    <b data-l="4">B2</b><b data-l="5">C1</b><b data-l="6">C2</b>
+    <b data-l="4">B2</b><b data-l="5">C1</b>
   </div>
 
   <article class="qcard intro" id="intro" hidden>
@@ -335,7 +340,7 @@ body.mode-kids .btn-ghost:hover{color:#0c62b8;border-color:#0c62b8}
   <article class="qcard" id="qcard" hidden>
     <div class="qmeta">
       <span class="tag sk" id="tag-skill">Секция</span>
-      <span class="tag l" id="tag-lvl">Уровень B1</span>
+      <span class="tag l" id="tag-lvl">Уровень A2</span>
     </div>
     <div id="q-extra"></div>
     <p class="qtext" id="qtext">…</p>
@@ -348,6 +353,10 @@ body.mode-kids .btn-ghost:hover{color:#0c62b8;border-color:#0c62b8}
       <button type="button" class="btn-next" id="btn-next" onclick="next()">Дальше →</button>
     </div>
   </article>
+  
+  <div style="text-align:center; margin-top:20px;">
+    <button type="button" class="btn-ghost" onclick="finish(true)">🏳️ Сдаться и увидеть результат</button>
+  </div>
 </section>
 
 <!-- ============ РЕЗУЛЬТАТ ============ -->
@@ -358,10 +367,10 @@ body.mode-kids .btn-ghost:hover{color:#0c62b8;border-color:#0c62b8}
   </div>
 
   <div class="gauge" aria-hidden="true">
-    <span></span><span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
     <div class="mark" id="mark" style="left:50%"></div>
   </div>
-  <div class="gauge-labels"><i>A1</i><i>A2</i><i>B1</i><i>B2</i><i>C1</i><i>C2</i></div>
+  <div class="gauge-labels"><i>A1</i><i>A2</i><i>B1</i><i>B2</i><i>C1</i></div>
 
   <div class="stat-grid">
     <div class="stat"><b id="st-correct">0</b><span>верных</span></div>
@@ -385,256 +394,134 @@ body.mode-kids .btn-ghost:hover{color:#0c62b8;border-color:#0c62b8}
 </main>
 
 <script>
-/* ======================= НАВЫКИ ======================= */
+/* ======================= КОНСТАНТЫ И НАВЫКИ ======================= */
+const START_LVL = 2; // A2
+const BLOCK_SIZE = 2;
+const BLOCKS_PER_SKILL = 4;
+const Q_PER_SKILL = BLOCK_SIZE * BLOCKS_PER_SKILL; // 8
+const TOTAL_Q = 5 * Q_PER_SKILL; // 40
+
 const SK={
   g:{icon:'📚',title:'Грамматика и лексика',short:'Грамматика',
      desc:'Выбирайте правильный вариант. Верный ответ делает задание сложнее, ошибка — проще.'},
   l:{icon:'🎧',title:'Аудирование',short:'Аудирование',
-     desc:'Нажмите ▶ и прослушайте запись на итальянском — повторять можно сколько угодно. Варианты откроются после первого прослушивания.'},
+     desc:'Нажмите ▶ и прослушайте запись на итальянском. Варианты откроются после первого прослушивания.'},
   r:{icon:'📖',title:'Чтение',short:'Чтение',
      desc:'Прочитайте текст и ответьте на вопрос по его содержанию.'},
   w:{icon:'✍️',title:'Письмо',short:'Письмо',
-     desc:'Впишите ответ на итальянском — слово или короткую фразу. Акценты и апострофы проверяются мягко.'},
+     desc:'Впишите ответ на итальянском. Акценты учитываются мягко, регистр не важен.'},
   s:{icon:'🎤',title:'Говорение',short:'Говорение',
-     desc:'Нажмите на микрофон и выполните задание вслух на итальянском. Разрешите доступ к микрофону. Если распознавание речи недоступно — оцените себя сами.'}
+     desc:'Нажмите на микрофон и выполните задание вслух. Если распознавание недоступно — оцените себя сами.'}
 };
 const ORDER=['g','l','r','w','s'];
-const LVLNAME={1:'A1',2:'A2',3:'B1',4:'B2',5:'C1',6:'C2'};
+const LVLNAME={1:'A1',2:'A2',3:'B1',4:'B2',5:'C1'};
 const LVLFULL={A1:'Beginner · Начальный',A2:'Elementary · Базовый',B1:'Intermediate · Средний',
-  B2:'Upper-Intermediate · Выше среднего',C1:'Advanced · Продвинутый',C2:'Proficiency · В совершенстве'};
+  B2:'Upper-Intermediate · Выше среднего',C1:'Advanced · Продвинутый'};
+
+const UMK_MAP_IT = {
+  A1: "Nuovo Progetto italiano 1 / Espresso 1",
+  A2: "Nuovo Progetto italiano 2 / Espresso 2",
+  B1: "Nuovo Progetto italiano 3 / Espresso 3",
+  B2: "Nuovo Progetto italiano 4 / In linea B2",
+  C1: "Nuovo Progetto italiano 5 / In linea C1"
+};
+
 const $=id=>document.getElementById(id);
 const SR=window.SpeechRecognition||window.webkitSpeechRecognition||null;
 
-/* ======================= БАНК: ГРАММАТИКА И ЛЕКСИКА (90) ======================= */
+/* ======================= БАНКИ ВОПРОСОВ (3 на уровень на навык = 15 на навык, 75 всего) ======================= */
 const BANK=[
-/* A1 */
-{lvl:1,skill:'g',q:'Io ___ uno studente.',o:['sono','sei','è','siamo'],a:0,e:'С io глагол essere имеет форму sono.'},
-{lvl:1,skill:'g',q:'Lei ___ due gatti.',o:['ha','hai','hanno','ho'],a:0,e:'С lei глагол avere имеет форму ha.'},
-{lvl:1,skill:'v',q:'Qual è il contrario di « grande »?',o:['piccolo','lungo','alto','largo'],a:0,e:'Grande — «большой», антоним — piccolo.'},
-{lvl:1,skill:'g',q:'Ho ___ mela.',o:['una','un','uno','un’'],a:0,e:'Mela — женский род → una.'},
-{lvl:1,skill:'g',q:'Noi ___ la televisione ogni sera.',o:['guardiamo','guardi','guarda','guardano'],a:0,e:'С noi форма глагола оканчивается на -iamo.'},
-{lvl:1,skill:'v',q:'Il bambino — i ___.',o:['bambini','bambine','bambinos','bambino'],a:0,e:'Множественное число мужского рода на -i: bambini.'},
-{lvl:1,skill:'g',q:'A lui non ___ i broccoli.',o:['piacciono','piace','piaci','piaccio'],a:0,e:'Piacere согласуется с тем, что нравится: i broccoli piacciono.'},
-{lvl:1,skill:'v',q:'Le banane sono ___.',o:['gialle','blu','verdi','rosa'],a:0,e:'Бананы жёлтые — gialle (ж.р. мн.ч.).'},
-{lvl:1,skill:'g',q:'C’___ un libro sul tavolo.',o:['è','sono','ha','hai'],a:0,e:'C’è = ci è — «имеется» (ед.ч.).'},
-{lvl:1,skill:'v',q:'Oggi è lunedì. Domani è ___.',o:['martedì','domenica','mercoledì','venerdì'],a:0,e:'После lunedì идёт martedì.'},
-{lvl:1,skill:'g',q:'Loro ___ i miei amici.',o:['sono','è','sei','siamo'],a:0,e:'С loro форма sono.'},
-{lvl:1,skill:'g',q:'Io ___ nuotare molto bene.',o:['so','posso','voglio','devo'],a:0,e:'Sapere + инфинитив — «уметь что-то делать».'},
-{lvl:1,skill:'g',q:'Il gatto è ___ il tavolo. (под столом)',o:['sotto','sopra','in','a'],a:0,e:'Sotto — «под».'},
-{lvl:1,skill:'v',q:'L’uomo — gli ___.',o:['uomini','uomos','uomo','omini'],a:0,e:'Исключение: uomo → uomini.'},
-{lvl:1,skill:'v',q:'Quanti ___ hai? — Ho dieci anni.',o:['anni','anno','età','volte'],a:0,e:'Вопрос о возрасте: Quanti anni hai?'},
-/* A2 */
-{lvl:2,skill:'g',q:'Ieri ___ andato al parco.',o:['sono','ho','ero','sono stato'],a:0,e:'Passato prossimo глаголов движения строится с essere: sono andato.'},
-{lvl:2,skill:'g',q:'Non ci sono uova ___ frigo.',o:['nel','in','sul','al'],a:0,e:'Слитный предлог nel = in + il.'},
-{lvl:2,skill:'g',q:'Un elefante è ___ di un topo.',o:['più grande','grande','il più grande','molto grande'],a:0,e:'Сравнение: più + прилагательное + di.'},
-{lvl:2,skill:'g',q:'Sono bravo ___ disegnare.',o:['a','in','di','da'],a:0,e:'Устойчивое сочетание: essere bravo a + инфинитив.'},
-{lvl:2,skill:'v',q:'Si usa una ___ per aprire la porta.',o:['chiave','forchetta','coltello','pennello'],a:0,e:'Chiave — «ключ».'},
-{lvl:2,skill:'g',q:'___ mai stato a Roma?',o:['Sei','Hai','Era','Stai'],a:0,e:'Passato prossimo с essere: Sei mai stato…?'},
-{lvl:2,skill:'g',q:'A che ora ___ il film?',o:['inizia','inizi','iniziate','iniziano'],a:0,e:'Il film = lui → inizia.'},
-{lvl:2,skill:'v',q:'D’inverno ___ spesso.',o:['nevica','piove','fiorisce','splende'],a:0,e:'Зимой идёт снег — nevica.'},
-{lvl:2,skill:'g',q:'Vorrei ___ succo d’arancia, per favore.',o:['un','uno','una','dei'],a:0,e:'Succo — м.р., начинается с согласного → un.'},
-{lvl:2,skill:'v',q:'La figlia di mia sorella è mia ___.',o:['nipote','cugina','zia','nonna'],a:0,e:'Nipote — «племянница».'},
-{lvl:2,skill:'g',q:'Lei ___ una bicicletta nuova la settimana scorsa.',o:['ha comprato','comprato','compra','ha comprare'],a:0,e:'Passato prossimo с avere: ha comprato.'},
-{lvl:2,skill:'g',q:'Questo è ___ libro interessante che io abbia mai letto.',o:['il più','più','il','un più'],a:0,e:'Превосходная степень: il più + прилагательное.'},
-{lvl:2,skill:'v',q:'Bevi molta ___ ogni giorno.',o:['acqua','pane','tavolo','sedia'],a:0,e:'Acqua — неисчисляемое существительное.'},
-{lvl:2,skill:'g',q:'Il mio compleanno è ___ maggio.',o:['a','in','di','da'],a:0,e:'С месяцами — предлог a: a maggio.'},
-{lvl:2,skill:'v',q:'Il contrario di « caro » è ___.',o:['economico','piccolo','lento','tranquillo'],a:0,e:'Economico — «недорогой».'},
-/* B1 */
-{lvl:3,skill:'g',q:'Se domani piove, ___ a casa.',o:['resteremo','restavamo','restammo','resterebbero'],a:0,e:'Первый тип: se + presente, futuro в главной части.'},
-{lvl:3,skill:'g',q:'Vivo in questa città ___ 2015.',o:['dal','da','del','nel'],a:0,e:'Da + il = dal — «с 2015 года».'},
-{lvl:3,skill:'g',q:'In auto ___ indossare la cintura di sicurezza — è la legge.',o:['devi','puoi','vuoi','sai'],a:0,e:'Dovere — обязанность: devi.'},
-{lvl:3,skill:'v',q:'Ha ___ l’autobus stamattina e ha dovuto camminare.',o:['perso','lasciato','dimenticato','rotto'],a:0,e:'Perdere l’autobus — «опоздать на автобус».'},
-{lvl:3,skill:'g',q:'Questo libro ___ da milioni di persone.',o:['è letto','legge','ha letto','è leggere'],a:0,e:'Пассив: essere + причастие (è letto).'},
-{lvl:3,skill:'g',q:'Mi ha chiesto dove ___.',o:['abitavo','abito','abitare','abitato'],a:0,e:'Косвенная речь в прошлом: сдвиг в imperfetto.'},
-{lvl:3,skill:'v',q:'Mi puoi ___ un favore?',o:['fare','dare','prendere','rendere'],a:0,e:'Fare un favore — «оказать услугу».'},
-{lvl:3,skill:'g',q:'Una volta ___ a calcio ogni giorno.',o:['giocavo','gioco','giocherò','giocato'],a:0,e:'Imparfetto (imperfetto) для привычек в прошлом.'},
-{lvl:3,skill:'g',q:'___ la stanchezza, ha finito il lavoro.',o:['Nonostante','Perché','Sebbene','Mentre'],a:0,e:'Nonostante + существительное — «несмотря на».'},
-{lvl:3,skill:'v',q:'Non abbiamo più ___ — compriamone un po’.',o:['latte','sedia','tavolo','finestra'],a:0,e:'Non avere più — «больше нет».'},
-{lvl:3,skill:'g',q:'Se ___ ricco, farei il giro del mondo.',o:['fossi','sono','ero','sarei'],a:0,e:'Второй тип: se + congiuntivo imperfetto, condizionale в главной.'},
-{lvl:3,skill:'g',q:'Il professore ci ha detto di ___ i compiti.',o:['fare','facciamo','facendo','fatto'],a:0,e:'Dire di + инфинитив.'},
-{lvl:3,skill:'v',q:'Puoi badare ___ mio cane questo fine settimana?',o:['al','a','del','sul'],a:0,e:'Badare a + il = al — «присматривать за».'},
-{lvl:3,skill:'g',q:'Questo caffè è ___ caldo per me.',o:['troppo','abbastanza','molto','così'],a:0,e:'Troppo + прилагательное — «слишком».'},
-{lvl:3,skill:'v',q:'Posso ___ in prestito la tua penna?',o:['prendere','dare','prestare','lasciare'],a:0,e:'Prendere in prestito — взять взаймы; prestare — дать взаймы.'},
-/* B2 */
-{lvl:4,skill:'g',q:'Quando siamo arrivati, il film ___.',o:['era già iniziato','è già iniziato','ha già iniziato','inizia già'],a:0,e:'Trapassato prossimo — действие раньше другого в прошлом.'},
-{lvl:4,skill:'g',q:'Vorrei ___ parlare francese fluentemente.',o:['poter','posso','potevo','potrò'],a:0,e:'После condizionale — инфинитив: vorrei poter…'},
-{lvl:4,skill:'v',q:'La riunione è stata ___ perché il capo era malato.',o:['annullata','annullato','annullare','annullate'],a:0,e:'Причастие согласуется: la riunione → annullata.'},
-{lvl:4,skill:'g',q:'___ meglio andare dal medico per quella tosse.',o:['Faresti','Fai','Farai','Facevi'],a:0,e:'Faresti meglio a — «тебе стоило бы».'},
-{lvl:4,skill:'g',q:'Appena lei si ___ scusata, lui le ha parlato di nuovo.',o:['è','ha','era','sarà'],a:0,e:'Возвратные глаголы строят passato prossimo с essere: si è scusata.'},
-{lvl:4,skill:'v',q:'La sua teoria non sta ___.',o:['in piedi','in strada','in aria','in fuoco'],a:0,e:'Non stare in piedi — «не выдерживать критики».'},
-{lvl:4,skill:'g',q:'Ha negato di ___ i soldi.',o:['aver rubato','rubare','rubato','ha rubato'],a:0,e:'Negare di + прошедший инфинитив: aver rubato.'},
-{lvl:4,skill:'g',q:'___ si impegnasse, non riusciva ad aprire la porta.',o:['Per quanto','Perché','Dato che','Purché'],a:0,e:'Per quanto + congiuntivo — «как бы ни».'},
-{lvl:4,skill:'g',adult:true,q:'Preferirei che tu non ___ qui.',o:['fumassi','fumi','fumavi','fumerai'],a:0,e:'После preferirei che — congiuntivo imperfetto.'},
-{lvl:4,skill:'g',q:'I risultati ___ su prove solide.',o:['si basano','basano','basandosi','sono basare'],a:0,e:'Basarsi su — «основываться на».'},
-{lvl:4,skill:'g',q:'Se avessi studiato di più, ___ superato l’esame.',o:['avresti','hai','eri','avrai'],a:0,e:'Третий тип: se + congiuntivo trapassato, condizionale passato.'},
-{lvl:4,skill:'g',q:'Domani ___ riparare la macchina.',o:['farò','faccio','farei','facevo'],a:0,e:'Каузатив: fare riparare — «отдать в ремонт».'},
-{lvl:4,skill:'g',q:'___ la pioggia, sono andati a fare un’escursione.',o:['Nonostante','Perché','Grazie a','Grazie'],a:0,e:'Nonostante + существительное.'},
-{lvl:4,skill:'v',q:'Ha ___ l’offerta di lavoro perché lo stipendio era basso.',o:['rifiutato','accettato','ricevuto','dato'],a:0,e:'Rifiutare — «отклонить».'},
-{lvl:4,skill:'g',q:'Nessuna delle risposte ___ corretta.',o:['è','sono','ha','viene'],a:0,e:'Nessuna — единственное число: è.'},
-/* C1 */
-{lvl:5,skill:'g',q:'___ fui entrato nella stanza, il telefono squillò.',o:['Appena','Mentre','Sebbene','Poiché'],a:0,e:'Appena + passato remoto — книжное «едва лишь…»'},
-{lvl:5,skill:'v',adult:true,q:'Il governo ha deciso di ___ le tasse.',o:['aumentare','salire','crescere','montare'],a:0,e:'Aumentare — «повышать» (переходный); salire/crescere — «расти» самому.'},
-{lvl:5,skill:'g',q:'Per nessun motivo vi è ___ usare il telefono qui.',o:['consentito','consentire','consentendo','consenziente'],a:0,e:'Безличная пассивная конструкция: vi è consentito — «разрешено».'},
-{lvl:5,skill:'v',q:'Il racconto del testimone aveva poco a che ___ con i fatti.',o:['fare','vedere','dire','prendere'],a:0,e:'Avere poco a che fare con — «иметь мало общего с».'},
-{lvl:5,skill:'g',adult:true,q:'___ di aver rubato i soldi, è fuggito dal Paese.',o:['Sospettato','Sospettando','Sospettare','Sospettati'],a:0,e:'Причастие в причинном значении: «подозреваемый в…»'},
-{lvl:5,skill:'v',q:'Le due parti sono arrivate a un ___ — nessuno vuole cedere.',o:['punto morto','traguardo','scadenza','calo'],a:0,e:'Punto morto — «тупик, патовая ситуация».'},
-{lvl:5,skill:'g',adult:true,q:'È ora che tu ___ qualcosa.',o:['faccia','fai','farai','facevi'],a:0,e:'È ora che + congiuntivo presente: che tu faccia.'},
-{lvl:5,skill:'g',q:'Raramente ___ visto un tramonto così bello.',o:['ho','ha','sono','abbiamo'],a:0,e:'Videre строит passato prossimo с avere: ho visto.'},
-{lvl:5,skill:'v',adult:true,q:'È stato ___ di furto.',o:['accusato','caricato','biasimato','sospeso'],a:0,e:'Accusare qualcuno di qualcosa — «обвинить в».'},
-{lvl:5,skill:'v',q:'Questo medicinale non ha effetti ___.',o:['collaterali','secondi','doppi','laterali'],a:0,e:'Effetti collaterali — «побочные эффекты».'},
-{lvl:5,skill:'g',q:'Se fossi stato in te, ___ quel lavoro.',o:['avrei accettato','accetto','accetterei','avevo accettato'],a:0,e:'Смешанный тип: se fossi stato (прошлое) → avrei accettato.'},
-{lvl:5,skill:'g',q:'Solo allora ___ capito la verità.',o:['ha','è','aveva','sarà'],a:0,e:'Инверсия/порядок слов сSolo allora + avere: ha capito.'},
-{lvl:5,skill:'g',q:'Il direttore ha insistito perché il rapporto ___ in tempo.',o:['venisse consegnato','viene consegnato','era consegnato','sarà consegnato'],a:0,e:'Insistere perché + congiuntivo: пассив venisse consegnato.'},
-{lvl:5,skill:'v',q:'I due resoconti dell’incidente ___ vistosamente.',o:['divergevano','convergevano','collaboravano','diligevano'],a:0,e:'Divergere — «расходиться, противоречить».'},
-{lvl:5,skill:'v',adult:true,q:'Queste scoperte hanno importanti ___ per la ricerca futura.',o:['implicazioni','implementazioni','imposizioni','inclinazioni'],a:0,e:'Implicazioni — «последствия, выводы».'},
-/* C2 */
-{lvl:6,skill:'g',q:'Il dipinto, ___ autenticità era stata messa in dubbio, è stato venduto a una cifra record.',o:['la cui','il cui','cui','che'],a:0,e:'La cui — относительное притяжательное, согласуется с autenticità (ж.р.).'},
-{lvl:6,skill:'v',q:'La sua voce era così ___ che tutta la sala è ammutolita.',o:['commovente','pungente','puntuale','pomposa'],a:0,e:'Commovente — «трогательный до слёз».'},
-{lvl:6,skill:'g',q:'___ il maltempo, il volo è partito in orario.',o:['Malgrado','Benché','Sebbene','Quantunque'],a:0,e:'Malgrado + существительное; benché/sebbene требуют придаточного с congiuntivo.'},
-{lvl:6,skill:'v',q:'Ha una memoria ___ — ricorda le immagini con ogni dettaglio.',o:['eidetica','eclettica','epidemica','ergonomica'],a:0,e:'Memoria eidetica — эйдетическая память.'},
-{lvl:6,skill:'g',q:'Ha parlato a lungo; ___, nessuno è stato convinto.',o:['ciononostante','d’ora in poi','ivi','in quanto'],a:0,e:'Ciononostante — «тем не менее».'},
-{lvl:6,skill:'v',adult:true,q:'La commissione ha dato alla proposta solo un’occhiata ___ prima di respingerla.',o:['distratta','curiosa','attuale','consueta'],a:0,e:'Un’occhiata distratta — беглый, невнимательный взгляд.'},
-{lvl:6,skill:'g',q:'Poco ___ che quella decisione gli avrebbe cambiato la vita.',o:['immaginava','immagina','immaginerà','abbia immaginato'],a:0,e:'Poco + imperfetto с инверсионной интонацией: «он и не подозревал».'},
-{lvl:6,skill:'v',q:'La trama del romanzo è così intricata da risultare quasi ___.',o:['labirintica','lineare','limpida','letargica'],a:0,e:'Labirintica — «запутанная, как лабиринт».'},
-{lvl:6,skill:'g',q:'___ la prontezza di spirito di Maria, l’esito sarebbe stato ben peggiore.',o:['Senza','Con','Malgrado','Grazie a'],a:0,e:'Senza + существительное заменяет нереальное условие: «не будь…»'},
-{lvl:6,skill:'v',q:'La sua scusa sembrava nel migliore dei casi ___.',o:['pretestuosa','fiammeggiante','flemmatica','baldanzosa'],a:0,e:'Pretestuosa — «надуманная, неубедительная».'},
-{lvl:6,skill:'g',q:'___ ingenti furono i danni che l’edificio dovette essere demolito.',o:['Così','Molto','Tanto','Tal'],a:0,e:'Книжная инверсия: Così + прилагательное + глагол… che.'},
-{lvl:6,skill:'v',q:'Il tentativo dell’oratore di ___ la questione non ha fatto che irritare il pubblico.',o:['offuscare','obbligare','abolire','ostruire'],a:0,e:'Offuscare — «затуманить, затемнить».'},
-{lvl:6,skill:'v',q:'Il suo giudizio è così sicuro che i colleghi la ritengono quasi ___.',o:['perspicace','perniciosa','superficiale','pigra'],a:0,e:'Perspicace — «проницательная».'},
-{lvl:6,skill:'v',q:'È il gentiluomo inglese ___ : tweed, tè e understatement.',o:['per eccellenza','per di più','per lo meno','senza dubbio'],a:0,e:'Per eccellenza — «в самом полном смысле».'},
-{lvl:6,skill:'v',q:'___ come l’onestà e la diligenza non passano mai di moda.',o:['Virtù','Verità','Vestigia','Vicissitudini'],a:0,e:'Virtù — «добродетели».'}
+  {lvl:1,skill:'g',q:'Io ___ uno studente.',o:['sono','sei','è','siamo'],a:0,e:'С io глагол essere имеет форму sono.'},
+  {lvl:1,skill:'g',q:'Lei ___ due gatti.',o:['ha','hai','hanno','ho'],a:0,e:'С lei глагол avere имеет форму ha.'},
+  {lvl:1,skill:'g',q:'Oggi è lunedì. Domani è ___.',o:['martedì','domenica','mercoledì','venerdì'],a:0,e:'После lunedì идёт martedì.'},
+  {lvl:2,skill:'g',q:'Ieri ___ andato al parco.',o:['sono','ho','ero','sono stato'],a:0,e:'Passato prossimo глаголов движения строится с essere: sono andato.'},
+  {lvl:2,skill:'g',q:'Non ci sono uova ___ frigo.',o:['nel','in','sul','al'],a:0,e:'Слитный предлог nel = in + il.'},
+  {lvl:2,skill:'g',q:'Vorrei ___ succo d’arancia, per favore.',o:['un','uno','una','dei'],a:0,e:'Succo — м.р., начинается с согласного → un.'},
+  {lvl:3,skill:'g',q:'Se domani piove, ___ a casa.',o:['resteremo','restavamo','restammo','resterebbero'],a:0,e:'Первый тип: se + presente, futuro в главной части.'},
+  {lvl:3,skill:'g',q:'Vivo in questa città ___ 2015.',o:['dal','da','del','nel'],a:0,e:'Da + il = dal — «с 2015 года».'},
+  {lvl:3,skill:'g',q:'In auto ___ indossare la cintura di sicurezza.',o:['devi','puoi','vuoi','sai'],a:0,e:'Dovere — обязанность: devi.'},
+  {lvl:4,skill:'g',q:'Quando siamo arrivati, il film ___.',o:['era già iniziato','è già iniziato','ha già iniziato','inizia già'],a:0,e:'Trapassato prossimo — действие раньше другого в прошлом.'},
+  {lvl:4,skill:'g',q:'___ meglio andare dal medico per quella tosse.',o:['Faresti','Fai','Farai','Facevi'],a:0,e:'Faresti meglio a — «тебе стоило бы».'},
+  {lvl:4,skill:'g',q:'Ha negato di ___ i soldi.',o:['aver rubato','rubare','rubato','ha rubato'],a:0,e:'Negare di + прошедший инфинитив: aver rubato.'},
+  {lvl:5,skill:'g',q:'___ fui entrato nella stanza, il telefono squillò.',o:['Appena','Mentre','Sebbene','Poiché'],a:0,e:'Appena + passato remoto — книжное «едва лишь…»'},
+  {lvl:5,skill:'g',q:'Il governo ha deciso di ___ le tasse.',o:['aumentare','salire','crescere','montare'],a:0,e:'Aumentare — «повышать» (переходный); salire/crescere — «расти» самому.'},
+  {lvl:5,skill:'g',q:'È ora che tu ___ qualcosa.',o:['faccia','fai','farai','facevi'],a:0,e:'È ora che + congiuntivo presente: che tu faccia.'}
 ];
 
-/* ======================= БАНК: ЧТЕНИЕ (12) ======================= */
 const READING=[
-{lvl:1,text:'Tom ha un cane. Il cane è grande e nero. Tom gioca con il cane al parco tutti i giorni.',
- q:'Dove gioca Tom con il cane?',o:['Al parco','A casa','A scuola','Nel bosco'],a:0,e:'В тексте прямо сказано: «Tom gioca con il cane al parco.»'},
-{lvl:1,text:'Anna ama le mele e le banane. Non le piacciono le arance.',
- q:'Quale frutto non piace ad Anna?',o:['Le arance','Le mele','Le banane','Le pere'],a:0,e:'Ключевая фраза: «Non le piacciono le arance.»'},
-{lvl:2,text:'L’estate scorsa Mia è andata in Italia con la sua famiglia. Hanno visitato Roma e hanno mangiato molta pizza. Il tempo era caldo ogni giorno.',
- q:'Che tempo faceva in Italia?',o:['Faceva caldo','Faceva freddo','Pioveva','C’era vento'],a:0,e:'Последнее предложение: «Il tempo era caldo ogni giorno.»'},
-{lvl:2,text:'Di solito Ben va a scuola in bicicletta, ma ieri pioveva, quindi ha preso l’autobus.',
- q:'Come è andato a scuola ieri Ben?',o:['In autobus','In bicicletta','In macchina','A piedi'],a:0,e:'Из-за дождя он поехал на автобусе: «ha preso l’autobus».'},
-{lvl:3,text:'Quando Sarah ha iniziato il suo nuovo lavoro, era nervosa perché non conosceva nessuno. Però i colleghi erano simpatici e dopo una settimana si sentiva a casa.',
- q:'Perché Sarah si sentiva a casa dopo una settimana?',o:['I colleghi erano simpatici','Conosceva tutti','L’ufficio le piaceva','Aveva avuto una promozione'],a:0,e:'Причина названа после però: доброжелательные коллеги.'},
-{lvl:3,text:'Il riciclaggio aiuta a ridurre i rifiuti, ma molte persone gettano ancora la plastica invece di riciclarla.',
- q:'Qual è l’idea principale del testo?',o:['Il riciclo è utile, ma non tutti lo fanno','La plastica è pericolosa','Tutti riciclano','Il riciclo è inutile'],a:0,e:'Структура «aiuta…, ma molti…» передаёт контраст.'},
-{lvl:4,text:'Sebbene lo smart working offra flessibilità, molti dipendenti si sentono isolati. Le aziende stanno sperimentando modelli ibridi per unire i vantaggi di entrambi.',
- q:'Perché le aziende provano modelli ibridi?',o:['Per unire flessibilità e contatti sociali','Per risparmiare','Per far lavorare di più le persone','Per chiudere gli uffici'],a:0,e:'«Unire i vantaggi di entrambi» — объединить плюсы обоих форматов.'},
-{lvl:4,text:'La critica è stata feroce; ciò nonostante, il libro è diventato un bestseller, a dimostrazione che critici e lettori non sono sempre d’accordo.',
- q:'Cosa suggerisce il testo?',o:['Il libro ha avuto successo nonostante la critica feroce','I critici hanno adorato il libro','I lettori erano d’accordo col critico','Il libro ha venduto poco'],a:0,e:'Ciò nonostante — «тем не менее»: разгромная рецензия не помешала успеху.'},
-{lvl:5,text:'I risultati, seppur preliminari, confermano l’ipotesi secondo cui la privazione di sonno comprometta la capacità decisionale più di quanto si pensasse.',
- q:'Cosa suggeriscono i risultati?',o:['La mancanza di sonno danneggia le decisioni più di quanto si credesse','Il sonno migliora la memoria','L’ipotesi è stata respinta','Lo studio era definitivo'],a:0,e:'«Più di quanto si pensasse» — сильнее, чем считалось.'},
-{lvl:5,text:'Se il consiglio comunale avesse previsto le proteste, avrebbe sicuramente consultato i residenti prima di pedonalizzare il corso.',
- q:'Cosa si può dedurre?',o:['Il consiglio non si aspettava la reazione negativa','I residenti sostenevano il progetto','Il consiglio ha consultato i residenti','Non c’è stata alcuna reazione'],a:0,e:'Нереальное условие: консультаций не было, потому что протестов не ожидали.'},
-{lvl:6,text:'La prosa dell’autore, labirintica eppure precisa, rifugge il sentimentalismo a favore di un esame clinico e impietoso delle motivazioni umane.',
- q:'Lo stile dell’autore è piuttosto…',o:['complesso ed emotivamente distaccato','semplice e sentimentale','vago e caotico','umoristico e leggero'],a:0,e:'Rifugge il sentimentalismo + esame clinico — холодный, бесстрастный анализ.'},
-{lvl:6,text:'Tale è l’onnipresenza del marchio che il suo logo è divenuto, in certi ambienti, una sineddoche della cultura consumistica stessa.',
- q:'Che cosa è diventato il logo, secondo il testo?',o:['Un simbolo che rappresenta l’intera cultura consumistica','Una pubblicità per un nuovo prodotto','Un segno di scarsa qualità','Il nome dell’azienda'],a:0,e:'Sineddoche — часть вместо целого; onnipresenza — повсеместность.'}
+  {lvl:1,skill:'r',text:'Tom ha un cane. Il cane è grande e nero. Tom gioca con il cane al parco tutti i giorni.',q:'Dove gioca Tom con il cane?',o:['Al parco','A casa','A scuola','Nel bosco'],a:0,e:'В тексте прямо сказано: «Tom gioca con il cane al parco.»'},
+  {lvl:1,skill:'r',text:'Anna ama le mele e le banane. Non le piacciono le arance.',q:'Quale frutto non piace ad Anna?',o:['Le arance','Le mele','Le banane','Le pere'],a:0,e:'Ключевая фраза: «Non le piacciono le arance.»'},
+  {lvl:1,skill:'r',text:'Mi chiamo Luca. Ho dieci anni. Vivo a Roma con i miei genitori.',q:'Dove vive Luca?',o:['A Roma','A Milano','A Napoli','A Firenze'],a:0,e:'В тексте: «Vivo a Roma».'},
+  {lvl:2,skill:'r',text:'L’estate scorsa Mia è andata in Italia con la sua famiglia. Hanno visitato Roma e hanno mangiato molta pizza. Il tempo era caldo ogni giorno.',q:'Che tempo faceva in Italia?',o:['Faceva caldo','Faceva freddo','Pioveva','C’era vento'],a:0,e:'Последнее предложение: «Il tempo era caldo ogni giorno.»'},
+  {lvl:2,skill:'r',text:'Di solito Ben va a scuola in bicicletta, ma ieri pioveva, quindi ha preso l’autobus.',q:'Come è andato a scuola ieri Ben?',o:['In autobus','In bicicletta','In macchina','A piedi'],a:0,e:'Из-за дождя он поехал на автобусе: «ha preso l’autobus».'},
+  {lvl:2,skill:'r',text:'Il museo è chiuso il lunedì. Apre alle 9 e chiude alle 18 gli altri giorni.',q:'Quando è chiuso il museo?',o:['Il lunedì','Il martedì','Il week-end','La mattina'],a:0,e:'В тексте: «Il museo è chiuso il lunedì».'},
+  {lvl:3,skill:'r',text:'Quando Sarah ha iniziato il suo nuovo lavoro, era nervosa perché non conosceva nessuno. Però i colleghi erano simpatici e dopo una settimana si sentiva a casa.',q:'Perché Sarah si sentiva a casa dopo una settimana?',o:['I colleghi erano simpatici','Conosceva tutti','L’ufficio le piaceva','Aveva avuto una promozione'],a:0,e:'Причина названа после però: доброжелательные коллеги.'},
+  {lvl:3,skill:'r',text:'Il riciclaggio aiuta a ridurre i rifiuti, ma molte persone gettano ancora la plastica invece di riciclarla.',q:'Qual è l’idea principale del testo?',o:['Il riciclo è utile, ma non tutti lo fanno','La plastica è pericolosa','Tutti riciclano','Il riciclo è inutile'],a:0,e:'Структура «aiuta…, ma molti…» передаёт контраст.'},
+  {lvl:3,skill:'r',text:'Per imparare una lingua, bisogna praticare ogni giorno, anche solo dieci minuti.',q:'Cosa consiglia il testo?',o:['Praticare ogni giorno','Aspettare il week-end','Prendere lezioni costose','Leggere dizionari'],a:0,e:'Совет: практиковаться каждый день, даже по 10 минут.'},
+  {lvl:4,skill:'r',text:'Sebbene lo smart working offra flessibilità, molti dipendenti si sentono isolati. Le aziende stanno sperimentando modelli ibridi per unire i vantaggi di entrambi.',q:'Perché le aziende provano modelli ibridi?',o:['Per unire flessibilità e contatti sociali','Per risparmiare','Per far lavorare di più le persone','Per chiudere gli uffici'],a:0,e:'«Unire i vantaggi di entrambi» — объединить плюсы обоих форматов.'},
+  {lvl:4,skill:'r',text:'La critica è stata feroce; ciò nonostante, il libro è diventato un bestseller, a dimostrazione che critici e lettori non sono sempre d’accordo.',q:'Cosa suggerisce il testo?',o:['Il libro ha avuto successo nonostante la critica feroce','I critici hanno adorato il libro','I lettori erano d’accordo col critico','Il libro ha venduto poco'],a:0,e:'Ciò nonostante — «тем не менее»: разгромная рецензия не помешала успеху.'},
+  {lvl:4,skill:'r',text:'L\'intelligenza artificiale trasforma rapidamente il mercato del lavoro, creando nuovi mestieri e rendendone obsoleti altri.',q:'Qual è l\'impatto dell\'IA secondo il testo?',o:['Crea nuovi mestieri e ne rende obsoleti altri','Elimina tutti i lavori','Non cambia nulla','Crea solo lavori manuali'],a:0,e:'Создаёт новые профессии и делает другие устаревшими.'},
+  {lvl:5,skill:'r',text:'I risultati, seppur preliminari, confermano l’ipotesi secondo cui la privazione di sonno comprometta la capacità decisionale più di quanto si pensasse.',q:'Cosa suggeriscono i risultati?',o:['La mancanza di sonno danneggia le decisioni più di quanto si credesse','Il sonno migliora la memoria','L’ipotesi è stata respinta','Lo studio era definitivo'],a:0,e:'Подтверждают гипотезу о вреде недостатка сна для принятия решений.'},
+  {lvl:5,skill:'r',text:'Se il consiglio comunale avesse previsto le proteste, avrebbe sicuramente consultato i residenti prima di pedonalizzare il corso.',q:'Cosa si può dedurre?',o:['Il consiglio non si aspettava la reazione negativa','I residenti sostenevano il progetto','Il consiglio ha consultato i residenti','Non c’è stata alcuna reazione'],a:0,e:'Нереальное условие: консультаций не было, потому что протестов не ожидали.'},
+  {lvl:5,skill:'r',text:'La prosa dell’autore, labirintica eppure precisa, rifugge il sentimentalismo a favore di un esame clinico e impietoso delle motivazioni umane.',q:'Lo stile dell’autore è piuttosto…',o:['complesso ed emotivamente distaccato','semplice e sentimentale','vago e caotico','umoristico e leggero'],a:0,e:'Rifugge il sentimentalismo + esame clinico — холодный, бесстрастный анализ.'}
 ];
 
-/* ======================= БАНК: АУДИРОВАНИЕ (12) ======================= */
 const LISTEN=[
-{lvl:1,audio:['Ciao! Mi chiamo Emma. Ho otto anni. Ho un gatto. Si chiama Milo.'],
- q:'Quanti anni ha Emma?',o:['Otto anni','Dieci anni','Sette anni','Nove anni'],a:0,e:'В записи: «Ho otto anni.»'},
-{lvl:1,audio:['Oggi è lunedì. A scuola abbiamo italiano e matematica.'],
- q:'Che giorno è oggi?',o:['Lunedì','Martedì','Domenica','Venerdì'],a:0,e:'Первая фраза: «Oggi è lunedì.»'},
-{lvl:2,audio:['Ieri sono andata a fare shopping con la mamma. Ho comprato una maglietta blu e un cappellino. La maglietta costava dieci euro.'],
- q:'Quanto costava la maglietta?',o:['Dieci euro','Cinque euro','Venti euro','Due euro'],a:0,e:'«La maglietta costava dieci euro.»'},
-{lvl:2,audio:['Il treno per Firenze parte alle nove e mezzo dal binario due.'],
- q:'Da quale binario parte il treno?',o:['Binario due','Binario uno','Binario tre','Dalla fermata dell’autobus'],a:0,e:'«…dal binario due». Binario — платформа.'},
-{lvl:3,audio:['Ciao Jack! Il film comincia alle sette, quindi vediamoci davanti al cinema alle sei e mezzo. Compro io i biglietti.'],
- q:'Dove si incontreranno?',o:['Davanti al cinema','A casa di Jack','Dentro il cinema','Al bar'],a:0,e:'«Vediamoci davanti al cinema alle sei e mezzo.»'},
-{lvl:3,audio:['Studio spagnolo da due anni, ma la comprensione orale resta la parte più difficile per me.'],
- q:'Che cosa è più difficile per la persona?',o:['La comprensione orale','L’espressione orale','La lettura','La scrittura'],a:0,e:'«La comprensione orale resta la più difficile.»'},
-{lvl:4,audio:['Attenzione, prego. Il treno delle quattordici e trenta per Milano è in ritardo a causa di un problema di segnalazione. Ci scusiamo per il disagio.'],
- q:'Perché il treno è in ritardo?',o:['Per un problema di segnalazione','Per il maltempo','Per uno sciopero','Per troppi passeggeri'],a:0,e:'Причина в объявлении: «a causa di un problema di segnalazione».'},
-{lvl:4,adult:true,audio:['Se avessi saputo che il colloquio era così formale, avrei indossato un completo.'],
- q:'Cosa intende l’uomo?',o:['Non era vestito in modo abbastanza formale','Non ha ottenuto il posto','Il colloquio è stato annullato','Indossava un completo'],a:0,e:'Periodo ipotetico dell’irrealtà: он не знал о формате и не надел костюм.'},
-{lvl:5,audio:['Lo studio, sebbene limitato nella portata, conferma i risultati precedenti che suggeriscono un forte legame tra alimentazione e concentrazione.'],
- q:'Cosa si dice dello studio?',o:['Conferma i risultati precedenti nonostante le dimensioni ridotte','Contraddice gli studi precedenti','Era molto ampio','Non ha trovato alcun legame'],a:0,e:'Conferma i risultati precedenti — подтверждает прежние выводы.'},
-{lvl:5,audio:['Solo dopo la nuova analisi dei dati è emerso il vero schema.'],
- q:'Quando è emerso il vero schema?',o:['Dopo la nuova analisi dei dati','Prima dell’analisi','Durante la raccolta dei dati','Non è mai emerso'],a:0,e:'Solo dopo… — «только после…»'},
-{lvl:6,audio:['La proposta, lodevole nelle intenzioni, è nondimeno irta di complicazioni impreviste.'],
- q:'Qual è l’atteggiamento di chi parla?',o:['Sostiene l’idea ma avverte dei problemi','È del tutto contrario','È entusiasta','È indifferente'],a:0,e:'Lodevole — похвальный; irta di complicazioni — но полна проблем.'},
-{lvl:6,audio:['Le sue osservazioni, per quanto misurate, celavano un rimprovero velato.'],
- q:'Cosa contenevano le sue osservazioni?',o:['Un rimprovero velato','Un complimento aperto','Una battuta','Delle scuse'],a:0,e:'Un rimprovero velato — завуалированный упрёк.'}
+  {lvl:1,skill:'l',audio:['Ciao! Mi chiamo Emma. Ho otto anni. Ho un gatto.'],q:'Quanti anni ha Emma?',o:['Otto anni','Dieci anni','Sette anni','Nove anni'],a:0,e:'В записи: «Ho otto anni.»'},
+  {lvl:1,skill:'l',audio:['Oggi è lunedì. A scuola abbiamo italiano e matematica.'],q:'Che giorno è oggi?',o:['Lunedì','Martedì','Domenica','Venerdì'],a:0,e:'Первая фраза: «Oggi è lunedì.»'},
+  {lvl:1,skill:'l',audio:['Mi piace la pizza e la pasta, ma non mi piacciono le verdure.'],q:'Quale cibo non piace alla persona?',o:['Le verdure','La pizza','La pasta','Il pane'],a:0,e:'В записи: «non mi piacciono le verdure».'},
+  {lvl:2,skill:'l',audio:['Ieri sono andata a fare shopping con la mamma. Ho comprato una maglietta blu. La maglietta costava dieci euro.'],q:'Quanto costava la maglietta?',o:['Dieci euro','Cinque euro','Venti euro','Due euro'],a:0,e:'«La maglietta costava dieci euro.»'},
+  {lvl:2,skill:'l',audio:['Il treno per Firenze parte alle nove e mezzo dal binario due.'],q:'Da quale binario parte il treno?',o:['Binario due','Binario uno','Binario tre','Dalla fermata dell’autobus'],a:0,e:'«…dal binario due». Binario — платформа.'},
+  {lvl:2,skill:'l',audio:['Di solito vado al lavoro in bicicletta, ma ieri pioveva, quindi ho preso l\'autobus.'],q:'Come è andata al lavoro ieri la persona?',o:['In autobus','In bicicletta','In macchina','A piedi'],a:0,e:'Из-за дождя: «ho preso l\'autobus».'},
+  {lvl:3,skill:'l',audio:['Ciao Jack! Il film comincia alle sette, quindi vediamoci davanti al cinema alle sei e mezzo.'],q:'Dove si incontreranno?',o:['Davanti al cinema','A casa di Jack','Dentro il cinema','Al bar'],a:0,e:'«Vediamoci davanti al cinema alle sei e mezzo.»'},
+  {lvl:3,skill:'l',audio:['Studio spagnolo da due anni, ma la comprensione orale resta la parte più difficile per me.'],q:'Che cosa è più difficile per la persona?',o:['La comprensione orale','L’espressione orale','La lettura','La scrittura'],a:0,e:'«La comprensione orale resta la più difficile.»'},
+  {lvl:3,skill:'l',audio:['Se avessi più tempo libero, farei il giro del mondo, ma lavoro troppo.'],q:'Cosa farebbe la persona se avesse tempo?',o:['Il giro del mondo','Dormirebbe','Lavorerebbe di più','Imparerebbe lo spagnolo'],a:0,e:'«farei il giro del mondo».'},
+  {lvl:4,skill:'l',audio:['Attenzione, prego. Il treno delle quattordici e trenta per Milano è in ritardo a causa di un problema di segnalazione. Ci scusiamo per il disagio.'],q:'Perché il treno è in ritardo?',o:['Per un problema di segnalazione','Per il maltempo','Per uno sciopero','Per troppi passeggeri'],a:0,e:'Причина в объявлении: «a causa di un problema di segnalazione».'},
+  {lvl:4,skill:'l',audio:['Se avessi saputo che il colloquio era così formale, avrei indossato un completo.'],q:'Cosa intende l’uomo?',o:['Non era vestito in modo abbastanza formale','Non ha ottenuto il posto','Il colloquio è stato annullato','Indossava un completo'],a:0,e:'Periodo ipotetico dell’irrealtà: он не знал о формате и не надел костюм.'},
+  {lvl:4,skill:'l',audio:['Sebbene il progetto sia ambizioso, manchiamo di risorse per portarlo a termine quest\'anno.'],q:'Qual è il problema del progetto?',o:['Il manque de ressources','Non è ambizioso','È già terminato','È troppo facile'],a:0,e:'«manchiamo di risorse».'},
+  {lvl:5,skill:'l',audio:['Lo studio, sebbene limitato nella portata, conferma i risultati precedenti che suggeriscono un forte legame tra alimentazione e concentrazione.'],q:'Cosa si dice dello studio?',o:['Conferma i risultati precedenti nonostante le dimensioni ridotte','Contraddice gli studi precedenti','Era molto ampio','Non ha trovato alcun legame'],a:0,e:'Conferma i risultati precedenti — подтверждает прежние выводы.'},
+  {lvl:5,skill:'l',audio:['Solo dopo la nuova analisi dei dati è emerso il vero schema.'],q:'Quando è emerso il vero schema?',o:['Dopo la nuova analisi dei dati','Prima dell’analisi','Durante la raccolta dei dati','Non è mai emerso'],a:0,e:'Solo dopo… — «только после…»'},
+  {lvl:5,skill:'l',audio:['La proposta, lodevole nelle intenzioni, è nondimeno irta di complicazioni impreviste.'],q:'Qual è l’atteggiamento di chi parla?',o:['Sostiene l’idea ma avverte dei problemi','È del tutto contrario','È entusiasta','È indifferente'],a:0,e:'Lodevole — похвальный; irta di complicazioni — но полна проблем.'}
 ];
 
-/* ======================= БАНК: ПИСЬМО (12) ======================= */
 const WRITING=[
-{lvl:1,q:'Scrivi il plurale: <b>amica</b>',show:'amiche',accept:['amiche','le amiche'],
- e:'Слова ж.р. на -ca дают -che: amica → amiche.'},
-{lvl:1,q:'Coniuga il verbo tra parentesi:<br>« Lei ___ (andare) a scuola ogni giorno. »',show:'va',accept:['va'],
- e:'Andare con lei: lei va.'},
-{lvl:2,q:'Scrivi il participio passato: <b>comprare</b>',show:'comprato',accept:['comprato'],
- e:'Passato prossimo: ha comprato.'},
-{lvl:2,q:'Scrivi il femminile: <b>bello</b>',show:'bella',accept:['bella'],
- e:'Bello → bella.'},
-{lvl:3,q:'Completa con una parola:<br>« Vivo qui ___ 2015. »',show:'dal',accept:['dal'],
- e:'Da + il = dal — «с 2015 года».'},
-{lvl:3,q:'Completa con una parola:<br>« Posso ___ in prestito la tua penna? » (взять)',show:'prendere',accept:['prendere'],
- e:'Prendere in prestito — взять взаймы.'},
-{lvl:4,q:'Completa con una parola:<br>« Se avessi studiato di più, ___ superato l’esame. »',show:'avresti',accept:['avresti'],
- e:'Третий тип: condizionale passato — avresti superato.'},
-{lvl:4,q:'Completa con il congiuntivo imperfetto:<br>« Vorrei che tu ___ venire alla festa. » (potere)',show:'potessi',accept:['potessi'],
- e:'Congiuntivo imperfetto da potere: potessi.'},
-{lvl:5,q:'Completa con una parola:<br>« Raramente ___ visto un tramonto così bello. »',show:'ho',accept:['ho'],
- e:'Vedere строит passato prossimo с avere: ho visto.'},
-{lvl:5,q:'Completa con il trapassato prossimo:<br>« Quando sono arrivato, il film era già ___ (iniziare). »',show:'iniziato',accept:['iniziato'],
- e:'Trapassato prossimo: era + participio passato.'},
-{lvl:6,q:'Riscrivi la frase cominciando con <b>Mai</b>:<br>« Non aveva mai sentito una musica simile. »',show:'Mai aveva sentito una musica simile',
- accept:['mai aveva sentito una musica simile','mai aveva sentito musica simile','mai lei aveva sentito una musica simile','mai aveva sentito una tale musica'],
- e:'Mai в начале предложения усиливает фразу; порядок слов может сохраняться или инвертироваться.'},
-{lvl:6,q:'Completa con il congiuntivo:<br>« Il direttore ha insistito perché il rapporto ___ (essere) consegnato in tempo. »',show:'venisse',accept:['venisse','fosse'],
- e:'Dopo insistere perché — congiuntivo imperfetto passivo: venisse/fosse consegnato.'}
+  {lvl:1,skill:'w',q:'Scrivi il plurale: <b>amica</b>',show:'amiche',accept:['amiche','le amiche'],e:'Слова ж.р. на -ca дают -che: amica → amiche.'},
+  {lvl:1,skill:'w',q:'Coniuga il verbo:<br>« Lei ___ (andare) a scuola ogni giorno. »',show:'va',accept:['va'],e:'Andare con lei: lei va.'},
+  {lvl:1,skill:'w',q:'Completa con un articolo:<br>« Ho ___ (un/una) mela. »',show:'una',accept:['una'],e:'Mela — женский род, поэтому una.'},
+  {lvl:2,skill:'w',q:'Scrivi il participio passato: <b>comprare</b>',show:'comprato',accept:['comprato'],e:'Passato prossimo: ha comprato.'},
+  {lvl:2,skill:'w',q:'Scrivi il femminile: <b>bello</b>',show:'bella',accept:['bella'],e:'Bello → bella.'},
+  {lvl:2,skill:'w',q:'Completa:<br>« Non ci sono uova ___ (nel/in) frigo. »',show:'nel',accept:['nel'],e:'Слитный предлог nel = in + il.'},
+  {lvl:3,skill:'w',q:'Completa con una parola:<br>« Vivo qui ___ 2015. »',show:'dal',accept:['dal'],e:'Da + il = dal — «с 2015 года».'},
+  {lvl:3,skill:'w',q:'Completa con una parola:<br>« Posso ___ in prestito la tua penna? » (взять)',show:'prendere',accept:['prendere'],e:'Prendere in prestito — взять взаймы.'},
+  {lvl:3,skill:'w',q:'Metti al congiuntivo:<br>« Bisogna che tu ___ (fare) i compiti. »',show:'faccia',accept:['faccia'],e:'Bisogna che + congiuntivo presente: che tu faccia.'},
+  {lvl:4,skill:'w',q:'Completa con una parola:<br>« Se avessi studiato di più, ___ superato l’esame. »',show:'avresti',accept:['avresti'],e:'Третий тип: condizionale passato — avresti superato.'},
+  {lvl:4,skill:'w',q:'Completa con il congiuntivo imperfetto:<br>« Vorrei che tu ___ (potere) venire alla festa. »',show:'potessi',accept:['potessi'],e:'Congiuntivo imperfetto da potere: potessi.'},
+  {lvl:4,skill:'w',q:'Accorda il participio passato:<br>« Le lettere che ho ___ (scrivere). »',show:'scritte',accept:['scritte'],e:'Причастие согласуется с предшествующим прямым дополнением (lettere, ж.р. мн.ч.).'},
+  {lvl:5,skill:'w',q:'Completa con una parola:<br>« Raramente ___ visto un tramonto così bello. »',show:'ho',accept:['ho'],e:'Vedere строит passato prossimo с avere: ho visto.'},
+  {lvl:5,skill:'w',q:'Completa con il trapassato prossimo:<br>« Quando sono arrivato, il film era già ___ (iniziare). »',show:'iniziato',accept:['iniziato'],e:'Trapassato prossimo: era + participio passato.'},
+  {lvl:5,skill:'w',q:'Completa con il congiuntivo:<br>« Il direttore ha insistito perché il rapporto ___ (essere) consegnato in tempo. »',show:'venisse',accept:['venisse','fosse'],e:'Dopo insistere perché — congiuntivo imperfetto passivo: venisse/fosse consegnato.'}
 ];
 
-/* ======================= БАНК: ГОВОРЕНИЕ (12) ======================= */
 const SPEAKING=[
-{lvl:1,type:'read',text:'Mi piacciono le mele e le banane.',expect:'mi piacciono le mele e le banane',
- e:'Двойные согласные произносите чётко: mele, banane — с ясным [e] на конце.'},
-{lvl:1,type:'say',text:'Come ti chiami?',min:2,kw:['mi','chiamo','mio','nome','sono'],
- sample:'Mi chiamo Anna.',
- e:'Достаточно короткого полного ответа: Mi chiamo… / Sono…'},
-{lvl:2,type:'read',text:'Ieri siamo andati al parco e abbiamo giocato a calcio.',
- expect:'ieri siamo andati al parco e abbiamo giocato a calcio',
- e:'Passato prossimo: siamo andati (essere) / abbiamo giocato (avere).'},
-{lvl:2,type:'say',text:'Che cosa hai fatto ieri?',min:3,kw:['ieri','sono','ho','giocato','andato','visto','ero'],
- sample:'Ieri ho giocato con i miei amici.',
- e:'Используйте passato prossimo: ho giocato / sono andato…'},
-{lvl:3,type:'read',text:'Se avessi più tempo libero, farei il giro del mondo.',
- expect:'se avessi più tempo libero farei il giro del mondo',
- e:'Periodo ipotetico: congiuntivo (avessi) + condizionale (farei).'},
-{lvl:3,type:'say',text:'Descrivi il tuo migliore amico o la tua migliore amica in due frasi.',min:8,
- kw:['è','ha','simpatico','gentile','divertente','amico','amica','lui','lei'],
- sample:'Il mio migliore amico è gentile e divertente. Spesso giochiamo insieme.',
- e:'Назовите человека и 2–3 качества: gentile, divertente, simpatico…'},
-{lvl:4,type:'read',text:'Non appena lei si è scusata, lui le ha parlato di nuovo.',
- expect:'non appena lei si è scusata lui le ha parlato di nuovo',
- e:'Придаточное времени впереди → главная часть продолжает глаголом: le ha parlato.'},
-{lvl:4,type:'say',text:'Quali sono i vantaggi e gli svantaggi dei social media?',min:10,
- kw:['vantaggio','svantaggio','social','media','persone','perché','penso','ma','secondo'],
- sample:'I social aiutano a restare in contatto, ma portano via anche molto tempo.',
- e:'Структурируйте: Da un lato… Dall’altro…'},
-{lvl:5,type:'read',text:'Senza la prontezza di spirito di Maria, l’esito sarebbe stato molto peggiore.',
- expect:'senza la prontezza di spirito di maria l’esito sarebbe stato molto peggiore',
- e:'Sarebbe stato произносится слитно — это естественно.'},
-{lvl:5,type:'say',text:'Bisognerebbe usare l’intelligenza artificiale a scuola? Esprima la sua opinione.',min:12,
- kw:['penso','credo','perché','intelligenza','artificiale','scuola','dovrebbe','ma','secondo','me','parere'],
- sample:'Penso che vada usata perché personalizza l’apprendimento, ma gli insegnanti devono mantenere il controllo.',
- e:'Начните с Penso che… / Secondo me… и дайте аргумент с perché.'},
-{lvl:6,type:'read',text:'La prosa dell’autore, labirintica eppure precisa, rifugge il sentimentalismo a favore di un esame clinico delle motivazioni umane.',
- expect:'la prosa dell’autore labirintica eppure precisa rifugge il sentimentalismo a favore di un esame clinico delle motivazioni umane',
- e:'Ключевые слова: labirintica, rifugge, a favore di.'},
-{lvl:6,type:'say',text:'In che misura la lingua plasma il nostro modo di pensare?',min:12,
- kw:['lingua','pensiero','pensare','plasma','influenza','perché','credo','parole'],
- sample:'La lingua incornicia ciò che notiamo; le strutture grammaticali possono influenzare la percezione del tempo.',
- e:'Используйте продвинутые связки: in larga misura, si potrebbe sostenere che…'}
+  {lvl:1,skill:'s',type:'read',text:'Mi piacciono le mele e le banane.',expect:'mi piacciono le mele e le banane',e:'Двойные согласные произносите чётко: mele, banane — с ясным [e] на конце.'},
+  {lvl:1,skill:'s',type:'say',text:'Come ti chiami?',min:2,kw:['mi','chiamo','mio','nome','sono'],sample:'Mi chiamo Anna.',e:'Достаточно короткого полного ответа: Mi chiamo… / Sono…'},
+  {lvl:1,skill:'s',type:'read',text:'Il gatto è sotto il tavolo.',expect:'il gatto è sotto il tavolo',e:'Следите за связью между словами.'},
+  {lvl:2,skill:'s',type:'read',text:'Ieri siamo andati al parco e abbiamo giocato a calcio.',expect:'ieri siamo andati al parco e abbiamo giocato a calcio',e:'Passato prossimo: siamo andati (essere) / abbiamo giocato (avere).'},
+  {lvl:2,skill:'s',type:'say',text:'Che cosa hai fatto ieri?',min:3,kw:['ieri','sono','ho','giocato','andato','visto','ero'],sample:'Ieri ho giocato con i miei amici.',e:'Используйте passato prossimo: ho giocato / sono andato…'},
+  {lvl:2,skill:'s',type:'read',text:'Oggi fa bel tempo, andiamo in spiaggia.',expect:'oggi fa bel tempo andiamo in spiaggia',e:'Ударение падает на последний слог фразы.'},
+  {lvl:3,skill:'s',type:'read',text:'Se avessi più tempo libero, farei il giro del mondo.',expect:'se avessi più tempo libero farei il giro del mondo',e:'Periodo ipotetico: congiuntivo (avessi) + condizionale (farei).'},
+  {lvl:3,skill:'s',type:'say',text:'Descrivi il tuo migliore amico o la tua migliore amica in due frasi.',min:8,kw:['è','ha','simpatico','gentile','divertente','amico','amica','lui','lei'],sample:'Il mio migliore amico è gentile e divertente. Spesso giochiamo insieme.',e:'Назовите человека и 2–3 качества: gentile, divertente, simpatico…'},
+  {lvl:3,skill:'s',type:'read',text:'Bisogna che tu faccia i compiti prima di uscire.',expect:'bisogna che tu faccia i compiti prima di uscire',e:'Congiuntivo: следите за произношением «faccia».'},
+  {lvl:4,skill:'s',type:'read',text:'Non appena lei si è scusata, lui le ha parlato di nuovo.',expect:'non appena lei si è scusata lui le ha parlato di nuovo',e:'Придаточное времени впереди → главная часть продолжает глаголом: le ha parlato.'},
+  {lvl:4,skill:'s',type:'say',text:'Quali sono i vantaggi e gli svantaggi dei social media?',min:10,kw:['vantaggio','svantaggio','social','media','persone','perché','penso','ma','secondo'],sample:'I social aiutano a restare in contatto, ma portano via anche molto tempo.',e:'Структурируйте: Da un lato… Dall’altro…'},
+  {lvl:4,skill:'s',type:'read',text:'Sebbene il progetto sia ambizioso, manchiamo di risorse.',expect:'sebbene il progetto sia ambizioso manchiamo di risorse',e:'Следите за интонацией уступки в начале фразы.'},
+  {lvl:5,skill:'s',type:'read',text:'Senza la prontezza di spirito di Maria, l’esito sarebbe stato molto peggiore.',expect:'senza la prontezza di spirito di maria l’esito sarebbe stato molto peggiore',e:'Sarebbe stato произносится слитно — это естественно.'},
+  {lvl:5,skill:'s',type:'say',text:'Bisognerebbe usare l’intelligenza artificiale a scuola? Esprima la sua opinione.',min:12,kw:['penso','credo','perché','intelligenza','artificiale','scuola','dovrebbe','ma','secondo','me','parere'],sample:'Penso che vada usata perché personalizza l’apprendimento, ma gli insegnanti devono mantenere il controllo.',e:'Начните с Penso che… / Secondo me… и дайте аргумент с perché.'},
+  {lvl:5,skill:'s',type:'read',text:'La prosa dell’autore, labirintica eppure precisa, rifugge il sentimentalismo.',expect:'la prosa dell’autore labirintica eppure precisa rifugge il sentimentalismo',e:'Ключевые слова: labirintica, rifugge.'}
 ];
 
 /* ======================= СОСТОЯНИЕ ======================= */
-let S=null, LEN=4;
+let S=null;
 const selSkills={g:true,l:true,r:true,w:true,s:true};
 
 function setMode(m){
@@ -642,10 +529,9 @@ function setMode(m){
   document.body.classList.toggle('mode-class',m!=='kids');
   document.querySelectorAll('.mode-btn[data-mode]').forEach(b=>b.classList.toggle('on',b.dataset.mode===m));
   $('mode-note').textContent=m==='kids'
-    ?'Дружелюбный режим: весёлые подсказки, никаких «взрослых» сюжетов.'
-    :'Классический режим: полный банк заданий, включая «взрослые» темы.';
+    ?'Дружелюбный режим: весёлые подсказки, никаких «взрослых» сюжетов. Фиксировано: 8 вопросов на навык.'
+    :'Классический режим: полный банк заданий, включая «взрослые» темы. Фиксировано: 8 вопросов на навык.';
 }
-function setLen(n){LEN=n;document.querySelectorAll('.mode-btn.len').forEach(b=>b.classList.toggle('on',+b.dataset.n===n));}
 function toggleSkill(k){
   const on=Object.values(selSkills).filter(Boolean).length;
   if(selSkills[k]&&on===1)return;
@@ -654,7 +540,7 @@ function toggleSkill(k){
 }
 
 function byLevel(arr,kids){
-  const by={1:[],2:[],3:[],4:[],5:[],6:[]};
+  const by={1:[],2:[],3:[],4:[],5:[]};
   arr.forEach(q=>{if(!(kids&&q.adult))by[q.lvl].push(q);});
   return by;
 }
@@ -663,48 +549,117 @@ function buildPools(kids){
           w:byLevel(WRITING,kids),s:byLevel(SPEAKING,kids)};
 }
 
-/* ---------- TTS (it-IT) ---------- */
+/* ---------- НОРМАЛИЗАЦИЯ (Итальянский) ---------- */
+function normalizeIt(s){
+  return String(s).toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // удаляет акценты (à, è, é, ì, ò, ù)
+    .replace(/['’`]/g, '') // удаляет апострофы
+    .replace(/[^a-z0-9 ]/g, '') // удаляет всё, кроме букв, цифр и пробелов
+    .replace(/\s+/g, ' ').trim();
+}
+const normWords=s=>normalizeIt(s).split(' ').filter(Boolean);
+
+/* ---------- TTS с watchdog ---------- */
 let itVoice=null;
 const TTS='speechSynthesis' in window;
 function pickVoice(){
-  const vs=speechSynthesis.getVoices();
-  itVoice=vs.find(v=>/^it/i.test(v.lang)&&/google|paolo|carla|elsa|luca|alice/i.test(v.name))||vs.find(v=>/^it/i.test(v.lang))||null;
+  const vs = window.speechSynthesis.getVoices();
+  itVoice = vs.find(v => /^it/i.test(v.lang) && /google|paolo|carla|elsa|luca|alice|italia/i.test(v.name.toLowerCase())) 
+         || vs.find(v => /^it/i.test(v.lang)) 
+         || null;
 }
-if(TTS){pickVoice();speechSynthesis.onvoiceschanged=pickVoice;}
-function speak(parts,rate){
-  if(!TTS)return;
-  speechSynthesis.cancel();
-  parts.forEach((t,i)=>{
-    const u=new SpeechSynthesisUtterance(t);
-    u.lang='it-IT';u.rate=rate;u.pitch=i%2?0.9:1.05;
-    if(itVoice)u.voice=itVoice;
-    speechSynthesis.speak(u);
+if(TTS){
+  pickVoice();
+  window.speechSynthesis.onvoiceschanged = pickVoice;
+}
+
+function speak(text, rate, callback){
+  if(!TTS){
+    if(callback) callback();
+    return;
+  }
+  window.speechSynthesis.cancel();
+  
+  setTimeout(() => {
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = 'it-IT';
+    utter.rate = rate || 0.95;
+    
+    if (itVoice) utter.voice = itVoice;
+
+    let done = false;
+    const finish = () => {
+      if (!done) {
+        done = true;
+        clearTimeout(tid);
+        if (callback) callback();
+      }
+    };
+    
+    utter.onend = finish;
+    utter.onerror = (e) => {
+      console.warn('TTS Error:', e);
+      finish();
+    };
+    
+    const timeoutMs = Math.max(3000, text.length * 90);
+    const tid = setTimeout(finish, timeoutMs);
+    
+    window.speechSynthesis.speak(utter);
+  }, 50);
+}
+
+/* ---------- Распознавание речи ---------- */
+let recog=null,recogBusy=false,micTimeout=null;
+function stopRecog(){
+  try{recog&&recog.stop();}catch(e){}
+  recogBusy=false;
+  if(micTimeout){clearTimeout(micTimeout);micTimeout=null;}
+}
+
+/* ---------- Детерминированный порядок вариантов ---------- */
+function buildOrder(q){
+  if(q._order)return q._order;
+  const opts=q.o.map((t,i)=>({t,ok:i===q.a}));
+  opts.sort((a,b)=>{
+    const hashA=a.t.split('').reduce((acc,char)=>acc+char.charCodeAt(0),0);
+    const hashB=b.t.split('').reduce((acc,char)=>acc+char.charCodeAt(0),0);
+    return hashA-hashB;
   });
+  q._order=opts;
+  return opts;
 }
 
-/* ---------- распознавание речи ---------- */
-let recog=null,recogBusy=false;
-function stopRecog(){try{recog&&recog.stop();}catch(e){}recogBusy=false;}
-
-/* ---------- нормализация итальянского (акценты/апострофы) ---------- */
-const baseNorm=s=>String(s).toLowerCase()
-  .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
-  .replace(/['’']/g,'');
-const norm=s=>baseNorm(s).replace(/[^a-z0-9]+/g,'');
-const normWords=s=>baseNorm(s).replace(/[^a-z0-9 ]+/g,' ').replace(/\s+/g,' ').trim().split(' ').filter(Boolean);
-
-/* ---------- запуск ---------- */
+/* ---------- Запуск ---------- */
 function startQuiz(){
+  const name=$('stu-name').value.trim()||'Ученик';
+  const email=$('stu-email').value.trim()||'';
+  localStorage.setItem('it_name',name);
+  if(email)localStorage.setItem('it_email',email);
+
   const kids=document.body.classList.contains('mode-kids');
   const skills=ORDER.filter(k=>selSkills[k]);
-  S={skills,secIdx:0,per:LEN,pools:buildPools(kids),
-     asked:{g:new Set(),l:new Set(),r:new Set(),w:new Set(),s:new Set()},
-     cur:{g:3,l:3,r:3,w:3,s:3},rating:{g:620,l:620,r:620,w:620,s:620},
-     sk2:{g:{c:0,t:0},l:{c:0,t:0},r:{c:0,t:0},w:{c:0,t:0},s:{c:0,t:0}},
-     ans:[],score:0,streak:0,best:0,qIdx:0,secDone:0,
-     skill:skills[0],current:null,order:null,answered:false,played:false,plays:0,
-     speakAttempts:0,bestSpeak:0,
-     totalQ:skills.length*LEN};
+  
+  const stats={};
+  skills.forEach(k=>{
+    stats[k]={1:{c:0,t:0},2:{c:0,t:0},3:{c:0,t:0},4:{c:0,t:0},5:{c:0,t:0}};
+  });
+
+  S={
+    name, email,
+    skills, secIdx:0, pools:buildPools(kids),
+    asked:{g:new Set(),l:new Set(),r:new Set(),w:new Set(),s:new Set()},
+    cur:{g:START_LVL,l:START_LVL,r:START_LVL,w:START_LVL,s:START_LVL},
+    rating:{g:620,l:620,r:620,w:620,s:620},
+    stats,
+    ans:[], score:0, streak:0, best:0, qIdx:0, secDone:0,
+    skill:skills[0], current:null, order:null, answered:false, played:false, plays:0,
+    speakAttempts:0, bestSpeak:0,
+    blockCorrect:0, blockAnswered:0,
+    totalQ:skills.length * Q_PER_SKILL,
+    earlyFinish:false
+  };
+  
   $('secnav').innerHTML=skills.map(k=>`<span class="snav" data-k="${k}">${SK[k].icon} ${SK[k].short}</span>`).join('');
   show('scr-quiz');
   showIntro();
@@ -713,10 +668,10 @@ function startQuiz(){
 function showIntro(){
   stopRecog();
   const k=S.skill,m=SK[k];
-  if(TTS)speechSynthesis.cancel();
+  if(TTS)window.speechSynthesis.cancel();
   $('qcard').hidden=true;$('intro').hidden=false;
   $('in-icon').textContent=m.icon;
-  $('in-step').textContent=`Часть ${S.secIdx+1} из ${S.skills.length} · ${S.per} задания(ий)`;
+  $('in-step').textContent=`Часть ${S.secIdx+1} из ${S.skills.length} · ${Q_PER_SKILL} заданий`;
   $('in-title').textContent=m.title;
   let extra='';
   if(k==='l'&&!TTS)extra=' ⚠ Ваш браузер не поддерживает озвучку — вместо аудио будет показан текст.';
@@ -726,19 +681,23 @@ function showIntro(){
   updateHUD();
   window.scrollTo({top:0,behavior:'smooth'});
 }
+
 function beginSection(){
   $('intro').hidden=true;$('qcard').hidden=false;
-  S.secDone=0;renderQuestion();
+  S.secDone=0;S.blockCorrect=0;S.blockAnswered=0;
+  renderQuestion();
 }
 
 function pickQuestion(k){
-  const tryOrder=[S.cur[k]];
-  for(let d=1;d<=5;d++){if(S.cur[k]-d>=1)tryOrder.push(S.cur[k]-d);if(S.cur[k]+d<=6)tryOrder.push(S.cur[k]+d);}
-  for(const l of tryOrder){
-    const avail=S.pools[k][l].filter(q=>!S.asked[k].has(q));
-    if(avail.length)return avail[Math.floor(Math.random()*avail.length)];
+  const lvl=S.cur[k];
+  const avail=S.pools[k][lvl].filter(q=>!S.asked[k].has(q));
+  if(avail.length>0){
+    return avail[Math.floor(Math.random()*avail.length)];
   }
-  return null;
+  // Fallback: если вопросы на этом уровне закончились, очищаем Set для этого уровня
+  S.pools[k][lvl].forEach(q=>S.asked[k].delete(q));
+  const retry=S.pools[k][lvl].filter(q=>!S.asked[k].has(q));
+  return retry.length>0 ? retry[Math.floor(Math.random()*retry.length)] : S.pools[k][lvl][0];
 }
 
 const KEYS=['A','B','C','D'];
@@ -752,7 +711,7 @@ function toggleOptsLock(){
 
 function renderQuestion(){
   const k=S.skill,q=pickQuestion(k);
-  S.answered=false;S.played=false;S.plays=0;S.current=q;S.order=null;
+  S.answered=false;S.played=false;S.plays=0;S.current=q;S.order=buildOrder(q);
   S.asked[k].add(q);S.speakAttempts=0;S.bestSpeak=0;
   $('feedback').hidden=true;
   $('tag-skill').textContent=SK[k].icon+' '+SK[k].short;
@@ -762,21 +721,18 @@ function renderQuestion(){
 
   if(k==='g'){
     $('qtext').textContent=q.q;
-    S.order=q.o.map((t,i)=>({t,ok:i===q.a})).sort(()=>Math.random()-.5);
     qa.innerHTML=optsHTML();
   }else if(k==='r'){
     ex.innerHTML=`<div class="passage">${q.text}</div>`;
     $('qtext').textContent=q.q;
-    S.order=q.o.map((t,i)=>({t,ok:i===q.a})).sort(()=>Math.random()-.5);
     qa.innerHTML=optsHTML();
   }else if(k==='l'){
-    S.order=q.o.map((t,i)=>({t,ok:i===q.a})).sort(()=>Math.random()-.5);
     if(TTS){
       ex.innerHTML=`<div class="audiobox">
         <button type="button" class="playbtn" id="playbtn" onclick="playAudio()">▶ Ascolta</button>
         <span class="playcnt" id="playcnt">Сначала прослушайте запись 🎧</span></div>`;
     }else{
-      ex.innerHTML=`<div class="audiobox"><span class="script-fallback">📜 Текст (аудио недоступно): «${q.audio.join(' ')}»</span></div>`;
+      ex.innerHTML=`<div class="audiobox"><span class="script-fallback">📜 Текст (аудио недоступно): «${Array.isArray(q.audio)?q.audio.join(' '):q.audio}»</span></div>`;
       S.played=true;
     }
     $('qtext').textContent=q.q;
@@ -800,7 +756,7 @@ function renderQuestion(){
     if(!SR)showSelfEval('Браузер не распознаёт речь — оцените себя сами честно:');
   }
   $('qcount').textContent=(S.qIdx+1)+' / '+S.totalQ;
-  $('pin').style.left=((q.lvl-0.5)/6*100)+'%';
+  $('pin').style.left=((q.lvl-0.5)/5*100)+'%';
   document.querySelectorAll('.ruler b').forEach(b=>b.classList.toggle('hot',+b.dataset.l===q.lvl));
   updateHUD();
   const card=$('qcard');card.style.animation='none';void card.offsetWidth;card.style.animation='';
@@ -808,17 +764,24 @@ function renderQuestion(){
 }
 
 function playAudio(){
-  if(!TTS)return;
-  const rate=S.current.lvl<=2?0.85:S.current.lvl<=4?0.95:1.0;
-  speak(S.current.audio,rate);
-  S.plays++;S.played=true;
-  $('playcnt').textContent=`Прослушиваний: ${S.plays} · можно повторить ещё`;
-  $('playbtn').textContent='▶ Ascolta ancora';
-  const lh=$('lh');if(lh)lh.remove();
-  toggleOptsLock();
+  if(!TTS) return;
+  const rate = S.current.lvl <= 2 ? 0.85 : S.current.lvl <= 4 ? 0.95 : 1.0;
+  const text = Array.isArray(S.current.audio) ? S.current.audio.join(' ') : String(S.current.audio);
+  
+  speak(text, rate, () => {
+    S.plays++;
+    S.played = true;
+    const playcnt = $('playcnt');
+    if(playcnt) playcnt.textContent = `Прослушиваний: ${S.plays} · можно повторить ещё`;
+    const playbtn = $('playbtn');
+    if(playbtn) playbtn.textContent = '▶ Ascolta ancora';
+    const lh = $('lh');
+    if(lh) lh.remove();
+    toggleOptsLock();
+  });
 }
 
-/* ---------- ответ: варианты ---------- */
+/* ---------- Ответ: варианты ---------- */
 function answer(i){
   if(!S||S.answered)return;
   if(S.skill==='l'&&!S.played)return;
@@ -831,27 +794,41 @@ function answer(i){
   applyResult(ok?1:0,S.current.o[S.current.a],given);
 }
 
-/* ---------- ответ: письмо ---------- */
+/* ---------- Ответ: письмо ---------- */
 function submitWrite(){
   if(!S||S.answered)return;
   const inp=$('winput'),val=inp.value.trim();
   if(!val){inp.style.borderColor='var(--bad)';return;}
-  const ok=S.current.accept.some(a=>norm(a)===norm(val));
+  const ok=S.current.accept.some(a=>normalizeIt(a)===normalizeIt(val));
   inp.disabled=true;inp.classList.add(ok?'ok':'bad');
   applyResult(ok?1:0,S.current.show,val);
 }
 
-/* ---------- говорение ---------- */
+/* ---------- Говорение ---------- */
 function startMic(){
   if(!S||S.answered||recogBusy)return;
   if(!SR){showSelfEval('Браузер не распознаёт речь — оцените себя сами честно:');return;}
   try{recog=new SR();}catch(e){showSelfEval('Не удалось запустить микрофон — оцените себя сами:');return;}
   recog.lang='it-IT';recog.interimResults=false;recog.continuous=false;recog.maxAlternatives=1;
+  
   const btn=$('micbtn');btn.classList.add('rec');btn.textContent='🔴';
   $('micstat').textContent='Ti ascolto… говорите!';
-  recog.onresult=ev=>{const t=ev.results[0][0].transcript;resetMicUI();handleTranscript(t);};
+  recogBusy=true;
+  
+  micTimeout=setTimeout(()=>{
+    if(recogBusy){
+      stopRecog();
+      showSelfEval('Время вышло (12 с). Оцените себя:');
+    }
+  }, 12000);
+
+  recog.onresult=ev=>{
+    const t=ev.results[0][0].transcript;
+    stopRecog();
+    handleTranscript(t);
+  };
   recog.onerror=ev=>{
-    resetMicUI();
+    stopRecog();
     if(ev.error==='no-speech'){$('micstat').textContent='Не расслышал 🙉 Нажмите на микрофон ещё раз';}
     else if(ev.error==='not-allowed'||ev.error==='service-not-allowed'){
       showSelfEval('Доступ к микрофону запрещён — оцените себя сами:');
@@ -860,18 +837,22 @@ function startMic(){
       showSelfEvalButtons();
     }
   };
-  recog.onend=()=>{recogBusy=false;};
-  try{recog.start();recogBusy=true;}catch(e){resetMicUI();showSelfEval('Микрофон занят или недоступен — оцените себя сами:');}
+  recog.onend=()=>{};
+  try{recog.start();}catch(e){stopRecog();showSelfEval('Микрофон занят или недоступен — оцените себя сами:');}
 }
+
 function resetMicUI(){
   recogBusy=false;
+  if(micTimeout){clearTimeout(micTimeout);micTimeout=null;}
   const btn=$('micbtn');
   if(btn){btn.classList.remove('rec');btn.textContent='🎤';}
 }
+
 function compareWords(target,said){
   const counts={};said.forEach(w=>counts[w]=(counts[w]||0)+1);
   return target.map(w=>{const hit=counts[w]>0;if(hit)counts[w]--;return{w,hit};});
 }
+
 function handleTranscript(t){
   const q=S.current,said=normWords(t);
   let score;
@@ -888,11 +869,12 @@ function handleTranscript(t){
   }
   if(score<0.6&&S.speakAttempts===0){
     S.speakAttempts=1;S.bestSpeak=score;
-    $('micstat').innerHTML=`Пока ${Math.round(score*100)}%. 🔁 Попробуйте ещё раз — осталось 1 попытка!`;
+    $('micstat').innerHTML=`Пока ${Math.round(score*100)}%. 🔁 Попробуйте ещё раз — осталась 1 попытка!`;
     return;
   }
   finalizeSpeaking(Math.max(score,S.bestSpeak),t);
 }
+
 function finalizeSpeaking(score,transcript){
   const q=S.current;
   const correct=q.type==='read'?q.text:q.sample;
@@ -906,11 +888,13 @@ function finalizeSpeaking(score,transcript){
   if(q.type==='say'&&transcript)extra+=`<div class="heard" style="border-left-color:var(--sky)">💬 Пример ответа: «${q.sample}»</div>`;
   $('fb-extra').innerHTML=extra;
 }
+
 function showSelfEval(reason){
   const btn=$('micbtn');if(btn)btn.hidden=true;
   $('micstat').textContent=reason;
   showSelfEvalButtons();
 }
+
 function showSelfEvalButtons(){
   const fb=$('speak-fallback');if(!fb)return;
   fb.innerHTML=`<p class="eval-q" style="margin-top:14px">Как вы справились?</p>
@@ -920,26 +904,43 @@ function showSelfEvalButtons(){
       <button type="button" onclick="selfEval(1)">😎 Отлично</button>
     </div>`;
 }
+
 function selfEval(v){
   if(!S||S.answered)return;
   finalizeSpeaking(v,null);
 }
 
-/* ---------- общая обработка ---------- */
+/* ---------- Общая обработка ---------- */
 function applyResult(score,correctText,given){
   S.answered=true;
   const k=S.skill,q=S.current,kids=document.body.classList.contains('mode-kids');
   const ok=score>=0.6;
-  const dQ=150+(q.lvl-1)*200;
-  const exp=1/(1+Math.pow(10,(dQ-S.rating[k])/400));
-  S.rating[k]+=120*(score-exp);
-  S.cur[k]=Math.max(1,Math.min(6,S.cur[k]+(ok?1:-1)));
-  S.sk2[k].t++;
-  let pts=0;
-  if(ok){S.streak++;S.best=Math.max(S.best,S.streak);pts=Math.round(q.lvl*10*score)+(S.streak>=3?5:0);S.score+=pts;S.sk2[k].c++;}
-  else S.streak=0;
+  
+  // Обновляем статистику по уровням
+  S.stats[k][q.lvl].t++;
+  if(ok)S.stats[k][q.lvl].c++;
+
+  // Адаптивная логика по блокам
+  S.blockAnswered++;
+  if(ok){
+    S.blockCorrect++;
+    S.streak++;S.best=Math.max(S.best,S.streak);
+    S.score+=Math.round(q.lvl*10*score)+(S.streak>=3?5:0);
+  }else{
+    S.streak=0;
+  }
+
+  if(S.blockAnswered===BLOCK_SIZE){
+    if(S.blockCorrect===2) S.cur[k]=Math.min(5, S.cur[k]+1);
+    else if(S.blockCorrect===0) S.cur[k]=Math.max(1, S.cur[k]-1);
+    // Если 1 из 2, уровень не меняется
+    S.blockCorrect=0;
+    S.blockAnswered=0;
+  }
+
   S.qIdx++;S.secDone++;
   S.ans.push({skill:k,q,ok,given});
+  
   const good=kids?['Ура, верно! 🎉','Точно! ⭐','Молодец! 🚀','Супер! 🌟']:['Верно!','Точно в цель.','Отлично.','Правильно.'];
   const bad=kids?['Ой, почти! 🙈','Ничего страшного! 💙','Бывает! Идём дальше 🐾']:['Не совсем.','Неверно.','Мимо.'];
   const head=$('fb-head');
@@ -947,12 +948,14 @@ function applyResult(score,correctText,given){
   $('fb-icon').textContent=ok?'✅':'❌';
   $('fb-title').textContent=ok?good[Math.floor(Math.random()*good.length)]
     :bad[Math.floor(Math.random()*bad.length)]+' Образец: '+correctText;
-  const p=$('fb-pts');p.hidden=!ok;if(ok)p.textContent='+'+pts+' очков';
+  
   $('fb-extra').innerHTML='';
   $('fb-expl').textContent=(kids?'💡 ':'')+q.e;
   const tr=$('fb-trans');
-  if(k==='l'){tr.hidden=false;tr.textContent='🎙 '+q.audio.join(' ');}else tr.hidden=true;
-  const lastInSec=S.secDone>=S.per,lastSection=S.secIdx>=S.skills.length-1;
+  if(k==='l'){tr.hidden=false;tr.textContent='🎙 '+ (Array.isArray(q.audio)?q.audio.join(' '):q.audio);}else tr.hidden=true;
+  
+  const lastInSec=S.secDone>=Q_PER_SKILL;
+  const lastSection=S.secIdx>=S.skills.length-1;
   $('btn-next').textContent=(lastInSec&&lastSection)?'К результатам 🏁':(lastInSec?'Следующая часть →':'Дальше →');
   $('feedback').hidden=false;
   $('pbar').style.width=(S.qIdx/S.totalQ*100)+'%';
@@ -962,14 +965,15 @@ function applyResult(score,correctText,given){
 
 function next(){
   stopRecog();
-  if(S.secDone<S.per){renderQuestion();return;}
+  if(S.secDone<Q_PER_SKILL){renderQuestion();return;}
   S.secIdx++;
   if(S.secIdx<S.skills.length){S.skill=S.skills[S.secIdx];showIntro();}
-  else finish();
+  else finish(S.earlyFinish);
 }
 
 function updateHUD(){
-  $('est').textContent=SK[S.skill].short+': '+ratingToLevel(S.rating[S.skill]);
+  const lvl=S.cur[S.skill];
+  $('est').textContent=SK[S.skill].short+': '+LVLNAME[lvl];
   $('score').textContent='Очки: '+S.score;
   const st=$('streak');st.hidden=S.streak<2;if(!st.hidden)st.textContent='🔥 серия '+S.streak;
   document.querySelectorAll('.snav').forEach(el=>{
@@ -979,38 +983,58 @@ function updateHUD(){
   });
 }
 
-function ratingToLevel(r){return r<240?'A1':r<450?'A2':r<650?'B1':r<850?'B2':r<1030?'C1':'C2';}
+function getSkillFinalLevel(k){
+  for(let lvl=5;lvl>=1;lvl--){
+    const t=S.stats[k][lvl].t;
+    const c=S.stats[k][lvl].c;
+    if(t>=2 && (c/t)>=0.7) return lvl;
+    if(t===1 && c===1) return lvl;
+  }
+  return S.cur[k];
+}
 
-function finish(){
+function finish(early=false){
   stopRecog();
-  if(TTS)speechSynthesis.cancel();
+  if(TTS)window.speechSynthesis.cancel();
+  S.earlyFinish=early;
   show('scr-result');
   const kids=document.body.classList.contains('mode-kids');
-  const correct=S.ans.filter(a=>a.ok).length,acc=Math.round(correct/S.totalQ*100);
-  const avg=S.skills.reduce((s,k)=>s+S.rating[k],0)/S.skills.length;
-  const lvl=ratingToLevel(avg);
-  $('stamp').firstChild.textContent=lvl;
-  $('stamp-name').textContent=LVLFULL[lvl];
+  const correct=S.ans.filter(a=>a.ok).length;
+  const acc=S.totalQ>0?Math.round(correct/S.totalQ*100):0;
+  
+  // Средний уровень по навыкам
+  const finalLevels=S.skills.map(k=>getSkillFinalLevel(k));
+  const avgLvl=finalLevels.reduce((a,b)=>a+b,0)/finalLevels.length;
+  const lvlName=LVLNAME[Math.round(avgLvl)]||'A2';
+  
+  $('stamp').firstChild.textContent=lvlName;
+  $('stamp-name').textContent=LVLFULL[lvlName];
   $('verdict').textContent=kids
     ?(acc>=80?'Ты суперзвезда итальянского! 🌟':acc>=50?'Отличная работа! Ты большой молодец 💪':'Хорошая попытка! Практика — и ты чемпион 🚀')
     :(acc>=80?'Впечатляющий результат — итальянский у вас в отличной форме.'
       :acc>=50?'Крепкий результат: база есть, осталось отточить детали.'
       :'Хорошее начало: регулярная практика быстро поднимет ваш уровень.');
+  
   $('st-correct').textContent=correct+' / '+S.totalQ;
   $('st-acc').textContent=acc+'%';
   $('st-streak').textContent=S.best;
   $('st-score').textContent=S.score;
+  
   requestAnimationFrame(()=>requestAnimationFrame(()=>{
-    $('mark').style.left=Math.max(2,Math.min(98,(avg-100)/1050*100))+'%';
+    $('mark').style.left=Math.max(2,Math.min(98,((avgLvl-1)/4)*100))+'%';
     document.querySelectorAll('.scard .bar i').forEach(b=>b.style.width=b.dataset.w+'%');
   }));
+  
   $('skillcards').innerHTML=S.skills.map(k=>{
-    const sc=S.sk2[k],l=ratingToLevel(S.rating[k]);
-    const pct=sc.t?Math.round(sc.c/sc.t*100):0;
+    const fl=getSkillFinalLevel(k);
+    const total=S.stats[k][1].t+S.stats[k][2].t+S.stats[k][3].t+S.stats[k][4].t+S.stats[k][5].t;
+    const corr=S.stats[k][1].c+S.stats[k][2].c+S.stats[k][3].c+S.stats[k][4].c+S.stats[k][5].c;
+    const pct=total?Math.round(corr/total*100):0;
     return `<div class="scard"><div class="ic">${SK[k].icon}</div><h4>${SK[k].title}</h4>
-      <div class="lvl">${l}</div><div class="acc">${sc.c}/${sc.t} верно · ${pct}%</div>
+      <div class="lvl">${LVLNAME[fl]}</div><div class="acc">${corr}/${total} верно · ${pct}%</div>
       <div class="bar"><i data-w="${pct}"></i></div></div>`;
   }).join('');
+  
   const wrong=S.ans.filter(a=>!a.ok);
   if(!wrong.length){
     $('mistakes').innerHTML='<div class="all-good">🏆 Ни одной ошибки — безупречно!</div>';
@@ -1026,13 +1050,74 @@ function finish(){
         else if(k==='s'){text=(q.type==='read'?'Прочитайте: ':'Ответьте вслух: ')+q.text;right=q.type==='read'?q.text:'Пример: '+q.sample;}
         else{text=q.q;right=q.o[q.a];}
         html+=`<div class="m-item"><div class="mq">${text}</div>
-          <div>Ваш ответ: <s>${a.given||'—'}</s> &nbsp;→&nbsp; <span class="fix">✔ ${right}</span></div>
-          <div class="why">${q.e}</div></div>`;
+          <div>Ваш ответ: <s>${a.given||'—'}</s> &nbsp;→&nbsp; <span class="fix">✔ ${right}</span></div></div>`;
       });
     });
     $('mistakes').innerHTML=html;
   }
+  
+  sendEmail(correct, acc, Math.round(avgLvl), finalLevels);
+  
   if(acc>=60)confetti(kids?130:80);
+}
+
+function sendEmail(correct, acc, avgLvlIdx, finalLevels){
+  const lvlName=LVLNAME[avgLvlIdx]||'A2';
+  const now=new Date();
+  const dateStr=now.toLocaleString('ru-RU');
+  
+  // Формируем разбивку по уровням и рекомендации по УМК
+  let breakdownText='';
+  let umkText='Общая рекомендация: ';
+  
+  S.skills.forEach(k=>{
+    const fl=finalLevels[S.skills.indexOf(k)];
+    const flName=LVLNAME[fl];
+    breakdownText+=`\n${SK[k].short}: Уровень ${flName}`;
+    for(let lvl=1;lvl<=5;lvl++){
+      const t=S.stats[k][lvl].t;
+      const c=S.stats[k][lvl].c;
+      if(t>0) breakdownText+=` | ${LVLNAME[lvl]}: ${c}/${t}`;
+    }
+    umkText+=`\n- ${SK[k].short}: ${UMK_MAP_IT[flName]}`;
+  });
+  
+  // Формируем список ошибок для письма (с пояснениями)
+  const wrong=S.ans.filter(a=>!a.ok);
+  let errorsText='Нет ошибок';
+  if(wrong.length>0){
+    errorsText=wrong.map(a=>{
+      const q=a.q;
+      let qText=q.q.replace(/<[^>]+>/g,'');
+      if(a.skill==='s') qText=(q.type==='read'?'Прочитайте: ':'Ответьте: ')+q.text;
+      let right=q.o?q.o[q.a]:(q.show||q.sample);
+      return `[${LVLNAME[q.lvl]}] ${qText}\nОтвет: ${a.given||'—'} | Верно: ${right}\nПояснение: ${q.e}`;
+    }).join('\n\n---\n\n');
+  }
+
+  const formData=new FormData();
+  formData.append('_subject', `Результат Italiano Check-Up: ${S.name} (${lvlName})`);
+  formData.append('_template', 'table');
+  formData.append('_captcha', 'false');
+  formData.append('name', S.name);
+  formData.append('email', S.email);
+  formData.append('mode', document.body.classList.contains('mode-kids')?'Дети':'Взрослые');
+  formData.append('datetime', dateStr);
+  formData.append('status', S.earlyFinish?'Досрочный (Сдался)':'Полный');
+  formData.append('final_level', lvlName);
+  formData.append('avg_level', avgLvlIdx);
+  formData.append('accuracy', acc+'%');
+  formData.append('correct_total', `${correct} / ${S.totalQ}`);
+  formData.append('score', S.score);
+  formData.append('breakdown_by_level', breakdownText);
+  formData.append('umk_recommendation', umkText);
+  formData.append('errors_detail', errorsText);
+  formData.append('studio_link', 'https://vk.ru/annfromcrimeastudio');
+
+  fetch('https://formsubmit.co/ajax/annfromcrimea@gmail.com', {
+    method: 'POST',
+    body: formData
+  }).catch(err=>console.error('Email send error:', err));
 }
 
 function confetti(n){
@@ -1049,7 +1134,7 @@ function confetti(n){
   setTimeout(()=>box.remove(),6000);
 }
 
-function goStart(){stopRecog();if(TTS)speechSynthesis.cancel();show('scr-start');}
+function goStart(){stopRecog();if(TTS)window.speechSynthesis.cancel();show('scr-start');}
 function show(id){
   ['scr-start','scr-quiz','scr-result'].forEach(s=>$(s).hidden=(s!==id));
   const el=$(id);el.style.animation='none';void el.offsetWidth;el.style.animation='';
@@ -1069,6 +1154,14 @@ document.addEventListener('keydown',e=>{
   const key=e.key.toLowerCase();
   if(!S.answered&&map[key]!==undefined&&S.order)answer(map[key]);
   else if(S.answered&&e.key==='Enter')next();
+});
+
+// Загрузка сохраненных данных
+window.addEventListener('DOMContentLoaded',()=>{
+  const name=localStorage.getItem('it_name');
+  const email=localStorage.getItem('it_email');
+  if(name)$('stu-name').value=name;
+  if(email)$('stu-email').value=email;
 });
 </script>
 </body>
