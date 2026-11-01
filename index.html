@@ -265,20 +265,6 @@
     line-height: 1.35;
     margin-bottom: 8px;
   }
-  .doc-badge {
-    display: inline-block;
-    font-family: 'Courier New', ui-monospace, monospace;
-    font-size: 0.66rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    border-radius: 999px;
-    padding: 3px 10px;
-    margin-right: 8px;
-    vertical-align: 2px;
-  }
-  .doc-badge--req { background: var(--crimson-pale); color: var(--crimson-dark); border: 1px solid #f3d3e4; }
-  .doc-badge--opt { background: #f4f2ef; color: #8b8b8b; border: 1px solid #e5e0d8; }
   .doc-desc {
     font-family: 'Courier New', ui-monospace, monospace;
     color: #7c7c7c;
@@ -567,14 +553,15 @@
     <p class="section-lead">
       Согласно ФЗ-152 «О персональных данных», доступ к записи возможен только после вашего официального согласия.
       Ознакомьтесь с документами ниже — каждый открывается в новой вкладке.
-      Запись на занятие откроется автоматически после отметки двух обязательных документов, остальные — по желанию.
+      Для открытия записи отметьте «Ознакомлен(а)» в политике конфиденциальности и согласии на обработку персональных данных;
+      остальные документы — по желанию и на запись не влияют.
     </p>
 
     <div class="doc-list" id="docList">
 
       <div class="doc-card">
         <div class="doc-info">
-          <h3 class="doc-title"><span class="doc-badge doc-badge--req">обязательно</span>Политика конфиденциальности</h3>
+          <h3 class="doc-title">Политика конфиденциальности</h3>
           <p class="doc-desc">основной документ оператора · обновлена 04.09.2026</p>
           <label class="doc-check">
             <input type="checkbox" data-doc="policy">
@@ -587,7 +574,7 @@
 
       <div class="doc-card">
         <div class="doc-info">
-          <h3 class="doc-title"><span class="doc-badge doc-badge--req">обязательно</span>Согласие на обработку персональных данных</h3>
+          <h3 class="doc-title">Согласие на обработку персональных данных</h3>
           <p class="doc-desc">цели, состав данных, порядок отзыва · ст. 9 152-ФЗ</p>
           <label class="doc-check">
             <input type="checkbox" data-doc="pd">
@@ -600,7 +587,7 @@
 
       <div class="doc-card">
         <div class="doc-info">
-          <h3 class="doc-title"><span class="doc-badge doc-badge--opt">по желанию</span>Согласие на получение рассылок</h3>
+          <h3 class="doc-title">Согласие на получение рассылок</h3>
           <p class="doc-desc">отдельное согласие на письма и анонсы</p>
           <label class="doc-check">
             <input type="checkbox" data-doc="mail">
@@ -613,7 +600,7 @@
 
       <div class="doc-card">
         <div class="doc-info">
-          <h3 class="doc-title"><span class="doc-badge doc-badge--opt">по желанию</span>Согласие на использование отзывов, материалов, результатов и записей занятий</h3>
+          <h3 class="doc-title">Согласие на использование отзывов, материалов, результатов и записей занятий</h3>
           <p class="doc-desc">если захотите поделиться результатами</p>
           <label class="doc-check">
             <input type="checkbox" data-doc="reviews">
@@ -626,7 +613,7 @@
 
       <div class="doc-card doc-card--accent">
         <div class="doc-info">
-          <h3 class="doc-title"><span class="doc-badge doc-badge--opt">по желанию</span>Договор-оферта</h3>
+          <h3 class="doc-title">Договор-оферта</h3>
           <p class="doc-desc">условия оплаты, подписки и возврата</p>
           <label class="doc-check">
             <input type="checkbox" data-doc="offer">
@@ -800,11 +787,13 @@ const DIAG_LINKS = [
       </div>`).join("");
 })();
 
-/* === ВОРОТА СОГЛАСИЯ: ЧЕКБОКСЫ -> ФОРМА ЗАПИСИ === */
+/* === ВОРОТА СОГЛАСИЯ (схема по 152-ФЗ / ФАС) ===
+   Обязательны только информирование + согласие на обработку ПД.
+   Добровольные согласия (рассылки, отзывы, оферта) на запись не влияют. */
 (function initDocGate(){
-  const REQUIRED = ["policy", "pd"];          /* обязательные документы */
-  const STORAGE_KEY = "anna_consent_verified"; /* факт действующего согласия */
-  const ACK_KEY = "anna_docs_ack";             /* отметки «Ознакомлен(а)» */
+  const REQUIRED = ["policy", "pd"];   /* обязательные: без них запись не открывается */
+  const ACK_KEY = "anna_docs_ack";     /* отметки «Ознакомлен(а)» */
+  const STORAGE_KEY = "anna_consent_verified"; /* факт действующего обязательного согласия */
   const booking = document.getElementById("booking-section");
   const status = document.getElementById("docStatus");
   const checks = Array.prototype.slice.call(document.querySelectorAll(".doc-check input"));
@@ -823,8 +812,9 @@ const DIAG_LINKS = [
   }
   function openBooking(silent){
     booking.style.display = "block";
+    try { localStorage.setItem(STORAGE_KEY, "yes"); } catch(e) {}
     if(!silent && status){
-      status.textContent = "✅ Согласия приняты. Форма записи открыта ниже.";
+      status.textContent = "✅ Обязательные согласия приняты — форма записи открыта ниже. Остальные отметки — по желанию.";
       status.className = "doc-status ok";
     }
     if(!silent){
@@ -833,9 +823,17 @@ const DIAG_LINKS = [
   }
   function closeBooking(){
     booking.style.display = "none";
+    try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
     if(status){
-      status.textContent = "⚠️ Согласие отозвано или дано не полностью: форма записи закрыта.";
+      status.textContent = "⚠️ Запись откроется после отметки обоих обязательных документов: политика конфиденциальности и согласие на обработку ПД.";
       status.className = "doc-status err";
+    }
+  }
+  function sync(silent){
+    if (allRequiredChecked()) {
+      if (booking.style.display !== "block") openBooking(silent);
+    } else {
+      if (booking.style.display === "block") closeBooking();
     }
   }
 
@@ -845,26 +843,14 @@ const DIAG_LINKS = [
     if (saved[cb.dataset.doc]) cb.checked = true;
   });
 
-  /* уважаем тех, кто подтвердил согласие раньше (старый ключ) */
-  let legacy = false;
-  try { legacy = localStorage.getItem(STORAGE_KEY) === "yes"; } catch(e) {}
-
-  if (allRequiredChecked() || legacy) {
-    openBooking(true);
-  }
+  sync(true);
 
   checks.forEach(function(cb){
     cb.addEventListener("change", function(){
       const s = readAck();
       s[cb.dataset.doc] = cb.checked;
       writeAck(s);
-      if (allRequiredChecked()) {
-        try { localStorage.setItem(STORAGE_KEY, "yes"); } catch(e) {}
-        openBooking(false);
-      } else {
-        try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
-        closeBooking();
-      }
+      sync(false);
     });
   });
 })();
