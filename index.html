@@ -217,32 +217,131 @@
 
   .section-lead { color: var(--gray-text); font-size: 0.92rem; margin-bottom: 16px; }
 
-  /* === БЛОК СОГЛАСИЯ === */
-  .consent-card {
-    background: #fdfcfb;
-    border: 2px dashed var(--gold-accent);
-    border-radius: 12px;
-    padding: 20px 24px;
-    text-align: center;
-    max-width: 580px;
+  /* === БЛОК ДОКУМЕНТОВ СО ССЫЛКАМИ (вместо первой формы) === */
+  .doc-list {
+    max-width: 700px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
     position: relative;
-    overflow: hidden;
+    padding: 6px 0;
   }
-  .consent-card h3 { font-size: 1.05rem; margin-bottom: 6px; font-weight: 700; color: var(--crimson); }
-  .consent-card p { font-size: 0.88rem; margin-bottom: 10px; color: #555; }
+  .doc-list::before {
+    content: "";
+    position: absolute;
+    left: 34px; top: 12px; bottom: 12px;
+    width: 2px;
+    background: rgba(166, 19, 88, 0.12);
+    z-index: 0;
+  }
+  .doc-card {
+    position: relative;
+    z-index: 1;
+    background: #fcfbfa;
+    border: 1px solid #e9e1d8;
+    border-radius: 16px;
+    padding: 20px 22px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+  .doc-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: rgba(207, 169, 104, 0.5);
+  }
+  .doc-card--accent {
+    border: 2px solid #e79ec0;
+    background: #fefbfc;
+  }
+  .doc-info { flex-grow: 1; min-width: 0; }
+  .doc-title {
+    color: var(--crimson);
+    font-size: 1.12rem;
+    font-weight: 700;
+    line-height: 1.35;
+    margin-bottom: 8px;
+  }
+  .doc-badge {
+    display: inline-block;
+    font-family: 'Courier New', ui-monospace, monospace;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: 999px;
+    padding: 3px 10px;
+    margin-right: 8px;
+    vertical-align: 2px;
+  }
+  .doc-badge--req { background: var(--crimson-pale); color: var(--crimson-dark); border: 1px solid #f3d3e4; }
+  .doc-badge--opt { background: #f4f2ef; color: #8b8b8b; border: 1px solid #e5e0d8; }
+  .doc-desc {
+    font-family: 'Courier New', ui-monospace, monospace;
+    color: #7c7c7c;
+    font-size: 0.86rem;
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+  .doc-check { display: inline-flex; align-items: center; gap: 10px; cursor: pointer; user-select: none; position: relative; }
+  .doc-check input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .doc-checkbox {
+    width: 26px; height: 26px;
+    border: 2px solid #dcc9b6;
+    border-radius: 8px;
+    background: #fff;
+    display: inline-flex; align-items: center; justify-content: center;
+    transition: background 0.15s, border-color 0.15s;
+    flex-shrink: 0;
+  }
+  .doc-check input:checked + .doc-checkbox { background: var(--crimson); border-color: var(--crimson); }
+  .doc-check input:checked + .doc-checkbox::after { content: "✓"; color: #fff; font-size: 0.9rem; font-weight: 700; }
+  .doc-check-label {
+    font-family: 'Courier New', ui-monospace, monospace;
+    color: #8b8b8b;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+  }
+  .doc-open {
+    flex-shrink: 0;
+    margin-left: auto;
+    display: inline-block;
+    font-family: 'Courier New', ui-monospace, monospace;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    color: var(--crimson);
+    background: transparent;
+    border: 2px solid var(--crimson);
+    border-radius: 999px;
+    padding: 12px 26px;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s, transform 0.15s;
+    white-space: nowrap;
+  }
+  .doc-open:hover { background: var(--crimson); color: #fff; transform: translateY(-1px); }
+  .doc-open--solid { background: var(--crimson); color: #fff; }
+  .doc-open--solid:hover { background: var(--crimson-dark); border-color: var(--crimson-dark); }
+  .doc-status {
+    max-width: 700px;
+    margin: 12px auto 0;
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 700;
+    min-height: 1.2em;
+  }
+  .doc-status.ok { color: var(--crimson-dark); }
+  .doc-status.err { color: #c62828; }
 
+  /* === БЛОК СОГЛАСИЯ === */
   .consent-note {
     font-size: 0.78rem;
     color: var(--gray-text);
     margin-top: 10px;
     line-height: 1.4;
-  }
-  .consent-help-link {
-    color: var(--crimson);
-    cursor: pointer;
-    text-decoration: underline;
-    font-weight: 700;
   }
 
   /* === ЯНДЕКС.ФОРМА === */
@@ -261,38 +360,6 @@
     border-radius: 12px;
     background: #ffffff;
   }
-
-  /* === ПОЛЕ КОДА === */
-  .code-verify { max-width: 580px; margin: 0 auto; }
-  .code-row { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
-  .code-row input {
-    flex: 1 1 200px;
-    padding: 12px 16px;
-    border: 2px solid #ecd9c2;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    font-family: var(--font-sans);
-    transition: border-color 0.2s;
-    outline: none;
-    min-width: 0;
-  }
-  .code-row input:focus { border-color: var(--crimson); }
-  .code-row button {
-    background: var(--crimson);
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-weight: 700;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: background 0.2s;
-    white-space: nowrap;
-  }
-  .code-row button:hover { background: var(--crimson-dark); }
-  .code-msg { margin-top: 8px; font-size: 0.8rem; font-weight: 700; min-height: 1em; }
-  .code-msg.ok { color: var(--crimson-dark); }
-  .code-msg.err { color: #c62828; }
 
   /* === ДИАГНОСТИКА === */
   .diag-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px; }
@@ -440,6 +507,10 @@
     section.block { padding: 18px 16px; margin-bottom: 16px; }
     
     iframe.yandex-form { height: 500px; }
+
+    .doc-list::before { left: 26px; }
+    .doc-card { padding: 16px; gap: 12px; }
+    .doc-open { padding: 10px 20px; }
     
     .contacts-flex { gap: 8px; }
     .qr-box { padding: 4px; border-radius: 6px; }
@@ -495,39 +566,80 @@
     </div>
     <p class="section-lead">
       Согласно ФЗ-152 «О персональных данных», доступ к записи возможен только после вашего официального согласия.
-      Заполните форму ниже. После отправки вы увидите секретный код — введите его на этой странице, чтобы открыть запись.
+      Ознакомьтесь с документами ниже — каждый открывается в новой вкладке.
+      Запись на занятие откроется автоматически после отметки двух обязательных документов, остальные — по желанию.
     </p>
 
-    <div class="form-frame">
-      <iframe
-        class="yandex-form"
-        src="https://forms.yandex.ru/u/6a99a8eb02848f4e726049e7?iframe=1"
-        frameborder="0"
-        name="ya-form-6a99a8eb02848f4e726049e7"
-        title="Форма согласия на обработку персональных данных"
-      ></iframe>
-    </div>
+    <div class="doc-list" id="docList">
 
-    <div class="consent-card" style="margin-top: 16px;">
-      <h3>Шаг 2: подтвердите согласие</h3>
-      <p>
-        Отправьте форму выше. На странице «Спасибо» вы получите секретный код.<br>
-        Введите его ниже, чтобы открыть запись на занятие.
-      </p>
-
-      <div class="code-verify">
-        <div class="code-row">
-          <input type="text" id="secretCodeInput" placeholder="Введите секретный код" autocomplete="off" />
-          <button type="button" id="verifyCodeBtn">Подтвердить</button>
+      <div class="doc-card">
+        <div class="doc-info">
+          <h3 class="doc-title"><span class="doc-badge doc-badge--req">обязательно</span>Политика конфиденциальности</h3>
+          <p class="doc-desc">основной документ оператора · обновлена 04.09.2026</p>
+          <label class="doc-check">
+            <input type="checkbox" data-doc="policy">
+            <span class="doc-checkbox" aria-hidden="true"></span>
+            <span class="doc-check-label">ОЗНАКОМЛЕН(А)</span>
+          </label>
         </div>
-        <div class="code-msg" id="codeMsg"></div>
+        <a class="doc-open" href="https://disk.yandex.ru/i/PLJkomvneJvQgA" target="_blank" rel="noopener">ОТКРЫТЬ ↗</a>
       </div>
 
-      <p class="consent-note">
-        Код выдаётся после отправки формы согласия.<br>
-        <span class="consent-help-link" onclick="alert('Если форма не отправляется: возможно, вы уже давали согласие ранее.\n\nОчистите куки сайта или используйте режим Инкогнито.')">❓ Почему нельзя отправить дважды?</span>
-      </p>
+      <div class="doc-card">
+        <div class="doc-info">
+          <h3 class="doc-title"><span class="doc-badge doc-badge--req">обязательно</span>Согласие на обработку персональных данных</h3>
+          <p class="doc-desc">цели, состав данных, порядок отзыва · ст. 9 152-ФЗ</p>
+          <label class="doc-check">
+            <input type="checkbox" data-doc="pd">
+            <span class="doc-checkbox" aria-hidden="true"></span>
+            <span class="doc-check-label">ОЗНАКОМЛЕН(А)</span>
+          </label>
+        </div>
+        <a class="doc-open" href="https://disk.yandex.ru/i/jHvwJgA6Qa_SQQ" target="_blank" rel="noopener">ОТКРЫТЬ ↗</a>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-info">
+          <h3 class="doc-title"><span class="doc-badge doc-badge--opt">по желанию</span>Согласие на получение рассылок</h3>
+          <p class="doc-desc">отдельное согласие на письма и анонсы</p>
+          <label class="doc-check">
+            <input type="checkbox" data-doc="mail">
+            <span class="doc-checkbox" aria-hidden="true"></span>
+            <span class="doc-check-label">ОЗНАКОМЛЕН(А)</span>
+          </label>
+        </div>
+        <a class="doc-open" href="https://disk.yandex.ru/i/KFDTpe7tn6iB7Q" target="_blank" rel="noopener">ОТКРЫТЬ ↗</a>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-info">
+          <h3 class="doc-title"><span class="doc-badge doc-badge--opt">по желанию</span>Согласие на использование отзывов, материалов, результатов и записей занятий</h3>
+          <p class="doc-desc">если захотите поделиться результатами</p>
+          <label class="doc-check">
+            <input type="checkbox" data-doc="reviews">
+            <span class="doc-checkbox" aria-hidden="true"></span>
+            <span class="doc-check-label">ОЗНАКОМЛЕН(А)</span>
+          </label>
+        </div>
+        <a class="doc-open" href="https://disk.yandex.ru/i/qGcWh-DQt5JqBQ" target="_blank" rel="noopener">ОТКРЫТЬ ↗</a>
+      </div>
+
+      <div class="doc-card doc-card--accent">
+        <div class="doc-info">
+          <h3 class="doc-title"><span class="doc-badge doc-badge--opt">по желанию</span>Договор-оферта</h3>
+          <p class="doc-desc">условия оплаты, подписки и возврата</p>
+          <label class="doc-check">
+            <input type="checkbox" data-doc="offer">
+            <span class="doc-checkbox" aria-hidden="true"></span>
+            <span class="doc-check-label">ОЗНАКОМЛЕН(А)</span>
+          </label>
+        </div>
+        <a class="doc-open doc-open--solid" href="https://disk.yandex.ru/i/9K4yyFwGBGg86A" target="_blank" rel="noopener">ОТКРЫТЬ ↗</a>
+      </div>
+
     </div>
+
+    <div class="doc-status" id="docStatus" role="status"></div>
   </section>
 
   <section class="block">
@@ -550,8 +662,15 @@
       Согласие получено. Выберите удобное время — мы обсудим детали индивидуально и подтвердим запись.
     </p>
 
-    <script src="https://forms.yandex.ru/_static/embed.js"></script><iframe src="https://forms.yandex.ru/u/6ac750871f1eb5b511148acd?iframe=1" frameborder="0" name="ya-form-6ac750871f1eb5b511148acd" width="650"></iframe>
-
+    <div class="form-frame">
+      <iframe
+        class="yandex-form"
+        src="https://forms.yandex.ru/u/6ac750871f1eb5b511148acd?iframe=1"
+        frameborder="0"
+        name="ya-form-6ac750871f1eb5b511148acd"
+        title="Форма записи на занятие"
+      ></iframe>
+    </div>
 
     <p class="consent-note" style="text-align:center;">
       Заявка попадёт мне на почту мгновенно.<br>
@@ -663,7 +782,7 @@ const DIAG_LINKS = [
   { key:"psycho", flag:"🧠", name:"Психология", desc:"Экспресс-скрининг эмоционального состояния (взрослые / дети).", url:BASE+"psycho-screening.html", status:"active" },
   { key:"arabic", flag:"🇦", name:"العربية", desc:"Арабский язык: алфавит, базовая лексика, произношение.", url:BASE+"arabic-test.html", status:"hidden" },
   { key:"chinese", flag:"🇨🇳", name:"中文", desc:"Китайский язык: иероглифика, тоны, HSK-база.", url:BASE+"chinese-test.html", status:"hidden" },
-  { key:"norwegian", flag:"🇳🇴", name:"Norsk", desc:"Норвежский язык: фонетика, грамматика, разговорная база.", url:BASE+"norwegian-test.html", status:"hidden" },
+  { key:"norwegian", flag:"🇳", name:"Norsk", desc:"Норвежский язык: фонетика, грамматика, разговорная база.", url:BASE+"norwegian-test.html", status:"hidden" },
   { key:"spanish", flag:"🇸", name:"Español", desc:"Испанский язык: спряжение, лексика, понимание речи.", url:BASE+"spanish-test.html", status:"hidden" }
 ];
 
@@ -681,45 +800,73 @@ const DIAG_LINKS = [
       </div>`).join("");
 })();
 
-(function initCodeGate(){
-  const SECRET = "anna2026";
-  const STORAGE_KEY = "anna_consent_verified";
-  const input = document.getElementById("secretCodeInput");
-  const btn = document.getElementById("verifyCodeBtn");
-  const msg = document.getElementById("codeMsg");
+/* === ВОРОТА СОГЛАСИЯ: ЧЕКБОКСЫ -> ФОРМА ЗАПИСИ === */
+(function initDocGate(){
+  const REQUIRED = ["policy", "pd"];          /* обязательные документы */
+  const STORAGE_KEY = "anna_consent_verified"; /* факт действующего согласия */
+  const ACK_KEY = "anna_docs_ack";             /* отметки «Ознакомлен(а)» */
   const booking = document.getElementById("booking-section");
+  const status = document.getElementById("docStatus");
+  const checks = Array.prototype.slice.call(document.querySelectorAll(".doc-check input"));
 
-  function unlockBooking(silent) {
+  function readAck(){
+    try { return JSON.parse(localStorage.getItem(ACK_KEY) || "{}"); } catch(e) { return {}; }
+  }
+  function writeAck(obj){
+    try { localStorage.setItem(ACK_KEY, JSON.stringify(obj)); } catch(e) {}
+  }
+  function allRequiredChecked(){
+    return REQUIRED.every(function(k){
+      const cb = document.querySelector('.doc-check input[data-doc="' + k + '"]');
+      return cb && cb.checked;
+    });
+  }
+  function openBooking(silent){
     booking.style.display = "block";
-    if(!silent) {
-      msg.textContent = "✅ Согласие подтверждено. Форма записи открыта ниже.";
-      msg.className = "code-msg ok";
+    if(!silent && status){
+      status.textContent = "✅ Согласия приняты. Форма записи открыта ниже.";
+      status.className = "doc-status ok";
     }
-    setTimeout(() => booking.scrollIntoView({ behavior: "smooth", block: "start" }), 200);
+    if(!silent){
+      setTimeout(function(){ booking.scrollIntoView({ behavior: "smooth", block: "start" }); }, 200);
+    }
   }
-
-  try {
-    if (localStorage.getItem(STORAGE_KEY) === "yes") unlockBooking(true);
-  } catch(e) {}
-
-  function verify() {
-    const val = (input.value || "").trim().toLowerCase();
-    if (val === SECRET) {
-      try { localStorage.setItem(STORAGE_KEY, "yes"); } catch(e) {}
-      unlockBooking(false);
-      input.disabled = true;
-      btn.disabled = true;
-      btn.textContent = "Подтверждено";
-      btn.style.background = "var(--crimson-dark)";
-    } else {
-      msg.textContent = "❌ Неверный код. Проверьте страницу «Спасибо» после отправки формы согласия.";
-      msg.className = "code-msg err";
-      input.focus();
+  function closeBooking(){
+    booking.style.display = "none";
+    if(status){
+      status.textContent = "⚠️ Согласие отозвано или дано не полностью: форма записи закрыта.";
+      status.className = "doc-status err";
     }
   }
 
-  btn.addEventListener("click", verify);
-  input.addEventListener("keydown", (e) => { if (e.key === "Enter") verify(); });
+  /* восстанавливаем отметки */
+  const saved = readAck();
+  checks.forEach(function(cb){
+    if (saved[cb.dataset.doc]) cb.checked = true;
+  });
+
+  /* уважаем тех, кто подтвердил согласие раньше (старый ключ) */
+  let legacy = false;
+  try { legacy = localStorage.getItem(STORAGE_KEY) === "yes"; } catch(e) {}
+
+  if (allRequiredChecked() || legacy) {
+    openBooking(true);
+  }
+
+  checks.forEach(function(cb){
+    cb.addEventListener("change", function(){
+      const s = readAck();
+      s[cb.dataset.doc] = cb.checked;
+      writeAck(s);
+      if (allRequiredChecked()) {
+        try { localStorage.setItem(STORAGE_KEY, "yes"); } catch(e) {}
+        openBooking(false);
+      } else {
+        try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
+        closeBooking();
+      }
+    });
+  });
 })();
 
 /* === ДЕКОР В ТЕМЕ ПЕДАГОГА === */
