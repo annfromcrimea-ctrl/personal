@@ -142,8 +142,9 @@
   }
   .product-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
   
+  /* ИЗОБРАЖЕНИЯ ПРОДУКТОВ УВЕЛИЧЕНЫ В 2 РАЗА */
   .product-card-img-wrapper {
-    flex-shrink: 0; width: 140px; max-height: 200px; border-radius: 10px;
+    flex-shrink: 0; width: 280px; max-height: 400px; border-radius: 10px;
     overflow: hidden; display: flex; align-items: center; justify-content: center; background: #faf8f6;
   }
   .product-card-img { width: 100%; height: 100%; object-fit: contain; display: block; }
@@ -233,16 +234,43 @@
   .kopilka-media { flex-shrink: 0; width: 170px; }
   .kopilka-media img, .kopilka-media video { width: 100%; height: auto; border-radius: 14px; object-fit: cover; display: block; box-shadow: 0 4px 14px rgba(166, 19, 88, 0.12); }
 
-  /* ===== ДИАГНОСТИКА ===== */
+  /* ===== ДИАГНОСТИКА (с фоном и центрированием) ===== */
   .diag-note { color: var(--gray-text); font-size: 0.85rem; margin-bottom: 12px; line-height: 1.5; }
-  .diag-grid-compact { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 8px; }
-  .diag-item-compact { background: rgba(255,255,255,0.7); border: 1px solid rgba(166, 19, 88, 0.1); border-radius: 10px; padding: 9px 11px; display: flex; align-items: center; gap: 9px; transition: border-color 0.2s, background 0.2s; text-decoration: none; color: var(--graphite); }
-  .diag-item-compact:hover { border-color: var(--crimson); background: #fff; }
-  .diag-item-compact .diag-emoji { font-size: 1.2rem; flex-shrink: 0; }
+  .diag-grid-compact {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    background: rgba(253, 245, 248, 0.7);
+    border-radius: 14px;
+    padding: 16px;
+    border: 1px solid rgba(166, 19, 88, 0.06);
+  }
+  .diag-item-compact {
+    background: #fff;
+    border: 1px solid rgba(166, 19, 88, 0.12);
+    border-radius: 12px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: border-color 0.2s, background 0.2s, transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+    color: var(--graphite);
+    flex: 0 1 200px;
+    box-shadow: 0 2px 8px rgba(166, 19, 88, 0.04);
+  }
+  .diag-item-compact:hover {
+    border-color: var(--crimson);
+    background: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(166, 19, 88, 0.1);
+  }
+  .diag-item-compact .diag-emoji { font-size: 1.3rem; flex-shrink: 0; }
   .diag-item-compact .diag-text { flex-grow: 1; min-width: 0; }
-  .diag-item-compact .diag-text b { display: block; font-size: 0.82rem; color: var(--crimson); margin-bottom: 1px; }
+  .diag-item-compact .diag-text b { display: block; font-size: 0.84rem; color: var(--crimson); margin-bottom: 1px; }
   .diag-item-compact .diag-text span { font-size: 0.7rem; color: #888; }
-  .diag-item-compact .diag-arrow { color: var(--crimson-soft); font-weight: 700; flex-shrink: 0; font-size: 0.8rem; }
+  .diag-item-compact .diag-arrow { color: var(--crimson-soft); font-weight: 700; flex-shrink: 0; font-size: 0.85rem; }
 
   /* ===== ЯНДЕКС.ФОРМА (запись) ===== */
   .form-frame { background: transparent; padding: 0; display: flex; justify-content: center; }
@@ -255,26 +283,8 @@
   .scroll-container::-webkit-scrollbar-thumb { background: #e6d3c2; border-radius: 2px; }
   .items-row { display: flex; gap: 14px; width: max-content; }
   .item-card { width: 260px; background: #ffffff; padding: 16px; border-radius: 12px; border: 1px solid rgba(166,19,88,0.08); }
-  
-  .rev-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-  .rev-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--crimson-pale); color: var(--crimson); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; }
-  .rev-info { flex-grow: 1; }
-  .rev-name { font-weight: 700; font-size: 0.85rem; display: block; }
-  .rev-stars { color: var(--gold-accent); font-size: 0.75rem; }
-  .rev-text { font-size: 0.85rem; color: var(--graphite); line-height: 1.45; margin-top: 4px; min-height: 50px; }
-  
-  .vid-preview { aspect-ratio: 16/9; background: var(--crimson-pale); border-radius: 10px; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; color: var(--crimson); font-size: 1.2rem; position: relative; overflow: hidden; cursor: pointer; transition: background 0.2s; }
-  .vid-preview:hover { background: #f5e6ee; }
-  .play-icon { opacity: 0.8; transition: 0.2s; }
-  .vid-preview:hover .play-icon { opacity: 1; transform: scale(1.1); }
-  .vid-title { font-weight: 700; font-size: 0.85rem; margin-bottom: 2px; }
-  .vid-meta { font-size: 0.72rem; color: #888; }
-  
-  .rev-toggle { display: inline-flex; background: rgba(166,19,88,0.06); border-radius: 999px; padding: 2px; margin-bottom: 8px; }
-  .rev-toggle button { border: none; background: transparent; font-family: var(--font-sans); font-size: 0.7rem; font-weight: 700; color: var(--crimson-mute); padding: 3px 11px; border-radius: 999px; cursor: pointer; transition: all 0.2s; }
-  .rev-toggle button.active { background: var(--crimson); color: #fff; }
 
-  /* ВЫДЕЛЕННЫЙ БЛОК ОТЗЫВОВ */
+  /* ===== ОТЗЫВЫ (на фоне, выделенный блок) ===== */
   .reviews-block {
     background: linear-gradient(135deg, #FDF5F8, #FFFBF5);
     border: 2px solid rgba(207, 169, 104, 0.35);
@@ -282,6 +292,31 @@
   }
   .reviews-block .section-title { color: var(--crimson-dark); }
   .reviews-block .step-num { background: var(--gold-accent); color: #fff; }
+
+  .rev-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .rev-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--crimson-pale); color: var(--crimson); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; }
+  .rev-info { flex-grow: 1; }
+  .rev-name { font-weight: 700; font-size: 0.85rem; display: block; }
+  .rev-stars { color: var(--gold-accent); font-size: 0.75rem; }
+  .rev-text { font-size: 0.85rem; color: var(--graphite); line-height: 1.45; margin-top: 4px; min-height: 50px; }
+
+  /* Карточки отзывов с собственным фоном */
+  .reviews-block .item-card {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(207, 169, 104, 0.25);
+    box-shadow: 0 3px 12px rgba(166, 19, 88, 0.06);
+  }
+
+  .rev-toggle { display: inline-flex; background: rgba(166,19,88,0.06); border-radius: 999px; padding: 2px; margin-bottom: 8px; }
+  .rev-toggle button { border: none; background: transparent; font-family: var(--font-sans); font-size: 0.7rem; font-weight: 700; color: var(--crimson-mute); padding: 3px 11px; border-radius: 999px; cursor: pointer; transition: all 0.2s; }
+  .rev-toggle button.active { background: var(--crimson); color: #fff; }
+
+  .vid-preview { aspect-ratio: 16/9; background: var(--crimson-pale); border-radius: 10px; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; color: var(--crimson); font-size: 1.2rem; position: relative; overflow: hidden; cursor: pointer; transition: background 0.2s; }
+  .vid-preview:hover { background: #f5e6ee; }
+  .play-icon { opacity: 0.8; transition: 0.2s; }
+  .vid-preview:hover .play-icon { opacity: 1; transform: scale(1.1); }
+  .vid-title { font-weight: 700; font-size: 0.85rem; margin-bottom: 2px; }
+  .vid-meta { font-size: 0.72rem; color: #888; }
 
   /* ===== ПОДВАЛ ===== */
   footer.site-footer { margin-top: 30px; background: var(--crimson-deep); color: #e3c3d0; padding: 30px 0 20px; font-size: 0.8rem; line-height: 1.6; }
@@ -308,11 +343,10 @@
     .hero-content { align-items: center; }
     .studio-link-block { align-items: center; }
     section.block { padding: 16px; }
-    .diag-grid-compact { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
     .consent-grid { grid-template-columns: 1fr; gap: 16px; }
     
     .product-card { flex-direction: column; align-items: center; text-align: center; }
-    .product-card-img-wrapper { width: 100%; max-width: 240px; height: auto; aspect-ratio: 16/9; }
+    .product-card-img-wrapper { width: 100%; max-width: 280px; height: auto; aspect-ratio: 16/9; }
     .product-card-img { object-fit: contain; }
     .product-footer { justify-content: center; }
     
@@ -470,7 +504,7 @@
     <p class="consent-note">Заявка попадёт мне на почту мгновенно. Я свяжусь с вами для подтверждения времени.</p>
   </section>
 
-  <!-- ОТЗЫВЫ (выделенный блок) -->
+  <!-- ОТЗЫВЫ (выделенный блок, с фоном) -->
   <section class="block reviews-block">
     <div class="section-header">
       <span class="step-num">★</span>
@@ -571,7 +605,7 @@
     </div>
   </div>
   <div class="footer-copyright">
-    © Студия изучения языков и развития Анны из Крыма, 2026. 
+    © Студия изучения языков и развития Анны из Крыма, 2026.
   </div>
 </footer>
 
