@@ -72,7 +72,7 @@
   .container {
     max-width: 950px; margin: 20px auto; padding: 24px 24px 24px 64px;
     position: relative; z-index: 1;
-    background: rgba(255, 255, 255, 0.72);
+    background: rgba(255, 255, 255, 0.75);
     backdrop-filter: blur(2px);
     border-radius: 24px;
     box-shadow: 0 6px 30px rgba(166, 19, 88, 0.06);
@@ -81,8 +81,8 @@
   /* ===== ШАПКА ===== */
   header.hero-section {
     display: flex; align-items: center; gap: 24px;
-    margin-bottom: 20px; padding-bottom: 20px;
-    border-bottom: 1px solid rgba(166, 19, 88, 0.08);
+    margin-bottom: 24px; padding-bottom: 24px;
+    border-bottom: 1px solid rgba(166, 19, 88, 0.1);
   }
   .hero-photo-wrapper { width: 42%; max-width: 380px; flex-shrink: 0; display: flex; justify-content: center; }
   .hero-photo-img {
@@ -96,9 +96,7 @@
   .hero-role { font-size: 0.85rem; color: var(--crimson-mute); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 12px; font-weight: 700; }
   .hero-desc { font-size: 0.95rem; color: var(--graphite); margin-bottom: 14px; max-width: 480px; line-height: 1.55; }
 
-  .studio-link-block {
-    display: flex; flex-direction: column; gap: 4px; align-items: flex-start;
-  }
+  .studio-link-block { display: flex; flex-direction: column; gap: 4px; align-items: flex-start; }
   .studio-link-btn {
     display: inline-flex; align-items: center; gap: 6px;
     background: var(--crimson); color: #fff; font-family: var(--font-sans); font-weight: 700; font-size: 0.8rem;
@@ -108,15 +106,15 @@
   .studio-link-btn:hover { background: var(--crimson-dark); transform: translateY(-2px); }
   .studio-link-note { font-size: 0.72rem; color: var(--gray-text); line-height: 1.4; max-width: 340px; }
 
-  /* ===== БЛОКИ ===== */
+  /* ===== БЛОКИ: заметная мягкая подложка ===== */
   section.block {
-    background: transparent; border: none; box-shadow: none;
-    padding: 0; margin-bottom: 0; position: relative;
-  }
-  /* Разделитель между блоками */
-  section.block + section.block {
-    margin-top: 22px; padding-top: 22px;
-    border-top: 1px solid rgba(166, 19, 88, 0.1);
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(166, 19, 88, 0.08);
+    border-radius: 18px;
+    padding: 22px 24px;
+    margin-bottom: 18px;
+    box-shadow: 0 3px 18px rgba(166, 19, 88, 0.05);
+    position: relative;
   }
   .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
   .section-title { font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; color: var(--crimson); letter-spacing: -0.2px; }
@@ -141,7 +139,7 @@
 
   /* ===== ДОКУМЕНТЫ ===== */
   .compact-docs { display: flex; flex-direction: column; gap: 0; }
-  .compact-doc-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding: 9px 0; border-bottom: 1px solid rgba(166, 19, 88, 0.07); }
+  .compact-doc-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding: 9px 0; border-bottom: 1px solid rgba(166, 19, 88, 0.08); }
   .compact-doc-row:last-child { border-bottom: none; }
   .compact-doc-title { flex-grow: 1; min-width: 160px; font-weight: 600; color: var(--crimson); font-size: 0.88rem; line-height: 1.3; }
   .compact-doc-title small { display: block; font-weight: 400; color: #999; font-size: 0.72rem; }
@@ -157,7 +155,7 @@
   .compact-doc-status.ok { color: var(--crimson-dark); }
   .compact-doc-status.err { color: #c62828; }
 
-  /* ===== ФОРМА СОГЛАСИЯ (iframe) ===== */
+  /* ===== ФОРМА СОГЛАСИЯ ===== */
   .consent-form-block { display: none; margin-top: 14px; }
   .consent-form-block.visible { display: block; animation: fadeIn 0.35s; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
@@ -169,6 +167,22 @@
     border: none; padding: 12px; border-radius: 12px; cursor: pointer; transition: background 0.2s;
   }
   .confirm-submit-btn:hover { background: var(--crimson-dark); }
+
+  /* Поле ввода кода подтверждения */
+  .consent-code-block { display: none; margin-top: 12px; max-width: 650px; margin-left: auto; margin-right: auto; }
+  .consent-code-block.visible { display: block; }
+  .consent-code-block label { display: block; font-size: 0.8rem; font-weight: 700; color: var(--crimson-mute); margin-bottom: 6px; }
+  .consent-code-block input {
+    width: 100%; padding: 10px 14px; font-family: var(--font-sans); font-size: 0.9rem;
+    border: 1px solid rgba(166,19,88,0.2); border-radius: 10px; background: #fff; margin-bottom: 8px;
+  }
+  .consent-code-block input:focus { outline: none; border-color: var(--crimson); }
+  .consent-code-block .code-btn {
+    width: 100%; background: var(--crimson); color: #fff; font-family: var(--font-sans); font-weight: 700; font-size: 0.9rem;
+    border: none; padding: 12px; border-radius: 12px; cursor: pointer; transition: background 0.2s;
+  }
+  .consent-code-block .code-btn:hover { background: var(--crimson-dark); }
+  .code-hint { font-size: 0.75rem; color: var(--gray-text); margin-top: 6px; line-height: 1.4; }
 
   .consent-record { display: none; margin-top: 12px; padding: 12px 14px; background: rgba(127, 176, 105, 0.12); border-radius: 12px; font-size: 0.82rem; color: #4a7a3a; line-height: 1.5; }
   .consent-record.visible { display: block; }
@@ -193,7 +207,7 @@
 
   /* ===== ДИАГНОСТИКА ===== */
   .diag-grid-compact { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 8px; }
-  .diag-item-compact { background: rgba(255,255,255,0.6); border: 1px solid rgba(166, 19, 88, 0.08); border-radius: 10px; padding: 9px 11px; display: flex; align-items: center; gap: 9px; transition: border-color 0.2s, background 0.2s; text-decoration: none; color: var(--graphite); }
+  .diag-item-compact { background: rgba(255,255,255,0.7); border: 1px solid rgba(166, 19, 88, 0.1); border-radius: 10px; padding: 9px 11px; display: flex; align-items: center; gap: 9px; transition: border-color 0.2s, background 0.2s; text-decoration: none; color: var(--graphite); }
   .diag-item-compact:hover { border-color: var(--crimson); background: #fff; }
   .diag-item-compact .diag-emoji { font-size: 1.2rem; flex-shrink: 0; }
   .diag-item-compact .diag-text { flex-grow: 1; min-width: 0; }
@@ -255,6 +269,7 @@
     .hero-photo-img { max-height: 300px; }
     .hero-content { align-items: center; }
     .studio-link-block { align-items: center; }
+    section.block { padding: 16px; }
     .diag-grid-compact { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
     .contacts-flex { gap: 8px; }
     footer.site-footer .footer-wrap { grid-template-columns: 1fr; padding: 0 16px 0 40px; }
@@ -277,7 +292,6 @@
 
 <div class="container">
 
-  <!-- ШАПКА -->
   <header class="hero-section">
     <div class="hero-photo-wrapper">
       <img src="anna.jpg" alt="Анна Драчёва" class="hero-photo-img">
@@ -327,7 +341,7 @@
       <h2 class="section-title">Согласие на обработку данных</h2>
     </div>
     <p class="section-lead">
-      Ознакомьтесь с документами, отметьте оба пункта, заполните и отправьте форму согласия — после этого откроются запись и копилка.
+      Ознакомьтесь с документами, отметьте оба пункта, заполните и отправьте форму согласия. Код со страницы «Спасибо» откроет запись и копилку.
     </p>
 
     <div class="compact-docs" id="compactDocList">
@@ -357,8 +371,16 @@
         <script src="https://forms.yandex.ru/_static/embed.js"></script>
         <iframe src="https://forms.yandex.ru/u/6b03fe9aaeb3527d7b73b06c?iframe=1" frameborder="0" name="ya-form-6b03fe9aaeb3527d7b73b06c" width="650" title="Форма согласия на обработку персональных данных"></iframe>
       </div>
-      <button class="confirm-submit-btn" id="cfSubmit">Я отправил(а) форму — открыть доступ</button>
+      <button class="confirm-submit-btn" id="cfSubmit">Я отправил(а) форму — ввести код доступа</button>
       <div class="compact-doc-status" id="cfError" style="color:#c62828; margin-top:8px;"></div>
+    </div>
+
+    <!-- Поле кода подтверждения -->
+    <div class="consent-code-block" id="consentCodeBlock">
+      <label for="consentCodeInput">Код подтверждения со страницы «Спасибо»</label>
+      <input type="text" id="consentCodeInput" placeholder="Введите код" autocomplete="off">
+      <button class="code-btn" id="consentCodeBtn">Подтвердить и открыть доступ</button>
+      <div class="code-hint">Код показывается на странице «Спасибо» после реальной отправки формы согласия.</div>
     </div>
 
     <!-- Запись о согласии -->
@@ -493,7 +515,7 @@
     <div>
       <h5>Как это работает</h5>
       <p>
-        Согласие фиксируется через Яндекс Форму с номером, датой и временем (ст. 9 152-ФЗ). После отправки формы открываются запись и копилка.
+        Согласие фиксируется через Яндекс Форму с номером, датой и временем (ст. 9 152-ФЗ). После отправки формы и ввода кода открываются запись и копилка.
       </p>
     </div>
     <div>
@@ -535,16 +557,22 @@ const DIAG_LINKS = [
       </a>`).join("");
 })();
 
-/* ===== СОГЛАСИЕ ЧЕРЕЗ ЯНДЕКС.ФОРМУ ===== */
+/* ===== СОГЛАСИЕ ЧЕРЕЗ ЯНДЕКС.ФОРМУ + КОД ===== */
 (function initDocGate(){
+  /* Код, который вы показываете на странице «Спасибо» Яндекс.Формы.
+     Поменяйте на свой. Это единственный публичный «секрет», поэтому
+     лучший вариант — настроить показ кода только после отправки формы. */
+  const CONSENT_ACCESS_CODE = "ANNA2026";
+
   const REQUIRED = ["policy", "pd"];
-  const CONSENT_KEY = "anna_consent_record_v5";
-  const ACK_KEY = "anna_docs_ack_v5";
+  const CONSENT_KEY = "anna_consent_record_v6";
+  const ACK_KEY = "anna_docs_ack_v6";
 
   const booking = document.getElementById("booking-section");
   const kopilka = document.getElementById("kopilkaBlock");
   const status = document.getElementById("docStatus");
   const formBlock = document.getElementById("consentFormBlock");
+  const codeBlock = document.getElementById("consentCodeBlock");
   const recordBox = document.getElementById("consentRecord");
   const checks = Array.prototype.slice.call(document.querySelectorAll(".compact-doc-check input"));
 
@@ -575,14 +603,14 @@ const DIAG_LINKS = [
     return "ПД-" + new Date().getFullYear() + "-" + Math.floor(1000 + Math.random()*9000);
   }
 
-  /* Показать форму согласия, если документы отмечены, но согласие ещё не зафиксировано */
   function showFormIfNeeded(){
     if (allRequiredChecked() && !readConsent()) {
       formBlock.classList.add("visible");
-      status.textContent = "Отлично! Теперь заполните и отправьте форму согласия ниже.";
+      status.textContent = "Отлично! Заполните и отправьте форму согласия, затем введите код со страницы «Спасибо».";
       status.className = "compact-doc-status ok";
     } else if (!allRequiredChecked()) {
       formBlock.classList.remove("visible");
+      codeBlock.classList.remove("visible");
     }
   }
 
@@ -590,6 +618,7 @@ const DIAG_LINKS = [
     booking.style.display = "block";
     kopilka.classList.add("visible");
     formBlock.classList.remove("visible");
+    codeBlock.classList.remove("visible");
     const rec = readConsent();
     if (rec) {
       recordBox.classList.add("visible");
@@ -623,11 +652,31 @@ const DIAG_LINKS = [
     });
   });
 
+  /* Кнопка «Я отправил(а) форму» — только показывает поле для кода */
   document.getElementById("cfSubmit").addEventListener("click", function(){
     const err = document.getElementById("cfError");
     err.textContent = "";
-    if (!allRequiredChecked()) { err.textContent = "Отметьте оба документа."; return; }
+    if (!allRequiredChecked()) {
+      err.textContent = "Сначала отметьте оба документа.";
+      return;
+    }
+    codeBlock.classList.add("visible");
+    document.getElementById("consentCodeInput").focus();
+  });
 
+  /* Проверка кода и фиксация согласия */
+  document.getElementById("consentCodeBtn").addEventListener("click", function(){
+    const err = document.getElementById("cfError");
+    err.textContent = "";
+    const val = (document.getElementById("consentCodeInput").value || "").trim().toUpperCase();
+    if (val !== CONSENT_ACCESS_CODE.toUpperCase()) {
+      err.textContent = "Неверный код. Он показывается на странице «Спасибо» после отправки формы.";
+      return;
+    }
+    if (!allRequiredChecked()) {
+      err.textContent = "Отметьте оба документа.";
+      return;
+    }
     const rec = {
       no: makeNo(),
       at: nowStamp(),
