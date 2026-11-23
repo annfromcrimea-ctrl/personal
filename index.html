@@ -106,7 +106,7 @@
   .studio-link-btn:hover { background: var(--crimson-dark); transform: translateY(-2px); }
   .studio-link-note { font-size: 0.72rem; color: var(--gray-text); line-height: 1.4; max-width: 340px; }
 
-  /* ===== БЛОКИ: заметная мягкая подложка ===== */
+  /* ===== БЛОКИ ===== */
   section.block {
     background: rgba(255, 255, 255, 0.9);
     border: 1px solid rgba(166, 19, 88, 0.08);
@@ -168,7 +168,6 @@
   }
   .confirm-submit-btn:hover { background: var(--crimson-dark); }
 
-  /* Поле ввода кода подтверждения */
   .consent-code-block { display: none; margin-top: 12px; max-width: 650px; margin-left: auto; margin-right: auto; }
   .consent-code-block.visible { display: block; }
   .consent-code-block label { display: block; font-size: 0.8rem; font-weight: 700; color: var(--crimson-mute); margin-bottom: 6px; }
@@ -341,7 +340,7 @@
       <h2 class="section-title">Согласие на обработку данных</h2>
     </div>
     <p class="section-lead">
-      Ознакомьтесь с документами, отметьте оба пункта, заполните и отправьте форму согласия. Код со страницы «Спасибо» откроет запись и копилку.
+      Ознакомьтесь с документами, отметьте оба обязательных пункта, заполните и отправьте форму согласия. Код со страницы «Спасибо» откроет запись и копилку.
     </p>
 
     <div class="compact-docs" id="compactDocList">
@@ -358,6 +357,14 @@
         <a class="compact-doc-open" href="https://disk.yandex.ru/i/jHvwJgA6Qa_SQQ" target="_blank" rel="noopener">ОТКРЫТЬ ↗</a>
         <label class="compact-doc-check">
           <input type="checkbox" data-doc="pd">
+          <span class="compact-doc-box"></span>
+        </label>
+      </div>
+      <div class="compact-doc-row">
+        <div class="compact-doc-title">Договор-оферта <small>условия оплаты, подписки и возврата</small></div>
+        <a class="compact-doc-open" href="https://disk.yandex.ru/i/9K4yyFwGBGg86A" target="_blank" rel="noopener">ОТКРЫТЬ ↗</a>
+        <label class="compact-doc-check">
+          <input type="checkbox" data-doc="offer">
           <span class="compact-doc-box"></span>
         </label>
       </div>
@@ -559,9 +566,6 @@ const DIAG_LINKS = [
 
 /* ===== СОГЛАСИЕ ЧЕРЕЗ ЯНДЕКС.ФОРМУ + КОД ===== */
 (function initDocGate(){
-  /* Код, который вы показываете на странице «Спасибо» Яндекс.Формы.
-     Поменяйте на свой. Это единственный публичный «секрет», поэтому
-     лучший вариант — настроить показ кода только после отправки формы. */
   const CONSENT_ACCESS_CODE = "ANNA2026";
 
   const REQUIRED = ["policy", "pd"];
@@ -646,7 +650,7 @@ const DIAG_LINKS = [
       writeAck(s);
       showFormIfNeeded();
       if (!allRequiredChecked()) {
-        status.textContent = "⚠️ Отметьте оба документа, чтобы открыть форму согласия.";
+        status.textContent = "⚠️ Отметьте оба обязательных документа, чтобы открыть форму согласия.";
         status.className = "compact-doc-status err";
       }
     });
@@ -657,7 +661,7 @@ const DIAG_LINKS = [
     const err = document.getElementById("cfError");
     err.textContent = "";
     if (!allRequiredChecked()) {
-      err.textContent = "Сначала отметьте оба документа.";
+      err.textContent = "Сначала отметьте оба обязательных документа.";
       return;
     }
     codeBlock.classList.add("visible");
@@ -674,7 +678,7 @@ const DIAG_LINKS = [
       return;
     }
     if (!allRequiredChecked()) {
-      err.textContent = "Отметьте оба документа.";
+      err.textContent = "Отметьте оба обязательных документа.";
       return;
     }
     const rec = {
