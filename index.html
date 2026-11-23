@@ -84,10 +84,20 @@
     margin-bottom: 24px; padding-bottom: 24px;
     border-bottom: 1px solid rgba(166, 19, 88, 0.1);
   }
-  .hero-photo-wrapper { width: 42%; max-width: 380px; flex-shrink: 0; display: flex; justify-content: center; }
+  /* Адаптивный аватар */
+  .hero-photo-wrapper { 
+    flex-shrink: 0; 
+    display: flex; 
+    justify-content: center;
+    width: 220px; /* Базовая ширина */
+  }
   .hero-photo-img {
-    max-width: 100%; max-height: 380px; width: auto; height: auto; object-fit: cover;
-    border-radius: 18px; box-shadow: 0 8px 24px rgba(166, 19, 88, 0.12);
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 4; /* Можно менять на 1/1 для квадрата или 4/3 для горизонтали */
+    object-fit: cover;
+    border-radius: 18px; 
+    box-shadow: 0 8px 24px rgba(166, 19, 88, 0.12);
     transition: transform 0.3s ease;
   }
   .hero-photo-wrapper:hover .hero-photo-img { transform: scale(1.02); }
@@ -96,14 +106,22 @@
   .hero-role { font-size: 0.85rem; color: var(--crimson-mute); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 12px; font-weight: 700; }
   .hero-desc { font-size: 0.95rem; color: var(--graphite); margin-bottom: 14px; max-width: 480px; line-height: 1.55; }
 
+  /* Кнопка "Сайт студии" — менее яркая */
   .studio-link-block { display: flex; flex-direction: column; gap: 4px; align-items: flex-start; }
   .studio-link-btn {
     display: inline-flex; align-items: center; gap: 6px;
-    background: var(--crimson); color: #fff; font-family: var(--font-sans); font-weight: 700; font-size: 0.8rem;
+    background: rgba(142, 16, 73, 0.08); 
+    color: var(--crimson); 
+    border: 1px solid rgba(142, 16, 73, 0.25);
+    font-family: var(--font-sans); font-weight: 600; font-size: 0.8rem;
     padding: 8px 18px; border-radius: 30px; text-decoration: none;
-    transition: background 0.2s, transform 0.2s;
+    transition: background 0.2s, border-color 0.2s, transform 0.2s;
   }
-  .studio-link-btn:hover { background: var(--crimson-dark); transform: translateY(-2px); }
+  .studio-link-btn:hover { 
+    background: rgba(142, 16, 73, 0.15); 
+    border-color: rgba(142, 16, 73, 0.4);
+    transform: translateY(-1px); 
+  }
   .studio-link-note { font-size: 0.72rem; color: var(--gray-text); line-height: 1.4; max-width: 340px; }
 
   /* ===== БЛОКИ ===== */
@@ -127,7 +145,7 @@
   /* ===== ПРОДУКТЫ ===== */
   #products-preview-section { padding: 16px; }
   .products-toolbar {
-    display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; margin-bottom: 16px;
+    display: flex; flex-wrap: wrap; gap: 12px; justify-content: flex-start; align-items: center; margin-bottom: 16px;
   }
   .products-filters { display: flex; gap: 8px; flex-wrap: wrap; }
   .filter-btn {
@@ -135,44 +153,43 @@
     padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; cursor: pointer; transition: all 0.2s;
   }
   .filter-btn.active, .filter-btn:hover { background: var(--crimson); color: #fff; border-color: var(--crimson); }
-  .products-search-edit { display: flex; gap: 8px; flex-grow: 1; justify-content: flex-end; }
-  .products-search-edit input {
-    padding: 8px 12px; border: 1px solid rgba(166, 19, 88, 0.2); border-radius: 20px;
-    font-family: var(--font-sans); font-size: 0.82rem; outline: none; max-width: 200px;
-  }
-  .products-search-edit input:focus { border-color: var(--crimson); }
-  .edit-btn {
-    background: var(--crimson-pale); color: var(--crimson); border: 1px solid transparent;
-    padding: 8px 14px; border-radius: 20px; font-weight: 700; font-size: 0.8rem; cursor: pointer; transition: all 0.2s;
-  }
-  .edit-btn.active { background: var(--crimson); color: #fff; }
 
-  .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+  /* Список в столбик */
+  .products-list { display: flex; flex-direction: column; gap: 16px; }
   .product-card {
     background: #fff; border: 1px solid rgba(166, 19, 88, 0.08); border-radius: 14px;
-    padding: 14px; display: flex; gap: 14px; align-items: center; transition: transform 0.2s, box-shadow 0.2s;
+    padding: 16px; display: flex; gap: 20px; align-items: flex-start; transition: transform 0.2s, box-shadow 0.2s;
   }
   .product-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
-  .product-card-img { width: 80px; height: 80px; border-radius: 10px; object-fit: cover; flex-shrink: 0; }
-  .product-card-content { flex-grow: 1; display: flex; flex-direction: column; gap: 4px; }
-  .product-card-content h3 { font-family: var(--font-display); color: var(--crimson); font-size: 1rem; margin: 0; line-height: 1.2; }
-  .product-card-content p { color: var(--gray-text); font-size: 0.8rem; line-height: 1.4; margin: 0; }
-  .product-tag { display: inline-block; font-size: 0.65rem; font-weight: 700; padding: 3px 8px; border-radius: 10px; align-self: flex-start; margin-top: 4px; }
+  
+  /* Адаптивное изображение: поддержка горизонтальных и вертикальных пропорций */
+  .product-card-img-wrapper {
+    flex-shrink: 0;
+    width: 140px;
+    max-height: 200px;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #faf8f6;
+  }
+  .product-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Сохраняет пропорции, вписывая в контейнер */
+    display: block;
+  }
+  
+  .product-card-content { flex-grow: 1; display: flex; flex-direction: column; gap: 6px; }
+  .product-card-content h3 { font-family: var(--font-display); color: var(--crimson); font-size: 1.1rem; margin: 0; line-height: 1.2; }
+  .product-card-content p { color: var(--gray-text); font-size: 0.85rem; line-height: 1.5; margin: 0; }
+  
+  .product-tag { display: inline-block; font-size: 0.65rem; font-weight: 700; padding: 3px 10px; border-radius: 12px; align-self: flex-start; margin-top: 4px; }
   .product-tag.dev { background: #fff3cd; color: #856404; }
   .product-tag.ready { background: #d4edda; color: #155724; }
-
-  .product-card.editing input,
-  .product-card.editing textarea,
-  .product-card.editing select {
-    width: 100%; padding: 4px 8px; border: 1px solid var(--crimson-soft); border-radius: 6px;
-    font-family: var(--font-sans); font-size: 0.8rem; margin-bottom: 4px; box-sizing: border-box;
-  }
-  .product-card.editing textarea { resize: vertical; min-height: 50px; }
-  .product-card.editing .save-btn {
-    background: var(--crimson); color: #fff; border: none; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; cursor: pointer;
-  }
-  .product-card.editing .save-btn:hover { background: var(--crimson-dark); }
-  .no-products { grid-column: 1 / -1; text-align: center; color: var(--gray-text); font-size: 0.9rem; padding: 20px; }
+  
+  .no-products { text-align: center; color: var(--gray-text); font-size: 0.9rem; padding: 20px; }
 
   /* ===== ДОКУМЕНТЫ + ФОРМА (ДВЕ КОЛОНКИ) ===== */
   .consent-grid {
@@ -279,6 +296,15 @@
   .rev-toggle button { border: none; background: transparent; font-family: var(--font-sans); font-size: 0.7rem; font-weight: 700; color: var(--crimson-mute); padding: 3px 11px; border-radius: 999px; cursor: pointer; transition: all 0.2s; }
   .rev-toggle button.active { background: var(--crimson); color: #fff; }
 
+  /* ВЫДЕЛЕННЫЙ БЛОК ОТЗЫВОВ */
+  .reviews-block {
+    background: linear-gradient(135deg, rgba(253, 245, 248, 0.95), rgba(255, 250, 240, 0.95));
+    border: 1px solid rgba(207, 169, 104, 0.4);
+    box-shadow: 0 4px 20px rgba(207, 169, 104, 0.15);
+  }
+  .reviews-block .section-title { color: var(--crimson-dark); }
+  .reviews-block .step-num { background: var(--gold-accent); color: #fff; }
+
   /* ===== ПОДВАЛ ===== */
   footer.site-footer { margin-top: 30px; background: var(--crimson-deep); color: #e3c3d0; padding: 30px 0 20px; font-size: 0.8rem; line-height: 1.6; }
   footer.site-footer .footer-wrap { max-width: 950px; margin: 0 auto; padding: 0 16px 0 60px; display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap: 24px; }
@@ -301,15 +327,18 @@
     .container { padding: 16px 12px 16px 40px; margin-top: 10px; border-radius: 18px; }
     body::after { left: 24px; }
     header.hero-section { flex-direction: column; align-items: center; text-align: center; }
-    .hero-photo-wrapper { width: 100%; max-width: none; margin-bottom: 12px; }
-    .hero-photo-img { max-height: 300px; }
+    .hero-photo-wrapper { width: 100%; max-width: 280px; margin-bottom: 12px; }
     .hero-content { align-items: center; }
     .studio-link-block { align-items: center; }
     section.block { padding: 16px; }
     .diag-grid-compact { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
     .consent-grid { grid-template-columns: 1fr; gap: 16px; }
-    .products-search-edit { justify-content: flex-start; width: 100%; }
-    .products-search-edit input { max-width: none; flex-grow: 1; }
+    
+    /* Адаптация продуктов под мобильные */
+    .product-card { flex-direction: column; align-items: center; text-align: center; }
+    .product-card-img-wrapper { width: 100%; max-width: 240px; height: auto; aspect-ratio: 16/9; }
+    .product-card-img { object-fit: contain; }
+    
     footer.site-footer .footer-wrap { grid-template-columns: 1fr; padding: 0 16px 0 40px; }
     footer.site-footer .footer-copyright { padding: 16px 16px 0 40px; }
   }
@@ -355,18 +384,12 @@
   <!-- ПРОДУКТЫ -->
   <section class="block" id="products-preview-section">
     <div class="products-toolbar">
-      <div class="products-filters">
-        <button class="filter-btn active" data-filter="all">Все</button>
-        <button class="filter-btn" data-filter="ready">Доступно</button>
-        <button class="filter-btn" data-filter="dev">В разработке</button>
-      </div>
-      <div class="products-search-edit">
-        <input type="text" id="productSearch" placeholder="Поиск...">
-        <button class="edit-btn" id="editModeBtn">✏️ Редактировать</button>
+      <div class="products-filters" id="productFilters">
+        <!-- Фильтры рендерятся из JS -->
       </div>
     </div>
-    <div class="products-grid" id="productsGrid">
-      <!-- Сюда будут рендериться карточки -->
+    <div class="products-list" id="productsGrid">
+      <!-- Карточки рендерятся из JS -->
     </div>
   </section>
 
@@ -480,8 +503,8 @@
     <p class="consent-note">Заявка попадёт мне на почту мгновенно. Я свяжусь с вами для подтверждения времени.</p>
   </section>
 
-  <!-- ОТЗЫВЫ (3) -->
-  <section class="block">
+  <!-- ОТЗЫВЫ (выделенный блок) -->
+  <section class="block reviews-block">
     <div class="section-header">
       <span class="step-num">★</span>
       <h2 class="section-title">Отзывы учеников</h2>
@@ -610,67 +633,69 @@ const DIAG_LINKS = [
       </a>`).join("");
 })();
 
-/* ===== ПРОДУКТЫ ===== */
+/* ===== ПРОДУКТЫ (Управление через код) ===== */
 (function initProducts() {
-  const defaultProducts = [
+  // ФИЛЬТРЫ: чтобы добавить/изменить фильтр, просто отредактируйте этот массив
+  const productFilters = [
+    { id: "all", label: "Все" },
+    { id: "ready", label: "Доступно" },
+    { id: "dev", label: "В разработке" },
+    { id: "method", label: "Методички" }
+  ];
+
+  // ПРОДУКТЫ: для добавления продукта добавьте новый объект в массив
+  // status: должен совпадать с одним из id фильтров (кроме "all")
+  // img: путь к изображению (может быть любым по пропорциям)
+  const productsData = [
     {
       id: 1,
       title: "Авторские материалы и франшиза",
-      desc: "Готовлю к запуску методические пособия, рабочие тетради, флешкарты и программу франшизы для преподавателей.",
+      desc: "Готовлю к запуску методические пособия, рабочие тетради, флешкарты и программу франшизы для преподавателей. Всё, что помогает учить без слёз и с удовольствием.",
       status: "dev",
       img: "anna-products.jpg"
     },
     {
       id: 2,
       title: "Рабочая тетрадь English A1",
-      desc: "Интерактивная тетрадь для начинающих. Скоро в продаже.",
-      status: "dev",
-      img: "https://via.placeholder.com/80/fbf1e6/a61358?text=Book"
+      desc: "Интерактивная тетрадь для начинающих. Включает упражнения на чтение, письмо и аудирование. Скоро в продаже.",
+      status: "method",
+      img: "https://via.placeholder.com/300x200/fbf1e6/a61358?text=Book+English"
     },
     {
       id: 3,
       title: "Набор флешкарт Deutsch",
-      desc: "Карточки для быстрого запоминания слов с визуальными ассоциациями.",
+      desc: "Карточки для быстрого запоминания слов с визуальными ассоциациями. Подходит для детей и взрослых.",
       status: "ready",
-      img: "https://via.placeholder.com/80/fbf1e6/a61358?text=Cards"
+      img: "https://via.placeholder.com/300x200/fbf1e6/a61358?text=Cards+Deutsch"
     }
   ];
 
-  const STORAGE_KEY = "anna_products_data_v1";
-  let products = [];
   let currentFilter = "all";
-  let currentSearch = "";
-  let isEditMode = false;
+  const filtersContainer = document.getElementById("productFilters");
+  const grid = document.getElementById("productsGrid");
 
-  function loadProducts() {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        products = JSON.parse(saved);
-      } else {
-        products = [...defaultProducts];
-        saveProducts();
-      }
-    } catch (e) {
-      products = [...defaultProducts];
-    }
+  // Рендер фильтров
+  function renderFilters() {
+    if (!filtersContainer) return;
+    filtersContainer.innerHTML = productFilters.map(f => 
+      `<button class="filter-btn ${f.id === currentFilter ? 'active' : ''}" data-filter="${f.id}">${f.label}</button>`
+    ).join("");
+    
+    filtersContainer.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        currentFilter = e.target.dataset.filter;
+        renderFilters();
+        renderProducts();
+      });
+    });
   }
 
-  function saveProducts() {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
-    } catch (e) {}
-  }
-
+  // Рендер продуктов
   function renderProducts() {
-    const grid = document.getElementById("productsGrid");
     if (!grid) return;
 
-    let filtered = products.filter(p => {
-      const matchesFilter = currentFilter === "all" || p.status === currentFilter;
-      const matchesSearch = p.title.toLowerCase().includes(currentSearch.toLowerCase()) || 
-                            p.desc.toLowerCase().includes(currentSearch.toLowerCase());
-      return matchesFilter && matchesSearch;
+    let filtered = productsData.filter(p => {
+      return currentFilter === "all" || p.status === currentFilter;
     });
 
     if (filtered.length === 0) {
@@ -679,91 +704,26 @@ const DIAG_LINKS = [
     }
 
     grid.innerHTML = filtered.map(p => {
-      if (isEditMode) {
-        return `
-          <div class="product-card editing" data-id="${p.id}">
-            <img src="${p.img}" class="product-card-img" onerror="this.src='https://via.placeholder.com/80/fbf1e6/a61358?text=Скоро'">
-            <div class="product-card-content">
-              <input type="text" value="${p.title.replace(/"/g, '&quot;')}" data-field="title">
-              <textarea data-field="desc">${p.desc}</textarea>
-              <select data-field="status">
-                <option value="dev" ${p.status === 'dev' ? 'selected' : ''}>В разработке</option>
-                <option value="ready" ${p.status === 'ready' ? 'selected' : ''}>Доступно</option>
-              </select>
-              <button class="save-btn" data-id="${p.id}">Сохранить</button>
-            </div>
+      let tagClass = p.status === 'ready' ? 'ready' : 'dev';
+      let tagText = p.status === 'ready' ? 'ДОСТУПНО' : (p.status === 'method' ? 'МЕТОДИЧКА' : 'В РАЗРАБОТКЕ');
+      
+      return `
+        <div class="product-card" data-id="${p.id}">
+          <div class="product-card-img-wrapper">
+            <img src="${p.img}" alt="${p.title}" class="product-card-img" onerror="this.src='https://via.placeholder.com/300x200/fbf1e6/a61358?text=Фото'">
           </div>
-        `;
-      } else {
-        const tagClass = p.status === 'ready' ? 'ready' : 'dev';
-        const tagText = p.status === 'ready' ? 'ДОСТУПНО' : 'В РАЗРАБОТКЕ';
-        return `
-          <div class="product-card" data-id="${p.id}">
-            <img src="${p.img}" class="product-card-img" onerror="this.src='https://via.placeholder.com/80/fbf1e6/a61358?text=Скоро'">
-            <div class="product-card-content">
-              <h3>${p.title}</h3>
-              <p>${p.desc}</p>
-              <span class="product-tag ${tagClass}">${tagText}</span>
-            </div>
+          <div class="product-card-content">
+            <h3>${p.title}</h3>
+            <p>${p.desc}</p>
+            <span class="product-tag ${tagClass}">${tagText}</span>
           </div>
-        `;
-      }
+        </div>
+      `;
     }).join("");
-
-    if (isEditMode) {
-      grid.querySelectorAll('.save-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          const id = Number(e.target.dataset.id);
-          const card = e.target.closest('.product-card');
-          const titleInput = card.querySelector('[data-field="title"]');
-          const descInput = card.querySelector('[data-field="desc"]');
-          const statusSelect = card.querySelector('[data-field="status"]');
-
-          const prod = products.find(p => p.id === id);
-          if (prod) {
-            prod.title = titleInput.value.trim() || "Без названия";
-            prod.desc = descInput.value.trim();
-            prod.status = statusSelect.value;
-            saveProducts();
-            renderProducts();
-          }
-        });
-      });
-    }
   }
 
-  function initEvents() {
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        e.target.classList.add('active');
-        currentFilter = e.target.dataset.filter;
-        renderProducts();
-      });
-    });
-
-    const searchInput = document.getElementById('productSearch');
-    if (searchInput) {
-      searchInput.addEventListener('input', (e) => {
-        currentSearch = e.target.value;
-        renderProducts();
-      });
-    }
-
-    const editBtn = document.getElementById('editModeBtn');
-    if (editBtn) {
-      editBtn.addEventListener('click', () => {
-        isEditMode = !isEditMode;
-        editBtn.classList.toggle('active', isEditMode);
-        editBtn.textContent = isEditMode ? '💾 Завершить' : '✏️ Редактировать';
-        renderProducts();
-      });
-    }
-  }
-
-  loadProducts();
+  renderFilters();
   renderProducts();
-  initEvents();
 })();
 
 /* ===== СОГЛАСИЕ ЧЕРЕЗ ЯНДЕКС.ФОРМУ + КОД ===== */
