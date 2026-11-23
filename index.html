@@ -4,18 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Анна Драчёва — Образование и развитие</title>
-
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23A61358'/%3E%3Ctext x='50%25' y='58%25' font-family='Nunito, sans-serif' font-size='42' font-weight='bold' fill='%23fcfaf8' text-anchor='middle' dominant-baseline='middle'%3E%D0%90%3C/text%3E%3C/svg%3E">
-
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23A61358'/%3E%3Ctext x='50%25' y='58%25' font-family='Quicksand, sans-serif' font-size='42' font-weight='bold' fill='%23fcfaf8' text-anchor='middle' dominant-baseline='middle'%3E%D0%90%3C/text%3E%3C/svg%3E">
 <style>
   :root {
-    /* Глубокая винно-малиновая палитра (приглушённая, под кнопку «Отправить» Яндекс.Формы) */
-    --crimson: #8E1049;        /* Основной: стал заметно темнее */
-    --crimson-dark: #6B0C37;   /* Hover: еще глубже */
-    --crimson-deep: #4A0826;   /* Градиенты: почти черный вишневый */
-    --crimson-soft: #A84D76;   /* Декор: приглушенный пыльно-розовый */
-    --crimson-mute: #7A3D5C;   /* Текст: спокойный серо-бордовый */
-    --crimson-pale: #FDF5F8;   /* Подложки: очень бледный, едва уловимый розовый */
+    --crimson: #8E1049;
+    --crimson-dark: #6B0C37;
+    --crimson-deep: #4A0826;
+    --crimson-soft: #A84D76;
+    --crimson-mute: #7A3D5C;
+    --crimson-pale: #FDF5F8;
     --gold-accent: #cfa968;
     --paper-bg: #fbf6f8;
     --white: #ffffff;
@@ -24,500 +21,255 @@
     --shadow-sm: 0 4px 15px rgba(166, 19, 88, 0.06);
     --shadow-md: 0 10px 30px rgba(166, 19, 88, 0.12);
     --radius: 16px;
+    --font-display: 'Quicksand', 'Nunito', sans-serif;
     --font-sans: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
   body {
     font-family: var(--font-sans);
     background-color: var(--paper-bg);
     color: var(--graphite);
-    line-height: 1.5;
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     position: relative;
     overflow-x: hidden;
   }
-
-  /* === ТЕТРАДНЫЙ ФОН С ЭЛЕМЕНТАМИ СПЕЦИАЛЬНОСТИ === */
-  
-  /* 1. Базовый цвет и клеточки */
   body::before {
     content: "";
     position: fixed; inset: 0; z-index: -5; pointer-events: none;
     background-image:
-      linear-gradient(rgba(166, 19, 88, 0.07) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(166, 19, 88, 0.07) 1px, transparent 1px);
+      linear-gradient(rgba(166, 19, 88, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(166, 19, 88, 0.04) 1px, transparent 1px);
     background-size: 100% 30px, 30px 100%;
     background-position: 0 0, 0 0;
   }
-
-  /* 2. Красные поля (как в тетради) */
   body::after {
     content: "";
     position: fixed; top: 0; bottom: 0; left: 40px; width: 2px; z-index: -4; pointer-events: none;
-    background-color: rgba(207, 169, 104, 0.4);
+    background-color: rgba(207, 169, 104, 0.25);
   }
-
-  /* 3. Водяные знаки (Логопедия, Психология, Педагогика) */
   .watermarks {
     position: fixed; inset: 0; z-index: -3; pointer-events: none;
     display: flex; flex-direction: column; justify-content: space-around;
     padding: 5% 10%;
-    opacity: 0.03;
+    opacity: 0.02;
   }
-  .watermark-svg {
-    width: 300px; height: 300px;
-    color: var(--crimson);
-    position: absolute;
-  }
+  .watermark-svg { width: 300px; height: 300px; color: var(--crimson); position: absolute; }
   .watermark-svg:nth-child(1) { top: 10%; right: 5%; transform: rotate(15deg); }
   .watermark-svg:nth-child(2) { top: 40%; left: 5%; transform: rotate(-10deg); }
   .watermark-svg:nth-child(3) { bottom: 10%; right: 15%; transform: rotate(25deg); }
-
-  /* 4. Мягкая текстура бумаги */
   .paper-texture {
     position: fixed; inset: 0; z-index: -2; pointer-events: none;
-    background-image: repeating-linear-gradient(
-      45deg,
-      rgba(166, 19, 88, 0.015) 0px,
-      rgba(166, 19, 88, 0.015) 1px,
-      transparent 1px,
-      transparent 6px
-    );
+    background-image: repeating-linear-gradient(45deg, rgba(166, 19, 88, 0.01) 0px, rgba(166, 19, 88, 0.01) 1px, transparent 1px, transparent 6px);
+  }
+  .decor-layer { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+  .decor-item { position: absolute; opacity: 0.06; animation: floaty 15s ease-in-out infinite; }
+  .decor-item.leaf { color: var(--crimson-soft); opacity: 0.12; }
+  .decor-item.school { color: var(--crimson); opacity: 0.06; }
+  .decor-item.letter { font-family: var(--font-display); font-weight: 700; color: var(--crimson); opacity: 0.03; }
+  @keyframes floaty { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-12px) rotate(4deg); } }
+
+  .container {
+    max-width: 950px; margin: 20px auto; padding: 24px 24px 24px 64px;
+    position: relative; z-index: 1;
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(2px);
+    border-radius: 24px;
+    box-shadow: 0 6px 30px rgba(166, 19, 88, 0.06);
   }
 
-  /* 5. Плавающий декор */
-  .decor-layer {
-    position: fixed; inset: 0; z-index: -1; pointer-events: none;
-    overflow: hidden;
-  }
-  .decor-item {
-    position: absolute;
-    opacity: 0.12;
-    animation: floaty 15s ease-in-out infinite;
-  }
-  .decor-item.leaf { color: var(--crimson-soft); opacity: 0.2; }
-  .decor-item.school { color: var(--crimson); opacity: 0.1; }
-  .decor-item.letter {
-    font-family: var(--font-sans);
-    font-weight: 700;
-    color: var(--crimson);
-    opacity: 0.05;
-  }
-  @keyframes floaty {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-12px) rotate(4deg); }
-  }
-
-  .container { max-width: 1050px; margin: 0 auto; padding: 20px 16px 20px 60px; position: relative; z-index: 1; }
-
-  /* === ШАПКА (Умная, фото без обрезки) === */
+  /* ===== ШАПКА ===== */
   header.hero-section {
-    display: flex; 
-    align-items: stretch; 
-    background: var(--white); 
-    border-radius: var(--radius);
-    box-shadow: var(--shadow-md); 
-    overflow: hidden;
-    margin-bottom: 20px; 
-    position: relative;
-    border: 1px solid rgba(207, 169, 104, 0.3);
+    display: flex; align-items: center; gap: 24px;
+    margin-bottom: 20px; padding-bottom: 20px;
+    border-bottom: 1px solid rgba(166, 19, 88, 0.08);
   }
-  
-  header.hero-section::after {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
-    background: linear-gradient(90deg, var(--crimson) 0%, var(--gold-accent) 50%, var(--crimson-dark) 100%);
-    z-index: 10;
-  }
-
-  .hero-photo-wrapper { 
-    width: 40%; 
-    max-width: 400px;
-    flex-shrink: 0; 
-    background: linear-gradient(135deg, #f8f0e8 0%, #f2e8de 100%); 
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    border-right: 1px solid #efe6da;
-  }
-
-  .hero-photo-img { 
-    max-width: 100%; 
-    max-height: 480px; 
-    width: auto;
-    height: auto;
-    object-fit: contain; 
-    border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(166, 19, 88, 0.15); 
-    border: 4px solid var(--white); 
+  .hero-photo-wrapper { width: 42%; max-width: 380px; flex-shrink: 0; display: flex; justify-content: center; }
+  .hero-photo-img {
+    max-width: 100%; max-height: 380px; width: auto; height: auto; object-fit: cover;
+    border-radius: 18px; box-shadow: 0 8px 24px rgba(166, 19, 88, 0.12);
     transition: transform 0.3s ease;
   }
+  .hero-photo-wrapper:hover .hero-photo-img { transform: scale(1.02); }
+  .hero-content { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
+  .hero-name { font-family: var(--font-display); font-size: 2.4rem; font-weight: 700; color: var(--crimson); margin-bottom: 4px; line-height: 1.1; letter-spacing: -0.5px; }
+  .hero-role { font-size: 0.85rem; color: var(--crimson-mute); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 12px; font-weight: 700; }
+  .hero-desc { font-size: 0.95rem; color: var(--graphite); margin-bottom: 14px; max-width: 480px; line-height: 1.55; }
 
-  .hero-photo-wrapper:hover .hero-photo-img {
-    transform: scale(1.02); 
+  .studio-link-block {
+    display: flex; flex-direction: column; gap: 4px; align-items: flex-start;
   }
-
-  .hero-content { 
-    flex-grow: 1; 
-    padding: 40px 48px; 
-    display: flex; 
-    flex-direction: column; 
-    justify-content: center; 
-    position: relative;
+  .studio-link-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--crimson); color: #fff; font-family: var(--font-sans); font-weight: 700; font-size: 0.8rem;
+    padding: 8px 18px; border-radius: 30px; text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
   }
-  
-  .hero-name { font-family: var(--font-sans); font-size: 2.4rem; font-weight: 700; color: var(--crimson); margin-bottom: 6px; line-height: 1.1; letter-spacing: -0.5px; }
-  .hero-role { font-size: 0.9rem; color: var(--crimson-mute); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; font-weight: 700; border-bottom: 1px solid #f0e2d4; padding-bottom: 10px; display: inline-block; }
-  .hero-desc { font-size: 0.98rem; color: var(--graphite); margin-bottom: 24px; max-width: 540px; }
+  .studio-link-btn:hover { background: var(--crimson-dark); transform: translateY(-2px); }
+  .studio-link-note { font-size: 0.72rem; color: var(--gray-text); line-height: 1.4; max-width: 340px; }
 
-  .trust-badges { display: flex; gap: 10px; flex-wrap: wrap; }
-  .badge {
-    background: #fbf7f0;
-    border: 1px solid #e8dfd1;
-    color: var(--crimson);
-    padding: 6px 14px; border-radius: 20px;
-    font-size: 0.78rem; font-weight: 700;
-    display: flex; align-items: center; gap: 6px;
-  }
-  .badge:nth-child(2) { background: #fdf5f5; border-color: #f2dada; color: var(--crimson-dark); }
-  .badge:nth-child(3) { background: var(--crimson-pale); border-color: #f3d3e4; color: var(--crimson-dark); }
-
-  /* === БЛОКИ === */
+  /* ===== БЛОКИ ===== */
   section.block {
-    background: var(--white);
-    border-radius: var(--radius);
-    padding: 24px 28px;
-    margin-bottom: 20px;
-    box-shadow: var(--shadow-sm);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    border: 1px solid rgba(207, 169, 104, 0.2);
-    position: relative;
+    background: transparent; border: none; box-shadow: none;
+    padding: 0; margin-bottom: 0; position: relative;
   }
-  section.block:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-md);
-    border-color: rgba(207, 169, 104, 0.5);
+  /* Разделитель между блоками */
+  section.block + section.block {
+    margin-top: 22px; padding-top: 22px;
+    border-top: 1px solid rgba(166, 19, 88, 0.1);
   }
-
-  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 2px solid #f6ece1; }
-  .section-title { font-family: var(--font-sans); font-size: 1.35rem; font-weight: 700; color: var(--graphite); letter-spacing: -0.3px; }
-
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .section-title { font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; color: var(--crimson); letter-spacing: -0.2px; }
   .step-num {
-    background: linear-gradient(135deg, var(--crimson) 0%, var(--crimson-soft) 100%);
-    color: white;
-    width: 30px; height: 30px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 700; font-size: 0.9rem;
-    box-shadow: 0 3px 8px rgba(166, 19, 88, 0.25);
-    flex-shrink: 0;
+    background: var(--crimson-pale); color: var(--crimson); width: 26px; height: 26px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.82rem; flex-shrink: 0;
+  }
+  .section-lead { color: var(--gray-text); font-size: 0.9rem; margin-bottom: 12px; }
+
+  /* ===== ПРОДУКТЫ ===== */
+  .products-preview-block { display: flex; gap: 24px; align-items: stretch; }
+  .products-preview-img { flex-shrink: 0; width: 180px; height: 180px; border-radius: 14px; object-fit: cover; box-shadow: 0 4px 15px rgba(166, 19, 88, 0.08); }
+  .products-preview-text { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
+  .products-preview-text h3 { font-family: var(--font-display); color: var(--crimson); font-size: 1.15rem; margin-bottom: 8px; }
+  .products-preview-text p { color: var(--gray-text); font-size: 0.92rem; line-height: 1.6; margin-bottom: 12px; }
+  .products-preview-tag { display: inline-block; background: var(--crimson-pale); color: var(--crimson-dark); font-size: 0.72rem; font-weight: 700; padding: 4px 12px; border-radius: 20px; letter-spacing: 0.5px; align-self: flex-start; }
+  @media (max-width: 600px) {
+    .products-preview-block { flex-direction: column; align-items: center; text-align: center; }
+    .products-preview-img { width: 100%; max-width: 240px; height: 240px; }
+    .products-preview-tag { align-self: center; }
   }
 
-  .section-lead { color: var(--gray-text); font-size: 0.92rem; margin-bottom: 16px; }
+  /* ===== ДОКУМЕНТЫ ===== */
+  .compact-docs { display: flex; flex-direction: column; gap: 0; }
+  .compact-doc-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding: 9px 0; border-bottom: 1px solid rgba(166, 19, 88, 0.07); }
+  .compact-doc-row:last-child { border-bottom: none; }
+  .compact-doc-title { flex-grow: 1; min-width: 160px; font-weight: 600; color: var(--crimson); font-size: 0.88rem; line-height: 1.3; }
+  .compact-doc-title small { display: block; font-weight: 400; color: #999; font-size: 0.72rem; }
+  .compact-doc-open { flex-shrink: 0; font-family: var(--font-sans); font-weight: 700; font-size: 0.72rem; color: var(--crimson); border: 1px solid var(--crimson); border-radius: 20px; padding: 5px 13px; text-decoration: none; transition: background 0.2s, color 0.2s; }
+  .compact-doc-open:hover { background: var(--crimson); color: #fff; }
+  .compact-doc-check { display: flex; align-items: center; gap: 6px; cursor: pointer; user-select: none; flex-shrink: 0; }
+  .compact-doc-check input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .compact-doc-box { width: 19px; height: 19px; border: 2px solid #dcc9b6; border-radius: 5px; background: #fff; display: flex; align-items: center; justify-content: center; transition: background 0.15s, border-color 0.15s; }
+  .compact-doc-check input:checked + .compact-doc-box { background: var(--crimson); border-color: var(--crimson); }
+  .compact-doc-check input:checked + .compact-doc-box::after { content: "✓"; color: #fff; font-size: 0.66rem; font-weight: 700; }
 
-  /* === БЛОК ДОКУМЕНТОВ СО ССЫЛКАМИ (вместо первой формы) === */
-  .doc-list {
-    max-width: 700px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    position: relative;
-    padding: 6px 0;
-  }
-  .doc-list::before {
-    content: "";
-    position: absolute;
-    left: 34px; top: 12px; bottom: 12px;
-    width: 2px;
-    background: rgba(166, 19, 88, 0.12);
-    z-index: 0;
-  }
-  .doc-card {
-    position: relative;
-    z-index: 1;
-    background: #fcfbfa;
-    border: 1px solid #e9e1d8;
-    border-radius: 16px;
-    padding: 20px 22px;
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    flex-wrap: wrap;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-  }
-  .doc-card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-    border-color: rgba(207, 169, 104, 0.5);
-  }
-  .doc-card--accent {
-    border: 2px solid #e79ec0;
-    background: #fefbfc;
-  }
-  .doc-info { flex-grow: 1; min-width: 0; }
-  .doc-title {
-    color: var(--crimson);
-    font-size: 1.12rem;
-    font-weight: 700;
-    line-height: 1.35;
-    margin-bottom: 8px;
-  }
-  .doc-desc {
-    font-family: 'Courier New', ui-monospace, monospace;
-    color: #7c7c7c;
-    font-size: 0.86rem;
-    line-height: 1.55;
-    margin-bottom: 14px;
-  }
-  .doc-check { display: inline-flex; align-items: center; gap: 10px; cursor: pointer; user-select: none; position: relative; }
-  .doc-check input { position: absolute; opacity: 0; width: 0; height: 0; }
-  .doc-checkbox {
-    width: 26px; height: 26px;
-    border: 2px solid #dcc9b6;
-    border-radius: 8px;
-    background: #fff;
-    display: inline-flex; align-items: center; justify-content: center;
-    transition: background 0.15s, border-color 0.15s;
-    flex-shrink: 0;
-  }
-  .doc-check input:checked + .doc-checkbox { background: var(--crimson); border-color: var(--crimson); }
-  .doc-check input:checked + .doc-checkbox::after { content: "✓"; color: #fff; font-size: 0.9rem; font-weight: 700; }
-  .doc-check-label {
-    font-family: 'Courier New', ui-monospace, monospace;
-    color: #8b8b8b;
-    font-size: 0.8rem;
-    letter-spacing: 1px;
-  }
-  .doc-open {
-    flex-shrink: 0;
-    margin-left: auto;
-    display: inline-block;
-    font-family: 'Courier New', ui-monospace, monospace;
-    font-weight: 700;
-    font-size: 0.85rem;
-    letter-spacing: 2px;
-    color: var(--crimson);
-    background: transparent;
-    border: 2px solid var(--crimson);
-    border-radius: 999px;
-    padding: 12px 26px;
-    text-decoration: none;
-    transition: background 0.2s, color 0.2s, transform 0.15s;
-    white-space: nowrap;
-  }
-  .doc-open:hover { background: var(--crimson); color: #fff; transform: translateY(-1px); }
-  .doc-open--solid { background: var(--crimson); color: #fff; }
-  .doc-open--solid:hover { background: var(--crimson-dark); border-color: var(--crimson-dark); }
-  .doc-status {
-    max-width: 700px;
-    margin: 12px auto 0;
-    text-align: center;
-    font-size: 0.85rem;
-    font-weight: 700;
-    min-height: 1.2em;
-  }
-  .doc-status.ok { color: var(--crimson-dark); }
-  .doc-status.err { color: #c62828; }
+  .compact-doc-status { margin-top: 8px; text-align: left; font-size: 0.8rem; font-weight: 600; min-height: 1.2em; }
+  .compact-doc-status.ok { color: var(--crimson-dark); }
+  .compact-doc-status.err { color: #c62828; }
 
-  /* === БЛОК СОГЛАСИЯ === */
-  .consent-note {
-    font-size: 0.78rem;
-    color: var(--gray-text);
-    margin-top: 10px;
-    line-height: 1.4;
+  /* ===== ФОРМА СОГЛАСИЯ (iframe) ===== */
+  .consent-form-block { display: none; margin-top: 14px; }
+  .consent-form-block.visible { display: block; animation: fadeIn 0.35s; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .consent-form-block .form-frame { display: flex; justify-content: center; }
+  .consent-form-block iframe { width: 100%; max-width: 650px; min-height: 520px; border: none; border-radius: 12px; background: #fff; }
+  .confirm-submit-btn {
+    display: block; width: 100%; max-width: 650px; margin: 10px auto 0;
+    background: var(--crimson); color: #fff; font-family: var(--font-sans); font-weight: 700; font-size: 0.9rem;
+    border: none; padding: 12px; border-radius: 12px; cursor: pointer; transition: background 0.2s;
+  }
+  .confirm-submit-btn:hover { background: var(--crimson-dark); }
+
+  .consent-record { display: none; margin-top: 12px; padding: 12px 14px; background: rgba(127, 176, 105, 0.12); border-radius: 12px; font-size: 0.82rem; color: #4a7a3a; line-height: 1.5; }
+  .consent-record.visible { display: block; }
+  .consent-record b { color: #3d6b2f; }
+
+  /* ===== КОПИЛКА ===== */
+  .kopilka-block { display: none; margin-top: 16px; }
+  .kopilka-block.visible { display: block; animation: fadeIn 0.4s; }
+  .kopilka-item { display: flex; gap: 24px; align-items: center; justify-content: space-between; padding: 14px 0; }
+  .kopilka-info { flex-grow: 1; max-width: 60%; }
+  .kopilka-info h3 { font-family: var(--font-display); color: var(--crimson); font-size: 1.1rem; margin-bottom: 6px; }
+  .kopilka-info p { color: var(--gray-text); font-size: 0.88rem; line-height: 1.55; margin-bottom: 12px; }
+  .kopilka-btn { display: inline-block; background: var(--crimson); color: #fff; font-weight: 700; font-size: 0.82rem; padding: 9px 22px; border-radius: 999px; text-decoration: none; transition: background 0.2s; }
+  .kopilka-btn:hover { background: var(--crimson-dark); }
+  .kopilka-media { flex-shrink: 0; width: 170px; }
+  .kopilka-media img, .kopilka-media video { width: 100%; height: auto; border-radius: 14px; object-fit: cover; display: block; box-shadow: 0 4px 14px rgba(166, 19, 88, 0.12); }
+  @media (max-width: 600px) {
+    .kopilka-item { flex-direction: column-reverse; align-items: flex-start; gap: 12px; }
+    .kopilka-info { max-width: 100%; }
+    .kopilka-media { width: 100%; max-width: 240px; align-self: center; }
   }
 
-  /* === ЯНДЕКС.ФОРМА === */
-  .form-frame {
-    background: transparent;
-    border: none;
-    padding: 0;
-    display: flex; justify-content: center;
-    overflow: hidden;
-  }
-  iframe.yandex-form {
-    width: 100%;
-    max-width: 700px;
-    height: 480px;
-    border: 1px solid #efe6da;
-    border-radius: 12px;
-    background: #ffffff;
-  }
+  /* ===== ДИАГНОСТИКА ===== */
+  .diag-grid-compact { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 8px; }
+  .diag-item-compact { background: rgba(255,255,255,0.6); border: 1px solid rgba(166, 19, 88, 0.08); border-radius: 10px; padding: 9px 11px; display: flex; align-items: center; gap: 9px; transition: border-color 0.2s, background 0.2s; text-decoration: none; color: var(--graphite); }
+  .diag-item-compact:hover { border-color: var(--crimson); background: #fff; }
+  .diag-item-compact .diag-emoji { font-size: 1.2rem; flex-shrink: 0; }
+  .diag-item-compact .diag-text { flex-grow: 1; min-width: 0; }
+  .diag-item-compact .diag-text b { display: block; font-size: 0.82rem; color: var(--crimson); margin-bottom: 1px; }
+  .diag-item-compact .diag-text span { font-size: 0.7rem; color: #888; }
+  .diag-item-compact .diag-arrow { color: var(--crimson-soft); font-weight: 700; flex-shrink: 0; font-size: 0.8rem; }
 
-  /* === ДИАГНОСТИКА === */
-  .diag-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px; }
-  .diag-card {
-    border: 1px solid #efe6da;
-    border-radius: 12px;
-    padding: 16px;
-    display: flex; flex-direction: column;
-    height: 100%;
-    transition: all 0.2s;
-    background: white;
-    position: relative;
-    overflow: hidden;
-  }
-  .diag-card::before {
-    content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
-    background: linear-gradient(180deg, var(--gold-accent) 0%, var(--crimson) 100%);
-    transform: scaleY(0); transition: transform 0.2s;
-  }
-  .diag-card:hover {
-    border-color: var(--gold-accent);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(166, 19, 88, 0.08);
-  }
-  .diag-card:hover::before { transform: scaleY(1); }
+  /* ===== ЯНДЕКС.ФОРМА (запись) ===== */
+  .form-frame { background: transparent; padding: 0; display: flex; justify-content: center; }
+  iframe.yandex-form { width: 100%; max-width: 650px; height: 520px; border: none; border-radius: 12px; background: #ffffff; }
+  .consent-note { font-size: 0.75rem; color: var(--gray-text); margin-top: 8px; text-align: center; }
 
-  .lang-flag { font-size: 1.5rem; margin-bottom: 8px; }
-  .lang-name { font-weight: 700; font-size: 1rem; margin-bottom: 4px; color: var(--graphite); }
-  .lang-desc { font-size: 0.84rem; color: var(--gray-text); flex-grow: 1; margin-bottom: 12px; line-height: 1.4; }
-
-  .btn-action {
-    display: block; width: 100%; text-align: center;
-    background: var(--crimson); color: white;
-    padding: 10px; border-radius: 8px;
-    text-decoration: none; font-weight: 700; font-size: 0.84rem;
-    transition: background 0.2s, transform 0.15s;
-  }
-  .btn-action:hover { background: var(--crimson-dark); transform: translateY(-1px); }
-
-  /* === ЛЕНТЫ === */
-  .scroll-container { overflow-x: auto; padding-bottom: 10px; scrollbar-width: thin; scrollbar-color: #e6d3c2 transparent; }
-  .scroll-container::-webkit-scrollbar { height: 6px; }
-  .scroll-container::-webkit-scrollbar-thumb { background: #e6d3c2; border-radius: 3px; }
-  .items-row { display: flex; gap: 16px; width: max-content; }
-  .item-card {
-    width: 290px; background: #fff; border: 1px solid #efe6da;
-    border-radius: 12px; padding: 16px;
-    box-shadow: 0 2px 8px rgba(166, 19, 88, 0.03);
-  }
-
-  .rev-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
-  .rev-avatar {
-    width: 38px; height: 38px; border-radius: 50%;
-    background: var(--crimson-pale); color: var(--crimson);
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 700; font-size: 0.95rem; border: 1px solid #f3d3e4;
-  }
+  /* ===== ЛЕНТЫ ===== */
+  .scroll-container { overflow-x: auto; padding-bottom: 8px; scrollbar-width: thin; scrollbar-color: #e6d3c2 transparent; }
+  .scroll-container::-webkit-scrollbar { height: 4px; }
+  .scroll-container::-webkit-scrollbar-thumb { background: #e6d3c2; border-radius: 2px; }
+  .items-row { display: flex; gap: 14px; width: max-content; }
+  .item-card { width: 260px; background: transparent; padding: 0; }
+  .rev-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .rev-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--crimson-pale); color: var(--crimson); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; }
   .rev-info { flex-grow: 1; }
-  .rev-name { font-weight: 700; font-size: 0.9rem; display: block; }
-  .rev-stars { color: var(--gold-accent); font-size: 0.8rem; }
-  .rev-text { font-size: 0.86rem; color: #555; font-style: italic; line-height: 1.5; }
+  .rev-name { font-weight: 700; font-size: 0.85rem; display: block; }
+  .rev-stars { color: var(--gold-accent); font-size: 0.75rem; }
+  .rev-text { font-size: 0.83rem; color: #555; font-style: italic; line-height: 1.45; margin-top: 4px; min-height: 50px; }
+  .vid-preview { aspect-ratio: 16/9; background: var(--crimson-pale); border-radius: 10px; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; color: var(--crimson); font-size: 1.2rem; position: relative; overflow: hidden; cursor: pointer; transition: background 0.2s; }
+  .vid-preview:hover { background: #f5e6ee; }
+  .play-icon { opacity: 0.8; transition: 0.2s; }
+  .vid-preview:hover .play-icon { opacity: 1; transform: scale(1.1); }
+  .vid-title { font-weight: 700; font-size: 0.85rem; margin-bottom: 2px; }
+  .vid-meta { font-size: 0.72rem; color: #888; }
+  .rev-toggle { display: inline-flex; background: rgba(166,19,88,0.06); border-radius: 999px; padding: 2px; margin-bottom: 6px; }
+  .rev-toggle button { border: none; background: transparent; font-family: var(--font-sans); font-size: 0.7rem; font-weight: 700; color: var(--crimson-mute); padding: 3px 11px; border-radius: 999px; cursor: pointer; transition: all 0.2s; }
+  .rev-toggle button.active { background: var(--crimson); color: #fff; }
 
-  .vid-preview {
-    aspect-ratio: 16/9;
-    background: linear-gradient(135deg, var(--crimson) 0%, var(--crimson-deep) 100%);
-    border-radius: 8px;
-    margin-bottom: 12px; display: flex; align-items: center; justify-content: center;
-    color: white; font-size: 1.4rem; position: relative; overflow: hidden;
-  }
-  .play-icon { opacity: 0.9; transition: 0.2s; cursor: pointer; }
-  .vid-preview:hover .play-icon { opacity: 1; transform: scale(1.15); }
-  .vid-title { font-weight: 700; font-size: 0.9rem; margin-bottom: 3px; }
-  .vid-meta { font-size: 0.78rem; color: #888; }
-
-  /* === КОНТАКТЫ === */
-  .contacts-flex {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); 
-    gap: 20px;
-    justify-items: center;
-    margin-top: 10px;
-  }
-  .qr-item { text-align: center; width: 100%; max-width: 140px; }
-  .qr-box {
-    width: 100%; aspect-ratio: 1/1; 
-    border: 1px solid #efe6da;
-    border-radius: 10px;
-    padding: 8px; background: white;
-    margin: 0 auto 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    display: flex; align-items: center; justify-content: center;
-    overflow: hidden;
-  }
+  /* ===== КОНТАКТЫ ===== */
+  .contacts-flex { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; justify-items: center; margin-top: 10px; }
+  .qr-item { text-align: center; width: 100%; max-width: 120px; }
+  .qr-box { width: 100%; aspect-ratio: 1/1; border: 1px solid rgba(166,19,88,0.1); border-radius: 10px; padding: 6px; background: #fff; margin: 0 auto 6px; display: flex; align-items: center; justify-content: center; overflow: hidden; transition: all 0.2s; }
+  .qr-box:hover { border-color: var(--crimson); transform: translateY(-2px); }
   .qr-box img { width: 100%; height: 100%; object-fit: contain; display: block; }
-  .qr-label { font-weight: 700; font-size: 0.82rem; display: block; margin-bottom: 3px; color: var(--graphite); }
-  .qr-link { font-size: 0.78rem; color: var(--crimson); text-decoration: none; display: inline-block; }
+  .qr-label { font-weight: 700; font-size: 0.75rem; display: block; margin-bottom: 2px; color: var(--graphite); }
+  .qr-link { font-size: 0.72rem; color: var(--crimson); text-decoration: none; display: inline-block; }
   .qr-link:hover { text-decoration: underline; }
 
-  a.qr-box { text-decoration: none; transition: all 0.2s; display: block; width: 100%; margin: 0 auto 8px; }
-  a.qr-box:hover {
-    border-color: var(--gold-accent);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(166, 19, 88, 0.12);
-  }
+  /* ===== ПОДВАЛ ===== */
+  footer.site-footer { margin-top: 30px; background: var(--crimson-deep); color: #e3c3d0; padding: 30px 0 20px; font-size: 0.8rem; line-height: 1.6; }
+  footer.site-footer .footer-wrap { max-width: 950px; margin: 0 auto; padding: 0 16px 0 60px; display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 24px; }
+  footer.site-footer h5 { font-family: var(--font-display); font-size: 0.72rem; letter-spacing: 1px; text-transform: uppercase; color: #fff; margin-bottom: 8px; font-weight: 700; }
+  footer.site-footer p { font-size: 0.8rem; line-height: 1.6; font-weight: 600; }
+  footer.site-footer a { color: #f3a8c4; text-decoration: none; display: inline-block; margin-bottom: 4px; }
+  footer.site-footer a:hover { color: #fff; text-decoration: underline; }
+  footer.site-footer .footer-copyright { max-width: 950px; margin: 20px auto 0; padding: 16px 16px 0 60px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; font-size: 0.75rem; color: #c98ba4; }
 
-  footer {
-    margin-top: 30px; padding: 20px 0 10px; text-align: center;
-    font-size: 0.84rem; color: var(--gray-text); border-top: 1px solid rgba(166, 19, 88, 0.1);
-  }
-  details summary { cursor: pointer; font-weight: 700; color: var(--crimson); margin-bottom: 10px; list-style: none; }
-  details summary::after { content: " ▾"; font-size: 0.8em; }
-  .legal-docs {
-    background: white; padding: 20px; border-radius: 10px;
-    text-align: left; margin-top: 10px; border: 1px solid #efe6da;
-    font-size: 0.84rem; color: #555;
-  }
-  .legal-links a { color: var(--crimson); text-decoration: none; margin-right: 12px; font-weight: 700; }
-
-  /* === МОБИЛЬНАЯ АДАПТАЦИЯ === */
   @media (max-width: 768px) {
-    .container { padding: 16px 12px 16px 40px; }
+    .container { padding: 16px 12px 16px 40px; margin-top: 10px; border-radius: 18px; }
     body::after { left: 24px; }
-    
-    header.hero-section { flex-direction: column; }
-    
-    .hero-photo-wrapper { 
-      width: 100%; 
-      max-width: none;
-      height: auto;
-      min-height: 280px; 
-      padding: 20px;
-      border-right: none;
-      border-bottom: 1px solid #efe6da;
-    }
-    
-    .hero-photo-img {
-      max-height: 350px; 
-    }
-    
-    .hero-content { padding: 24px 20px; }
-    .hero-name { font-size: 2rem; }
-    .hero-role { margin-bottom: 12px; }
-    .hero-desc { font-size: 0.92rem; margin-bottom: 18px; }
-    
-    section.block { padding: 18px 16px; margin-bottom: 16px; }
-    
-    iframe.yandex-form { height: 500px; }
-
-    .doc-list::before { left: 26px; }
-    .doc-card { padding: 16px; gap: 12px; }
-    .doc-open { padding: 10px 20px; }
-    
+    header.hero-section { flex-direction: column; align-items: center; text-align: center; }
+    .hero-photo-wrapper { width: 100%; max-width: none; margin-bottom: 12px; }
+    .hero-photo-img { max-height: 300px; }
+    .hero-content { align-items: center; }
+    .studio-link-block { align-items: center; }
+    .diag-grid-compact { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
     .contacts-flex { gap: 8px; }
-    .qr-box { padding: 4px; border-radius: 6px; }
-    .qr-label { font-size: 0.7rem; }
-    .qr-link { font-size: 0.7rem; }
+    footer.site-footer .footer-wrap { grid-template-columns: 1fr; padding: 0 16px 0 40px; }
+    footer.site-footer .footer-copyright { padding: 16px 16px 0 40px; }
   }
 </style>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<!-- Фоновые слои -->
 <div class="watermarks">
-  <!-- Символ логопедии / речи (пузырь диалога) -->
   <svg class="watermark-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
-  <!-- Символ психологии (мозг/полушария) -->
   <svg class="watermark-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a9 9 0 0 0-9 9c0 2.4 1.2 4.5 3 5.7V21h12v-4.3c1.8-1.2 3-3.3 3-5.7a9 9 0 0 0-9-9zm-2 14h4v2h-4v-2z"/></svg>
-  <!-- Символ педагогики (глобус) -->
   <svg class="watermark-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 0 1-8-8 8 8 0 0 1 8-8 8 8 0 0 1 8 8 8 8 0 0 1-8 8zm0-14c-2.2 0-4 1.8-4 4h2c0-1.1.9-2 2-2s2 .9 2 2h2c0-2.2-1.8-4-4-4zm-2 6h4v2h-4v-2z"/></svg>
 </div>
 <div class="paper-texture"></div>
@@ -525,11 +277,11 @@
 
 <div class="container">
 
+  <!-- ШАПКА -->
   <header class="hero-section">
     <div class="hero-photo-wrapper">
       <img src="anna.jpg" alt="Анна Драчёва" class="hero-photo-img">
     </div>
-    
     <div class="hero-content">
       <h1 class="hero-name">Анна Драчёва</h1>
       <span class="hero-role">Преподаватель · Логопед · Психолог</span>
@@ -537,134 +289,124 @@
         Профессиональная диагностика знаний, индивидуальные занятия и консультации для детей и взрослых.
         Работаю официально, гарантирую качество образования и полную безопасность данных.
       </p>
-      <div class="trust-badges">
-        <span class="badge"> Эксперт-практик</span>
-        <span class="badge">🔒 Безопасность данных</span>
-        <span class="badge">✨ Индивидуальный подход</span>
+      <div class="studio-link-block">
+        <a href="https://annfromcrimea.ru/" target="_blank" rel="noopener" class="studio-link-btn">
+          Сайт студии →
+        </a>
+        <span class="studio-link-note">
+          Здесь можно записаться к другим преподавателям и пройти курсы студии.
+        </span>
       </div>
     </div>
   </header>
 
+  <!-- ПРОДУКТЫ -->
+  <section class="block" id="products-preview-section">
+    <div class="section-header">
+      <span class="step-num">🛍️</span>
+      <h2 class="section-title">Мои продукты и франшизы</h2>
+    </div>
+    <div class="products-preview-block">
+      <img src="anna-products.jpg" alt="Будущие продукты" class="products-preview-img" onerror="this.src='https://via.placeholder.com/180/fbf1e6/a61358?text=Скоро'">
+      <div class="products-preview-text">
+        <h3>Авторские материалы и франшиза</h3>
+        <p>
+          Готовлю к запуску методические пособия, рабочие тетради, флешкарты и программу франшизы
+          для преподавателей. Всё, что помогает учить без слёз и с удовольствием.
+          Скоро здесь появятся ссылки на покупку и подробные описания.
+        </p>
+        <span class="products-preview-tag">В РАЗРАБОТКЕ</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ДОКУМЕНТЫ + ФОРМА СОГЛАСИЯ -->
   <section class="block" id="consent-section">
     <div class="section-header">
       <span class="step-num">1</span>
       <h2 class="section-title">Согласие на обработку данных</h2>
     </div>
     <p class="section-lead">
-      Согласно ФЗ-152 «О персональных данных», доступ к записи возможен только после вашего официального согласия.
-      Ознакомьтесь с документами ниже — каждый открывается в новой вкладке.
-      Для открытия записи отметьте «Ознакомлен(а)» в политике конфиденциальности и согласии на обработку персональных данных;
-      остальные документы — по желанию и на запись не влияют.
+      Ознакомьтесь с документами, отметьте оба пункта, заполните и отправьте форму согласия — после этого откроются запись и копилка.
     </p>
 
-    <div class="doc-list" id="docList">
-
-      <div class="doc-card">
-        <div class="doc-info">
-          <h3 class="doc-title">Политика конфиденциальности</h3>
-          <p class="doc-desc">основной документ оператора · обновлена 04.09.2026</p>
-          <label class="doc-check">
-            <input type="checkbox" data-doc="policy">
-            <span class="doc-checkbox" aria-hidden="true"></span>
-            <span class="doc-check-label">ОЗНАКОМЛЕН(А)</span>
-          </label>
-        </div>
-        <a class="doc-open" href="https://disk.yandex.ru/i/PLJkomvneJvQgA" target="_blank" rel="noopener">ОТКРЫТЬ ↗</a>
+    <div class="compact-docs" id="compactDocList">
+      <div class="compact-doc-row">
+        <div class="compact-doc-title">Политика конфиденциальности <small>основной документ</small></div>
+        <a class="compact-doc-open" href="https://disk.yandex.ru/i/PLJkomvneJvQgA" target="_blank" rel="noopener">ОТКРЫТЬ ↗</a>
+        <label class="compact-doc-check">
+          <input type="checkbox" data-doc="policy">
+          <span class="compact-doc-box"></span>
+        </label>
       </div>
-
-      <div class="doc-card">
-        <div class="doc-info">
-          <h3 class="doc-title">Согласие на обработку персональных данных</h3>
-          <p class="doc-desc">цели, состав данных, порядок отзыва · ст. 9 152-ФЗ</p>
-          <label class="doc-check">
-            <input type="checkbox" data-doc="pd">
-            <span class="doc-checkbox" aria-hidden="true"></span>
-            <span class="doc-check-label">ОЗНАКОМЛЕН(А)</span>
-          </label>
-        </div>
-        <a class="doc-open" href="https://disk.yandex.ru/i/jHvwJgA6Qa_SQQ" target="_blank" rel="noopener">ОТКРЫТЬ ↗</a>
+      <div class="compact-doc-row">
+        <div class="compact-doc-title">Согласие на обработку ПД <small>ст. 9 152-ФЗ</small></div>
+        <a class="compact-doc-open" href="https://disk.yandex.ru/i/jHvwJgA6Qa_SQQ" target="_blank" rel="noopener">ОТКРЫТЬ ↗</a>
+        <label class="compact-doc-check">
+          <input type="checkbox" data-doc="pd">
+          <span class="compact-doc-box"></span>
+        </label>
       </div>
-
-      <div class="doc-card">
-        <div class="doc-info">
-          <h3 class="doc-title">Согласие на получение рассылок</h3>
-          <p class="doc-desc">отдельное согласие на письма и анонсы</p>
-          <label class="doc-check">
-            <input type="checkbox" data-doc="mail">
-            <span class="doc-checkbox" aria-hidden="true"></span>
-            <span class="doc-check-label">ОЗНАКОМЛЕН(А)</span>
-          </label>
-        </div>
-        <a class="doc-open" href="https://disk.yandex.ru/i/KFDTpe7tn6iB7Q" target="_blank" rel="noopener">ОТКРЫТЬ ↗</a>
-      </div>
-
-      <div class="doc-card">
-        <div class="doc-info">
-          <h3 class="doc-title">Согласие на использование отзывов, материалов, результатов и записей занятий</h3>
-          <p class="doc-desc">если захотите поделиться результатами</p>
-          <label class="doc-check">
-            <input type="checkbox" data-doc="reviews">
-            <span class="doc-checkbox" aria-hidden="true"></span>
-            <span class="doc-check-label">ОЗНАКОМЛЕН(А)</span>
-          </label>
-        </div>
-        <a class="doc-open" href="https://disk.yandex.ru/i/qGcWh-DQt5JqBQ" target="_blank" rel="noopener">ОТКРЫТЬ ↗</a>
-      </div>
-
-      <div class="doc-card doc-card--accent">
-        <div class="doc-info">
-          <h3 class="doc-title">Договор-оферта</h3>
-          <p class="doc-desc">условия оплаты, подписки и возврата</p>
-          <label class="doc-check">
-            <input type="checkbox" data-doc="offer">
-            <span class="doc-checkbox" aria-hidden="true"></span>
-            <span class="doc-check-label">ОЗНАКОМЛЕН(А)</span>
-          </label>
-        </div>
-        <a class="doc-open doc-open--solid" href="https://disk.yandex.ru/i/9K4yyFwGBGg86A" target="_blank" rel="noopener">ОТКРЫТЬ ↗</a>
-      </div>
-
     </div>
 
-    <div class="doc-status" id="docStatus" role="status"></div>
+    <div class="compact-doc-status" id="docStatus" role="status"></div>
+
+    <!-- Встроенная форма согласия -->
+    <div class="consent-form-block" id="consentFormBlock">
+      <div class="form-frame">
+        <script src="https://forms.yandex.ru/_static/embed.js"></script>
+        <iframe src="https://forms.yandex.ru/u/6b03fe9aaeb3527d7b73b06c?iframe=1" frameborder="0" name="ya-form-6b03fe9aaeb3527d7b73b06c" width="650" title="Форма согласия на обработку персональных данных"></iframe>
+      </div>
+      <button class="confirm-submit-btn" id="cfSubmit">Я отправил(а) форму — открыть доступ</button>
+      <div class="compact-doc-status" id="cfError" style="color:#c62828; margin-top:8px;"></div>
+    </div>
+
+    <!-- Запись о согласии -->
+    <div class="consent-record" id="consentRecord">
+      ✅ Согласие зафиксировано: № <b id="recNo">—</b> от <b id="recAt">—</b>. Копия сохранена на этом устройстве.
+    </div>
+
+    <!-- КОПИЛКА -->
+    <div class="kopilka-block" id="kopilkaBlock">
+      <div class="kopilka-item">
+        <div class="kopilka-info">
+          <h3>🧶 Рукодельная копилка Анны</h3>
+          <p>
+            Доступ к авторским описаниям, схемам и секретам вязания. Объединяю страсть к обучению и рукоделию — чтобы любая рукодельница смогла повторить мои работы. Вяжу с 10 лет.
+          </p>
+          <a class="kopilka-btn" href="https://auth.robokassa.ru/merchant/Invoice/Ct_TAZRhQ0CD6qRyF-emZQ" target="_blank" rel="noopener">Перейти в копилку →</a>
+        </div>
+        <div class="kopilka-media">
+          <img src="kopilka-preview.jpg" alt="Рукодельная копилка" onerror="this.src='https://via.placeholder.com/170/fbf1e6/a61358?text=Копилка'">
+        </div>
+      </div>
+    </div>
   </section>
 
+  <!-- ДИАГНОСТИКА -->
   <section class="block">
     <div class="section-header">
       <span class="step-num">2</span>
       <h2 class="section-title">Диагностика уровня знаний</h2>
     </div>
-    <p class="section-lead">
-      Выберите направление. Экспресс-тест займёт 5–10 минут. Результат вы увидите сразу, а подробный отчёт придёт вам на почту и мне для анализа.
-    </p>
-    <div class="diag-grid" id="diagGrid"></div>
+    <div class="diag-grid-compact" id="diagGridCompact"></div>
   </section>
 
+  <!-- ЗАПИСЬ НА ЛИЧНЫЕ ЗАНЯТИЯ -->
   <section class="block" id="booking-section" style="display: none;">
     <div class="section-header">
       <span class="step-num">3</span>
-      <h2 class="section-title">Запись на занятие</h2>
+      <h2 class="section-title">Запись на личные занятия</h2>
     </div>
-    <p class="section-lead">
-      Согласие получено. Выберите удобное время — мы обсудим детали индивидуально и подтвердим запись.
-    </p>
-
+    <p class="section-lead">Согласие получено. Выберите удобное время — я свяжусь с вами для подтверждения.</p>
     <div class="form-frame">
-      <iframe
-        class="yandex-form"
-        src="https://forms.yandex.ru/u/6ac750871f1eb5b511148acd?iframe=1"
-        frameborder="0"
-        name="ya-form-6ac750871f1eb5b511148acd"
-        title="Форма записи на занятие"
-      ></iframe>
+      <script src="https://forms.yandex.ru/_static/embed.js"></script>
+      <iframe src="https://forms.yandex.ru/u/6ac750871f1eb5b511148acd?iframe=1" frameborder="0" name="ya-form-6ac750871f1eb5b511148acd" width="650" class="yandex-form" title="Форма записи на личные занятия"></iframe>
     </div>
-
-    <p class="consent-note" style="text-align:center;">
-      Заявка попадёт мне на почту мгновенно.<br>
-      Я свяжусь с вами для подтверждения времени.
-    </p>
+    <p class="consent-note">Заявка попадёт мне на почту мгновенно. Я свяжусь с вами для подтверждения времени.</p>
   </section>
 
+  <!-- ОТЗЫВЫ (3) -->
   <section class="block">
     <div class="section-header">
       <span class="step-num">★</span>
@@ -674,20 +416,24 @@
       <div class="items-row">
         <div class="item-card">
           <div class="rev-header"><div class="rev-avatar">М</div><div class="rev-info"><span class="rev-name">Марина К.</span><span class="rev-stars">★★★★★</span></div></div>
-          <p class="rev-text">"Анна — настоящий профессионал. Сын стал лучше понимать английский дома, исчез страх ошибок."</p>
+          <div class="rev-toggle" data-rev="1"><button class="active" data-mode="before">До</button><button data-mode="after">После</button></div>
+          <p class="rev-text" data-text="1">"Сын боялся английского, путался в буквах и отказывался читать вслух."</p>
         </div>
         <div class="item-card">
           <div class="rev-header"><div class="rev-avatar">О</div><div class="rev-info"><span class="rev-name">Ольга В.</span><span class="rev-stars">★★★★★</span></div></div>
-          <p class="rev-text">"Консультация помогла разобраться с психологическими барьерами перед изучением языка. Атмосфера спокойная и деловая."</p>
+          <div class="rev-toggle" data-rev="2"><button class="active" data-mode="before">До</button><button data-mode="after">После</button></div>
+          <p class="rev-text" data-text="2">"Перед изучением языка был психологический барьер, страх ошибиться и выглядеть глупо."</p>
         </div>
         <div class="item-card">
           <div class="rev-header"><div class="rev-avatar">Д</div><div class="rev-info"><span class="rev-name">Дмитрий С.</span><span class="rev-stars">★★★★☆</span></div></div>
-          <p class="rev-text">"Подготовка к собеседованию прошла успешно. Много практики, разбор реальных кейсов."</p>
+          <div class="rev-toggle" data-rev="3"><button class="active" data-mode="before">До</button><button data-mode="after">После</button></div>
+          <p class="rev-text" data-text="3">"На собеседовании терялся, не мог связно рассказать о себе на английском."</p>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- ВИДЕО (3) -->
   <section class="block">
     <div class="section-header">
       <span class="step-num">▶</span>
@@ -702,101 +448,105 @@
     </div>
   </section>
 
+  <!-- КОНТАКТЫ -->
   <section class="block" style="margin-bottom: 0;">
     <div class="section-header">
       <span class="step-num">@</span>
       <h2 class="section-title">Сообщества и контакты</h2>
     </div>
-
     <div class="contacts-flex">
       <div class="qr-item">
-        <div class="qr-box">
-          <img src="qr-vk.png" alt="QR ВКонтакте" loading="lazy" onerror="this.src='https://via.placeholder.com/110/fbf1e6/a61358?text=VK'">
-        </div>
+        <div class="qr-box"><img src="qr-vk.png" alt="QR ВКонтакте" onerror="this.src='https://via.placeholder.com/110/fbf1e6/a61358?text=VK'"></div>
         <span class="qr-label">ВКонтакте</span>
         <a href="https://vk.ru/annfromcrimea" target="_blank" rel="noopener" class="qr-link">Вступить ↗</a>
       </div>
-
       <div class="qr-item">
-        <div class="qr-box">
-          <img src="qr-max.png" alt="QR Канал MAX" loading="lazy" onerror="this.src='https://via.placeholder.com/110/fbf1e6/a61358?text=MAX'">
-        </div>
+        <div class="qr-box"><img src="qr-max.png" alt="QR Канал MAX" onerror="this.src='https://via.placeholder.com/110/fbf1e6/a61358?text=MAX'"></div>
         <span class="qr-label">Канал MAX</span>
         <a href="https://max.ru/join/_wpDnYzIiWKIr6vZUJze0fQuqPMuouIbaJwLQvt58zQ" target="_blank" rel="noopener" class="qr-link">Перейти ↗</a>
       </div>
-
       <div class="qr-item">
-        <a class="qr-box" href="https://annfromcrimea.ru/" target="_blank" rel="noopener" title="Открыть сайт студии">
-          <img src="studio.png" alt="Сайт студии annfromcrimea.ru" loading="lazy" onerror="this.src='https://via.placeholder.com/110/fbf1e6/a61358?text=studio'">
-        </a>
+        <a class="qr-box" href="https://annfromcrimea.ru/" target="_blank" rel="noopener"><img src="studio.png" alt="Сайт" onerror="this.src='https://via.placeholder.com/110/fbf1e6/a61358?text=site'"></a>
         <span class="qr-label">annfromcrimea.ru</span>
         <a href="https://annfromcrimea.ru/" target="_blank" rel="noopener" class="qr-link">Открыть ↗</a>
       </div>
     </div>
   </section>
 
-  <footer>
-    <details>
-      <summary>Юридическая информация и Политика конфиденциальности</summary>
-      <div class="legal-docs">
-        <p><strong>Оператор персональных данных:</strong> Анна Драчёва</p>
-        <p><strong>Email для обращений:</strong> annfromcrimea@gmail.com</p>
-        <p><strong>Основание обработки:</strong> Федеральный закон № 152-ФЗ «О персональных данных». Согласие фиксируется через Яндекс.Формы.</p>
-        <p><strong>Ваши права:</strong> Вы можете отозвать согласие, запросить удаление или исправление данных в любой момент, направив письмо на указанный email.</p>
-        <div class="legal-links" style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #eee;">
-          Государственные органы по защите прав потребителей и субъектов ПД:<br>
-          <a href="https://rkn.gov.ru/treatment/form/" target="_blank" rel="noopener">Роскомнадзор</a> |
-          <a href="https://fas.gov.ru/pages/obratitsya_v_fas" target="_blank" rel="noopener">ФАС России</a> |
-          <a href="https://petition.rospotrebnadzor.ru/petition/" target="_blank" rel="noopener">Роспотребнадзор</a>
-        </div>
-      </div>
-    </details>
-    <p style="margin-top: 10px;">© 2026 Драчёва Анна Игоревна. Все права защищены.</p>
-  </footer>
-
 </div>
+
+<footer class="site-footer">
+  <div class="footer-wrap">
+    <div>
+      <h5>Оператор персональных данных</h5>
+      <p>
+        <b>Драчёва Анна Игоревна</b>, ИНН 910509806683, адрес: Республика Крым.<br>
+        По вопросам обработки ПД: <a href="mailto:annfromcrimea@mail.ru">annfromcrimea@mail.ru</a><br>
+        ВКонтакте: <a href="https://vk.ru/gim223590574?entrypoint=community_page" target="_blank" rel="noopener">написать в сообщения</a><br>
+        Политика опубликована 04.09.2026. Уведомление РКН: [№91-26-057013 от 24.06.2026].<br><br>
+        <b>Срок хранения ПД:</b> до отзыва согласия.<br>
+        <b>Место хранения:</b> РФ.<br>
+        <b>Обработчики:</b> Яндекс, Robokassa, ВКонтакте, MAX.<br>
+        <b>Передача за рубеж:</b> не осуществляется.
+      </p>
+    </div>
+    <div>
+      <h5>Как это работает</h5>
+      <p>
+        Согласие фиксируется через Яндекс Форму с номером, датой и временем (ст. 9 152-ФЗ). После отправки формы открываются запись и копилка.
+      </p>
+    </div>
+    <div>
+      <h5>Обращения</h5>
+      <a href="https://rkn.gov.ru/treatment/form/" target="_blank" rel="noopener">📋 Роскомнадзор</a><br>
+      <a href="https://fas.gov.ru/pages/obratitsya_v_fas" target="_blank" rel="noopener">⚖️ ФАС России</a><br>
+      <a href="https://petition.rospotrebnadzor.ru/petition/" target="_blank" rel="noopener">🛡️ Роспотребнадзор</a><br>
+      <a href="mailto:annfromcrimea@mail.ru?subject=Отзыв%20согласия" target="_blank" rel="noopener">✉️ Отзыв согласия</a><br>
+      <a href="mailto:annfromcrimea@mail.ru?subject=Запрос%20информации" target="_blank" rel="noopener">📄 Запрос информации</a>
+    </div>
+  </div>
+  <div class="footer-copyright">
+    © Студия изучения языков и развития Анны из Крыма, 2026. Пробное занятие — за половину стоимости.
+  </div>
+</footer>
 
 <script>
 const BASE = "https://annfromcrimea-ctrl.github.io/personal/";
-
 const DIAG_LINKS = [
-  { key:"english", flag:"🇬", name:"English", desc:"Грамматика, лексика, понимание речи (A1–C1).", url:BASE+"english-test.html", status:"active" },
-  { key:"german", flag:"🇩", name:"Deutsch", desc:"Базовые конструкции, артикли, порядок слов.", url:BASE+"german-test.html", status:"active" },
-  { key:"french", flag:"🇫", name:"Français", desc:"Спряжение глаголов, фонетика, бытовая лексика.", url:BASE+"french-test.html", status:"active" },
-  { key:"italian", flag:"🇮🇹", name:"Italiano", desc:"Интонация, диалоги, понимание на слух.", url:BASE+"italian-test.html", status:"active" },
-  { key:"preschool", flag:"🎒", name:"Готовность к школе", desc:"Комплексная диагностика 5 зон: речь, мотивация, интеллект, социум, моторика.", url:BASE+"preschool.html", status:"active" },
-  { key:"logo", flag:"🗣️", name:"Логопедия", desc:"Экспресс-скрининг речевого развития ребёнка 2–7 лет.", url:BASE+"logo.html", status:"active" },
-  { key:"psycho", flag:"🧠", name:"Психология", desc:"Экспресс-скрининг эмоционального состояния (взрослые / дети).", url:BASE+"psycho-screening.html", status:"active" },
-  { key:"arabic", flag:"🇦", name:"العربية", desc:"Арабский язык: алфавит, базовая лексика, произношение.", url:BASE+"arabic-test.html", status:"hidden" },
-  { key:"chinese", flag:"🇨🇳", name:"中文", desc:"Китайский язык: иероглифика, тоны, HSK-база.", url:BASE+"chinese-test.html", status:"hidden" },
-  { key:"norwegian", flag:"🇳", name:"Norsk", desc:"Норвежский язык: фонетика, грамматика, разговорная база.", url:BASE+"norwegian-test.html", status:"hidden" },
-  { key:"spanish", flag:"🇸", name:"Español", desc:"Испанский язык: спряжение, лексика, понимание речи.", url:BASE+"spanish-test.html", status:"hidden" }
+  { key:"english", flag:"🇬🇧", name:"English", desc:"A1–C1", url:BASE+"english-test.html", status:"active" },
+  { key:"german", flag:"🇩🇪", name:"Deutsch", desc:"Базовые конструкции", url:BASE+"german-test.html", status:"active" },
+  { key:"french", flag:"🇫🇷", name:"Français", desc:"Фонетика, лексика", url:BASE+"french-test.html", status:"active" },
+  { key:"italian", flag:"🇮🇹", name:"Italiano", desc:"Диалоги, аудирование", url:BASE+"italian-test.html", status:"active" },
+  { key:"preschool", flag:"🎒", name:"К школе", desc:"5 зон развития", url:BASE+"preschool.html", status:"active" },
+  { key:"logo", flag:"🗣️", name:"Логопедия", desc:"2–7 лет", url:BASE+"logo.html", status:"active" },
+  { key:"psycho", flag:"🧠", name:"Психология", desc:"Эмоциональное состояние", url:BASE+"psycho-screening.html", status:"active" }
 ];
 
-(function renderDiag(){
-  const grid = document.getElementById("diagGrid");
+(function renderDiagCompact(){
+  const grid = document.getElementById("diagGridCompact");
   if(!grid) return;
   grid.innerHTML = DIAG_LINKS
     .filter(d => d.status === "active")
     .map(d => `
-      <div class="diag-card">
-        <div class="lang-flag">${d.flag}</div>
-        <div class="lang-name">${d.name}</div>
-        <div class="lang-desc">${d.desc}</div>
-        <a href="${d.url}" target="_blank" rel="noopener noreferrer" class="btn-action">Пройти тест →</a>
-      </div>`).join("");
+      <a class="diag-item-compact" href="${d.url}" target="_blank" rel="noopener noreferrer">
+        <span class="diag-emoji">${d.flag}</span>
+        <span class="diag-text"><b>${d.name}</b><span>${d.desc}</span></span>
+        <span class="diag-arrow">→</span>
+      </a>`).join("");
 })();
 
-/* === ВОРОТА СОГЛАСИЯ (схема по 152-ФЗ / ФАС) ===
-   Обязательны только информирование + согласие на обработку ПД.
-   Добровольные согласия (рассылки, отзывы, оферта) на запись не влияют. */
+/* ===== СОГЛАСИЕ ЧЕРЕЗ ЯНДЕКС.ФОРМУ ===== */
 (function initDocGate(){
-  const REQUIRED = ["policy", "pd"];   /* обязательные: без них запись не открывается */
-  const ACK_KEY = "anna_docs_ack";     /* отметки «Ознакомлен(а)» */
-  const STORAGE_KEY = "anna_consent_verified"; /* факт действующего обязательного согласия */
+  const REQUIRED = ["policy", "pd"];
+  const CONSENT_KEY = "anna_consent_record_v5";
+  const ACK_KEY = "anna_docs_ack_v5";
+
   const booking = document.getElementById("booking-section");
+  const kopilka = document.getElementById("kopilkaBlock");
   const status = document.getElementById("docStatus");
-  const checks = Array.prototype.slice.call(document.querySelectorAll(".doc-check input"));
+  const formBlock = document.getElementById("consentFormBlock");
+  const recordBox = document.getElementById("consentRecord");
+  const checks = Array.prototype.slice.call(document.querySelectorAll(".compact-doc-check input"));
 
   function readAck(){
     try { return JSON.parse(localStorage.getItem(ACK_KEY) || "{}"); } catch(e) { return {}; }
@@ -804,103 +554,144 @@ const DIAG_LINKS = [
   function writeAck(obj){
     try { localStorage.setItem(ACK_KEY, JSON.stringify(obj)); } catch(e) {}
   }
+  function readConsent(){
+    try { return JSON.parse(localStorage.getItem(CONSENT_KEY) || "null"); } catch(e) { return null; }
+  }
+  function writeConsent(obj){
+    try { localStorage.setItem(CONSENT_KEY, JSON.stringify(obj)); } catch(e) {}
+  }
   function allRequiredChecked(){
     return REQUIRED.every(function(k){
-      const cb = document.querySelector('.doc-check input[data-doc="' + k + '"]');
+      const cb = document.querySelector('.compact-doc-check input[data-doc="' + k + '"]');
       return cb && cb.checked;
     });
   }
-  function openBooking(silent){
-    booking.style.display = "block";
-    try { localStorage.setItem(STORAGE_KEY, "yes"); } catch(e) {}
-    if(!silent && status){
-      status.textContent = "✅ Обязательные согласия приняты — форма записи открыта ниже. Остальные отметки — по желанию.";
-      status.className = "doc-status ok";
-    }
-    if(!silent){
-      setTimeout(function(){ booking.scrollIntoView({ behavior: "smooth", block: "start" }); }, 200);
-    }
+  function nowStamp(){
+    const d = new Date();
+    const p = n => String(n).padStart(2, "0");
+    return p(d.getDate()) + "." + p(d.getMonth()+1) + "." + d.getFullYear() + " " + p(d.getHours()) + ":" + p(d.getMinutes()) + ":" + p(d.getSeconds());
   }
-  function closeBooking(){
-    booking.style.display = "none";
-    try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
-    if(status){
-      status.textContent = "⚠️ Запись откроется после отметки обоих обязательных документов: политика конфиденциальности и согласие на обработку ПД.";
-      status.className = "doc-status err";
-    }
+  function makeNo(){
+    return "ПД-" + new Date().getFullYear() + "-" + Math.floor(1000 + Math.random()*9000);
   }
-  function sync(silent){
-    if (allRequiredChecked()) {
-      if (booking.style.display !== "block") openBooking(silent);
-    } else {
-      if (booking.style.display === "block") closeBooking();
+
+  /* Показать форму согласия, если документы отмечены, но согласие ещё не зафиксировано */
+  function showFormIfNeeded(){
+    if (allRequiredChecked() && !readConsent()) {
+      formBlock.classList.add("visible");
+      status.textContent = "Отлично! Теперь заполните и отправьте форму согласия ниже.";
+      status.className = "compact-doc-status ok";
+    } else if (!allRequiredChecked()) {
+      formBlock.classList.remove("visible");
     }
   }
 
-  /* восстанавливаем отметки */
+  function openAccess(){
+    booking.style.display = "block";
+    kopilka.classList.add("visible");
+    formBlock.classList.remove("visible");
+    const rec = readConsent();
+    if (rec) {
+      recordBox.classList.add("visible");
+      document.getElementById("recNo").textContent = rec.no;
+      document.getElementById("recAt").textContent = rec.at;
+      status.textContent = "✅ Согласие № " + rec.no + " от " + rec.at + " зафиксировано. Запись и копилка открыты.";
+      status.className = "compact-doc-status ok";
+    }
+  }
+
   const saved = readAck();
   checks.forEach(function(cb){
     if (saved[cb.dataset.doc]) cb.checked = true;
   });
-
-  sync(true);
+  if (readConsent()) {
+    openAccess();
+  } else {
+    showFormIfNeeded();
+  }
 
   checks.forEach(function(cb){
     cb.addEventListener("change", function(){
       const s = readAck();
       s[cb.dataset.doc] = cb.checked;
       writeAck(s);
-      sync(false);
+      showFormIfNeeded();
+      if (!allRequiredChecked()) {
+        status.textContent = "⚠️ Отметьте оба документа, чтобы открыть форму согласия.";
+        status.className = "compact-doc-status err";
+      }
+    });
+  });
+
+  document.getElementById("cfSubmit").addEventListener("click", function(){
+    const err = document.getElementById("cfError");
+    err.textContent = "";
+    if (!allRequiredChecked()) { err.textContent = "Отметьте оба документа."; return; }
+
+    const rec = {
+      no: makeNo(),
+      at: nowStamp(),
+      docs: ["Политика конфиденциальности", "Согласие на обработку ПД"]
+    };
+    writeConsent(rec);
+    openAccess();
+  });
+})();
+
+/* ===== ДО/ПОСЛЕ ===== */
+(function initReviewToggles(){
+  const texts = {
+    1: { before: '"Сын боялся английского, путался в буквах и отказывался читать вслух."',
+         after: '"Анна — настоящий профессионал. Сын стал лучше понимать английский дома, исчез страх ошибок."' },
+    2: { before: '"Перед изучением языка был психологический барьер, страх ошибиться и выглядеть глупо."',
+         after: '"Консультация помогла разобраться с психологическим барьером. Атмосфера спокойная и деловая."' },
+    3: { before: '"На собеседовании терялся, не мог связно рассказать о себе на английском."',
+         after: '"Подготовка к собеседованию прошла успешно. Много практики, разбор реальных кейсов."' }
+  };
+  document.querySelectorAll('.rev-toggle').forEach(toggle => {
+    const id = toggle.dataset.rev;
+    toggle.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        toggle.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const p = document.querySelector('.rev-text[data-text="' + id + '"]');
+        if (p) p.textContent = texts[id][btn.dataset.mode];
+      });
     });
   });
 })();
 
-/* === ДЕКОР В ТЕМЕ ПЕДАГОГА === */
+/* ===== ДЕКОР ===== */
 (function generateDecor(){
   const layer = document.getElementById('decorLayer');
   if(!layer) return;
-
   const icons = {
     leaf: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 8C8 10 5.9 16.2 3.8 21.4c-.2.5.3 1 .8.8 1.4-.6 2.8-1.2 4.2-1.8C14 18 17 13 17 8z"/><path d="M17 8c2 0 4-1 5-3-2 0-4 1-5 3z"/></svg>',
     pencil: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 21l3.5-1 12-12a2.1 2.1 0 0 0-3-3l-12 12L3 21z"/><path d="M14.5 6.5l3 3" stroke="white" stroke-width="1.2" fill="none"/></svg>',
     book: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h7v16H4zM13 4h7v16h-7z" opacity=".85"/><path d="M11 4h2v16h-2z" fill="white" opacity=".5"/></svg>',
-    ruler: '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="8" width="20" height="8" rx="1.5"/><path d="M6 8v3M9 8v4M12 8v3M15 8v4M18 8v3" stroke="white" stroke-width="1.1"/></svg>',
-    apple: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 7c-1-2-3-2.5-4.5-1.5C5 7 4.5 11 6.5 14.5 8 17 10 19 12 19s4-2 5.5-4.5C19.5 11 19 7 16.5 5.5 15 4.5 13 5 12 7z"/><path d="M12 7c0-2 1-3 2-3.5" stroke="currentColor" stroke-width="1.3" fill="none"/></svg>',
-    star: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.7 1.4 6.8L12 17.8 5.9 20.5l1.4-6.8L2.2 9l6.9-.7L12 2z"/></svg>',
-    bulb: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 2.4 1.2 4.5 3 5.7V17h8v-2.3c1.8-1.2 3-3.3 3-5.7a7 7 0 0 0-7-7zm-3 17h6v2H9v-2z"/></svg>',
-    globe: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 0 1-8-8 8 8 0 0 1 8-8 8 8 0 0 1 8 8 8 8 0 0 1-8 8zm0-14c-2.2 0-4 1.8-4 4h2c0-1.1.9-2 2-2s2 .9 2 2h2c0-2.2-1.8-4-4-4zm-2 6h4v2h-4v-2z"/></svg>'
+    star: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.7 1.4 6.8L12 17.8 5.9 20.5l1.4-6.8L2.2 9l6.9-.7L12 2z"/></svg>'
   };
-
-  const leafKeys = ['leaf','leaf','apple'];
-  const schoolKeys = ['pencil','book','ruler','star','pencil','book','bulb','globe'];
+  const keys = ['leaf','pencil','book','star','leaf','book'];
   const letters = ['А','Б','В','Г','Д','Е','Ё','Ж','З','И','К','Л','М','Н','О','П','Р','С','Т','У','Ф','Х','Ц','Ч','Ш','Щ','Э','Ю','Я'];
-
   function rand(min,max){ return Math.random()*(max-min)+min; }
-
-  const allKeys = [...leafKeys, ...schoolKeys, ...schoolKeys];
-  allKeys.forEach((key) => {
+  keys.forEach((key) => {
     const el = document.createElement('div');
-    el.className = 'decor-item ' + (leafKeys.includes(key) ? 'leaf' : 'school');
+    el.className = 'decor-item ' + (key === 'leaf' ? 'leaf' : 'school');
     el.innerHTML = icons[key];
     const size = rand(24, 56);
-    el.style.width = size + 'px';
-    el.style.height = size + 'px';
-    el.style.left = rand(2, 95) + '%';
-    el.style.top = rand(2, 95) + '%';
+    el.style.width = size + 'px'; el.style.height = size + 'px';
+    el.style.left = rand(2, 95) + '%'; el.style.top = rand(2, 95) + '%';
     el.style.transform = `rotate(${rand(-30,30)}deg)`;
     el.style.animationDelay = rand(0, 10) + 's';
     el.style.animationDuration = rand(10, 18) + 's';
-    el.querySelector('svg').style.width = '100%';
-    el.querySelector('svg').style.height = '100%';
+    el.querySelector('svg').style.width = '100%'; el.querySelector('svg').style.height = '100%';
     layer.appendChild(el);
   });
-
-  for(let i=0; i<30; i++){
+  for(let i=0; i<20; i++){
     const span = document.createElement('span');
     span.className = 'decor-item letter';
     span.textContent = letters[Math.floor(Math.random()*letters.length)];
-    span.style.left = rand(2, 96) + '%';
-    span.style.top = rand(2, 96) + '%';
+    span.style.left = rand(2, 96) + '%'; span.style.top = rand(2, 96) + '%';
     span.style.fontSize = rand(18, 40) + 'px';
     span.style.transform = `rotate(${rand(-30,30)}deg)`;
     span.style.animationDelay = rand(0, 10) + 's';
@@ -909,8 +700,6 @@ const DIAG_LINKS = [
   }
 })();
 </script>
-
 <script src="https://forms.yandex.ru/_static/embed.js"></script>
-
 </body>
 </html>
